@@ -1,0 +1,53 @@
+\begin{thebibliography}{1}
+
+\bibitem{andreoli_logic_1992}
+JEAN-MARC ANDREOLI.
+\newblock Logic {Programming} with {Focusing} {Proofs} in {Linear} {Logic}.
+\newblock {\em Journal of Logic and Computation}, 2(3):297--347, June 1992.
+
+\bibitem{lack_triangulations_2014}
+Stephen Lack and Ross Street.
+\newblock Triangulations, orientals, and skew monoidal categories.
+\newblock {\em Advances in Mathematics}, 258:351--396, 2014.
+\newblock Publisher: Elsevier BV.
+
+\bibitem{street_skew-closed_2013}
+Ross Street.
+\newblock Skew-closed categories.
+\newblock {\em Journal of Pure and Applied Algebra}, 217(6):973--988, June
+  2013.
+
+\bibitem{szlachanyi_skew-monoidal_2012}
+Kornél Szlachányi.
+\newblock Skew-monoidal categories and bialgebroids.
+\newblock 231(3-4):1694--1730, 2012.
+\newblock Publisher: Elsevier BV.
+
+\bibitem{uustalu_deductive_nodate}
+Tarmo Uustalu, Niccolo Veltri, and Noam Zeilberger.
+\newblock Deductive {Systems} and {Coherence} for {Skew} {Prounital} {Closed}
+  {Categories}.
+\newblock page~19.
+
+\bibitem{uustalu_proof_nodate}
+Tarmo Uustalu, Niccolò Veltri, and Noam Zeilberger.
+\newblock Proof {Theory} of {Partially} {Normal} {Skew} {Monoidal}
+  {Categories}.
+\newblock {\em EPTCS}, 333:230--246.
+
+\bibitem{uustalu_sequent_2018}
+Tarmo Uustalu, Niccolò Veltri, and Noam Zeilberger.
+\newblock The {Sequent} {Calculus} of {Skew} {Monoidal} {Categories}.
+\newblock {\em Electronic Notes in Theoretical Computer Science}, 341:345--370,
+  December 2018.
+
+\bibitem{veltri_coherence_2021}
+Niccolò Veltri.
+\newblock Coherence via {Focusing} for {Symmetric} {Skew} {Monoidal}
+  {Categories}.
+\newblock In Alexandra Silva, Renata Wassermann, and Ruy de~Queiroz, editors,
+  {\em Logic, {Language}, {Information}, and {Computation}}, Lecture {Notes} in
+  {Computer} {Science}, pages 184--200, Cham, 2021. Springer International
+  Publishing.
+
+\end{thebibliography}

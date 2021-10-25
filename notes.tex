@@ -1,0 +1,423 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{prftree}
+\usepackage{ntheorem}
+\usepackage{tikz-cd}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{quiver}
+\usepackage{bussproofs}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{lscape}
+\theorembodyfont{}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defn}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{proof}{Proof : }
+\newtheorem{fact}[theorem]{Fact}
+\newcommand{\ldbc}{[\![}
+\newcommand{\rdbc}{]\!]}
+\newcommand{\tbar}{[\vec{x}/\vec{t}]}
+\newcommand{\ltbar}{[\vec{x}, x/\vec{t}, x]}
+\begin{document}
+\section{Skew monoidal closed categories}
+A $skew$ $monoidal$ $closed$ $category$ $\mathcal{C}$ is a category $\mathcal{C}$ with a unit $\mathsf{I}$, adjoint functors $ X \otimes - : \mathcal{C} \rightarrow \mathcal{C}$ and $ - \multimap X : \mathcal{C}^{op} \rightarrow \mathcal{C}$($X \otimes - \dashv - \multimap X$),
+natural transformations $\lambda , \rho , \alpha , i , j, \mathsf{L}$ satisfying all Mac Lane axioms.
+
+We can generate a free skew monoidal closed category over a set $\mathsf{At}$ by following rules:
+\begin{displaymath}
+  \prftree[r]{$\mathsf{id}$}
+  {}
+  {
+  A\Longrightarrow A
+  }
+  \quad
+  \prftree[r]{$\mathsf{comp}$}
+  {
+  A\Longrightarrow B
+  }
+  {
+  B\Longrightarrow C
+  }
+  {
+  A\Longrightarrow C
+  }
+\end{displaymath}
+\begin{displaymath}
+\prftree[r]{$\otimes$}
+{
+A\Longrightarrow C
+}
+{
+B\Longrightarrow D
+}
+{
+A\otimes B\Longrightarrow C\otimes D
+}
+\quad
+\prftree[r]{$\multimap$}
+{
+C\Longrightarrow A
+}
+{
+B\Longrightarrow D
+}
+{
+A\multimap B\Longrightarrow C\multimap D
+}
+\end{displaymath}
+\begin{displaymath}
+  \prftree[r]{$\lambda$}
+  {}
+  {
+  \mathsf{I} \otimes A \Longrightarrow A
+  }
+  \quad
+  \prftree[r]{$\rho$}
+  {}
+  {
+  A\Longrightarrow A\otimes \mathsf{I}
+  }
+  \quad
+  \prftree[r]{$\alpha$}
+  {}
+  {
+  (A\otimes B)\otimes C\Longrightarrow A\otimes (B\otimes C)
+  }
+\end{displaymath}
+\begin{center}
+\AxiomC{}
+\RightLabel{$i$}
+\UnaryInfC{$\mathsf{I} \multimap A\Longrightarrow A$}
+\DisplayProof
+\quad
+\AxiomC{}
+\RightLabel{$j$}
+\UnaryInfC{$\mathsf{I} \Longrightarrow A\multimap A$}
+\DisplayProof
+\quad
+\AxiomC{}
+\RightLabel{$\mathsf{L}$}
+\UnaryInfC{$B\multimap C \Longrightarrow (A\multimap B)\multimap (A\multimap C)$}
+\DisplayProof
+\end{center}
+
+
+\begin{center}
+\AxiomC{}
+\RightLabel{$\epsilon_{A, B}$}
+\UnaryInfC{$(A\multimap B)\otimes A \Longrightarrow B$}
+\DisplayProof
+\quad
+\AxiomC{}
+\RightLabel{$\eta_{A, B}$}
+\UnaryInfC{$A\Longrightarrow B\multimap (A\otimes B)$}
+\DisplayProof
+\end{center}
+
+
+\begin{displaymath}
+  \prftree[r]{$\mathsf{adj_1}$}
+  {
+  A\otimes B\Longrightarrow C
+  }
+  {
+  A\Longrightarrow (B\multimap C)
+  }
+  \quad
+  \prftree[r]{$\mathsf{adj_2}$}
+  {
+  A\Longrightarrow (B\multimap C)
+  }
+  {
+  A\otimes B\Longrightarrow C
+  }
+\end{displaymath}
+Notice that we do not need all of these rules.
+For example, we can derive $i, j, \mathsf{L}, \epsilon$, and  $\mathsf{adj_1}$ from $\lambda , \rho , \alpha , \eta$, and $\mathsf{adj_2}$, vice versa.
+
+\section{Sequent calculus for skew monoidal closed categories}
+Seqeunt calculus system of skew monoidal closed categries(SMCC):
+\begin{displaymath}
+  \prftree[r]{$\mathsf{pass}$}
+  {
+  A\mid \Gamma \longrightarrow C
+  }
+  {
+  -\mid A, \Gamma \longrightarrow C
+  }
+  \quad
+  \prftree[r]{$\mathsf{IL}$}
+  {
+  -\mid \Gamma \longrightarrow C
+  }
+  {
+  \mathsf{I} \mid \Gamma \longrightarrow C
+  }
+  \quad
+  \prftree[r]{$\otimes \mathsf{L}$}
+  {
+  A\mid B, \Gamma \longrightarrow C
+  }
+  {
+  A\otimes B\mid \Gamma \longrightarrow C
+  }
+\end{displaymath}
+\begin{displaymath}
+  \prftree[r]{$\otimes \mathsf{R}$}
+  {
+  S\mid \Gamma \longrightarrow A
+  }
+  {
+  -\mid \Delta \longrightarrow B
+  }
+  {
+  S\mid \Gamma , \Delta \longrightarrow A\otimes B
+  }
+  \quad
+  \prftree[r]{$\multimap \mathsf{R}$}
+  {
+  S\mid \Gamma ,A \longrightarrow B
+  }
+  {
+  S\mid \Gamma \longrightarrow A\multimap B
+  }
+\end{displaymath}
+\begin{displaymath}
+  \prftree[r]{$\mathsf{ax}$}
+  {
+  A\mid \text{ } \longrightarrow A
+  }
+  \quad
+  \prftree[r]{$\mathsf{IR}$}
+  {}
+  {
+  -\mid \text{ } \longrightarrow \mathsf{I}
+  }
+  \quad
+  \prftree[r]{$\multimap \mathsf{L}$}
+  {
+  -\mid \Gamma \longrightarrow A
+  }
+  {
+  B\mid \Delta \longrightarrow C
+  }
+  {
+  A\multimap B \mid \Gamma , \Delta \longrightarrow C
+  }
+\end{displaymath}
+\begin{center}
+  \AxiomC{$S \mid \Gamma \vdash A$}
+  \AxiomC{$A \mid \Delta \vdash C$}
+  \RightLabel{$\mathsf{scut}$}
+  \BinaryInfC{$S \mid \Gamma , \Delta \vdash C$}
+  \DisplayProof
+
+  \quad
+
+  \AxiomC{$- \mid \Gamma \vdash A$}
+  \AxiomC{$S \mid \Delta_{0} , A, \Delta_{1} \vdash C$}
+  \RightLabel{$\mathsf{ccut}$}
+  \BinaryInfC{$S \mid \Delta_{0} , \Gamma , \Delta_{1} \vdash C$}
+  \DisplayProof
+\end{center}
+
+\section{Focusing}
+Proof equivelences:
+
+For $f : - \mid \Gamma , A \vdash C$, $\mathsf{IL}$:
+    \AxiomC{$f$}
+    \noLine
+    \UnaryInfC{$- \mid \Gamma , A \vdash C$}
+    \RightLabel{$\multimap \mathsf{R}$}
+    \UnaryInfC{$- \mid \Gamma \vdash A\multimap C$}
+    \RightLabel{$\mathsf{IL}$}
+    \UnaryInfC{$\mathsf{I} \mid \Gamma \vdash A\multimap C$}
+    \DisplayProof
+    $\circeq$
+    \AxiomC{$f$}
+    \noLine
+    \UnaryInfC{$- \mid \Gamma , A \vdash C$}
+    \RightLabel{$\mathsf{IL}$}
+    \UnaryInfC{$\mathsf{I} \mid \Gamma , A\vdash C$}
+    \RightLabel{$\multimap \mathsf{R}$}
+    \UnaryInfC{$\mathsf{I} \mid \Gamma \vdash A\multimap C$}
+    \DisplayProof
+
+    For $f : A \mid B , \Gamma , C \vdash D$:
+    \AxiomC{$f$}
+    \noLine
+    \UnaryInfC{$A \mid B, \Gamma , C \vdash D$}
+    \RightLabel{$\multimap \mathsf{R}$}
+    \UnaryInfC{$A \mid B, \Gamma \vdash C\multimap D$}
+    \RightLabel{$\otimes \mathsf{L}$}
+    \UnaryInfC{$A\otimes B \mid \Gamma \vdash C\multimap D$}
+    \DisplayProof
+    $\circeq$
+    \AxiomC{$f$}
+    \noLine
+    \UnaryInfC{$A \mid B, \Gamma , C \vdash D$}
+    \RightLabel{$\otimes \mathsf{L}$}
+    \UnaryInfC{$A\otimes B \mid \Gamma , C \vdash D$}
+    \RightLabel{$\multimap \mathsf{R}$}
+    \UnaryInfC{$A\otimes B \mid \Gamma \vdash C\multimap D$}
+    \DisplayProof
+
+  For $f : - \mid \Gamma \vdash A$, $g : B\mid \Delta \vdash C$, and $ h : - \mid \Delta' \vdash D$:
+
+    \AxiomC{$f$}
+    \noLine
+    \UnaryInfC{$-\mid \Gamma \vdash A$}
+                                        \AxiomC{$g$}
+                                        \noLine
+                                        \UnaryInfC{$B\mid \Delta \vdash C$}
+                                                                           \AxiomC{$h$}
+                                                                           \noLine
+                                                                           \UnaryInfC{$-\mid \Delta' \vdash D $}
+                                      \RightLabel{$\otimes \mathsf{R}$}
+                                      \BinaryInfC{$B\mid \Delta , \Delta' \vdash C\otimes D$}
+                  \RightLabel{$\multimap \mathsf{L}$}
+                  \BinaryInfC{$A\multimap B \mid \Gamma , \Delta , \Delta' \vdash C\otimes D$}
+  \DisplayProof
+  $\circeq$
+  \AxiomC{$f$}
+  \noLine
+  \UnaryInfC{$-\mid \Gamma \vdash A$}
+                                    \AxiomC{$g$}
+                                    \noLine
+                                    \UnaryInfC{$B\mid \Delta \vdash C$}
+                        \RightLabel{$\multimap \mathsf{L}$}
+                        \BinaryInfC{$A\multimap B \mid \Gamma , \Delta \vdash C$}
+                                                                  \AxiomC{$h$}
+                                                                  \noLine
+                                                                  \UnaryInfC{$-\mid \Delta' \vdash D $}
+                              \RightLabel{$\otimes \mathsf{R}$}
+                              \BinaryInfC{$A\multimap B \mid \Gamma , \Delta , \Delta' \vdash C \otimes D$}
+  \DisplayProof
+
+A counter example occurs when we insist to decompose $\multimap$ in stoup prior than $\otimes$ in succedent.
+
+\begin{center}
+  \AxiomC{??}
+  \noLine
+  \UnaryInfC{$- \mid \quad \vdash_{1} X$}
+            \AxiomC{??}
+            \noLine
+            \UnaryInfC{$Y \mid X \vdash_{1} Y$}
+            \RightLabel{$\multimap \mathsf{R}$}
+            \UnaryInfC{$Y \mid \quad \vdash_{1} X \multimap Y$}
+                      \AxiomC{}
+                      \RightLabel{$\mathsf{ax}$}
+                      \UnaryInfC{$Z \mid \quad \vdash_{4} Z$}
+                      \RightLabel{$\mathsf{4to3}$}
+                      \UnaryInfC{$Z \mid \quad \vdash_{3} Z$}
+                      \RightLabel{$\mathsf{3to2}$}
+                      \UnaryInfC{$Z \mid \quad \vdash_{2} Z$}
+                      \RightLabel{$\mathsf{pass}$}
+                      \UnaryInfC{$- \mid Z \vdash_{2} Z$}
+                      \RightLabel{$\mathsf{2to1}$}
+                      \UnaryInfC{$- \mid Z \vdash_{1} Z$}
+                  \RightLabel{$\otimes \mathsf{R}$}
+                  \BinaryInfC{$Y \mid Z \vdash_{4} (X\multimap Y)\otimes Z$}
+                  \RightLabel{$\mathsf{4to3}$}
+                  \UnaryInfC{$Y \mid Z \vdash_{3} (X\multimap Y)\otimes Z$}
+                  \RightLabel{$\mathsf{3to2}$}
+                  \UnaryInfC{$Y \mid Z \vdash_{2} (X\multimap Y)\otimes Z$}
+           \RightLabel{$\multimap \mathsf{L}$}
+           \BinaryInfC{$X \multimap Y \mid Z \vdash_{3} (X\multimap Y) \otimes Z$}
+           \RightLabel{$\mathsf{3to2}$}
+           \UnaryInfC{$X \multimap Y \mid Z \vdash_{2} (X\multimap Y) \otimes Z$}
+           \RightLabel{$\mathsf{2to1}$}
+           \UnaryInfC{$X \multimap Y \mid Z \vdash_{1} (X\multimap Y) \otimes Z$}
+           \DisplayProof
+\end{center}
+
+Focused system:
+
+\begin{center}
+\AxiomC{$S \mid \Gamma , A \vdash_{1} B$}
+\LeftLabel{Phase 1: }
+\RightLabel{$\multimap \mathsf{R}$}
+\UnaryInfC{$S \mid \Gamma \vdash_{1} A\multimap B$}
+\DisplayProof
+\quad
+\AxiomC{$S \mid \Gamma \vdash_{2} C$}
+\AxiomC{$C \neq A\multimap B$}
+\RightLabel{$\mathsf{2 to 1}$}
+\BinaryInfC{$S \mid \Gamma \vdash_{1} C$}
+\DisplayProof
+\end{center}
+
+\begin{center}
+\AxiomC{$- \mid \Gamma \vdash_{2} C$}
+\LeftLabel{Phase 2: }
+\RightLabel{$\mathsf{IL}$}
+\UnaryInfC{$\mathsf{I} \mid \Gamma \vdash_{2} C$}
+\DisplayProof
+\quad
+\AxiomC{$A \mid B, \Gamma \vdash_{2} C$}
+\RightLabel{$\otimes \mathsf{L}$}
+\UnaryInfC{$A\otimes B \mid \Gamma \vdash_{2} C$}
+\DisplayProof
+\end{center}
+
+\begin{center}
+\AxiomC{$A\mid \Gamma \vdash_{2} C$}
+\LeftLabel{Phase 2:}
+\RightLabel{$\mathsf{pass}$}
+\UnaryInfC{$- \mid A, \Gamma \vdash_{2} C$}
+\DisplayProof
+\quad
+\AxiomC{$S \mid \Gamma \vdash_{3} C$}
+\AxiomC{$S \neq A\otimes B$}
+\AxiomC{$C \neq A\multimap B$}
+\RightLabel{$\mathsf{3 to 2}$}
+\TrinaryInfC{$S \mid \Gamma \vdash_{2} C$}
+\DisplayProof
+\end{center}
+
+\begin{center}
+\AxiomC{$- \mid \Gamma_{0} \vdash_{1} A$}
+\AxiomC{$B \mid \Gamma_{1} \vdash_{2} C$}
+\AxiomC{$B \neq T$ or $C \neq A' \otimes B'$}
+\RightLabel{$\multimap \mathsf{L}$}
+\LeftLabel{Phase 3:}
+\TrinaryInfC{$A\multimap B \mid \Gamma_{0} , \Gamma_{1} \vdash_{3} C$}
+\DisplayProof
+\end{center}
+%\begin{center}
+%\AxiomC{$S \mid \Gamma \vdash_{4} C$}
+%\AxiomC{$S = - , \mathsf{I}$ or $T$}
+%\RightLabel{$\mathsf{4 to 3}$}
+%\BinaryInfC{$S \mid \Gamma \vdash_{3} C$}
+%\DisplayProof
+%\end{center}
+
+\begin{center}
+\AxiomC{$S\mid \Gamma \vdash_{1} A$}
+\AxiomC{$- \mid \Delta \vdash_{1} B$}
+\RightLabel{$\otimes \mathsf{R}$}
+\LeftLabel{Phase 3: }
+\BinaryInfC{$S \mid \Gamma , \Delta \vdash_{3} A\otimes B$}
+\DisplayProof
+\quad
+\AxiomC{}
+\RightLabel{$\mathsf{ax}$}
+\UnaryInfC{$A \mid \quad \vdash_{3} A$}
+\DisplayProof
+\end{center}
+\begin{center}
+\AxiomC{}
+\RightLabel{$\mathsf{IR}$}
+\LeftLabel{Phase 4: }
+\UnaryInfC{$- \mid \quad \vdash_{3} \mathsf{I}$}
+\DisplayProof
+\end{center}
+
+\end{document}
