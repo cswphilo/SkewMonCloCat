@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2021.4.12)  23 OCT 2021 19:07
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2021.4.12)  25 OCT 2021 20:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -678,8 +678,7 @@ s.code.tex
 \tikz@lib@dec@box=\box73
 )
 (/usr/local/texlive/2021/texmf-dist/tex/generic/pgf/libraries/decorations/pgfli
-brarydecorations.pathmorphing.code.tex)))
-(/usr/local/texlive/2021/texmf-dist/tex/latex/bussproofs/bussproofs.sty
+brarydecorations.pathmorphing.code.tex))) (./bussproofs.sty
 Proof Tree (bussproofs) style macros. Version 1.1.
 \theLevel=\count301
 \myMaxLevel=\count302
@@ -745,33 +744,33 @@ File: l3backend-xetex.def 2021-03-18 L3 backend support: XeTeX
 ) (./SMCC-draft.aux)
 \openout1 = `SMCC-draft.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 40.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 43.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 4
-0.
+3.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-Package hyperref Info: Link coloring OFF on input line 40.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+Package hyperref Info: Link coloring OFF on input line 43.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -785,9 +784,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count315
 )
-LaTeX Info: Redefining \ref on input line 40.
-LaTeX Info: Redefining \pageref on input line 40.
-LaTeX Info: Redefining \nameref on input line 40.
+LaTeX Info: Redefining \ref on input line 43.
+LaTeX Info: Redefining \pageref on input line 43.
+LaTeX Info: Redefining \nameref on input line 43.
  (./SMCC-draft.out) (./SMCC-draft.out)
 \@outlinefile=\write4
 \openout4 = `SMCC-draft.out'.
@@ -830,12 +829,12 @@ LaTeX Info: Redefining \nameref on input line 40.
 [1
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 76.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
 
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 76.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
 
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -846,6 +845,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \myCenter1=\dimen310
 \myScoreEnd1=\dimen311
  [1]
+Package hyperref Info: bookmark level for unknown remark defaults to 0 on input
+ line 202.
 \myBox2=\box82
 \myScoreStart2=\dimen312
 \myCenter2=\dimen313
@@ -855,26 +856,26 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \myCenter3=\dimen316
 \myScoreEnd3=\dimen317
  [2]
-[3] [4]
 Package hyperref Info: bookmark level for unknown theorem defaults to 0 on inpu
-t line 637.
+t line 394.
 Package hyperref Info: bookmark level for unknown proof defaults to 0 on input 
-line 643.
- [5] (./SMCC-draft.bbl)
+line 411.
+
+[3] [4] [5] [6] (./SMCC-draft.bbl)
 \tf@thm=\write5
 \openout5 = `SMCC-draft.thm'.
 
- [6] (./SMCC-draft.aux)
+ [7] (./SMCC-draft.aux)
 Package rerunfilecheck Info: File `SMCC-draft.out' has not changed.
 (rerunfilecheck)             Checksum: F7B0EB82DD4B1099880A4A7AF6B338C8;893.
  ) 
 Here is how much of TeX's memory you used:
- 21790 strings out of 476919
- 414635 string characters out of 5821840
- 713646 words of memory out of 5000000
- 41393 multiletter control sequences out of 15000+600000
+ 21793 strings out of 476919
+ 414495 string characters out of 5821840
+ 714674 words of memory out of 5000000
+ 41397 multiletter control sequences out of 15000+600000
  406466 words of font info for 48 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 127i,7n,130p,484b,488s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 127i,10n,130p,484b,508s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on SMCC-draft.pdf (7 pages).
+Output written on SMCC-draft.pdf (8 pages).

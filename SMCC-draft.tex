@@ -33,10 +33,13 @@
 \newcommand{\unitl}{\mathsf{IL}}
 \newcommand{\unitr}{\mathsf{IR}}
 \newcommand{\ax}{\mathsf{ax}}
+\newcommand{\id}{\mathsf{id}}
 \newcommand{\ot}{\otimes}
 \newcommand{\lolli}{\multimap}
 \newcommand{\I}{\mathsf{I}}
 \newcommand{\msfL}{\mathsf{L}}
+\newcommand{\defeq}{=_{\mathsf{def}}}
+\newcommand{\comp}{\mathsf{comp}}
 \begin{document}
 \begin{titlepage}
      \vspace*{\stretch{1.0}}
@@ -73,7 +76,8 @@ We will see that all derivations in a same equivalence class under proof convers
 
 
 \section{Skew monoidal closed categories}
-A $skew$ $monoidal$ $closed$ $category$\cite{street_skew-closed_2013} is a category $\mathcal{C}$ with a unit $\mathsf{I}$, a pair of adjoint functors $ A \otimes - \dashv - \multimap B$, and six natural transformations
+A $skew$ $monoidal$ $closed$ $category$\cite{street_skew-closed_2013} is a category $\mathcal{C}$ with a unit $\mathsf{I}$, two bifunctors $- \ot - : \mathcal{C} \times \mathcal{C} \longrightarrow \mathcal{C}$ and $- \lolli - : \mathcal{C} \times \mathcal{C} \longrightarrow \mathcal{C}$
+satisfy $\ot \dashv \lolli$, and six natural transformations
 \begin{displaymath}
   \lambda_A : \mathsf{I} \otimes A \Longrightarrow A \qquad
   \rho_A : A \Longrightarrow A \otimes \mathsf{I} \qquad
@@ -84,9 +88,8 @@ A $skew$ $monoidal$ $closed$ $category$\cite{street_skew-closed_2013} is a categ
   j_A : \I \Longrightarrow A \lolli A \qquad
   \msfL_{A, B, C} : B \lolli C \Longrightarrow (A \lolli B) \lolli (A \lolli C)
 \end{displaymath}
-satisfying the laws
 
-Laws of skew-monoidal closed categoris:
+Give a set $\mathsf{At}$ which contains countably infinite atomic formulae, we can generate a free skew monoidal closed category according to folloing rules:
 \begin{displaymath}
   \prftree[r]{$\mathsf{id}$}
   {}
@@ -195,11 +198,30 @@ A\multimap B\Longrightarrow C\multimap D
   A\otimes B\Longrightarrow C
   }
 \end{displaymath}
-Notice that we do not need all of these rules.
-For example, we can derive $i, j, \mathsf{L}, \epsilon$, and  $\mathsf{adj_1}$ from $\lambda , \rho , \alpha , \eta$, and $\mathsf{adj_2}$, vice versa.
+\begin{remark}
+  We do not need all of these rules to generate whole skew monoidal closed category.
+  For example, suppose we have $\lambda , \rho , \alpha , \epsilon$, and $\mathsf{adj_1}$, then $i, j, \mathsf{L}, \eta$, and  $\mathsf{adj_2}$ are admissible.
+  \begin{align*}
+    i &\defeq \mathsf{comp} (\rho ,  (\mathsf{adj_2} (\id_{\I \lolli A})))
+    \\
+    j &\defeq \mathsf{adj_1} (\lambda_{A})
+    \\
+    \msfL &\defeq \mathsf{adj_1} (\mathsf{adj_1} (\mathsf{comp} (\alpha , (\mathsf{comp} (\id_{B \lolli C} \ot \epsilon_{A,B}) , \epsilon_{B,C}))))
+    \\
+    \eta &\defeq \mathsf{adj_1} (\id_{A \ot B})
+    \\
+    \mathsf{adj_2} &\defeq \comp ((f \ot \id_{B}), \epsilon_{B,C}) &&\text{given } f : A \Longrightarrow B \lolli C
+  \end{align*}
+\end{remark}
+
 
 \section{Sequent calculus for skew monoidal closed categories}
-Seqeunt calculus system of skew monoidal closed categries(SMCC):
+In this section, we introduce sequent calculus system for skew monoidal closed categories.
+Following the settings from \cite{uustalu_sequent_2018}, \cite{uustalu_deductive_nodate}, and \cite{uustalu_proof_nodate}, the sequent $S \mid \Gamma \vdash C$ in our calculus system splits in three parts.
+First $S$ is called a stoup formula where we can apply to any left rule.
+$\Gamma$ is a list of formulae where we can us $\pass$ to move stoup formula into context and no other rules can be applied.
+$C$ is a formula just like in any single succeedent sequent calculus sense.
+Seqeunt calculus system of skew monoidal closed categries:
 \begin{displaymath}
   \prftree[r]{$\mathsf{pass}$}
   {
@@ -316,7 +338,7 @@ For example, natural transformations $\lambda , \rho$, and $\alpha$(subscripts a
   \DisplayProof
 \end{center}
 
-Thanks for the invertibility of $\tl$ and $\lright$ \cite{uustalu_sequent_2018} \cite{uustalu_deductive_nodate}, two adjoint rules are also interpretable in sequent calculus system:
+Thanks to the invertibility of $\tl$ and $\lright$ \cite{uustalu_sequent_2018} \cite{uustalu_deductive_nodate}, two adjoint rules are also admissible in sequent calculus system:
 \begin{center}
   \AxiomC{$f$}
   \noLine
@@ -353,26 +375,71 @@ Therefore, we can summarize two admissible rules in SMCC system:
   \DisplayProof
 \end{center}
 
-According to previous works \cite{uustalu_sequent_2018} and \cite{uustalu_deductive_nodate} we know two cut rules, $\mathsf{scut}$ and $\mathsf{ccut}$ are admissible in this system(interaction cases are left so I have to write them down).
+Another important thing is that we have to ensure this sequent calculus system could not prove the inverse of any natural transformations in section 1.
+Here is one example, $\rho^{-1}$ is not derivable in our system:
 \begin{center}
-  \AxiomC{$S \mid \Gamma \vdash A$}
-  \AxiomC{$A \mid \Delta \vdash C$}
-  \RightLabel{$\mathsf{scut}$}
-  \BinaryInfC{$S \mid \Gamma , \Delta \vdash C$}
+  \AxiomC{$??$}
+  \noLine
+  \UnaryInfC{$A \mid \I \vdash A$}
+  \RightLabel{$\tl$}
+  \UnaryInfC{$A \ot \I \mid \quad  \vdash A$}
   \DisplayProof
 \end{center}
-\begin{center}
-  \AxiomC{$- \mid \Gamma \vdash A$}
-  \AxiomC{$S \mid \Delta_{0} , A, \Delta_{1} \vdash C$}
-  \RightLabel{$\mathsf{ccut}$}
-  \BinaryInfC{$S \mid \Delta_{0} , \Gamma , \Delta_{1} \vdash C$}
-  \DisplayProof
-\end{center}
+We interpret $\rho^{-1}$ into $A \ot \I \mid \quad \vdash A$, then according to bottom-up proof search strategy, we first apply $\tl$ but we get stuck immediately.
+Therfore, $\rho^{-1}$ is not derivable in our sequent calculus.
+Other cases are similar.
+
+Next we see cut-freeness of this sequent system:
+\begin{theorem}
+Two cut rules $\mathsf{scut}$ and $\mathsf{ccut}$
+  \begin{center}
+    \AxiomC{$S \mid \Gamma \vdash A$}
+    \AxiomC{$A \mid \Delta \vdash C$}
+    \RightLabel{$\mathsf{scut}$}
+    \BinaryInfC{$S \mid \Gamma , \Delta \vdash C$}
+    \DisplayProof
+    \quad
+    \AxiomC{$- \mid \Gamma \vdash A$}
+    \AxiomC{$S \mid \Delta_{0} , A, \Delta_{1} \vdash C$}
+    \RightLabel{$\mathsf{ccut}$}
+    \BinaryInfC{$S \mid \Delta_{0} , \Gamma , \Delta_{1} \vdash C$}
+    \DisplayProof
+  \end{center}
+  are admissible in sequent calculus system for skew monoidal closed categories.
+\end{theorem}
+\begin{proof}
+  According to previous works \cite{uustalu_sequent_2018} and \cite{uustalu_deductive_nodate} we know two cut rules, $\mathsf{scut}$ and $\mathsf{ccut}$ are admissible in each system seperately.
+  As our new sequent calculus system is a union of two previous systems, we can just check the $\ot$ and $\lolli$ interaction cases.
+
+  Dealing with $\mathsf{scut}$ first, same as proof strategy in previous papers, we proof by induction on left premise of $\mathsf{scut}$ rule.
+  \begin{enumerate}[1. ]
+    \item First case is $\mathsf{scut} ((\tl f), g)$ where $f : A' \mid B' , \Gamma \vdash A, g : A \mid \Delta \vdash C$, then we do subinduction on $g$ to obtain two subcases:
+          \begin{enumerate}[a. ]
+            \item $g = \lright g'$, then we let $\mathsf{scut} ((\tl f), (\lright g')) \defeq \lright (\mathsf{scut} ((\tl f), g'))$.
+            \item $g = \lleft g'$, then we let $\mathsf{scut} ((\tl f), (\lright g')) \defeq \tl (\mathsf{scut} (f, (\lright g')))$
+          \end{enumerate}
+    \item Other cases are similar.
+  \end{enumerate}
+  Next we see the cut-freeness of $\mathsf{ccut}$ rule.
+  Similarly, we prove it by induction on the second premise.
+  \begin{enumerate}[1. ]
+    \item $\mathsf{ccut} (f , (\lleft (g, h)))$ where $f : - \mid \Gamma \vdash A$, $g : - \mid \Delta_1 \vdash A'$, $h : B' \mid \Delta_2 \vdash C$, then we do subinduciton on $f$:
+    \begin{enumerate}[a. ]
+      \item The only possibility is $A = A' \ot B'$ and $f = \tr (f_1, f_2)$ where $f_1 : - \mid \Gamma_1 \vdash A'$, $f_2 : - \mid \Gamma_2 \vdash B'$, then depending on $A' \ot B'$ in $\Delta_1$ or $\Delta_2$,
+      we let $\mathsf{ccut} (f , (\lleft (g, h))) \defeq \lleft (\mathsf{ccut} (f, g), h)$ or $ \lleft (g, (\mathsf{ccut} (f, h)))$, respectively.
+    \end{enumerate}
+    \item $\mathsf{ccut} (f , (\tr (g, h)))$ where $f : - \mid \Gamma \vdash A$, $g : S \mid \Delta_1 \vdash A'$, $h : - \mid \Delta_2 \vdash B'$ is similar as above.
+    \item $\mathsf{ccut} (f, (\tl g))$ and
+    $\mathsf{ccut} (f, (\lright h))$ cases are similar, we permute $\mathsf{ccut}$ up,
+    where $g : A' \mid B' , \Delta_0 , A , \Delta_1 \vdash C$, $h : S \mid \Delta_0 , A , \Delta_1 , A' \vdash B'$.
+  \end{enumerate}
+\end{proof}
+
 
 \section{Focusing}
-Before getting into focused sequent calculus system, we need to define proof equivalences in original sequent calculus system.
-In previous works \cite{uustalu_sequent_2018} and \cite{uustalu_deductive_nodate} from Uustalu et al. , they provided proof equivalences between $\ot$ only and $\lolli$ only systems respectively.
-Therefore, there are only $\ot$ and $\lolli$ interaction cases are left:
+Before getting into focused sequent calculus system, we need to define new proof equivalences in original sequent calculus system.
+In \cite{uustalu_sequent_2018} and \cite{uustalu_deductive_nodate}, Uustalu et al. provided proof equivalences between $\ot$ only and $\lolli$ only systems respectively.
+Again, similar as cut elimination proof above, we have to give $\ot$ and $\lolli$ interaction cases here:
 
 For $f : - \mid \Gamma , A \vdash C$, $\mathsf{IL}$:
 \begin{center}
