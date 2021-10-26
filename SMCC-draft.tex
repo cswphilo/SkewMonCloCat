@@ -14,7 +14,7 @@
 \usepackage[a4paper, total={6in, 8in}]{geometry}
 \usepackage{lscape}
 \theorembodyfont{}
-\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{theorem}{Theorem}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{defn}[theorem]{Definition}
@@ -607,10 +607,13 @@ Every proof in focused calculus is a tag-free sequent ended at phase $\RI$.
   Notice that $\tr$ is the only rule produce tags in its premise, so it let us specify the origin of formulae in context easily.
   In a $\lleft$ application, if conlusion sequent is tagged, then at least exists a formula $F$ is white in the context of left premise.
   Remembering that we prefer $\lleft$ prior to $\tr$, so if there is any $\tr$ before $\lleft$, then we have to ensure that we cannot do $\lleft$ first.
-  The white tag is a guardian for that because context in left premise of $\tr$ application are tagged.
+  The white tag is a guardian ensuring the impossibility of doing $\lleft$ first because context in left premise of $\tr$ application are tagged.
   Therefore, any white formula $F$ in left presmie of $\lleft$ applicaton means that it is impossible to obtain same seqeunt by decomposing $\lolli$ in stoup first.
   In conclusion, under this tag setting, we can eliminate redundant non-determinism in our focused system.
 \end{itemize}
+
+Assume that we would like to force decomposing $\lolli$ in stoup prior than $\ot$ in succedent without tag setting above.
+In this naive focused sequent calculus, we cannot prove $X \lolli Y \mid Z \vdash_{\RI} (X \lolli Y) \ot Z$:
 
 \begin{center}
   \AxiomC{??}
@@ -626,74 +629,27 @@ Every proof in focused calculus is a tag-free sequent ended at phase $\RI$.
                       \UnaryInfC{$Z \mid \quad \vdash_{4} Z$}
                       \RightLabel{$\mathsf{4to3}$}
                       \UnaryInfC{$Z \mid \quad \vdash_{\mathsf{F}} Z$}
-                      \RightLabel{$\mathsf{3to2}$}
-                      \UnaryInfC{$Z \mid \quad \vdash_{2} Z$}
+                      \RightLabel{$\mathsf{\Pass 2 \LI}$}
+                      \UnaryInfC{$Z \mid \quad \vdash_{\LI} Z$}
                       \RightLabel{$\mathsf{pass}$}
-                      \UnaryInfC{$- \mid Z \vdash_{2} Z$}
-                      \RightLabel{$\mathsf{2to1}$}
+                      \UnaryInfC{$- \mid Z \vdash_{\LI} Z$}
+                      \RightLabel{$\mathsf{\LI 2 \RI}$}
                       \UnaryInfC{$- \mid Z \vdash_{\mathsf{RI}} Z$}
                   \RightLabel{$\otimes \mathsf{R}$}
                   \BinaryInfC{$Y \mid Z \vdash_{4} (X\multimap Y)\otimes Z$}
                   \RightLabel{$\mathsf{4to3}$}
                   \UnaryInfC{$Y \mid Z \vdash_{\mathsf{F}} (X\multimap Y)\otimes Z$}
-                  \RightLabel{$\mathsf{3to2}$}
-                  \UnaryInfC{$Y \mid Z \vdash_{2} (X\multimap Y)\otimes Z$}
+                  \RightLabel{$\mathsf{\Pass 2 \LI}$}
+                  \UnaryInfC{$Y \mid Z \vdash_{\LI} (X\multimap Y)\otimes Z$}
            \RightLabel{$\multimap \mathsf{L}$}
            \BinaryInfC{$X \multimap Y \mid Z \vdash_{\mathsf{F}} (X\multimap Y) \otimes Z$}
-           \RightLabel{$\mathsf{3to2}$}
-           \UnaryInfC{$X \multimap Y \mid Z \vdash_{2} (X\multimap Y) \otimes Z$}
-           \RightLabel{$\mathsf{2to1}$}
+           \RightLabel{$\mathsf{\Pass 2 \LI}$}
+           \UnaryInfC{$X \multimap Y \mid Z \vdash_{\LI} (X\multimap Y) \otimes Z$}
+           \RightLabel{$\mathsf{\LI 2 \RI}$}
            \UnaryInfC{$X \multimap Y \mid Z \vdash_{\mathsf{RI}} (X\multimap Y) \otimes Z$}
            \DisplayProof
 \end{center}
-This counter example occurs when we insist to decompose $\multimap$ in stoup prior than $\otimes$ in succedent.
-Therefore we induce $\multimap \mathsf{L}^{\otimes}$ rule to solve this situation:
-\begin{center}
-  \AxiomC{}
-  \RightLabel{$\mathsf{ax}$}
-  \UnaryInfC{$X \mid \quad \vdash_{4} X$}
-  \RightLabel{$\mathsf{4to3}$}
-  \UnaryInfC{$X \mid \quad \vdash_{\mathsf{F}} X$}
-  \RightLabel{$\mathsf{3to2}$}
-  \UnaryInfC{$X \mid \quad \vdash_{2} X$}
-  \RightLabel{$\mathsf{pass}$}
-  \UnaryInfC{$- \mid X \vdash_{2} X$}
-  \RightLabel{$\mathsf{2to1}$}
-  \UnaryInfC{$- \mid X \vdash_{\mathsf{RI}} X$}
-            \AxiomC{}
-            \RightLabel{$\mathsf{ax}$}
-            \UnaryInfC{$Y \mid \quad \vdash_{4} Y$}
-            \RightLabel{$\mathsf{4to3}$}
-            \UnaryInfC{$Y \mid \quad \vdash_{\mathsf{F}} Y$}
-            \RightLabel{$\mathsf{3to2}$}
-            \UnaryInfC{$Y \mid \quad \vdash_{2} Y$}
-            \RightLabel{$\mathsf{2to1}$}
-            \UnaryInfC{$Y \mid \quad \vdash_{\mathsf{RI}} Y$}
-                      \AxiomC{}
-                      \RightLabel{$\mathsf{ax}$}
-                      \UnaryInfC{$Z \mid \quad \vdash_{4} Z$}
-                      \RightLabel{$\mathsf{4to3}$}
-                      \UnaryInfC{$Z \mid \quad \vdash_{\mathsf{F}} Z$}
-                      \RightLabel{$\mathsf{3to2}$}
-                      \UnaryInfC{$Z \mid \quad \vdash_{2} Z$}
-                      \RightLabel{$\mathsf{pass}$}
-                      \UnaryInfC{$- \mid Z \vdash_{2} Z$}
-                      \RightLabel{$\mathsf{2to1}$}
-                      \UnaryInfC{$- \mid Z \vdash_{\mathsf{RI}} Z$}
-            \RightLabel{$\otimes \mathsf{R}$}
-            \BinaryInfC{$Y \mid Z \vdash_{4} Y\otimes Z$}
-            \RightLabel{$\mathsf{4to3}$}
-            \UnaryInfC{$Y \mid Z \vdash_{\mathsf{F}} Y\otimes Z$}
-            \RightLabel{$\mathsf{3to2}$}
-            \UnaryInfC{$Y \mid Z \vdash_{2} Y\otimes Z$}
-  \RightLabel{$\multimap \mathsf{L}^{\otimes}$}
-  \BinaryInfC{$X\multimap Y \mid Z \vdash_{\mathsf{F}} (X\multimap Y) \otimes Z$}
-  \RightLabel{$\mathsf{3to2}$}
-  \UnaryInfC{$X\multimap Y \mid Z \vdash_{2} (X\multimap Y) \otimes Z$}
-  \RightLabel{$\mathsf{2to1}$}
-  \UnaryInfC{$X\multimap Y \mid Z \vdash_{\mathsf{RI}} (X\multimap Y) \otimes Z$}
-  \DisplayProof
-\end{center}
+The key point is that some formulae needed to complete
 
 We are going to show that this focused sequent calculus is equivalent with the original system which means that:
 \begin{theorem}

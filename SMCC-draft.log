@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2021.4.12)  26 OCT 2021 12:12
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2021.4.12)  26 OCT 2021 17:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -861,7 +861,7 @@ t line 398.
 Package hyperref Info: bookmark level for unknown proof defaults to 0 on input 
 line 415.
 
-[3] [4] [5] [6] [7] (./SMCC-draft.bbl)
+[3] [4] [5] [6] (./SMCC-draft.bbl [7])
 \tf@thm=\write5
 \openout5 = `SMCC-draft.thm'.
 
@@ -872,7 +872,7 @@ Package rerunfilecheck Info: File `SMCC-draft.out' has not changed.
 Here is how much of TeX's memory you used:
  21796 strings out of 476919
  414503 string characters out of 5821840
- 713699 words of memory out of 5000000
+ 713647 words of memory out of 5000000
  41400 multiletter control sequences out of 15000+600000
  406466 words of font info for 48 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
