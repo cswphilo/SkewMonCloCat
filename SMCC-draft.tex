@@ -38,8 +38,12 @@
 \newcommand{\lolli}{\multimap}
 \newcommand{\I}{\mathsf{I}}
 \newcommand{\msfL}{\mathsf{L}}
-\newcommand{\defeq}{=_{\mathsf{def}}}
+\newcommand{\defeq}{=_{\mathsf{df}}}
 \newcommand{\comp}{\mathsf{comp}}
+\newcommand{\RI}{\mathsf{RI}}
+\newcommand{\LI}{\mathsf{LI}}
+\newcommand{\Pass}{\mathsf{P}}
+\newcommand{\F}{\mathsf{F}}
 \begin{document}
 \begin{titlepage}
      \vspace*{\stretch{1.0}}
@@ -520,14 +524,94 @@ For $f : - \mid \Gamma , A \vdash C$, $\mathsf{IL}$:
     \DisplayProof
 \end{center}
 
-Our focused system is with 4 phases.
-From bottom-up proof search, we decompose $\multimap \mathsf{R}$ until $\multimap$ is not the principal connective in succedent.
-In phase 2, we destruct the formula in stoup until it is not in the form of $A \otimes B$.
-Next we proceed to phase 3 to remove $\multimap$ in stoup.
-Lastly in phase 4, we deal with $\otimes$ in succedent and close the proof tree.
-Notice that we have a non-intuitive rule $\multimap \mathsf{L}^{\otimes}$.
-We need this rule to keep soundness for our focused system.
-Without the rule, we would face a counter example:
+The focused sequent calculus here has four phases with  special annotations on $\vdash$.
+We explain the intuition of this focused system from bottom-up proof search perspective.
+Every proof in focused calculus is a tag-free sequent ended at phase $\RI$.
+\begin{center}
+  \AxiomC{$S \mid \Gamma , A \vdash^{x}_{\RI} B$}
+  \RightLabel{$\lright$}
+  \UnaryInfC{$S \mid \Gamma \vdash^{x}_{\RI} A \lolli B$}
+  \DisplayProof
+  \quad
+  \AxiomC{$S \mid \Gamma \vdash^{x}_{\LI} P$}
+  \RightLabel{$\LI 2 \RI$}
+  \UnaryInfC{$S \mid \Gamma \vdash^{x}_{\RI} P$}
+  \DisplayProof
+\end{center}
+\begin{center}
+  \AxiomC{$- \mid \Gamma \vdash^{x}_{\LI} P$}
+  \RightLabel{$\unitl$}
+  \UnaryInfC{$\I \mid \Gamma \vdash^{x}_{\LI} P$}
+  \DisplayProof
+  \quad
+  \AxiomC{$A \mid B , \Gamma \vdash^{x}_{\LI} P$}
+  \RightLabel{$\tl$}
+  \UnaryInfC{$A \ot B \mid \Gamma \vdash^{x}_{\LI} P$}
+  \DisplayProof
+  \quad
+  \AxiomC{$T \mid \Gamma \vdash^{x}_{\Pass} P$}
+  \RightLabel{$\Pass 2 \LI$}
+  \UnaryInfC{$T \mid \Gamma \vdash^{x}_{\LI} P$}
+  \DisplayProof
+\end{center}
+\begin{center}
+  \AxiomC{$A \mid \Gamma \vdash^{x}_{\LI} P$}
+  \RightLabel{$\pass$}
+  \UnaryInfC{$- \mid A , \Gamma \vdash^{x}_{\Pass} P$}
+  \DisplayProof
+  \quad
+  \AxiomC{$T \mid \Gamma \vdash^{x}_{\F} P$}
+  \RightLabel{$\F 2 \Pass$}
+  \UnaryInfC{$T \mid \Gamma \vdash^{x}_{\Pass} P$}
+  \DisplayProof
+\end{center}
+\begin{center}
+  \AxiomC{$T \mid \Gamma^{\bullet} \vdash^{\bullet}_{\RI} A$}
+  \AxiomC{$- \mid \Delta \vdash_{\RI} B$}
+  \RightLabel{$\tr$}
+  \BinaryInfC{$T \mid \Gamma , \Delta \vdash^{x}_{\F} A \ot B$}
+  \DisplayProof
+  \end{center}
+  \begin{center}
+  \AxiomC{$- \mid \Gamma^{\circ} \vdash_{\RI} A$}
+  \AxiomC{$B \mid \Delta \vdash_{\LI} P$}
+  \AxiomC{if $x = \bullet$, then $\exists F^{\circ} \in \Gamma$}
+  \RightLabel{$\lleft$}
+  \TrinaryInfC{$A \lolli B \mid \Gamma , \Delta \vdash^{x}_{\F} P$}
+  \DisplayProof
+\end{center}
+\begin{center}
+  \AxiomC{}
+  \RightLabel{$\ax$}
+  \UnaryInfC{$X \mid \quad \vdash_{\F} X$}
+  \DisplayProof
+  \quad
+  \AxiomC{}
+  \RightLabel{$\unitr$}
+  \UnaryInfC{$- \mid \quad \vdash_{\F} \I$}
+  \DisplayProof
+\end{center}
+\begin{itemize}
+  \item In $\RI$, only right invertible rules can be applied, in particular, $\lright$
+  Therefore, we decompose $C$ until it becomes a positive $P$ where $P \neq A \lolli B$, then move to phase $\LI$.
+  \item Next, we destruct $S$ by left invertible rules $\tl$ and $\unitl$ until we obtain an irreducible stoup $S'$ where $S'$ is not in $A' \ot B'$.
+  \item Then we move to passivation phase $\Pass$, where only $\pass$ can be applied to sequents.
+  Notice that for each decomposition of $\pass$, we go back to phase $\LI$ to do left invertible rules again because the passviated formula $A$ could be $A' \ot B'$ or $\I$.
+  \item In phase $\F$, we have four rules, $\tr$, $\lleft$, $\ax$, and $\unitr$.
+  Here we have special resrictions on $\tl$ and $\lleft$.
+  In general, we prefer to decompose $\lolli$ in stoup prior then $\ot$ in conclusion.
+  However, if there are some formula are packed into conclusion, then whole bottom-up proof strategy fails.
+  We will see comparasion between involed and naive focused system later.
+  For rule $\tr$, we let its left and right premises back to phase $\RI$ because $A$ and $B$ could be negative formulas.
+  Especially, the left premise becomes a tagged sequent and formulae in $\Gamma$ become tagged formulae.
+  Notice that $\tr$ is the only rule produce tags in its premise, so it let us specify the origin of formulae in context easily.
+  In a $\lleft$ application, if conlusion sequent is tagged, then at least exists a formula $F$ is white in the context of left premise.
+  Remembering that we prefer $\lleft$ prior to $\tr$, so if there is any $\tr$ before $\lleft$, then we have to ensure that we cannot do $\lleft$ first.
+  The white tag is a guardian for that because context in left premise of $\tr$ application are tagged.
+  Therefore, any white formula $F$ in left presmie of $\lleft$ applicaton means that it is impossible to obtain same seqeunt by decomposing $\lolli$ in stoup first.
+  In conclusion, under this tag setting, we can eliminate redundant non-determinism in our focused system.
+\end{itemize}
+
 \begin{center}
   \AxiomC{??}
   \noLine
@@ -610,94 +694,6 @@ Therefore we induce $\multimap \mathsf{L}^{\otimes}$ rule to solve this situatio
   \UnaryInfC{$X\multimap Y \mid Z \vdash_{\mathsf{RI}} (X\multimap Y) \otimes Z$}
   \DisplayProof
 \end{center}
-Focused system:
-
-\begin{center}
-\AxiomC{$S \mid \Gamma , A \vdash^{x}_{\mathsf{RI}} B$}
-\LeftLabel{Phase $\mathsf{RI}$: }
-\RightLabel{$\multimap \mathsf{R}$}
-\UnaryInfC{$S \mid \Gamma \vdash^{x}_{\mathsf{RI}} A\multimap B$}
-\DisplayProof
-\quad
-\AxiomC{$S \mid \Gamma \vdash^{x}_{\mathsf{LI}} P$}
-\RightLabel{$\mathsf{LI2RI}$}
-\UnaryInfC{$S \mid \Gamma \vdash_{\mathsf{RI}} P$}
-\DisplayProof
-\end{center}
-
-\begin{center}
-\AxiomC{$- \mid \Gamma \vdash^{x}_{\mathsf{LI}} P$}
-\LeftLabel{Phase $\mathsf{LI}$: }
-\RightLabel{$\mathsf{IL}$}
-\UnaryInfC{$\mathsf{I} \mid \Gamma \vdash^{x}_{\mathsf{LI}} P$}
-\DisplayProof
-\quad
-\AxiomC{$A \mid B, \Gamma \vdash^{x}_{\mathsf{LI}} P$}
-\RightLabel{$\otimes \mathsf{L}$}
-\UnaryInfC{$A\otimes B \mid \Gamma \vdash^{x}_{\mathsf{LI}} P$}
-\DisplayProof
-\end{center}
-
-\begin{center}
-\AxiomC{$T \mid \Gamma \vdash^{x}_{\mathsf{P}} P$}
-\LeftLabel{Phase $\mathsf{LI}$: }
-\RightLabel{$\mathsf{P2LI}$}
-\UnaryInfC{$T \mid \Gamma \vdash^{x}_{\mathsf{LI}} P$}
-\DisplayProof
-\end{center}
-
-\begin{center}
-  \AxiomC{$A\mid \Gamma \vdash^{x}_{\mathsf{LI}} P$}
-  \LeftLabel{Phase $\mathsf{P}$: }
-  \RightLabel{$\mathsf{pass}$}
-  \UnaryInfC{$- \mid A, \Gamma \vdash^{x}_{\mathsf{P}} P$}
-  \DisplayProof
-  \quad
-  \AxiomC{$T \mid \Gamma \vdash_{\mathsf{F}} P$}
-  \RightLabel{$\mathsf{F2P}$}
-  \UnaryInfC{$T \mid \Gamma \vdash^{x}_{\mathsf{P}} P$}
-\end{center}
-
-\begin{center}
-\AxiomC{$- \mid \Gamma_{0} \vdash_{\mathsf{RI}} A$}
-\AxiomC{$B \mid \Gamma_{1} \vdash^{x}_{\mathsf{LI}} P$}
-\AxiomC{$B \neq T$ or $C \neq A' \otimes B'$}
-\RightLabel{$\multimap \mathsf{L}$}
-\LeftLabel{Phase $\mathsf{F}$:}
-\TrinaryInfC{$A\multimap B \mid \Gamma_{0} , \Gamma_{1} \vdash_{\mathsf{F}} C$}
-\DisplayProof
-\end{center}
-%\begin{center}
-%\AxiomC{$S \mid \Gamma \vdash_{4} C$}
-%\AxiomC{$S = - , \mathsf{I}$ or $T$}
-%\RightLabel{$\mathsf{4 to 3}$}
-%\BinaryInfC{$S \mid \Gamma \vdash_{\mathsf{F}} C$}
-%\DisplayProof
-%\end{center}
-
-\begin{center}
-\AxiomC{$T\mid \Gamma \vdash_{\mathsf{RI}} A$}
-\AxiomC{$- \mid \Delta \vdash_{\mathsf{RI}} B$}
-\RightLabel{$\otimes \mathsf{R}$}
-\LeftLabel{Phase $\mathsf{F}$: }
-\BinaryInfC{$T \mid \Gamma , \Delta \vdash_{\mathsf{F}} A\otimes B$}
-\DisplayProof
-\quad
-\AxiomC{}
-\RightLabel{$\mathsf{ax}$}
-\UnaryInfC{$A \mid \quad \vdash_{\mathsf{F}} A$}
-\DisplayProof
-\end{center}
-\begin{center}
-\AxiomC{}
-\RightLabel{$\mathsf{IR}$}
-\LeftLabel{Phase $\mathsf{F}$: }
-\UnaryInfC{$- \mid \quad \vdash_{\mathsf{F}} \mathsf{I}$}
-\DisplayProof
-\end{center}
-$T$ in stoup means that $T$ is irreducible(empty or atom).
-$P$ in conclusion means that $P$ is positive(not in $A \multimap B$).
-Notice that our interpretation $\ldbc - \rdbc_{s}$ is same as the definition in \cite{uustalu_deductive_nodate}.
 
 We are going to show that this focused sequent calculus is equivalent with the original system which means that:
 \begin{theorem}
