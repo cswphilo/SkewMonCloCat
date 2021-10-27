@@ -55,27 +55,37 @@
    \end{center}
    \vspace*{\stretch{2.0}}
 \end{titlepage}
+\begin{abstract}
+  In previous works from Uustalu et al, proof theory of some variants of skew monoidal categories are developed.
+  We also know that given a skew monoidal category, there is a corresponding skew closed structure on the same category.
+  It motivates us to develop a proof theory of such skew monoidal closed structures and see its meta properties.
+
+  In this paper, a Hilbert-style categorical calculus, a cut-free sequent calculus, and a tagged focused sequent calculus are presented.
+  We prove the soundness and completeness between categorical calculus and sequent calculus.
+  Moreover any two equivalent proofs from cut-free sequent calculus are mapped into same derivation in tagged focused calculus.
+  Therefore we have an effective procedure to determine morphism existence and equivalence in skew monoidal closed categories.
+\end{abstract}
 \section{Introduction}
-Recent discoveries on skew monoidal categories \cite{szlachanyi_skew-monoidal_2012} \cite{street_skew-closed_2013} \cite{lack_triangulations_2014} (check references in previous papers, at least include papers cited by previous three papers) provide us a good reasons to study their corresponding proof systems.
-In previous work \cite{uustalu_sequent_2018} \cite{uustalu_deductive_nodate} \cite{uustalu_proof_nodate} \cite{veltri_coherence_2021}, sequent calculus proof system for skew monoidal categories, prounital closed catgories, partial normal monoidal categories, and skew symmetric monoidal categories are presented respectively.
+Recent discoveries on skew monoidal categories \cite{szlachanyi_skew-monoidal_2012} \cite{lack_skew_2012} \cite{lack_triangulations_2014} (check references in previous papers, at least include papers cited by previous three papers) provide us a good reasons to study their corresponding proof systems.
+In previous work \cite{uustalu_sequent_2018} \cite{uustalu_deductive_nodate} \cite{uustalu_proof_nodate} \cite{veltri_coherence_2021}, sequent calculus proof system for skew monoidal categories, prounital closed categories, partial normal monoidal categories, and skew symmetric monoidal categories are presented respectively.
 However, there is still lack of a proof analysis on skew monoidal closed categories.
 Therefore, in this paper we give sound and complete sequent calculus system with skew monoidal closed categories.
 Moreover, we use focusing strategy from \cite{andreoli_logic_1992} to solve the coherence problem of skew monoidal closed categories.
 
-Interestingly, because of having two connectives in our sequent calculus system, the forcusing strategy becomes subtle and involved.
-It cannot just divide derivations into invertible part and non-inertible part then fix their order.
+Interestingly, because of having two connectives in our sequent calculus system, the focusing strategy becomes subtle and involved.
+It cannot just divide derivations into invertible part and non-invertible part then fix their order.
 We discovered that it is no harm to arrange invertible rules in a fixed order, but in non-invertible rules, bad thing happens.
-The naive focused sequent calculus system cannont prove some provable sequents in original sequent calculus.
+The naive focused sequent calculus system cannot prove some provable sequents in original sequent calculus.
 We will see this involved focused sequent calculus system in (?) section.
 
 This paper will go through in this order, in section two, we see the Hilbert style calculus of skew monoidal closed categories and its proof equivalences.
 
-In third section, a cut-free sequent caculus of skew monoidal closed categories is presented.
+In third section, a cut-free sequent calculus of skew monoidal closed categories is presented.
 The key feature is that we have a special formula called stoup at the leftmost position in antecedent of a given sequent.
 In the same time, for any left rules, it can only be applied to the stoup formula.
 We will also see preliminarily relationship with Hilbert style calculus.
 
-Next section, we will see a focused sequent calculus system and its connection with original sequent calulus system.
+Next section, we will see a focused sequent calculus system and its connection with original sequent calculus system.
 We will see that all derivations in a same equivalence class under proof conversion relation, they will correspond to a unique derivation in focused system.
 
 
@@ -93,7 +103,7 @@ satisfy $\ot \dashv \lolli$, and six natural transformations
   \msfL_{A, B, C} : B \lolli C \Longrightarrow (A \lolli B) \lolli (A \lolli C)
 \end{displaymath}
 
-Give a set $\mathsf{At}$ which contains countably infinite atomic formulae, we can generate a free skew monoidal closed category according to folloing rules:
+Give a set $\mathsf{At}$ which contains countably infinite atomic formulae, we can generate a free skew monoidal closed category according to following rules:
 \begin{displaymath}
   \prftree[r]{$\mathsf{id}$}
   {}
@@ -224,8 +234,8 @@ In this section, we introduce sequent calculus system for skew monoidal closed c
 Following the settings from \cite{uustalu_sequent_2018}, \cite{uustalu_deductive_nodate}, and \cite{uustalu_proof_nodate}, the sequent $S \mid \Gamma \vdash C$ in our calculus system splits in three parts.
 First $S$ is called a stoup formula where we can apply to any left rule.
 $\Gamma$ is a list of formulae where we can us $\pass$ to move stoup formula into context and no other rules can be applied.
-$C$ is a formula just like in any single succeedent sequent calculus sense.
-Seqeunt calculus system of skew monoidal closed categries:
+$C$ is a formula just like in any single succedent sequent calculus sense.
+Sequent calculus system of skew monoidal closed categories:
 \begin{displaymath}
   \prftree[r]{$\mathsf{pass}$}
   {
@@ -295,8 +305,8 @@ Seqeunt calculus system of skew monoidal closed categries:
   }
 \end{displaymath}
 
-If we interpret morphism $A \Longrightarrow C$ as a sequent $A \mid \quad \vdash C$, then we can see the natural transformations are derivable in this seqent calculus.
-For example, natural transformations $\lambda , \rho$, and $\alpha$(subscripts are omitted when there is no amubiguity) are derivable:
+If we interpret morphism $A \Longrightarrow C$ as a sequent $A \mid \quad \vdash C$, then we can see the natural transformations are derivable in this sequent calculus.
+For example, natural transformations $\lambda , \rho$, and $\alpha$(subscripts are omitted when there is no ambiguity) are derivable:
 \begin{center}
   \AxiomC{}
   \RightLabel{$\ax$}
@@ -390,7 +400,7 @@ Here is one example, $\rho^{-1}$ is not derivable in our system:
   \DisplayProof
 \end{center}
 We interpret $\rho^{-1}$ into $A \ot \I \mid \quad \vdash A$, then according to bottom-up proof search strategy, we first apply $\tl$ but we get stuck immediately.
-Therfore, $\rho^{-1}$ is not derivable in our sequent calculus.
+Therefore, $\rho^{-1}$ is not derivable in our sequent calculus.
 Other cases are similar.
 
 Next we see cut-freeness of this sequent system:
