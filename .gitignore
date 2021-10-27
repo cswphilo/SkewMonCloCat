@@ -16,20 +16,20 @@
 *.cb
 *.cb2
 .*.lb
-latex/*.aux
-latex/*.lof
-latex/*.log
-latex/*.lot
-latex/*.fls
-latex/*.out
-latex/*.toc
-latex/*.fmt
-latex/*.fot
-latex/*.cb
-latex/*.cb2
-latex/.*.lb
-latex/*.ptb
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
 *.ptb
+*.pag
 
 
 ## Intermediate documents:

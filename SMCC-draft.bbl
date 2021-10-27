@@ -1,49 +1,49 @@
 \begin{thebibliography}{1}
 
-\bibitem{andreoli_logic_1992}
+\bibitem{andreoli:logic:1992}
 Jean-Mark Andreoli.
 \newblock Logic programming with focusing proofs in linear logic.
 \newblock 2(3):297--347.
 
-\bibitem{lack_skew_2012}
+\bibitem{lack:skew:2012}
 Stephen Lack and Ross Street.
 \newblock Skew monoidales, skew warpings and quantum categories.
 \newblock 26:385--402.
 
-\bibitem{lack_triangulations_2014}
+\bibitem{lack:triangulations:2014}
 Stephen Lack and Ross Street.
 \newblock Triangulations, orientals, and skew monoidal categories.
 \newblock 258:351--396.
 \newblock Publisher: Elsevier {BV}.
 
-\bibitem{street_skew-closed_2013}
+\bibitem{street:skew-closed:2013}
 Ross Street.
 \newblock Skew-closed categories.
 \newblock 217(6):973--988.
 
-\bibitem{szlachanyi_skew-monoidal_2012}
+\bibitem{szlachanyi:skew-monoidal:2012}
 Kornél Szlachányi.
 \newblock Skew-monoidal categories and bialgebroids.
 \newblock 231(3):1694--1730.
 \newblock Publisher: Elsevier {BV}.
 
-\bibitem{uustalu_deductive_nodate}
+\bibitem{uustalu:deductive:nodate}
 Tarmo Uustalu, Niccolò Veltri, and Noam Zeilberger.
 \newblock Deductive systems and coherence for skew prounital closed categories.
 \newblock 332:35--53.
 
-\bibitem{uustalu_proof_nodate}
+\bibitem{uustalu:proof:nodate}
 Tarmo Uustalu, Niccolò Veltri, and Noam Zeilberger.
 \newblock Proof theory of partially normal skew monoidal categories.
 \newblock 333:230--246.
 
-\bibitem{uustalu_sequent_2018}
+\bibitem{uustalu:sequent:2018}
 Tarmo Uustalu, Niccolò Veltri, and Noam Zeilberger.
 \newblock The sequent calculus of skew monoidal categories.
 \newblock 341:345--370.
 \newblock Publisher: Elsevier {BV}.
 
-\bibitem{veltri_coherence_2021}
+\bibitem{veltri:coherence:2021}
 Niccolò Veltri.
 \newblock Coherence via focusing for symmetric skew monoidal categories.
 \newblock In Alexandra Silva, Renata Wassermann, and Ruy de~Queiroz, editors,

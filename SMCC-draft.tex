@@ -1,25 +1,29 @@
-\documentclass{article}
+\documentclass[submission,copyright,creativecommons]{eptcs}
+\providecommand{\event}{SOS 2007} % Name of the event you are submitting to
+%\usepackage{breakurl}             % Not needed if you use pdflatex only.
+\usepackage{underscore}           % Only needed if you use pdflatex.
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{enumerate}
 \usepackage{prftree}
-\usepackage{ntheorem}
-\usepackage{tikz-cd}
+%\usepackage{ntheorem}
+%\usepackage{tikz-cd}
 \usepackage{hyperref}
-\usepackage{float}
-\usepackage{graphicx}
-\usepackage{quiver}
+%\usepackage{float}
+%\usepackage{graphicx}
+%\usepackage{quiver}
 \usepackage{bussproofs}
-\usepackage[a4paper, total={6in, 8in}]{geometry}
-\usepackage{lscape}
-\theorembodyfont{}
+%\usepackage[a4paper, total={6in, 8in}]{geometry}
+%\usepackage{lscape}
+%% \theorembodyfont{}
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{defn}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\newtheorem*{proof}{Proof : }
+%\newtheorem*{proof}{Proof : }
 \newtheorem{fact}[theorem]{Fact}
 \newcommand{\ldbc}{[\![}
 \newcommand{\rdbc}{]\!]}
@@ -44,17 +48,21 @@
 \newcommand{\LI}{\mathsf{LI}}
 \newcommand{\Pass}{\mathsf{P}}
 \newcommand{\F}{\mathsf{F}}
+
+\title{Focusing Skew Monoidal Closed Categories}
+\author{Tarmo Uustalu
+\institute{Reykjavik University, Iceland}
+\institute{Tallinn University of Technology, Estonia}
+\email{tarmo@ru.is}
+\and
+Niccol{\`o} Veltri \qquad\qquad Cheng-Syuan Wan
+\institute{Tallinn University of Technology, Estonia}
+\email{\quad niccolo@cs.ioc.ee \quad\qquad cswan@cs.ioc.ee}
+}
+\def\titlerunning{Focusing Skew Monoidal Closed Categories}
+\def\authorrunning{T. Uustualu, N. Veltri \& C-S. Wan}
 \begin{document}
-\begin{titlepage}
-     \vspace*{\stretch{1.0}}
-   \begin{center}
-      \Large\textbf{A Focused Sequent Calculus System of Skew Monoidal Closed Categories}\\
-      \large\textit{Tarmo Uustalu}\\
-      \large\textit{Niccol\`o Veltri}\\
-      \large\textit{Cheng-Syuan Wan}
-   \end{center}
-   \vspace*{\stretch{2.0}}
-\end{titlepage}
+\maketitle
 \begin{abstract}
   Monoidal closed categories are used as standard categorical models of intuitionistic noncommutative linear logic: the monoidal unit and tensor model the multiplicative unit and conjunction; the internal hom models linear implication. In recent years, the weaker notion of skew monoidal closed category has been proposed by Ross Street, where the three structural laws of left and right unitality and associativity are not required to be invertible, they are merely natural transformations with a specific orientation. A question arises naturally: Is it possible to find logical proof systems which are naturally modelled by skew monoidal closed categories? We answer positively by introducing three equivalent deductive systems that serve the purpose: a Hilbert-style calculus; a cut-free sequent calculus; a calculus of normal forms obtained from an adaptation of Andreoli's focusing technique to our skew setting. The resulting focused sequent calculus peculiarly employs a system of tags for keeping track of new formulae appearing in the antecedent and appropriately reducing nondeterministic choices in proof search. Focusing solves the coherence problem for skew monoidal closed categories, which implies the existence of effective procedures for deciding equality of canonical morphisms in all models.
   
@@ -68,11 +76,11 @@
 %%   Therefore we have an effective procedure to determine morphism existence and equivalence in skew monoidal closed categories.
 \end{abstract}
 \section{Introduction}
-Recent discoveries on skew monoidal categories \cite{szlachanyi_skew-monoidal_2012} \cite{lack_skew_2012} \cite{lack_triangulations_2014} (check references in previous papers, at least include papers cited by previous three papers) provide us a good reasons to study their corresponding proof systems.
-In previous work \cite{uustalu_sequent_2018} \cite{uustalu_deductive_nodate} \cite{uustalu_proof_nodate} \cite{veltri_coherence_2021}, sequent calculus proof system for skew monoidal categories, prounital closed categories, partial normal monoidal categories, and skew symmetric monoidal categories are presented respectively.
+Recent discoveries on skew monoidal categories \cite{szlachanyi:skew-monoidal:2012} \cite{lack:skew:2012} \cite{lack:triangulations:2014} (check references in previous papers, at least include papers cited by previous three papers) provide us a good reasons to study their corresponding proof systems.
+In previous work \cite{uustalu:sequent:2018} \cite{uustalu:deductive:nodate} \cite{uustalu:proof:nodate} \cite{veltri:coherence:2021}, sequent calculus proof system for skew monoidal categories, prounital closed categories, partial normal monoidal categories, and skew symmetric monoidal categories are presented respectively.
 However, there is still lack of a proof analysis on skew monoidal closed categories.
 Therefore, in this paper we give sound and complete sequent calculus system with skew monoidal closed categories.
-Moreover, we use focusing strategy from \cite{andreoli_logic_1992} to solve the coherence problem of skew monoidal closed categories.
+Moreover, we use focusing strategy from \cite{andreoli:logic:1992} to solve the coherence problem of skew monoidal closed categories.
 
 Interestingly, because of having two connectives in our sequent calculus system, the focusing strategy becomes subtle and involved.
 It cannot just divide derivations into invertible part and non-invertible part then fix their order.
@@ -92,7 +100,7 @@ We will see that all derivations in a same equivalence class under proof convers
 
 
 \section{Skew monoidal closed categories}
-A $skew$ $monoidal$ $closed$ $category$\cite{street_skew-closed_2013} is a category $\mathcal{C}$ with a unit $\mathsf{I}$, two bifunctors $- \ot - : \mathcal{C} \times \mathcal{C} \longrightarrow \mathcal{C}$ and $- \lolli - : \mathcal{C} \times \mathcal{C} \longrightarrow \mathcal{C}$
+A $skew$ $monoidal$ $closed$ $category$\cite{street:skew-closed:2013} is a category $\mathcal{C}$ with a unit $\mathsf{I}$, two bifunctors $- \ot - : \mathcal{C} \times \mathcal{C} \longrightarrow \mathcal{C}$ and $- \lolli - : \mathcal{C} \times \mathcal{C} \longrightarrow \mathcal{C}$
 satisfy $\ot \dashv \lolli$, and six natural transformations
 \begin{displaymath}
   \lambda_A : \mathsf{I} \otimes A \Longrightarrow A \qquad
@@ -233,7 +241,7 @@ A\multimap B\Longrightarrow C\multimap D
 
 \section{Sequent calculus for skew monoidal closed categories}
 In this section, we introduce sequent calculus system for skew monoidal closed categories.
-Following the settings from \cite{uustalu_sequent_2018}, \cite{uustalu_deductive_nodate}, and \cite{uustalu_proof_nodate}, the sequent $S \mid \Gamma \vdash C$ in our calculus system splits in three parts.
+Following the settings from \cite{uustalu:sequent:2018}, \cite{uustalu:deductive:nodate}, and \cite{uustalu:proof:nodate}, the sequent $S \mid \Gamma \vdash C$ in our calculus system splits in three parts.
 First $S$ is called a stoup formula where we can apply to any left rule.
 $\Gamma$ is a list of formulae where we can us $\pass$ to move stoup formula into context and no other rules can be applied.
 $C$ is a formula just like in any single succedent sequent calculus sense.
@@ -354,7 +362,7 @@ For example, natural transformations $\lambda , \rho$, and $\alpha$(subscripts a
   \DisplayProof
 \end{center}
 
-Thanks to the invertibility of $\tl$ and $\lright$ \cite{uustalu_sequent_2018} \cite{uustalu_deductive_nodate}, two adjoint rules are also admissible in sequent calculus system:
+Thanks to the invertibility of $\tl$ and $\lright$ \cite{uustalu:sequent:2018} \cite{uustalu:deductive:nodate}, two adjoint rules are also admissible in sequent calculus system:
 \begin{center}
   \AxiomC{$f$}
   \noLine
@@ -424,7 +432,7 @@ Two cut rules $\mathsf{scut}$ and $\mathsf{ccut}$
   are admissible in sequent calculus system for skew monoidal closed categories.
 \end{theorem}
 \begin{proof}
-  According to previous works \cite{uustalu_sequent_2018} and \cite{uustalu_deductive_nodate} we know two cut rules, $\mathsf{scut}$ and $\mathsf{ccut}$ are admissible in each system separately.
+  According to previous works \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate} we know two cut rules, $\mathsf{scut}$ and $\mathsf{ccut}$ are admissible in each system separately.
   As our new sequent calculus system is a union of two previous systems, we can just check the $\ot$ and $\lolli$ interaction cases.
 
   Dealing with $\mathsf{scut}$ first, same as proof strategy in previous papers, we proof by induction on left premise of $\mathsf{scut}$ rule.
@@ -454,7 +462,7 @@ Two cut rules $\mathsf{scut}$ and $\mathsf{ccut}$
 
 \section{Focusing}
 Before getting into focused sequent calculus system, we need to define new proof equivalences in original sequent calculus system.
-In \cite{uustalu_sequent_2018} and \cite{uustalu_deductive_nodate}, Uustalu et al. provided proof equivalences between $\ot$ only and $\lolli$ only systems respectively.
+In \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}, Uustalu et al. provided proof equivalences between $\ot$ only and $\lolli$ only systems respectively.
 Again, similar as cut elimination proof above, we have to give $\ot$ and $\lolli$ interaction cases here:
 
 For $f : - \mid \Gamma , A \vdash C$, $\mathsf{IL}$:
@@ -832,7 +840,7 @@ In conslusion, tagged foucsed system here is not only sound but also without red
     \BinaryInfC{$S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A \rdbc_{\lolli} \ot B$}
     \DisplayProof
   \end{center}
-Inductive definition of formula $\ldbc \Gamma \mid C \rdbc_{\lolli}$ is from \cite{uustalu_deductive_nodate}:
+Inductive definition of formula $\ldbc \Gamma \mid C \rdbc:{\lolli}$ is from \cite{uustalu:deductive:nodate}:
 \begin{displaymath}
   \ldbc \quad \mid C \rdbc_{\lolli} = C \qquad \ldbc A , \Gamma \mid C \rdbc_{\lolli} = A \lolli \ldbc \Gamma \mid C \rdbc_{\lolli}
 \end{displaymath}
@@ -872,7 +880,7 @@ Inductive definition of formula $\ldbc \Gamma \mid C \rdbc_{\lolli}$ is from \ci
   We can obtain the soundness proof of $\multimap \mathsf{L}$ immediately.
   For any $f : - \mid \Gamma \vdash A$ and $g : B\mid \Delta \vdash C$:
   \begin{prooftree}
-  \AxiomC{Lemma 4.3 in \cite{uustalu_sequent_2018}}
+  \AxiomC{Lemma 4.3 in \cite{uustalu:sequent:2018}}
   \UnaryInfC{$\ldbc A\multimap B \mid \Gamma \rdbc_{\ot} \Longrightarrow A\multimap B \otimes \ldbc - \mid \Gamma \rdbc_{\ot}$}
       \AxiomC{$\mathsf{sound} f$}
       \noLine
@@ -896,7 +904,7 @@ Inductive definition of formula $\ldbc \Gamma \mid C \rdbc_{\lolli}$ is from \ci
   (Weak completeness) For any derivation $f : A\Longrightarrow C$, there is a derivation $\mathsf{complt}$ $f : A \mid \quad \vdash C$.
 \end{theorem}
 \begin{proof}
-In previous studies from Uustalu et al. (\cite{uustalu_sequent_2018} and \cite{uustalu_deductive_nodate}), main cases of completenes are proved.
+In previous studies from Uustalu et al. (\cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}), main cases of completenes are proved.
 Therefore, we only have to show new cases in skew monoidal closed categories.
 In particular, new cases are unit, counit, and two adjoint rules.
 \begin{itemize}
@@ -949,7 +957,7 @@ In particular, new cases are unit, counit, and two adjoint rules.
                     \DisplayProof
   \end{displaymath}
 \end{itemize}
-Two adjoint rules need invertibility of $\otimes \mathsf{L}$ and $\multimap \mathsf{R}$ which are proved respectively in \cite{uustalu_sequent_2018} and \cite{uustalu_deductive_nodate}.
+Two adjoint rules need invertibility of $\otimes \mathsf{L}$ and $\multimap \mathsf{R}$ which are proved respectively in \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}.
 \begin{itemize}
   \item Case $f = \mathsf{adj_1}$ $g$ where $g : A\otimes B \Longrightarrow C$. We define:
   \begin{displaymath}
@@ -997,6 +1005,6 @@ Two adjoint rules need invertibility of $\otimes \mathsf{L}$ and $\multimap \mat
 
 \end{proof}
 
-  \bibliographystyle{plain}
+  \bibliographystyle{eptcs}
   \bibliography{docRefs}
 \end{document}
