@@ -1,0 +1,751 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.4.12)  27 OCT 2021 12:14
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/Users/wanchengsyuan/Documents/SkewMonCloCat/example
+(/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-02-18> (./eptcs.cls
+Document Class: eptcs 2020/12/20 v1.6
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+)
+\c@part=\count179
+\c@section=\count180
+\c@subsection=\count181
+\c@subsubsection=\count182
+\c@paragraph=\count183
+\c@subparagraph=\count184
+\c@figure=\count185
+\c@table=\count186
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2021-02-27 v7.00k Hypertext links for LaTeX
+ (/usr/local/texlive/2021/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+ (/usr/local/texlive/2021/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks15
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+)
+\@linkdim=\dimen139
+\Hy@linkcounter=\count187
+\Hy@pagecounter=\count188
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2021-02-27 v7.00k Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
+File: hyperref-langpatches.def 2021-02-27 v7.00k Hyperref: patches for babel languages
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count189
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2021-02-27 v7.00k Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Hyper figures OFF on input line 4192.
+Package hyperref Info: Link nesting OFF on input line 4197.
+Package hyperref Info: Hyper index ON on input line 4200.
+Package hyperref Info: Plain pages OFF on input line 4207.
+Package hyperref Info: Backreferencing OFF on input line 4212.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4445.
+\c@Hy@tempcnt=\count190
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4804.
+\XeTeXLinkMargin=\dimen140
+ (/usr/local/texlive/2021/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+ (/usr/local/texlive/2021/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+))
+\Fld@menulength=\count191
+\Field@Width=\dimen141
+\Fld@charsize=\dimen142
+Package hyperref Info: Hyper figures OFF on input line 6075.
+Package hyperref Info: Link nesting OFF on input line 6080.
+Package hyperref Info: Hyper index ON on input line 6083.
+Package hyperref Info: backreferencing OFF on input line 6090.
+Package hyperref Info: Link coloring OFF on input line 6095.
+Package hyperref Info: Link coloring with OCG OFF on input line 6100.
+Package hyperref Info: PDF/A mode OFF on input line 6105.
+LaTeX Info: Redefining \ref on input line 6145.
+LaTeX Info: Redefining \pageref on input line 6149.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2020/08/17 v1.0a Emulation of the original atbegshi package
+with kernel methods
+)
+\Hy@abspage=\count192
+\c@Item=\count193
+\c@Hfootnote=\count194
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2021-02-27 v7.00k Hyperref driver for pdfTeX
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery package
+with kernel methods
+)
+\Fld@listcount=\count195
+\c@bookmark@seq@number=\count196
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+ (/usr/local/texlive/2021/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
+)
+\Hy@SectionHShift=\skip49
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/mathptmx.sty
+Package: mathptmx 2020/03/25 PSNFSS-v9.3 Times w/ Math, improved (SPQR, WaS) 
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+\symbold=\mathgroup4
+\symitalic=\mathgroup5
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
+LaTeX Info: Redefining \hbar on input line 50.
+)
+\c@firstpage=\count197
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/underscore/underscore.sty
+Package: underscore 2006/09/13
+LaTeX Info: Redefining \_ on input line 42.
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2020/09/23 v2.17i AMS math features
+\@mathmargin=\skip50
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks16
+\ex@=\dimen143
+)) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen144
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count198
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count199
+\leftroot@=\count266
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count267
+\DOTSCASE@=\count268
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box47
+\strutbox@=\box48
+\big@size=\dimen145
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count269
+\c@MaxMatrixCols=\count270
+\dotsspace@=\muskip17
+\c@parentequation=\count271
+\dspbrk@lvl=\count272
+\tag@help=\toks17
+\row@=\count273
+\column@=\count274
+\maxfields@=\count275
+\andhelp@=\toks18
+\eqnshift@=\dimen146
+\alignsep@=\dimen147
+\tagshift@=\dimen148
+\tagwidth@=\dimen149
+\totwidth@=\dimen150
+\lineht@=\dimen151
+\@envbody=\toks19
+\multlinegap=\skip51
+\multlinetaggap=\skip52
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2923.
+LaTeX Info: Redefining \] on input line 2924.
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup6
+\symAMSb=\mathgroup7
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/tools/enumerate.sty
+Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
+\@enLab=\toks21
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/prftree/prftree.sty
+Package: prftree 2019/06/19 Natural Deduction Proofs
+\prflinepadbefore=\dimen152
+\prflinepadafter=\dimen153
+\prflineextra=\dimen154
+\prflinethickness=\dimen155
+\prfemptylinethickness=\dimen156
+\prfrulenameskip=\dimen157
+\prflabelskip=\dimen158
+\prfinterspace=\dimen159
+\prfdoublelineinterspace=\dimen160
+\prfboundedstyle=\count276
+\prfsummarystyle=\count277
+\prf@@fancysummarybox=\box49
+\prf@@fancysymmarylen=\dimen161
+\prf@Lassum=\skip53
+\prf@Rassum=\skip54
+\prf@assumptionsbox=\box50
+\prf@conclusionbox=\box51
+\prf@rulenamebox=\box52
+\prf@labelbox=\box53
+\prf@linebox=\box54
+\prf@summarybox=\box55
+\prf@fancybox=\box56
+\c@prfassumptioncounter=\count278
+\c@prfsummarycounter=\count279
+\prf@summary@label=\box57
+\prf@@@@proofbox=\box58
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/ntheorem/ntheorem.sty
+Style `ntheorem', Version 1.33 <2011/08/15>
+Package: ntheorem 2011/08/15 1.33
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\theorem@style=\toks22
+\theorem@@style=\toks23
+\theorembodyfont=\toks24
+\theoremnumbering=\toks25
+\theorempreskipamount=\skip55
+\theorempostskipamount=\skip56
+\theoremframepreskipamount=\skip57
+\theoremframepostskipamount=\skip58
+\theoreminframepreskipamount=\skip59
+\theoreminframepostskipamount=\skip60
+\theorem@preskip=\toks26
+\theorem@postskip=\toks27
+\theorem@framepreskip=\toks28
+\theorem@framepostskip=\toks29
+\theorem@inframepreskip=\toks30
+\theorem@inframepostskip=\toks31
+\theoremindent=\dimen162
+\theorem@indent=\dimen163
+\theoremrightindent=\dimen164
+\theorem@rightindent=\dimen165
+\theoremheaderfont=\toks32
+\theoremseparator=\toks33
+\theoremprework=\toks34
+\theorempostwork=\toks35
+\theoremsymbol=\toks36
+\qedsymbol=\toks37
+\theoremkeyword=\toks38
+\qedsymbol=\toks39
+\thm@topsep=\skip61
+\thm@topsepadd=\skip62
+) (./bussproofs.sty
+Proof Tree (bussproofs) style macros. Version 1.1.
+\theLevel=\count280
+\myMaxLevel=\count281
+\myBoxA=\box59
+\myBoxB=\box60
+\myBoxC=\box61
+\myBoxD=\box62
+\myBoxLL=\box63
+\myBoxRL=\box64
+\thisAboveSkip=\dimen166
+\thisBelowSkip=\dimen167
+\newScoreStart=\dimen168
+\newScoreEnd=\dimen169
+\newCenter=\dimen170
+\displace=\dimen171
+\leftLowerAmt=\dimen172
+\rightLowerAmt=\dimen173
+\scoreHeight=\dimen174
+\scoreDepth=\dimen175
+\htLbox=\dimen176
+\htRbox=\dimen177
+\htRRbox=\dimen178
+\htRRRbox=\dimen179
+\htAbox=\dimen180
+\htCbox=\dimen181
+)
+\c@theorem=\count282
+\c@proof=\count283
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 65.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count284
+\l__pdf_internal_box=\box65
+)
+No file example.aux.
+\openout1 = `example.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+Package hyperref Info: Link coloring OFF on input line 65.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count285
+)
+LaTeX Info: Redefining \ref on input line 65.
+LaTeX Info: Redefining \pageref on input line 65.
+LaTeX Info: Redefining \nameref on input line 65.
+\@outlinefile=\write3
+\openout3 = `example.out'.
+
+LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line 67.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
+File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
+)
+LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line 67.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/omlztmcm.fd
+File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
+)
+LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line 67.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/omsztmcm.fd
+File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
+)
+LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line 67.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/omxztmcm.fd
+File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 67.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 67.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 67.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 67.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 67.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 67.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 67.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:76: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.76 ...ories \cite{szlachanyi_skew-monoidal_2012}
+                                                   \cite{street_skew-closed_...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `szlachanyi\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip skew-monoidal\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2012' on page 1 undefined on input line 76.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:76: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.76 ...oidal_2012} \cite{street_skew-closed_2013}
+                                                   \cite{lack_triangulations...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `street\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip skew-closed\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2013' on page 1 undefined on input line 76.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:76: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.76 ...osed_2013} \cite{lack_triangulations_2014}
+                                                   (check references in prev...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `lack\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip triangulations\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2014' on page 1 undefined on input line 76.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:77: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.77 In previous work \cite{uustalu_sequent_2018}
+                                                  \cite{uustalu_deductive_no...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip sequent\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2018' on page 1 undefined on input line 77.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:77: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.77 ...uent_2018} \cite{uustalu_deductive_nodate}
+                                                   \cite{uustalu_proof_nodat...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip deductive\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip nodate' on page 1 undefined on input line 77.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:77: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.77 ...uctive_nodate} \cite{uustalu_proof_nodate}
+                                                   \cite{veltri_coherence_20...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip proof\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip nodate' on page 1 undefined on input line 77.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:77: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.77 ...proof_nodate} \cite{veltri_coherence_2021}
+                                                  , sequent calculus proof s...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `veltri\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip coherence\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2021' on page 1 undefined on input line 77.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:80: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.80 ...g strategy from \cite{andreoli_logic_1992}
+                                                   to solve the coherence pr...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `andreoli\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip logic\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 1992' on page 1 undefined on input line 80.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 100.
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:100: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.100 ... $category$\cite{street_skew-closed_2013}
+                                                   is a category $\mathcal{C...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `street\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip skew-closed\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2013' on page 1 undefined on input line 100.
+
+[1
+
+{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+\myBox1=\box66
+\myScoreStart1=\dimen182
+\myCenter1=\dimen183
+\myScoreEnd1=\dimen184
+
+
+Package mathptmx Warning: There are no bold math fonts on input line 223.
+
+Package hyperref Info: bookmark level for unknown remark defaults to 0 on input line 223.
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:241: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.241 ...settings from \cite{uustalu_sequent_2018}
+                                                  , \cite{uustalu_deductive_...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip sequent\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2018' on page 2 undefined on input line 241.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:241: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.241 ...nt_2018}, \cite{uustalu_deductive_nodate}
+                                                  , and \cite{uustalu_proof_...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip deductive\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip nodate' on page 2 undefined on input line 241.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:241: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.241 ..._nodate}, and \cite{uustalu_proof_nodate}
+                                                  , the sequent $S \mid \Gam...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip proof\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip nodate' on page 2 undefined on input line 241.
+
+[2]
+\myBox2=\box67
+\myScoreStart2=\dimen185
+\myCenter2=\dimen186
+\myScoreEnd2=\dimen187
+\myBox3=\box68
+\myScoreStart3=\dimen188
+\myCenter3=\dimen189
+\myScoreEnd3=\dimen190
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:362: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.362 ...and $\lright$ \cite{uustalu_sequent_2018}
+                                                   \cite{uustalu_deductive_n...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip sequent\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2018' on page 3 undefined on input line 362.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:362: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.362 ...ent_2018} \cite{uustalu_deductive_nodate}
+                                                  , two adjoint rules are al...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip deductive\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip nodate' on page 3 undefined on input line 362.
+
+Package hyperref Info: bookmark level for unknown theorem defaults to 0 on input line 415.
+Package hyperref Info: bookmark level for unknown proof defaults to 0 on input line 432.
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:432: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.432 ...revious works \cite{uustalu_sequent_2018}
+                                                   and \cite{uustalu_deducti...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip sequent\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2018' on page 3 undefined on input line 432.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:432: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.432 ...2018} and \cite{uustalu_deductive_nodate}
+                                                   we know two cut rules, $\...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip deductive\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip nodate' on page 3 undefined on input line 432.
+
+[3]
+Overfull \hbox (6.39468pt too wide) in paragraph at lines 453--456
+[]$[]\OT1/ztmcm/m/n/10.95 (\OML/ztmcm/m/it/10.95 f; \OT1/ztmcm/m/n/10.95 (\OMS/ztmcm/m/n/10.95 
+\OT1/cmss/m/n/10.95 L\OML/ztmcm/m/it/10.95 g\OT1/ztmcm/m/n/10.95 ))$ \OT1/ptm/m/n/10.95 and $[]\OT1/ztmcm/m/n/10.95 (\OML/ztmcm/m/it/10.95 f; \OT1/ztmcm/m/n/10.95 (\U/msa/m/n/10.95 ( \OT1/cmss/m/n/10.95 R\OML/ztmcm/m/it/10.95 h\OT1/ztmcm/m/n/10.95 ))$ \OT1/ptm/m/n/10.95 cases are sim-i-lar, we per-mute $[]$ up, where $\OML/ztmcm/m/it/10.95 g \OT1/ztmcm/m/n/10.95 : \OML/ztmcm/m/it/10.95 A[] \OMS/ztmcm/m/n/10.95 j \OML/ztmcm/m/it/10.95 B[]; \OT1/ztmcm/m/n/10.95 ^^A[]\OML/ztmcm/m/it/10.95 ; A; \OT1/ztmcm/m/n/10.95 ^^A[] \OMS/ztmcm/m/n/10.95 `
+ []
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:462: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.462 In \cite{uustalu_sequent_2018}
+                                     and \cite{uustalu_deductive_nodate}, Uu...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip sequent\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2018' on page 4 undefined on input line 462.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:462: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.462 ...2018} and \cite{uustalu_deductive_nodate}
+                                                  , Uustalu et al. provided ...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip deductive\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip nodate' on page 4 undefined on input line 462.
+
+[4] [5] [6]
+Package hyperref Info: bookmark level for unknown lemma defaults to 0 on input line 799.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:840: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.840 ...$ is from \cite{uustalu_deductive_nodate}
+                                                  :
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip deductive\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip nodate' on page 7 undefined on input line 840.
+
+[7]
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:880: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.880 ...Lemma 4.3 in \cite{uustalu_sequent_2018}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip sequent\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2018' on page 8 undefined on input line 880.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:904: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.904 ...stalu et al. (\cite{uustalu_sequent_2018}
+                                                   and \cite{uustalu_deducti...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip sequent\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2018' on page 8 undefined on input line 904.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:904: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.904 ...2018} and \cite{uustalu_deductive_nodate}
+                                                  ), main cases of completen...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip deductive\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip nodate' on page 8 undefined on input line 904.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:957: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.957 ...spectively in \cite{uustalu_sequent_2018}
+                                                   and \cite{uustalu_deducti...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip sequent\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip 2018' on page 8 undefined on input line 957.
+
+/Users/wanchengsyuan/Documents/SkewMonCloCat/example.tex:957: Missing \endcsname inserted.
+<to be read again> 
+                   \unhbox 
+l.957 ...2018} and \cite{uustalu_deductive_nodate}
+                                                  .
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Citation `uustalu\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip deductive\unhbox \voidb@x \penalty\@M \hskip \z@skip \global \let \OT1\textunderscore \unhbox \voidb@x \kern .06em\vbox {\hrule width.3em}\OT1\textunderscore \discretionary{\char \hyphenchar \font }{}{}\penalty\@M \hskip \z@skip nodate' on page 8 undefined on input line 957.
+
+[8]
+No file example.bbl.
+[9]
+\pages=\write4
+\openout4 = `example.pag'.
+
+\tf@thm=\write5
+\openout5 = `example.thm'.
+
+ (./example.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `example.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `example.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  F7B0EB82DD4B1099880A4A7AF6B338C8;893.
+ ) 
+Here is how much of TeX's memory you used:
+ 9233 strings out of 478994
+ 132825 string characters out of 5858184
+ 453080 words of memory out of 5000000
+ 26542 multiletter control sequences out of 15000+600000
+ 450912 words of font info for 129 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 86i,17n,88p,608b,490s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on example.pdf (9 pages, 162518 bytes).
+PDF statistics:
+ 147 PDF objects out of 1000 (max. 8388607)
+ 119 compressed objects within 2 object streams
+ 37 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

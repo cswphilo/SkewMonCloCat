@@ -1,18 +1,21 @@
-\documentclass{article}
+\documentclass[submission,copyright,creativecommons]{eptcs}
+\providecommand{\event}{SOS 2007} % Name of the event you are submitting to
+%\usepackage{breakurl}             % Not needed if you use pdflatex only.
+\usepackage{underscore}           % Only needed if you use pdflatex.
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{enumerate}
 \usepackage{prftree}
 \usepackage{ntheorem}
-\usepackage{tikz-cd}
-\usepackage{hyperref}
-\usepackage{float}
-\usepackage{graphicx}
-\usepackage{quiver}
+%\usepackage{tikz-cd}
+%\usepackage{hyperref}
+%\usepackage{float}
+%\usepackage{graphicx}
+%\usepackage{quiver}
 \usepackage{bussproofs}
-\usepackage[a4paper, total={6in, 8in}]{geometry}
-\usepackage{lscape}
+%\usepackage[a4paper, total={6in, 8in}]{geometry}
+%\usepackage{lscape}
 \theorembodyfont{}
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}[theorem]{Corollary}
@@ -44,17 +47,31 @@
 \newcommand{\LI}{\mathsf{LI}}
 \newcommand{\Pass}{\mathsf{P}}
 \newcommand{\F}{\mathsf{F}}
+\title{An Example of a Paper\\ with a Rather Large Title-to-Content Ratio}
+\author{Rob van Glabbeek
+\institute{NICTA\\ Sydney, Australia}
+\institute{School of Computer Science and Engineering\\
+University of New South Wales\thanks{A fine university.}\\
+Sydney, Australia}
+\email{rvg@cs.stanford.edu}
+\and
+Co Author \qquad\qquad Yet S. Else
+\institute{Stanford Univeristy\\
+California, USA}
+\email{\quad is@gmail.com \quad\qquad somebody@else.org}
+}
+\def\titlerunning{A Longtitled Paper}
+\def\authorrunning{R.J. van Glabbeek, C. Author \& Y.S. Else}
 \begin{document}
-\begin{titlepage}
-     \vspace*{\stretch{1.0}}
-   \begin{center}
-      \Large\textbf{A Focused Sequent Calculus System of Skew Monoidal Closed Categories}\\
-      \large\textit{Tarmo Uustalu}\\
-      \large\textit{Niccol\`o Veltri}\\
-      \large\textit{Cheng-Syuan Wan}
-   \end{center}
-   \vspace*{\stretch{2.0}}
-\end{titlepage}
+\maketitle
+
+\begin{abstract}
+This is a sentence in the abstract.
+This is another sentence in the abstract.
+This is yet another sentence in the abstract.
+This is the final sentence in the abstract.
+\end{abstract}
+
 \section{Introduction}
 Recent discoveries on skew monoidal categories \cite{szlachanyi_skew-monoidal_2012} \cite{street_skew-closed_2013} \cite{lack_triangulations_2014} (check references in previous papers, at least include papers cited by previous three papers) provide us a good reasons to study their corresponding proof systems.
 In previous work \cite{uustalu_sequent_2018} \cite{uustalu_deductive_nodate} \cite{uustalu_proof_nodate} \cite{veltri_coherence_2021}, sequent calculus proof system for skew monoidal categories, prounital closed catgories, partial normal monoidal categories, and skew symmetric monoidal categories are presented respectively.
@@ -985,6 +1002,7 @@ Two adjoint rules need invertibility of $\otimes \mathsf{L}$ and $\multimap \mat
 
 \end{proof}
 
-  \bibliographystyle{plain}
-  \bibliography{docRefs}
+\nocite{*}
+\bibliographystyle{eptcs}
+\bibliography{docRefs}
 \end{document}
