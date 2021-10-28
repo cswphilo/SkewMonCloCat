@@ -1,5 +1,5 @@
 \documentclass[submission,copyright,creativecommons]{eptcs}
-\providecommand{\event}{SOS 2007} % Name of the event you are submitting to
+\providecommand{\event}{NCL'22} % Name of the event you are submitting to
 %\usepackage{breakurl}             % Not needed if you use pdflatex only.
 \usepackage{underscore}           % Only needed if you use pdflatex.
 \usepackage{amsmath}
@@ -15,6 +15,7 @@
 %\usepackage{graphicx}
 %\usepackage{quiver}
 \usepackage{bussproofs}
+\usepackage{proof}
 %\usepackage[a4paper, total={6in, 8in}]{geometry}
 %\usepackage{lscape}
 %% \theorembodyfont{}
@@ -48,6 +49,7 @@
 \newcommand{\LI}{\mathsf{LI}}
 \newcommand{\Pass}{\mathsf{P}}
 \newcommand{\F}{\mathsf{F}}
+\newcommand{\xvdash}{\vdash^{x}}
 
 \title{Focusing Skew Monoidal Closed Categories}
 \author{Tarmo Uustalu
@@ -65,11 +67,11 @@ Niccol{\`o} Veltri \qquad\qquad Cheng-Syuan Wan
 \maketitle
 \begin{abstract}
   Monoidal closed categories are used as standard categorical models of intuitionistic noncommutative linear logic: the monoidal unit and tensor model the multiplicative unit and conjunction; the internal hom models linear implication. In recent years, the weaker notion of skew monoidal closed category has been proposed by Ross Street, where the three structural laws of left and right unitality and associativity are not required to be invertible, they are merely natural transformations with a specific orientation. A question arises naturally: Is it possible to find logical proof systems which are naturally modelled by skew monoidal closed categories? We answer positively by introducing three equivalent deductive systems that serve the purpose: a Hilbert-style calculus; a cut-free sequent calculus; a calculus of normal forms obtained from an adaptation of Andreoli's focusing technique to our skew setting. The resulting focused sequent calculus peculiarly employs a system of tags for keeping track of new formulae appearing in the antecedent and appropriately reducing nondeterministic choices in proof search. Focusing solves the coherence problem for skew monoidal closed categories, which implies the existence of effective procedures for deciding equality of canonical morphisms in all models.
-  
+
 %%   In previous works from Uustalu et al, proof theory of some variants of skew monoidal categories are developed.
 %%   We also know that given a skew monoidal category, there is a corresponding skew closed structure on the same category.
 %%   It motivates us to develop a proof theory of such skew monoidal closed structures and see its meta properties.
-%% 
+%%
 %%   In this paper, a Hilbert-style categorical calculus, a cut-free sequent calculus, and a tagged focused sequent calculus are presented.
 %%   We prove the soundness and completeness between categorical calculus and sequent calculus.
 %%   Moreover any two equivalent proofs from cut-free sequent calculus are mapped into same derivation in tagged focused calculus.
@@ -115,126 +117,59 @@ satisfy $\ot \dashv \lolli$, and six natural transformations
 
 Give a set $\mathsf{At}$ which contains countably infinite atomic formulae, we can generate a free skew monoidal closed category according to following rules:
 \begin{displaymath}
-  \prftree[r]{$\mathsf{id}$}
-  {}
-  {
-  A\Longrightarrow A
+    \infer[\id]{A \Longrightarrow A}{}
+    \quad
+    \infer[\mathsf{comp}]{A \Longrightarrow C}{
+      A \Longrightarrow B
+      &
+      B \Longrightarrow C
+    }
+\end{displaymath}
+\begin{displaymath}
+  \infer[\otimes]{A \ot B \Longrightarrow C \ot D}{
+    A \Longrightarrow C
+    &
+    B \Longrightarrow D
   }
   \quad
-  \prftree[r]{$\mathsf{comp}$}
-  {
-  A\Longrightarrow B
-  }
-  {
-  B\Longrightarrow C
-  }
-  {
-  A\Longrightarrow C
+  \infer[\lolli]{A \lolli B \Longrightarrow C \lolli D}{
+    C \Longrightarrow A
+    &
+    B \Longrightarrow D
   }
 \end{displaymath}
 \begin{displaymath}
-\prftree[r]{$\otimes$}
-{
-A\Longrightarrow C
-}
-{
-B\Longrightarrow D
-}
-{
-A\otimes B\Longrightarrow C\otimes D
-}
-\quad
-\prftree[r]{$\multimap$}
-{
-C\Longrightarrow A
-}
-{
-B\Longrightarrow D
-}
-{
-A\multimap B\Longrightarrow C\multimap D
-}
+  \infer[\lambda]{\I \ot A \Longrightarrow A}{}
+  \quad
+  \infer[\rho]{A \Longrightarrow A \ot \I}{}
+  \quad
+  \infer[\alpha]{(A \ot B) \ot C \Longrightarrow A \ot (B \ot C)}{}
 \end{displaymath}
 \begin{displaymath}
-  \prftree[r]{$\lambda$}
-  {}
-  {
-  \mathsf{I} \otimes A \Longrightarrow A
-  }
+  \infer[i]{\I \lolli A \Longrightarrow A}{}
   \quad
-  \prftree[r]{$\rho$}
-  {}
-  {
-  A\Longrightarrow A\otimes \mathsf{I}
-  }
+  \infer[j]{\I \Longrightarrow A \lolli A}{}
   \quad
-  \prftree[r]{$\alpha$}
-  {}
-  {
-  (A\otimes B)\otimes C\Longrightarrow A\otimes (B\otimes C)
-  }
+  \infer[\mathsf{L}]{B \lolli C \Longrightarrow (A \lolli B) \lolli (A \lolli C)}{}
 \end{displaymath}
-\begin{center}
-\AxiomC{}
-\RightLabel{$i$}
-\UnaryInfC{$\mathsf{I} \multimap A\Longrightarrow A$}
-\DisplayProof
-\quad
-\AxiomC{}
-\RightLabel{$j$}
-\UnaryInfC{$\mathsf{I} \Longrightarrow A\multimap A$}
-\DisplayProof
-\quad
-\AxiomC{}
-\RightLabel{$\mathsf{L}$}
-\UnaryInfC{$B\multimap C \Longrightarrow (A\multimap B)\multimap (A\multimap C)$}
-\DisplayProof
-\end{center}
-
-
-\begin{center}
-\AxiomC{}
-\RightLabel{$\epsilon_{A, B}$}
-\UnaryInfC{$(A\multimap B)\otimes A \Longrightarrow B$}
-\DisplayProof
-\quad
-\AxiomC{}
-\RightLabel{$\eta_{A, B}$}
-\UnaryInfC{$A\Longrightarrow B\multimap (A\otimes B)$}
-\DisplayProof
-\end{center}
-
-
 \begin{displaymath}
-  \prftree[r]{$\mathsf{adj_1}$}
-  {
-  A\otimes B\Longrightarrow C
-  }
-  {
-  A\Longrightarrow (B\multimap C)
-  }
+  \infer[\mathsf{adj_1}]{A \Longrightarrow (B \lolli C)}{A \ot B \Longrightarrow C}
   \quad
-  \prftree[r]{$\mathsf{adj_2}$}
-  {
-  A\Longrightarrow (B\multimap C)
-  }
-  {
-  A\otimes B\Longrightarrow C
-  }
+  \infer[\mathsf{adj_2}]{A \ot B \Longrightarrow C}{A \Longrightarrow (B \lolli C)}
 \end{displaymath}
 \begin{remark}
   We do not need all of these rules to generate whole skew monoidal closed category.
   For example, suppose we have $\lambda , \rho , \alpha , \epsilon$, and $\mathsf{adj_1}$, then $i, j, \mathsf{L}, \eta$, and  $\mathsf{adj_2}$ are admissible.
   \begin{align*}
-    i &\defeq \mathsf{comp} (\rho ,  (\mathsf{adj_2} (\id_{\I \lolli A})))
+    i &\defeq \mathsf{comp} \text{ } (\rho ,  (\mathsf{adj_2} \text{ } (\id_{\I \lolli A})))
     \\
-    j &\defeq \mathsf{adj_1} (\lambda_{A})
+    j &\defeq \mathsf{adj_1} \text{ } (\lambda_{A})
     \\
-    \msfL &\defeq \mathsf{adj_1} (\mathsf{adj_1} (\mathsf{comp} (\alpha , (\mathsf{comp} (\id_{B \lolli C} \ot \epsilon_{A,B}) , \epsilon_{B,C}))))
+    \msfL &\defeq \mathsf{adj_1} \text{ } (\mathsf{adj_1} \text{ } (\mathsf{comp} \text{ } (\alpha , (\mathsf{comp} \text{ } (\id_{B \lolli C} \ot \epsilon_{A,B}) , \epsilon_{B,C}))))
     \\
-    \eta &\defeq \mathsf{adj_1} (\id_{A \ot B})
+    \eta &\defeq \mathsf{adj_1} \text{ } (\id_{A \ot B})
     \\
-    \mathsf{adj_2} &\defeq \comp ((f \ot \id_{B}), \epsilon_{B,C}) &&\text{given } f : A \Longrightarrow B \lolli C
+    \mathsf{adj_2} &\defeq \comp \text{ } ((f \ot \id_{B}), \epsilon_{B,C}) &&\text{given } f : A \Longrightarrow B \lolli C
   \end{align*}
 \end{remark}
 
@@ -247,168 +182,89 @@ $\Gamma$ is a list of formulae where we can us $\pass$ to move stoup formula int
 $C$ is a formula just like in any single succedent sequent calculus sense.
 Sequent calculus system of skew monoidal closed categories:
 \begin{displaymath}
-  \prftree[r]{$\mathsf{pass}$}
-  {
-  A\mid \Gamma \vdash C
-  }
-  {
-  -\mid A, \Gamma \vdash C
-  }
+  \infer[\pass]{- \mid A , \Gamma \vdash C}{A \mid \Gamma \vdash C}
   \quad
-  \prftree[r]{$\mathsf{IL}$}
-  {
-  -\mid \Gamma \vdash C
-  }
-  {
-  \mathsf{I} \mid \Gamma \vdash C
-  }
+  \infer[\unitl]{\I \mid \Gamma \vdash C}{- \mid \Gamma \vdash C}
   \quad
-  \prftree[r]{$\otimes \mathsf{L}$}
-  {
-  A\mid B, \Gamma \vdash C
-  }
-  {
-  A\otimes B\mid \Gamma \vdash C
-  }
+  \infer[\tl]{A \ot B \mid \Gamma \vdash C}{A \mid B , \Gamma \vdash C}
 \end{displaymath}
 \begin{displaymath}
-  \prftree[r]{$\otimes \mathsf{R}$}
-  {
-  S\mid \Gamma \vdash A
-  }
-  {
-  -\mid \Delta \vdash B
-  }
-  {
-  S\mid \Gamma , \Delta \vdash A\otimes B
+  \infer[\tr]{S \mid \Gamma , \Delta \vdash A \ot B}{
+    S \mid \Gamma \vdash A
+    &
+    - \mid \Delta \vdash B
   }
   \quad
-  \prftree[r]{$\multimap \mathsf{R}$}
-  {
-  S\mid \Gamma ,A \vdash B
-  }
-  {
-  S\mid \Gamma \vdash A\multimap B
-  }
+  \infer[\lleft]{A \lolli B \mid \Gamma , \Delta \vdash C}{
+    - \mid \Gamma \vdash A
+    &
+    B \mid \Delta \vdash C
+    }
 \end{displaymath}
 \begin{displaymath}
-  \prftree[r]{$\mathsf{ax}$}
-  {
-  A\mid \text{ } \vdash A
-  }
+  \infer[\lright]{S \mid \Gamma \vdash A \lolli B}{S \mid \Gamma , A \vdash B}
   \quad
-  \prftree[r]{$\mathsf{IR}$}
-  {}
-  {
-  -\mid \text{ } \vdash \mathsf{I}
-  }
+  \infer[\ax]{A \mid \quad \vdash A}{}
   \quad
-  \prftree[r]{$\multimap \mathsf{L}$}
-  {
-  -\mid \Gamma \vdash A
-  }
-  {
-  B\mid \Delta \vdash C
-  }
-  {
-  A\multimap B \mid \Gamma , \Delta \vdash C
-  }
+  \infer[\unitr]{- \mid \quad \vdash \I}{}
 \end{displaymath}
 
 If we interpret morphism $A \Longrightarrow C$ as a sequent $A \mid \quad \vdash C$, then we can see the natural transformations are derivable in this sequent calculus.
 For example, natural transformations $\lambda , \rho$, and $\alpha$(subscripts are omitted when there is no ambiguity) are derivable:
-\begin{center}
-  \AxiomC{}
-  \RightLabel{$\ax$}
-  \UnaryInfC{$A \mid \quad \vdash A$}
-  \RightLabel{$\pass$}
-  \UnaryInfC{$- \mid A \vdash A$}
-  \RightLabel{$\unitl$}
-  \UnaryInfC{$\I \mid A \vdash A$}
-  \RightLabel{$\tl$}
-  \UnaryInfC{$\I \ot A \mid \quad \vdash A$}
-  \DisplayProof
+\begin{displaymath}
+  \infer[\tl]{\I \ot A \mid \quad \vdash A}{
+    \infer[\unitl]{\I \mid A \vdash A}{
+      \infer[\pass]{ \mid A \vdash A}{
+        \infer[\ax]{A \mid \quad \vdash A}{}
+      }
+    }
+  }
   \quad
-  \AxiomC{}
-  \RightLabel{$\ax$}
-  \UnaryInfC{$A \mid \quad \vdash A$}
-        \AxiomC{}
-        \RightLabel{$\unitr$}
-        \UnaryInfC{$- \mid \quad \vdash \I$}
-  \BinaryInfC{$A \mid \quad \vdash A \ot \I$}
-  \DisplayProof
+  \infer[\tr]{A \mid \quad \vdash A \ot \I}{
+    \infer[\ax]{A \mid \quad \vdash A}{}
+    &
+    \infer[\unitr]{- \mid \quad \vdash \I}{}
+  }
   \quad
-  \AxiomC{}
-  \RightLabel{$\ax$}
-  \UnaryInfC{$A \mid \quad \vdash A$}
-        \AxiomC{}
-        \RightLabel{$\ax$}
-        \UnaryInfC{$B \mid \quad \vdash B$}
-        \AxiomC{}
-        \RightLabel{$\ax$}
-        \UnaryInfC{$C \mid \quad \vdash C$}
-        \RightLabel{$\pass$}
-        \UnaryInfC{$- \mid C \vdash C$}
-        \RightLabel{$\tr$}
-        \BinaryInfC{$B \mid C \vdash B \ot C$}
-        \RightLabel{$\tl$}
-        \UnaryInfC{$- \mid B, C \vdash B \ot C$}
-  \RightLabel{$\tr$}
-  \BinaryInfC{$A \mid B , C \vdash A \ot (B \ot C)$}
-  \RightLabel{$\tl$}
-  \UnaryInfC{$A \ot B \mid C \vdash A \ot (B \ot C)$}
-  \RightLabel{$\tl$}
-  \UnaryInfC{$(A \ot B) \ot C \vdash \quad \vdash A \ot (B \ot C)$}
-  \DisplayProof
-\end{center}
-
+  \infer[\tl]{(A \ot B) \ot C \mid \quad \vdash A \ot (B \ot C)}{
+    \infer[\tl]{A \ot B \mid C \vdash A \ot (B \ot C)}{
+      \infer[\tr]{A \mid B , C \vdash A \ot (B \ot C)}{
+        \infer[\ax]{A \mid \quad \vdash A}{}
+        &
+        \infer[\pass]{- \mid B , C \vdash B \ot C}{
+          \infer[\tr]{B \mid C \vdash B \ot C}{
+            \infer[\ax]{B \mid \quad \vdash B}{}
+            &
+            \infer[\pass]{- \mid C \vdash C}{
+              \infer[\ax]{C \mid \quad \vdash C}{}
+            }
+          }
+        }
+      }
+    }
+  }
+\end{displaymath}
 Thanks to the invertibility of $\tl$ and $\lright$ \cite{uustalu:sequent:2018} \cite{uustalu:deductive:nodate}, two adjoint rules are also admissible in sequent calculus system:
-\begin{center}
-  \AxiomC{$f$}
-  \noLine
-  \UnaryInfC{$A\otimes B \mid \quad \vdash C$}
-  \RightLabel{$\otimes \mathsf{L}^{-1}$}
-  \UnaryInfC{$A \mid B \vdash C$}
-  \RightLabel{$\multimap \mathsf{R}$}
-  \UnaryInfC{$A \mid \quad \vdash B \multimap C$}
-  \DisplayProof
+\begin{displaymath}
+  \infer[\lright]{A \mid \quad \vdash B \multimap C}{
+    \infer[\tl^{-1}]{A \mid B \vdash C}{
+      \deduce{A \ot B \mid \quad \vdash C}{}
+   }
+  }
   \quad
-  \AxiomC{$f$}
-  \noLine
-  \UnaryInfC{$A \mid \quad B \multimap C$}
-  \RightLabel{$\multimap \mathsf{R}^{-1}$}
-  \UnaryInfC{$A \mid B \vdash C$}
-  \RightLabel{$\otimes \mathsf{L}$}
-  \UnaryInfC{$A\otimes B \mid \quad \vdash C$}
-  \DisplayProof
-\end{center}
-Therefore, we can summarize two admissible rules in SMCC system:
-\begin{center}
-  \AxiomC{$f$}
-  \noLine
-  \UnaryInfC{$A \ot B \mid \quad \vdash C $}
-  \RightLabel{$\mathsf{adj_1}$}
-  \UnaryInfC{$A \mid \quad \vdash B \lolli C$}
-  \DisplayProof
-  \quad
-  \AxiomC{$f$}
-  \noLine
-  \UnaryInfC{$A \mid \quad \vdash B \lolli C$}
-  \RightLabel{$\mathsf{adj_2}$}
-  \UnaryInfC{$A \ot B \mid \quad \vdash C $}
-  \DisplayProof
-\end{center}
-
+  \infer[\tl]{A \ot B \mid \quad \vdash C}{
+    \infer[\lright^{-1}]{A \mid B \vdash C}{
+      \deduce{A \mid \quad \vdash B \lolli C}{}
+    }
+  }
+\end{displaymath}
 Another important thing is that we have to ensure this sequent calculus system could not prove the inverse of any natural transformations in section 1.
 Here is one example, $\rho^{-1}$ is not derivable in our system:
-\begin{center}
-  \AxiomC{$??$}
-  \noLine
-  \UnaryInfC{$A \mid \I \vdash A$}
-  \RightLabel{$\tl$}
-  \UnaryInfC{$A \ot \I \mid \quad  \vdash A$}
-  \DisplayProof
-\end{center}
+\begin{displaymath}
+  \infer[\tl]{A \ot \I \mid \quad \vdash A}{
+    \deduce{A \mid \I \vdash A}{??}
+  }
+\end{displaymath}
 We interpret $\rho^{-1}$ into $A \ot \I \mid \quad \vdash A$, then according to bottom-up proof search strategy, we first apply $\tl$ but we get stuck immediately.
 Therefore, $\rho^{-1}$ is not derivable in our sequent calculus.
 Other cases are similar.
@@ -416,19 +272,19 @@ Other cases are similar.
 Next we see cut-freeness of this sequent system:
 \begin{theorem}
 Two cut rules $\mathsf{scut}$ and $\mathsf{ccut}$
-  \begin{center}
-    \AxiomC{$S \mid \Gamma \vdash A$}
-    \AxiomC{$A \mid \Delta \vdash C$}
-    \RightLabel{$\mathsf{scut}$}
-    \BinaryInfC{$S \mid \Gamma , \Delta \vdash C$}
-    \DisplayProof
+  \begin{displaymath}
+    \infer[\mathsf{scut}]{S \mid \Gamma , \Delta \vdash C}{
+      S \mid \Gamma \vdash A
+      &
+      A \mid \Delta \vdash C
+    }
     \quad
-    \AxiomC{$- \mid \Gamma \vdash A$}
-    \AxiomC{$S \mid \Delta_{0} , A, \Delta_{1} \vdash C$}
-    \RightLabel{$\mathsf{ccut}$}
-    \BinaryInfC{$S \mid \Delta_{0} , \Gamma , \Delta_{1} \vdash C$}
-    \DisplayProof
-  \end{center}
+    \infer[\mathsf{ccut}]{S \mid \Delta_0 , \Gamma , \Delta_1 \vdash C}{
+      - \mid \Gamma \vdash A
+      &
+      S \mid \Delta_0 , A , \Delta_1 \vdash C
+    }
+  \end{displaymath}
   are admissible in sequent calculus system for skew monoidal closed categories.
 \end{theorem}
 \begin{proof}
@@ -437,24 +293,26 @@ Two cut rules $\mathsf{scut}$ and $\mathsf{ccut}$
 
   Dealing with $\mathsf{scut}$ first, same as proof strategy in previous papers, we proof by induction on left premise of $\mathsf{scut}$ rule.
   \begin{enumerate}[1. ]
-    \item First case is $\mathsf{scut} ((\tl f), g)$ where $f : A' \mid B' , \Gamma \vdash A, g : A \mid \Delta \vdash C$, then we do subinduction on $g$ to obtain two subcases:
+    \item First case is $\mathsf{scut} \text{ } ((\tl \text{ } f), g)$ where $f : A' \mid B' , \Gamma \vdash A, g : A \mid \Delta \vdash C$, then we do subinduction on $g$ to obtain two subcases:
           \begin{enumerate}[a. ]
-            \item $g = \lright g'$, then we let $\mathsf{scut} ((\tl f), (\lright g')) \defeq \lright (\mathsf{scut} ((\tl f), g'))$.
-            \item $g = \lleft g'$, then we let $\mathsf{scut} ((\tl f), (\lright g')) \defeq \tl (\mathsf{scut} (f, (\lright g')))$
+            \item $g = \lright \text{ } g'$, then we let $\mathsf{scut} \text{ } ((\tl \text{ } f), (\lright \text{ } g')) \defeq \lright \text{ } (\mathsf{scut} \text{ } ((\tl \text{ } f), g'))$.
+            \item $g = \lleft \text{ } g'$, then we let $\mathsf{scut} \text{ } ((\tl \text{ } f), (\lright \text{ } g')) \defeq \tl \text{ } (\mathsf{scut} \text{ } (f, (\lright \text{ } g')))$
           \end{enumerate}
-    \item Other cases are similar.
+    \item $\mathsf{scut} \text{ } ((\lleft f \text{ } (f' , f'')), g)$, where $f' : - \mid \Gamma' \vdash A'$, $f'' : B' \mid \Gamma'' \vdash A$, and $g : A \mid \Delta \vdash C$.
+    This case is similar as $\mathsf{scut} \text{ } ((\tl \text{ } f), g)$.
+    \item There is no new case for premise is from $\tr$ or $\lright$, because cut formulae are not matched.
   \end{enumerate}
   Next we see the cut-freeness of $\mathsf{ccut}$ rule.
   Similarly, we prove it by induction on the second premise.
   \begin{enumerate}[1. ]
-    \item $\mathsf{ccut} (f , (\lleft (g, h)))$ where $f : - \mid \Gamma \vdash A$, $g : - \mid \Delta_1 \vdash A'$, $h : B' \mid \Delta_2 \vdash C$, then we do subinduciton on $f$:
+    \item $\mathsf{ccut} \text{ } (f , (\lleft \text{ } (g, h)))$ where $f : - \mid \Gamma \vdash A$, $g : - \mid \Delta_1 \vdash A'$, $h : B' \mid \Delta_2 \vdash C$, then we do subinduciton on $f$:
     \begin{enumerate}[a. ]
       \item The only possibility is $A = A' \ot B'$ and $f = \tr (f_1, f_2)$ where $f_1 : - \mid \Gamma_1 \vdash A'$, $f_2 : - \mid \Gamma_2 \vdash B'$, then depending on $A' \ot B'$ in $\Delta_1$ or $\Delta_2$,
-      we let $\mathsf{ccut} (f , (\lleft (g, h))) \defeq \lleft (\mathsf{ccut} (f, g), h)$ or $ \lleft (g, (\mathsf{ccut} (f, h)))$, respectively.
+      we let $\mathsf{ccut} \text{ } (f , (\lleft \text{ } (g, h))) \defeq \lleft \text{ } (\mathsf{ccut} \text{ } (f, g), h)$ or $ \lleft \text{ } (g, (\mathsf{ccut} \text{ } (f, h)))$, respectively.
     \end{enumerate}
-    \item $\mathsf{ccut} (f , (\tr (g, h)))$ where $f : - \mid \Gamma \vdash A$, $g : S \mid \Delta_1 \vdash A'$, $h : - \mid \Delta_2 \vdash B'$ is similar as above.
-    \item $\mathsf{ccut} (f, (\tl g))$ and
-    $\mathsf{ccut} (f, (\lright h))$ cases are similar, we permute $\mathsf{ccut}$ up,
+    \item $\mathsf{ccut} \text{ } (f , (\tr \text{ } (g, h)))$ where $f : - \mid \Gamma \vdash A$, $g : S \mid \Delta_1 \vdash A'$, $h : - \mid \Delta_2 \vdash B'$ is similar as above.
+    \item $\mathsf{ccut} \text{ } (f, (\tl \text{ } g))$ and
+    $\mathsf{ccut} \text{ } (f, (\lright \text{ } h))$ cases are similar, we permute $\mathsf{ccut}$ up,
     where $g : A' \mid B' , \Delta_0 , A , \Delta_1 \vdash C$, $h : S \mid \Delta_0 , A , \Delta_1 , A' \vdash B'$.
   \end{enumerate}
 \end{proof}
@@ -464,153 +322,53 @@ Two cut rules $\mathsf{scut}$ and $\mathsf{ccut}$
 Before getting into focused sequent calculus system, we need to define new proof equivalences in original sequent calculus system.
 In \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}, Uustalu et al. provided proof equivalences between $\ot$ only and $\lolli$ only systems respectively.
 Again, similar as cut elimination proof above, we have to give $\ot$ and $\lolli$ interaction cases here:
-
-For $f : - \mid \Gamma , A \vdash C$, $\mathsf{IL}$:
-\begin{center}
-    \AxiomC{$f$}
-    \noLine
-    \UnaryInfC{$- \mid \Gamma , A \vdash C$}
-    \RightLabel{$\multimap \mathsf{R}$}
-    \UnaryInfC{$- \mid \Gamma \vdash A\multimap C$}
-    \RightLabel{$\mathsf{IL}$}
-    \UnaryInfC{$\mathsf{I} \mid \Gamma \vdash A\multimap C$}
-    \DisplayProof
-    $\circeq$
-    \AxiomC{$f$}
-    \noLine
-    \UnaryInfC{$- \mid \Gamma , A \vdash C$}
-    \RightLabel{$\mathsf{IL}$}
-    \UnaryInfC{$\mathsf{I} \mid \Gamma , A\vdash C$}
-    \RightLabel{$\multimap \mathsf{R}$}
-    \UnaryInfC{$\mathsf{I} \mid \Gamma \vdash A\multimap C$}
-    \DisplayProof
-\end{center}
-
-    For $f : A \mid B , \Gamma , C \vdash D$:
-\begin{center}
-    \AxiomC{$f$}
-    \noLine
-    \UnaryInfC{$A \mid B, \Gamma , C \vdash D$}
-    \RightLabel{$\multimap \mathsf{R}$}
-    \UnaryInfC{$A \mid B, \Gamma \vdash C\multimap D$}
-    \RightLabel{$\otimes \mathsf{L}$}
-    \UnaryInfC{$A\otimes B \mid \Gamma \vdash C\multimap D$}
-    \DisplayProof
-    $\circeq$
-    \AxiomC{$f$}
-    \noLine
-    \UnaryInfC{$A \mid B, \Gamma , C \vdash D$}
-    \RightLabel{$\otimes \mathsf{L}$}
-    \UnaryInfC{$A\otimes B \mid \Gamma , C \vdash D$}
-    \RightLabel{$\multimap \mathsf{R}$}
-    \UnaryInfC{$A\otimes B \mid \Gamma \vdash C\multimap D$}
-    \DisplayProof
-\end{center}
-
-  For $f : - \mid \Gamma \vdash A$, $g : B\mid \Delta \vdash C$, and $ h : - \mid \Delta' \vdash D$:
-\begin{center}
-      \AxiomC{$f$}
-      \noLine
-      \UnaryInfC{$-\mid \Gamma \vdash A$}
-                                          \AxiomC{$g$}
-                                          \noLine
-                                          \UnaryInfC{$B\mid \Delta \vdash C$}
-                                                                             \AxiomC{$h$}
-                                                                             \noLine
-                                                                             \UnaryInfC{$-\mid \Delta' \vdash D $}
-                                        \RightLabel{$\otimes \mathsf{R}$}
-                                        \BinaryInfC{$B\mid \Delta , \Delta' \vdash C\otimes D$}
-                    \RightLabel{$\multimap \mathsf{L}$}
-                    \BinaryInfC{$A\multimap B \mid \Gamma , \Delta , \Delta' \vdash C\otimes D$}
-    \DisplayProof
-    \end{center}
-    \begin{center}
-      $\circeq$
-    \end{center}
-    \begin{center}
-    \AxiomC{$f$}
-    \noLine
-    \UnaryInfC{$-\mid \Gamma \vdash A$}
-                                      \AxiomC{$g$}
-                                      \noLine
-                                      \UnaryInfC{$B\mid \Delta \vdash C$}
-                          \RightLabel{$\multimap \mathsf{L}$}
-                          \BinaryInfC{$A\multimap B \mid \Gamma , \Delta \vdash C$}
-                                                                    \AxiomC{$h$}
-                                                                    \noLine
-                                                                    \UnaryInfC{$-\mid \Delta' \vdash D $}
-                                \RightLabel{$\otimes \mathsf{R}$}
-                                \BinaryInfC{$A\multimap B \mid \Gamma , \Delta , \Delta' \vdash C \otimes D$}
-    \DisplayProof
-\end{center}
-
+\begin{align*}
+  \unitl \text{ } (\lright \text{ } f) &\circeq \lright \text{ } (\unitl \text{ } f) &&f : - \mid \Gamma , A \vdash B
+  \\
+  \tl \text{ } (\lright \text{ } f) &\circeq \lright \text{ } (\tl \text{ } f) &&f : A \mid B , \Gamma , C \vdash D
+  \\
+  \lleft \text{ } (f, \tr \text{ } (g, h)) &\circeq \tr \text{ } (\lleft \text{ } (f , g), h) &&f: - \mid \Gamma \vdash A, g : B \mid \Delta \vdash C, h : - \mid \Lambda \vdash D
+\end{align*}
 The focused sequent calculus here has four phases with  special annotations on $\vdash$.
 We explain the intuition of this focused system from bottom-up proof search perspective.
 Every proof in focused calculus is a tag-free sequent ended at phase $\RI$.
-\begin{center}
-  \AxiomC{$S \mid \Gamma , A^{x} \vdash^{x}_{\RI} B$}
-  \RightLabel{$\lright$}
-  \UnaryInfC{$S \mid \Gamma \vdash^{x}_{\RI} A \lolli B$}
-  \DisplayProof
+\begin{displaymath}
+  \infer[\lright]{S \mid \Gamma \vdash^{x}_{\RI} A \lolli B}{S \mid \Gamma , A^{x} \vdash^{x}_{\RI} B}
   \quad
-  \AxiomC{$S \mid \Gamma \vdash^{x}_{\LI} P$}
-  \RightLabel{$\LI 2 \RI$}
-  \UnaryInfC{$S \mid \Gamma \vdash^{x}_{\RI} P$}
-  \DisplayProof
-\end{center}
-\begin{center}
-  \AxiomC{$- \mid \Gamma \vdash^{x}_{\LI} P$}
-  \RightLabel{$\unitl$}
-  \UnaryInfC{$\I \mid \Gamma \vdash^{x}_{\LI} P$}
-  \DisplayProof
+  \infer[\LI 2 \RI]{S \mid \Gamma \vdash^{x}_{\RI} P}{S \mid \Gamma \vdash^{x}_{\LI} P}
+\end{displaymath}
+\begin{displaymath}
+  \infer[\unitl]{\I \mid \Gamma \xvdash_{\LI} P}{- \mid \Gamma \xvdash_{\LI} P}
   \quad
-  \AxiomC{$A \mid B , \Gamma \vdash^{x}_{\LI} P$}
-  \RightLabel{$\tl$}
-  \UnaryInfC{$A \ot B \mid \Gamma \vdash^{x}_{\LI} P$}
-  \DisplayProof
+  \infer[\tl]{A \ot B \mid \Gamma \xvdash_{\LI} P}{A \mid B , \Gamma \xvdash_{\LI} P}
   \quad
-  \AxiomC{$T \mid \Gamma \vdash^{x}_{\Pass} P$}
-  \RightLabel{$\Pass 2 \LI$}
-  \UnaryInfC{$T \mid \Gamma \vdash^{x}_{\LI} P$}
-  \DisplayProof
-\end{center}
-\begin{center}
-  \AxiomC{$A^{\circ} \mid \Gamma \vdash^{x}_{\LI} P$}
-  \RightLabel{$\pass$}
-  \UnaryInfC{$- \mid A^{x} , \Gamma \vdash^{x}_{\Pass} P$}
-  \DisplayProof
+  \infer[\Pass 2 \LI]{T \mid \Gamma \xvdash_{\LI} P}{T \mid \Gamma \xvdash_{\Pass} P}
+\end{displaymath}
+\begin{displaymath}
+  \infer[\pass]{- \mid A^{x} , \Gamma \xvdash_{\Pass} P }{A^{\circ} \mid \Gamma \xvdash_{\LI} P}
   \quad
-  \AxiomC{$T \mid \Gamma \vdash^{x}_{\F} P$}
-  \RightLabel{$\F 2 \Pass$}
-  \UnaryInfC{$T \mid \Gamma \vdash^{x}_{\Pass} P$}
-  \DisplayProof
-\end{center}
-\begin{center}
-  \AxiomC{$T \mid \Gamma \vdash^{\bullet}_{\RI} A$}
-  \AxiomC{$- \mid \Delta \vdash_{\RI} B$}
-  \RightLabel{$\tr$}
-  \BinaryInfC{$T \mid \Gamma , \Delta \vdash^{x}_{\F} A \ot B$}
-  \DisplayProof
-  \end{center}
-  \begin{center}
-  \AxiomC{$- \mid \Gamma^{\circ} \vdash_{\RI} A$}
-  \AxiomC{$B \mid \Delta \vdash_{\LI} P$}
-  \AxiomC{if $x = \bullet$, then $\exists F^{\bullet} \in \Gamma$}
-  \RightLabel{$\lleft$}
-  \TrinaryInfC{$A \lolli B \mid \Gamma , \Delta \vdash^{x}_{\F} P$}
-  \DisplayProof
-\end{center}
-\begin{center}
-  \AxiomC{}
-  \RightLabel{$\ax$}
-  \UnaryInfC{$X \mid \quad \vdash_{\F} X$}
-  \DisplayProof
+  \infer[\F 2 \Pass]{T \mid \Gamma \xvdash_{\Pass} P}{T \mid \Gamma \xvdash_{\F} P}
+\end{displaymath}
+\begin{displaymath}
+  \infer[\tr]{T \mid \Gamma , \Delta \xvdash_{\F} A \ot B}{
+    T \mid \Gamma \vdash^{\bullet}_{\RI} A
+    &
+    - \mid \Delta \vdash_{\RI} B
+  }
   \quad
-  \AxiomC{}
-  \RightLabel{$\unitr$}
-  \UnaryInfC{$- \mid \quad \vdash_{\F} \I$}
-  \DisplayProof
-\end{center}
+  \infer[\lleft]{A \lolli B \mid \Gamma , \Delta \xvdash_{\F} P}{
+    - \mid \Gamma^{\circ} \vdash_{\RI} A
+    &
+    B \mid \Delta \vdash_{\LI} P
+    &
+    \text{if } x = \bullet \text{, then } \exists F^{\bullet} \in \Gamma
+  }
+\end{displaymath}
+\begin{displaymath}
+  \infer[\ax]{A \mid \quad \vdash_{\F} A}{}
+  \quad
+  \infer[\unitr]{- \mid \quad \vdash \I}{}
+\end{displaymath}
 \begin{itemize}
   \item In $\RI$, only right invertible rules can be applied, in particular, $\lright$.
   If endsequent of a $\RI$ application is black, then we add a tag to keep tracking the formulae decomposed from $\RI$.
@@ -622,10 +380,10 @@ Every proof in focused calculus is a tag-free sequent ended at phase $\RI$.
   Here we have special resrictions on $\tl$ and $\lleft$.
   In general, we prefer to decompose $\lolli$ in stoup prior then $\ot$ in conclusion.
   However, if there are some formula are packed into conclusion, then whole bottom-up proof strategy fails.
-  We will see comparasion between involed and naive focused system later.
+  We will see comparison between involved and naive focused system later.
   For rule $\tr$, we let its left and right premises back to phase $\RI$ because $A$ and $B$ could be negative formulas.
   Especially, the left premise becomes a tagged sequent.
-  In a $\lleft$ application, if conlusion sequent is tagged, then at least exists a formula $F$ is black in the context of left premise.
+  In a $\lleft$ application, if conclusion sequent is tagged, then at least exists a formula $F$ is black in the context of left premise.
   Remembering that we prefer $\lleft$ prior to $\tr$, so if there is any $\tr$ before $\lleft$, then we have to ensure that we cannot do $\lleft$ first.
   Black tags produced by $\lright$ play essential roles here because if there is no black formula in $\Gamma$, then it implies that we cannot do $\lleft$ after $\tr$.
   In this situation, we must decompose $\lolli$ in stoup prior than $\ot$ in conclusion.
@@ -633,219 +391,206 @@ Every proof in focused calculus is a tag-free sequent ended at phase $\RI$.
 
 Assume that we would prefer to decompose $\lolli$ in stoup prior than $\ot$ in succedent without tag setting above.
 In this naive focused sequent calculus, we cannot prove $X \lolli Y \mid Z \vdash_{\RI} (X \lolli Y) \ot Z$, where $X, Y$, and $Z$ are atomic formulae:
-
-\begin{center}
-  \AxiomC{??}
-  \noLine
-  \UnaryInfC{$- \mid \quad \vdash_{\mathsf{RI}} X$}
-            \AxiomC{??}
-            \noLine
-            \UnaryInfC{$Y \mid X \vdash_{\mathsf{RI}} Y$}
-            \RightLabel{$\multimap \mathsf{R}$}
-            \UnaryInfC{$Y \mid \quad \vdash_{\mathsf{RI}} X \multimap Y$}
-                      \AxiomC{}
-                      \RightLabel{$\mathsf{ax}$}
-                      \UnaryInfC{$Z \mid \quad \vdash_{\F} Z$}
-                      \RightLabel{$\mathsf{\F 2 \Pass}$}
-                      \UnaryInfC{$Z \mid \quad \vdash_{\mathsf{\Pass}} Z$}
-                      \RightLabel{$\mathsf{\Pass 2 \LI}$}
-                      \UnaryInfC{$Z \mid \quad \vdash_{\LI} Z$}
-                      \RightLabel{$\mathsf{pass}$}
-                      \UnaryInfC{$- \mid Z \vdash_{\Pass} Z$}
-                      \RightLabel{$\mathsf{\Pass 2 \LI}$}
-                      \UnaryInfC{$- \mid Z \vdash_{\LI} Z$}
-                      \RightLabel{$\mathsf{\LI 2 \RI}$}
-                      \UnaryInfC{$- \mid Z \vdash_{\mathsf{RI}} Z$}
-                  \RightLabel{$\otimes \mathsf{R}$}
-                  \BinaryInfC{$Y \mid Z \vdash_{\F} (X\multimap Y)\otimes Z$}
-                  \RightLabel{$\mathsf{\F 2 \Pass}$}
-                  \UnaryInfC{$Y \mid Z \vdash_{\mathsf{\Pass}} (X\multimap Y)\otimes Z$}
-                  \RightLabel{$\mathsf{\Pass 2 \LI}$}
-                  \UnaryInfC{$Y \mid Z \vdash_{\LI} (X\multimap Y)\otimes Z$}
-           \RightLabel{$\multimap \mathsf{L}$}
-           \BinaryInfC{$X \multimap Y \mid Z \vdash_{\mathsf{\F}} (X\multimap Y) \otimes Z$}
-           \RightLabel{$\mathsf{\F 2 \Pass}$}
-           \UnaryInfC{$X \multimap Y \mid Z \vdash_{\mathsf{\Pass}} (X\multimap Y) \otimes Z$}
-           \RightLabel{$\mathsf{\Pass 2 \LI}$}
-           \UnaryInfC{$X \multimap Y \mid Z \vdash_{\LI} (X\multimap Y) \otimes Z$}
-           \RightLabel{$\mathsf{\LI 2 \RI}$}
-           \UnaryInfC{$X \multimap Y \mid Z \vdash_{\mathsf{RI}} (X\multimap Y) \otimes Z$}
-           \DisplayProof
-\end{center}
+\begin{displaymath}
+  \infer[\mathsf{\LI 2 \RI}]{X \multimap Y \mid Z \vdash_{\mathsf{RI}} (X\multimap Y) \otimes Z}{
+    \infer[\Pass 2 \LI]{X \multimap Y \mid Z \vdash_{\mathsf{LI}} (X\multimap Y) \otimes Z}{
+      \infer[\F 2 \Pass]{X \multimap Y \mid Z \vdash_{\Pass} (X\multimap Y) \otimes Z}{
+        \infer[\lleft]{X \multimap Y \mid Z \vdash_{\F} (X\multimap Y) \otimes Z}{
+          \deduce{- \mid \quad \vdash_{\RI} X}{??}
+          &
+          \infer[\Pass 2 \LI]{Y \mid Z \vdash_{\LI} (X \lolli Y) \ot Z}{
+            \infer[\F 2 \Pass]{Y \mid Z \vdash_{\Pass} (X \lolli Y) \ot Z}{
+              \infer[\tr]{Y \mid Z \vdash_{\F} (X \lolli Y) \ot Z}{
+                \infer[\lright]{Y \mid \quad \vdash_{\RI} X \lolli Y}{
+                  \deduce{Y \mid X \vdash_{\RI} Y}{??}
+                }
+                &
+                \infer[\LI 2 \RI]{- \mid Z \vdash_{\RI} Z}{
+                  \infer[\Pass 2 \LI]{- \mid Z \vdash_{\LI} Z}{
+                    \infer[\pass]{- \mid Z \vdash_{\Pass} Z}{
+                      \infer[\Pass 2 \LI]{Z \mid \quad \vdash_{\LI} Z}{
+                        \infer[\F 2 \Pass]{Z \mid \quad \vdash_{\Pass} Z}{
+                          \infer[\ax]{Z \mid \quad \vdash_{\F} Z}{}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+\end{displaymath}
 The key point is that $X$ in $(X \lolli Y) \ot Z$ is locked, so that we could not move it to the context of left premise to close proof tree.
-Hoever, in tagged setting, we can avoid this awkward sitution:
-\begin{center}
-  \AxiomC{}
-  \RightLabel{$\mathsf{ax}$}
-  \UnaryInfC{$X \mid \quad \vdash_{\F} X$}
-  \RightLabel{$\mathsf{\F 2 \Pass}$}
-  \UnaryInfC{$X \mid \quad \vdash_{\mathsf{\Pass}} X$}
-  \RightLabel{$\mathsf{\Pass 2 \LI}$}
-  \UnaryInfC{$X \mid \quad \vdash_{\LI} X$}
-  \RightLabel{$\mathsf{pass}$}
-  \UnaryInfC{$- \mid X \vdash_{\Pass} X$}
-  \RightLabel{$\mathsf{\Pass 2 \LI}$}
-  \UnaryInfC{$- \mid X \vdash_{\LI} X$}
-  \RightLabel{$\mathsf{\LI 2 \RI}$}
-  \UnaryInfC{$- \mid X \vdash_{\mathsf{RI}} X$}
-            \AxiomC{}
-            \RightLabel{$\ax$}
-            \UnaryInfC{$Y \mid \quad \vdash_{\F} Y$}
-            \RightLabel{$\F 2 \Pass$}
-            \UnaryInfC{$Y \mid \quad \vdash_{\Pass} Y$}
-            \RightLabel{$\Pass 2 \LI$}
-            \UnaryInfC{$Y \mid \quad \vdash_{\LI} Y$}
-            \RightLabel{$\lleft$}
-            \BinaryInfC{$X \lolli Y \mid X^{\bullet} \vdash^{\bullet}_{\F} Y$}
-            \RightLabel{$\F 2 \Pass$}
-            \UnaryInfC{$X \lolli Y \mid X^{\bullet} \vdash^{\bullet}_{\Pass} Y$}
-            \RightLabel{$\Pass 2 \LI$}
-            \UnaryInfC{$X \lolli Y \mid X^{\bullet} \vdash^{\bullet}_{\LI} Y$}
-            \RightLabel{$\LI 2 \RI$}
-            \UnaryInfC{$X \lolli Y \mid X^{\bullet} \vdash^{\bullet}_{\RI} Y$}
-            \RightLabel{$\lright$}
-            \UnaryInfC{$X \lolli Y \mid \quad \vdash^{\bullet}_{\RI} X \lolli Y$}
-                      \AxiomC{}
-                      \RightLabel{$\mathsf{ax}$}
-                      \UnaryInfC{$Z \mid \quad \vdash_{\F} Z$}
-                      \RightLabel{$\mathsf{\F 2 \Pass}$}
-                      \UnaryInfC{$Z \mid \quad \vdash_{\mathsf{\Pass}} Z$}
-                      \RightLabel{$\mathsf{\Pass 2 \LI}$}
-                      \UnaryInfC{$Z \mid \quad \vdash_{\LI} Z$}
-                      \RightLabel{$\mathsf{pass}$}
-                      \UnaryInfC{$- \mid Z \vdash_{\Pass} Z$}
-                      \RightLabel{$\mathsf{\Pass 2 \LI}$}
-                      \UnaryInfC{$- \mid Z \vdash_{\LI} Z$}
-                      \RightLabel{$\mathsf{\LI 2 \RI}$}
-                      \UnaryInfC{$- \mid Z \vdash_{\mathsf{RI}} Z$}
-           \RightLabel{$\tr$}
-           \BinaryInfC{$X \multimap Y \mid Z \vdash_{\mathsf{\F}} (X\multimap Y) \otimes Z$}
-           \RightLabel{$\mathsf{\F 2 \Pass}$}
-           \UnaryInfC{$X \multimap Y \mid Z \vdash_{\mathsf{\Pass}} (X\multimap Y) \otimes Z$}
-           \RightLabel{$\mathsf{\Pass 2 \LI}$}
-           \UnaryInfC{$X \multimap Y \mid Z \vdash_{\LI} (X\multimap Y) \otimes Z$}
-           \RightLabel{$\mathsf{\LI 2 \RI}$}
-           \UnaryInfC{$X \multimap Y \mid Z \vdash_{\mathsf{RI}} (X\multimap Y) \otimes Z$}
-           \DisplayProof
-\end{center}
+However, in tagged setting, we can avoid this awkward situation:
+\begin{displaymath}
+  \infer[\mathsf{\LI 2 \RI}]{X \multimap Y \mid Z \vdash_{\mathsf{RI}} (X\multimap Y) \otimes Z}{
+    \infer[\Pass 2 \LI]{X \multimap Y \mid Z \vdash_{\mathsf{LI}} (X\multimap Y) \otimes Z}{
+      \infer[\F 2 \Pass]{X \multimap Y \mid Z \vdash_{\Pass} (X\multimap Y) \otimes Z}{
+        \infer[\tr]{X \multimap Y \mid Z \vdash_{\F} (X\multimap Y) \otimes Z}{
+          \infer[\lright]{X \lolli Y \mid \quad \vdash^{\bullet}_{\RI} X \lolli Y}{
+            \infer[\LI 2 \RI]{X \lolli Y \mid X^{\bullet} \vdash^{\bullet}_{\RI} Y}{
+              \infer[\Pass 2 \LI]{X \lolli Y \mid X^{\bullet} \vdash^{\bullet}_{\LI} Y}{
+                \infer[\F 2 \Pass]{X \lolli Y \mid X^{\bullet} \vdash^{\bullet}_{\Pass} Y}{
+                  \infer[\lleft]{X \lolli Y \mid X^{\bullet} \vdash^{\bullet}_{\F} Y}{
+                    \infer[\LI 2 \RI]{- \mid X \vdash_{\RI} X}{
+                      \infer[\Pass 2 \LI]{- \mid X \vdash_{\LI} X}{
+                        \infer[\pass]{- \mid X \vdash_{\Pass} X}{
+                          \infer[\Pass 2 \LI]{X \mid \quad \vdash_{\LI} X}{
+                            \infer[\F 2 \Pass]{X \mid \quad \vdash_{\Pass} X}{
+                              \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+                            }
+                          }
+                        }
+                      }
+                    }
+                    &
+                    \infer[\Pass 2 \LI]{Y \mid \quad \vdash_{\LI} Y}{
+                    \infer[\F 2 \Pass]{Y \mid \quad \vdash_{\Pass} Y}{
+                    \infer[\ax]{Y \mid \quad \vdash_{F} Y}{}
+                    }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            &
+                \infer[\LI 2 \RI]{- \mid Z \vdash_{\RI} Z}{
+                  \infer[\Pass 2 \LI]{- \mid Z \vdash_{\LI} Z}{
+                    \infer[\pass]{- \mid Z \vdash_{\Pass} Z}{
+                      \infer[\Pass 2 \LI]{Z \mid \quad \vdash_{\LI} Z}{
+                        \infer[\F 2 \Pass]{Z \mid \quad \vdash_{\Pass} Z}{
+                          \infer[\ax]{Z \mid \quad \vdash_{\F} Z}{}
+                        }
+                      }
+                    }
+                  }
+                }
+          }
+              }
+            }
+          }
+\end{displaymath}
 In the mean time, our focused system does not contain redundant non-determinacy.
 For example, as the proof equivalences above, $\tr$ and $\lleft$ rule applications could be swapped when $\Gamma, \Delta$, and $\Delta'$ separated properly.
-Without loose of generality, we assume $\Gamma, \Delta$, and $\Delta'$ are sufficient and necessary in proving each sequent respectively.
+Without loose of generality, we assume $\Gamma, \Delta$, and $\Lambda$ are sufficient and necessary in proving each sequent respectively.
 In tagged focused calculus, such exchangeable situation would not happen.
-Given a sequent $A \lolli B \mid \Gamma , \Delta , \Delta' \vdash_{\RI} C \ot D$ and supposed that $B$ is irreducible, $C = A' \lolli B'$,
+Given a sequent $A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\RI} C \ot D$ and supposed that $B$ is irreducible, $C = A' \lolli B'$,
 we can construct a proof:
-\begin{center}
-  \AxiomC{$\vdots$}
-  \noLine
-  \UnaryInfC{$- \mid \Gamma \vdash_{\RI} A$}
-        \AxiomC{$\vdots$}
-        \noLine
-        \UnaryInfC{$B \mid \Delta \vdash^{\bullet}_{\RI} A' \lolli B'$}
-              \AxiomC{$\vdots$}
-              \noLine
-              \UnaryInfC{$- \mid \Delta' \vdash_{\RI} D$}
-        \RightLabel{$\tr$}
-        \BinaryInfC{$B \mid \Delta , \Delta' \vdash_{\F} (A' \lolli B') \ot D$}
-        \RightLabel{$\F 2 \Pass$}
-        \UnaryInfC{$B \mid \Delta , \Delta' \vdash_{\Pass} (A' \lolli B') \ot D$}
-        \RightLabel{$\Pass 2 \LI$}
-        \UnaryInfC{$B \mid \Delta , \Delta' \vdash_{\LI} (A' \lolli B') \ot D$}
-        \RightLabel{$\LI 2 \RI$}
-        \UnaryInfC{$B \mid \Delta , \Delta' \vdash_{\RI} (A' \lolli B') \ot D$}
-  \RightLabel{$\lleft$}
-  \BinaryInfC{$A \lolli B \mid \Gamma , \Delta , \Delta' \vdash_{\F} (A' \lolli B') \ot D$}
-  \RightLabel{$\F 2 \Pass$}
-  \UnaryInfC{$A \lolli B \mid \Gamma , \Delta , \Delta' \vdash_{\Pass} (A' \lolli B') \ot D$}
-  \RightLabel{$\Pass 2 \LI$}
-  \UnaryInfC{$A \lolli B \mid \Gamma , \Delta , \Delta' \vdash_{\LI} (A' \lolli B') \ot D$}
-  \RightLabel{$\LI 2 \RI$}
-  \UnaryInfC{$A \lolli B \mid \Gamma , \Delta , \Delta' \vdash_{\RI} (A' \lolli B') \ot D$}
-  \DisplayProof
-\end{center}
+\begin{displaymath}
+  \infer[\LI 2 \RI]{A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\RI} (A' \lolli B') \ot D}{
+    \infer[\Pass 2 \LI]{A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\LI} (A' \lolli B') \ot D}{
+      \infer[\F 2 \Pass]{A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\Pass} (A' \lolli B') \ot D}{
+        \infer[\lleft]{A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\F} (A' \lolli B') \ot D}{
+          \deduce{- \mid \Gamma \vdash_{\RI} A }{\vdots}
+          &
+          \infer[\LI 2 \RI]{B \mid \Delta , \Lambda \vdash_{\RI} (A' \lolli B') \ot D}{
+            \infer[\LI 2 \RI]{B \mid \Delta , \Lambda \vdash_{\LI} (A' \lolli B') \ot D}{
+              \infer[\Pass 2 \LI]{B \mid \Delta , \Lambda \vdash_{\LI} (A' \lolli B') \ot D}{
+                \infer[\F 2 \Pass]{B \mid \Delta , \Lambda \vdash_{\Pass} (A' \lolli B') \ot D}{
+                  \infer[\tr]{B \mid \Delta , \Lambda \vdash_{\F} (A' \lolli B') \ot D}{
+                    \deduce{B \mid \Delta \vdash^{\bullet}_{\RI} A' \lolli B'}{\vdots}
+                    &
+                    \deduce{- \mid \Lambda \vdash_{\RI} D}{\vdots}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+\end{displaymath}
 However, the other way around(decompose $\ot$ prior to $\lolli$) is impossible.
-If we want to apply $\lleft$, because the sequent is black, supposing that $C = A' \lolli B'$ and put at least $\Gamma , \Delta , A'$ to left premise.
+Because the sequent is black, if we want to decompose $A \lolli B$, we have to decompose $A' \lolli B'$ first to obtain $A^{\bullet}$ in context then send $\Gamma , \Delta , A'$ to left premise of $\lleft$ application.
 In the end, the proof tree cannot close:
-\begin{center}
-    \AxiomC{$??$}
-    \noLine
-    \UnaryInfC{$- \mid \Gamma , \Delta , A' \vdash_{\RI} A $}
-          \AxiomC{$??$}
-          \noLine
-          \UnaryInfC{$B \mid \quad \vdash_{\LI} B'$}
-    \RightLabel{$\lleft$}
-    \BinaryInfC{$A \lolli B \mid \Gamma , \Delta , A' \vdash^{\bullet}_{\F} B'$}
-    \RightLabel{$\F 2 \Pass$}
-    \UnaryInfC{$A \lolli B \mid \Gamma , \Delta , A' \vdash^{\bullet}_{\Pass} B'$}
-    \RightLabel{$\Pass 2 \LI$}
-    \UnaryInfC{$A \lolli B \mid \Gamma , \Delta , A' \vdash^{\bullet}_{\LI} B'$}
-    \RightLabel{$\LI 2 \RI$}
-    \UnaryInfC{$A \lolli B \mid \Gamma , \Delta , A' \vdash^{\bullet}_{\RI} B'$}
-    \RightLabel{$\lright$}
-    \UnaryInfC{$A \lolli B \mid \Gamma , \Delta \vdash^{\bullet}_{\RI} A' \lolli B'$}
-          \AxiomC{$\vdots$}
-          \noLine
-          \UnaryInfC{$- \mid \Delta' \vdash_{\RI} D$}
-    \RightLabel{$\tr$}
-    \BinaryInfC{$A \lolli B \mid \Gamma , \Delta , \Delta' \vdash_{\F} (A' \lolli B') \ot D$}
-    \RightLabel{$\F 2 \Pass$}
-    \UnaryInfC{$A \lolli B \mid \Gamma , \Delta , \Delta' \vdash_{\Pass} (A' \lolli B') \ot D$}
-    \RightLabel{$\Pass 2 \LI$}
-    \UnaryInfC{$A \lolli B \mid \Gamma , \Delta , \Delta' \vdash_{\LI} (A' \lolli B') \ot D$}
-    \RightLabel{$\LI 2 \RI$}
-    \UnaryInfC{$A \lolli B \mid \Gamma , \Delta , \Delta' \vdash_{\RI} (A' \lolli B') \ot D$}
-    \DisplayProof
-\end{center}
-The situation is worse if $C$ is positive, we cannot produce tags from $\RI$ application to ensure applicability of $\lleft$.
-In conslusion, tagged foucsed system here is not only sound but also without redundant non-determinacy.
+\begin{displaymath}
+  \infer[\LI 2 \RI]{A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\RI} (A' \lolli B') \ot D}{
+    \infer[\Pass 2 \LI]{A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\LI} (A' \lolli B') \ot D}{
+      \infer[\F 2 \Pass]{A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\Pass} (A' \lolli B') \ot D}{
+        \infer[\tr]{A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\F} (A' \lolli B') \ot D}{
+          \infer{A \lolli B \mid \Gamma , \Delta \vdash^{\bullet}_{\RI} A' \lolli B'}{
+            \infer[\lright]{A \lolli B \mid \Gamma , \Delta , A'^{\bullet} \vdash^{\bullet}_{\RI} B'}{
+              \infer[\LI 2 \RI]{A \lolli B \mid \Gamma , \Delta , A'^{\bullet} \vdash^{\bullet}_{\RI} B}{
+                \infer[\Pass 2 \LI]{A \lolli B \mid \Gamma , \Delta , A'^{\bullet} \vdash^{\bullet}_{\LI} B}{
+                  \infer[\F 2 \Pass]{A \lolli B \mid \Gamma , \Delta , A'^{\bullet} \vdash^{\bullet}_{\Pass} B}{
+                    \infer[\lleft]{A \lolli B \mid \Gamma , \Delta , A'^{\bullet} \vdash^{\bullet}_{\F} B}{
+                      \deduce{- \mid \Gamma , \Delta , A'^{\bullet} \vdash_{\RI}}{??}
+                      &
+                      \deduce{B \mid \quad \vdash_{\LI} B'}{??}
+                    }
+                  }
+                }
+              }
+            }
+          }
+          &
+          \deduce{- \mid \Lambda \vdash_{\RI} D}{\vdots}
+        }
+      }
+    }
+  }
+\end{displaymath}
+The situation is worse if $C$ is positive, we cannot produce tags from $\lright$ application to ensure applicability of $\lleft$, so the whole derivation gets stuck and cannont close.
+This fact shows that in tagged focused system, we cannot permute $\tr$ and $\lleft$ applications arbitrarily.
+In this sense, two equivalent proofs in original sequent calculus become identical in focused calculus.
+Therefore, tagged focused system here is not only sound but also without redundant non-determinacy.
 
-\begin{lemma}
+Moreover, not only $\tr$ and $\lleft$ equivalent case becomes identical in focused system, but any other equivalent cases hold the same fact.
+We can substantiate statement above by following results.
+\begin{lemma}\label{AdmissibleInRI}
   Following rules are admissible in tagged focused system:
-  \begin{center}
-    \AxiomC{$- \mid \Gamma \vdash_{\RI} C$}
-    \RightLabel{$\unitl^{\RI}$}
-    \UnaryInfC{$\I \mid \Gamma \vdash_{\RI} C$}
-    \DisplayProof
+  \begin{displaymath}
+    \infer[\unitl^{\RI}]{\I \mid \Gamma \vdash_{\RI} C}{- \mid \Gamma \vdash_{\RI} C}
     \quad
-    \AxiomC{$A \mid B, \Gamma \vdash_{\RI} C$}
-    \RightLabel{$\tl^{\RI}$}
-    \UnaryInfC{$A \ot B \mid \Gamma \vdash_{\RI} C$}
-    \DisplayProof
+    \infer[\tl^{\RI}]{A \mid B, \Gamma \vdash_{\RI} C}{A \mid B, \Gamma \vdash_{\RI} C}
     \quad
-    \AxiomC{$A \mid \Gamma \vdash_{\RI} C$}
-    \RightLabel{$\pass^{\RI}$}
-    \UnaryInfC{$- \mid \Gamma \vdash_{\RI} C$}
-    \DisplayProof
-  \end{center}
-  \begin{center}
-    \AxiomC{$- \mid \Gamma \vdash_{\RI} A$}
-    \AxiomC{$B \mid \Delta \vdash_{\RI} C$}
-    \RightLabel{$\lleft^{\RI}$}
-    \BinaryInfC{$A \lolli B \mid \Gamma , \Delta \vdash_{\RI} C$}
-    \DisplayProof
+    \infer[\pass^{\RI}]{- \mid \Gamma \vdash_{\RI} C}{A \mid \Gamma \vdash_{\RI} C}
+  \end{displaymath}
+  \begin{displaymath}
+    \infer[\lleft^{\RI}]{A \lolli B \mid \Gamma , \Delta \vdash_{\RI} C}{
+    - \mid \Gamma \vdash_{\RI} A
+    &
+    B \mid \Delta \vdash_{\RI} C
+    }
     \quad
-    \AxiomC{}
-    \RightLabel{$\ax^{\RI}$}
-    \UnaryInfC{$A \mid \quad \vdash_{\RI} A$}
-    \DisplayProof
+    \infer[\ax^{\RI}]{A \mid \quad \vdash_{\RI} A}{}
     \quad
-    \AxiomC{}
-    \RightLabel{$\unitr^{\RI}$}
-    \UnaryInfC{$- \mid \quad \vdash_{\RI} \I$}
-    \DisplayProof
-  \end{center}
-  \begin{center}
-    \AxiomC{$S \mid \Gamma , \Gamma' \vdash_{\RI} A$}
-    \AxiomC{$- \mid \Delta \vdash_{\RI} B$}
-    \RightLabel{$\tr^{\RI}$}
-    \BinaryInfC{$S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A \rdbc_{\lolli} \ot B$}
-    \DisplayProof
-  \end{center}
-Inductive definition of formula $\ldbc \Gamma \mid C \rdbc:{\lolli}$ is from \cite{uustalu:deductive:nodate}:
+    \infer[\unitr^{\RI}]{- \mid \quad \vdash_{\RI} \I}{}
+  \end{displaymath}
+  \begin{displaymath}
+    \infer[\tr^{\RI}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A \rdbc_{\lolli} \ot B}{
+      S \mid \Gamma , \Gamma' \vdash_{\RI} A
+      &
+      - \mid \Delta \vdash_{\RI} B
+    }
+  \end{displaymath}
+\end{lemma}
+Inductive definition of formula $\ldbc \Gamma \mid C \rdbc_{\lolli}$ is from \cite{uustalu:deductive:nodate}:
 \begin{displaymath}
   \ldbc \quad \mid C \rdbc_{\lolli} = C \qquad \ldbc A , \Gamma \mid C \rdbc_{\lolli} = A \lolli \ldbc \Gamma \mid C \rdbc_{\lolli}
 \end{displaymath}
-\end{lemma}
 
+$\tr^{\RI}$ is a generalized version of $\tr$.
+We endorse it in order to strengthen inductive hypothesis and make our proof smoothly.
+For example, considering following proof tree, if we invoke simple version of $\tr$ in phase $\RI$, then we cannot proof its admissibility:
+\begin{displaymath}
+  \infer[\tr^{\RI}_s]{S \mid \Gamma , \Delta \vdash_{\RI} (A' \lolli B') \ot B}{
+    \infer[\lright]{S \mid \Gamma \vdash_{\RI} A' \lolli B'}{
+      \deduce{S \mid \Gamma , A' \vdash_{\RI} B'}{f}
+    }
+    &
+    \deduce{- \mid \Delta \vdash_{\RI} B}{g}
+  }
+\end{displaymath}
+In this case, we cannot permute $\tr^{\RI}_s$ up to use inductive hypothesis.
+Therefore we need to have a stronger version of $\tr$ which performs $\tr$ and $\lright$ in the same time.
+There is no generality loss because we can always take $\Gamma'$ as empty then reduce to simple $\tr$.
 
 \begin{theorem}
   \begin{enumerate}
@@ -853,13 +598,13 @@ Inductive definition of formula $\ldbc \Gamma \mid C \rdbc:{\lolli}$ is from \ci
     \item For any derivation $f : S \mid \Gamma \vdash C$, there is a derivation $\mathsf{focus}$ $f : S \mid \Gamma \vdash_{\mathsf{RI}} C$.
   \end{enumerate}
 \end{theorem}
-\begin{proof}
+\begin{theorem}
   \begin{enumerate}
-    \item First theorem is straightforward, we just erase labels in a focused derivation then it would become a derivation in original sequent calculus system with some duplicated step.
-    \item By induction on $f$ and lemma 3.
+    \item For any $f : S \mid \Gamma \vdash_{\RI} C$, $\mathsf{focus} \text{ } (\mathsf{emb} \text{ } f) = f$.
+    \item For any $f, g : S \mid \Gamma \vdash C$,  if $f \circeq g$, then $\mathsf{focus} \text{ } f = \mathsf{focus} \text{ } g$.
+    \item For any $f : S \mid \Gamma \vdash C$, $\mathsf{emb} \text{ } (\mathsf{focus} \text{ } f) \circeq f$.
   \end{enumerate}
-\end{proof}
-
+\end{theorem}
 \section{Soundness and completeness}
 \begin{theorem}
   For any derivation $f : S \mid \Gamma \vdash C$, there is a derivation $\mathsf{sound}$ $f : \ldbc S \mid \Gamma \rdbc_{\ot} \Longrightarrow C$.
@@ -867,143 +612,125 @@ Inductive definition of formula $\ldbc \Gamma \mid C \rdbc:{\lolli}$ is from \ci
 \begin{proof}
   Proof of soundness is by induction on $f : S \mid \Gamma \vdash C$.
   We can obtain two repeated application version of adjoint rules $\mathsf{Gadj_1}$ and $\mathsf{Gadj_2}$(we use $\ldbc - \rdbc_{\ot}$ and $\ldbc - \rdbc_{\lolli}$ to indicate the interpretation):
-  \AxiomC{$\ldbc S \mid \Gamma \rdbc_{\ot} \Longrightarrow A$}
-  \RightLabel{$\mathsf{Gadj_1}$}
-  \UnaryInfC{$S \Longrightarrow \ldbc \Gamma \mid C\rdbc_{\lolli}$}
-  \DisplayProof
-  and
-  \AxiomC{$ A \Longrightarrow \ldbc \Gamma \mid C\rdbc_{\lolli}$}
-  \RightLabel{$\mathsf{Gadj_2}$}
-  \UnaryInfC{$\ldbc A \mid \Gamma \rdbc_{\ot} \Longrightarrow C$}
-  \DisplayProof
-
+  \begin{displaymath}
+    \infer[\mathsf{Gadj_1}]{S \Longrightarrow \ldbc \Gamma \mid C\rdbc_{\lolli}}{\ldbc S \mid \Gamma \rdbc_{\ot} \Longrightarrow A}
+    \quad
+    \text{ and }
+    \quad
+    \infer[\mathsf{Gadj_2}]{\ldbc A \mid \Gamma \rdbc_{\ot} \Longrightarrow C}{A \Longrightarrow \ldbc \Gamma \mid C\rdbc_{\lolli}}
+  \end{displaymath}
   We can obtain the soundness proof of $\multimap \mathsf{L}$ immediately.
   For any $f : - \mid \Gamma \vdash A$ and $g : B\mid \Delta \vdash C$:
-  \begin{prooftree}
-  \AxiomC{Lemma 4.3 in \cite{uustalu:sequent:2018}}
-  \UnaryInfC{$\ldbc A\multimap B \mid \Gamma \rdbc_{\ot} \Longrightarrow A\multimap B \otimes \ldbc - \mid \Gamma \rdbc_{\ot}$}
-      \AxiomC{$\mathsf{sound} f$}
-      \noLine
-      \UnaryInfC{$\ldbc - \mid \Gamma \rdbc_{\ot} \Longrightarrow A$}
-             \AxiomC{$\mathsf{sound} g$}
-             \noLine
-             \UnaryInfC{$\ldbc B \mid \Delta \rdbc_{\ot} \Longrightarrow C$}
-             \RightLabel{$\mathsf{Gadj_1}$}
-             \UnaryInfC{$B \Longrightarrow \ldbc \Delta \mid C \rdbc_{\lolli}$}
-          \RightLabel{$\multimap$}
-          \BinaryInfC{$A\multimap B \Longrightarrow \ldbc - \mid \Gamma \rdbc_{\ot} \multimap \ldbc \Delta \mid C\rdbc_{\lolli}$}
-          \RightLabel{$\mathsf{adj_2}$}
-          \UnaryInfC{$\ldbc A\multimap B \otimes \ldbc - \mid \Gamma \rdbc_{\ot} \Longrightarrow \ldbc \Delta \mid C\rdbc_{\lolli}$}
-    \RightLabel{$\mathsf{comp}$}
-    \BinaryInfC{$\ldbc A\multimap B \mid \Gamma \rdbc_{\ot} \Longrightarrow \ldbc \Delta \mid C\rdbc_{\lolli}$}
-          \RightLabel{$\mathsf{Gadj_2}$}
-          \UnaryInfC{$\ldbc A\multimap B \mid \Gamma , \Delta \rdbc_{\ot} \Longrightarrow C$}
-  \end{prooftree}
+  \begin{displaymath}
+    \infer[\mathsf{Gadj_2}]{\ldbc A\multimap B \mid \Gamma , \Delta \rdbc_{\ot} \Longrightarrow C}{
+      \infer{\ldbc A\multimap B \mid \Gamma \rdbc_{\ot} \Longrightarrow \ldbc \Delta \mid C\rdbc_{\lolli}}{
+        \infer{\ldbc A\multimap B \mid \Gamma \rdbc_{\ot} \Longrightarrow A\multimap B \otimes \ldbc - \mid \Gamma \rdbc_{\ot}}{\text{Lemma 4.3 in \cite{uustalu:sequent:2018}}}
+        &
+        \infer{\ldbc A\multimap B \otimes \ldbc - \mid \Gamma \rdbc_{\ot} \Longrightarrow \ldbc \Delta \mid C\rdbc_{\lolli}}{
+          \infer{A\multimap B \Longrightarrow \ldbc - \mid \Gamma \rdbc_{\ot} \multimap \ldbc \Delta \mid C\rdbc_{\lolli}}{
+            \deduce{\ldbc - \mid \Gamma \rdbc_{\ot} \Longrightarrow A}{\mathsf{sound} f}
+            &
+            \infer{B \Longrightarrow \ldbc \Delta \mid C \rdbc_{\lolli}}{
+              \deduce{\ldbc B \mid \Delta \rdbc_{\ot} \Longrightarrow C}{\mathsf{sound} g}
+            }
+          }
+        }
+      }
+    }
+  \end{displaymath}
 \end{proof}
 \begin{theorem}
   (Weak completeness) For any derivation $f : A\Longrightarrow C$, there is a derivation $\mathsf{complt}$ $f : A \mid \quad \vdash C$.
 \end{theorem}
 \begin{proof}
-In previous studies from Uustalu et al. (\cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}), main cases of completenes are proved.
+In previous studies from Uustalu et al. (\cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}), main cases of completeness are proved.
 Therefore, we only have to show new cases in skew monoidal closed categories.
 In particular, new cases are unit, counit, and two adjoint rules.
 \begin{itemize}
   \item (Counit)Case $f = \epsilon : (A\multimap B)\otimes A \Longrightarrow B$. We define:
   \begin{displaymath}
-    \mathsf{complt} \left( \AxiomC{}
-                    \RightLabel{$\epsilon$}
-                    \UnaryInfC{$(A\multimap B)\otimes A \Longrightarrow B$}
-                    \DisplayProof
+    \mathsf{complt} \left(
+                    \infer[\epsilon]{(A\multimap B)\otimes A \Longrightarrow B}{}
                     \right)
                     \quad
-                    =_{\text{df}}
+                    \defeq
                     \quad
-                    \AxiomC{}
-                    \RightLabel{$\mathsf{ax}$}
-                    \UnaryInfC{$A \mid \quad \vdash A$}
-                    \RightLabel{$\mathsf{pass}$}
-                    \UnaryInfC{$- \mid A \vdash A$}
-                                  \AxiomC{}
-                                  \RightLabel{$\mathsf{ax}$}
-                                  \UnaryInfC{$B \mid \quad \vdash B$}
-                            \RightLabel{$\multimap \mathsf{L}$}
-                            \BinaryInfC{$A\multimap B \mid A \vdash B$}
-                            \RightLabel{$\otimes \mathsf{L}$}
-                            \UnaryInfC{$(A\multimap B) \otimes A \mid \quad \vdash B$}
-                    \DisplayProof
+                    \vcenter{
+                    \infer[\tl]{(A\multimap B) \otimes A \mid \quad \vdash B}{
+                      \infer[\lleft]{A\multimap B \mid A \vdash B}{
+                        \infer[\pass]{- \mid A \vdash A}{
+                          \infer[\ax]{A \mid \quad \vdash A}{}
+                        }
+                        &
+                        \infer[\ax]{B \mid \quad \vdash B}{}
+                      }
+                    }
+                    }
   \end{displaymath}
   \item (Unit)Case $f = \eta : A \Longrightarrow B \multimap (A\otimes B)$. We define:
   \begin{displaymath}
-    \mathsf{complt} \left( \AxiomC{}
-                    \RightLabel{$\eta$}
-                    \UnaryInfC{$A \Longrightarrow B \multimap (A\otimes B)$}
-                    \DisplayProof
+    \mathsf{complt} \left(
+                    \infer[\eta]{A \Longrightarrow B \lolli (A \ot B)}{}
                     \right)
                     \quad
                     =_{\text{df}}
                     \quad
-                    \AxiomC{}
-                    \RightLabel{$\mathsf{ax}$}
-                    \UnaryInfC{$A \mid \quad \vdash A$}
-                              \AxiomC{}
-                              \RightLabel{$\mathsf{ax}$}
-                              \UnaryInfC{$B \mid \quad \vdash B$}
-                              \RightLabel{$\mathsf{pass}$}
-                              \UnaryInfC{$- \mid B \vdash B$}
-                          \RightLabel{$\otimes \mathsf{R}$}
-                          \BinaryInfC{$A \mid B \vdash A\otimes B$}
-                          \RightLabel{$\multimap \mathsf{R}$}
-                          \UnaryInfC{$A \mid \quad \vdash B \multimap (A\otimes B)$}
-                    \DisplayProof
+                    \vcenter{
+                    \infer[\multimap \mathsf{R}]{A \mid \quad \vdash B \multimap (A\otimes B)}{
+                      \infer[\tr]{A \mid B \vdash A\otimes B}{
+                        \infer[\ax]{A \mid \quad \vdash A}{}
+                        &
+                        \infer[\pass]{- \mid B \vdash B}{
+                          \infer[\ax]{B \mid \quad \vdash B}{}
+                        }
+                      }
+                    }
+                    }
   \end{displaymath}
 \end{itemize}
 Two adjoint rules need invertibility of $\otimes \mathsf{L}$ and $\multimap \mathsf{R}$ which are proved respectively in \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}.
 \begin{itemize}
   \item Case $f = \mathsf{adj_1}$ $g$ where $g : A\otimes B \Longrightarrow C$. We define:
   \begin{displaymath}
-    \mathsf{complt} \left( \AxiomC{$\vdots$ $g$}
-                           \noLine
-                           \UnaryInfC{$A\otimes B \Longrightarrow C$}
-                           \RightLabel{$\mathsf{adj_1}$}
-                           \UnaryInfC{$A\Longrightarrow B\multimap C$}
-                           \DisplayProof
-                           \right)
+    \mathsf{complt} \left( \vcenter{
+    \infer[\mathsf{adj_1}]{A\Longrightarrow B\multimap C}{
+      \deduce{A\otimes B \Longrightarrow C}{g}
+    }
+    }
+    \right)
                            \quad
                            =_{\text{df}}
                            \quad
-                           \AxiomC{$\vdots$ $\mathsf{complt}$ $g$}
-                           \noLine
-                           \UnaryInfC{$A\otimes B \mid \quad \vdash C$}
-                           \RightLabel{$\otimes \mathsf{L}^{-1}$}
-                           \UnaryInfC{$A \mid B \vdash C$}
-                           \RightLabel{$\multimap \mathsf{R}$}
-                           \UnaryInfC{$A \mid \quad \vdash B \multimap C$}
-                           \DisplayProof
+                           \vcenter{
+                           \infer[\lright]{A \mid \quad \vdash B \multimap C}{
+                            \infer[\tl^{-1}]{A \mid B \vdash C}{
+                              \deduce{A\otimes B \mid \quad \vdash C}{\mathsf{complt} \text{ } g}
+                            }
+                           }
+                           }
   \end{displaymath}
   \item Case $f = \mathsf{adj_2}$ $g$ where $g : A \Longrightarrow B\multimap C$. We define:
   \begin{displaymath}
-    \mathsf{complt} \left( \AxiomC{$\vdots$ $g$}
-                           \noLine
-                           \UnaryInfC{$A \Longrightarrow B\multimap C$}
-                           \RightLabel{$\mathsf{adj_2}$}
-                           \UnaryInfC{$A \otimes B \Longrightarrow C$}
-                           \DisplayProof
+    \mathsf{complt} \left( \vcenter{
+    \infer[\mathsf{adj_2}]{A \otimes B \Longrightarrow C}{
+      \deduce{A \Longrightarrow B\multimap C}{g}
+    }
+    }
                            \right)
                            \quad
                            =_{\text{df}}
                            \quad
-                           \AxiomC{$\vdots$ $\mathsf{complt}$ $g$}
-                           \noLine
-                           \UnaryInfC{$A \mid \quad \vdash B \multimap C$}
-                           \RightLabel{$\multimap \mathsf{R}^{-1}$}
-                           \UnaryInfC{$A \mid B \vdash C$}
-                           \RightLabel{$\otimes \mathsf{L}$}
-                           \UnaryInfC{$A \otimes B \mid \quad \vdash C$}
-                           \DisplayProof
+                           \vcenter{
+                           \infer[\tl]{A \otimes B \mid \quad \vdash C}{
+                            \infer[\lright^{-1}]{A \mid B \vdash C}{
+                              \deduce{A \mid \quad \vdash B \multimap C}{\mathsf{complt} \text{ } g}
+                            }
+                           }
+                           }
   \end{displaymath}
 \end{itemize}
-
 \end{proof}
+\section{Conclusion}
 
   \bibliographystyle{eptcs}
   \bibliography{docRefs}
