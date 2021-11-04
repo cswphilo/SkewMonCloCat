@@ -132,7 +132,7 @@ developed normal forms for skew monoidal (non-closed) categories \cite{uustalu:s
 %% Next section, we will see a focused sequent calculus system and its connection with original sequent calculus system.
 %% We will see that all derivations in a same equivalence class under proof conversion relation, they will correspond to a unique derivation in focused system.
 
-\section{A Sequent Calculus for SkNMILL}
+\section{A Sequent Calculus for Skew Noncommutative MILL}
 In this section, we introduce a skew variant of NMILL, called SkNMILL
 Following the settings from \cite{uustalu:sequent:2018}, \cite{uustalu:deductive:nodate}, and \cite{uustalu:proof:nodate}, the sequent $S \mid \Gamma \vdash A$ in our calculus system splits in three parts.
 Succedent is a single formula $A$, and antecedent is divided into two parts: an optional formula $S$, called \emph{stoup}, and an ordered list of formulae $\Gamma$.
@@ -306,7 +306,7 @@ Two cut rules $\mathsf{scut}$ and $\mathsf{ccut}$
 %%This fact allows us to tackle problems in skew monoidal closed categories by methods in proof theory.
 %%In particular, we will use Andreoli's focusing technique \cite{andreoli:logic:1992} to analyze and solve coherence problem of skew monoidal closed categories.
 
-\section{Categorical semantics of SkNMILL}
+\section{Categorical Semantics via Skew Monoidal Closed Categories}
 In this section we are going to deal with categorical semantics of SkNMILL.
 First we introduce definition of skew monoidal closed categories and construction of free skew monoidal closed category FskMCC($\mathsf{At}$) on set $\mathsf{At}$, a set of atomic formulae.
 We conclude this section by proving soundness and completeness between SkNMILL and FskMCC($\mathsf{At}$).
@@ -899,7 +899,7 @@ Two adjoint rules need invertibility of $\otimes \mathsf{L}$ and $\multimap \mat
 \end{itemize}
 \end{proof}
 
-\section{Focusing}
+\section{Proof-Theoretic Semantics via Focusing}
 The focused sequent calculus here has four phases($\RI , \LI , \Pass$, and $\F$) with  special annotations $\bullet$(tag) on $\vdash$.
 \begin{displaymath}
   \infer[\lright]{S \mid \Gamma \vdash^{x}_{\RI} A \lolli B}{S \mid \Gamma , A^{x} \vdash^{x}_{\RI} B}
