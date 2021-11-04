@@ -27,6 +27,13 @@
 \newtheorem{remark}[theorem]{Remark}
 %\newtheorem*{proof}{Proof : }
 \newtheorem{fact}[theorem]{Fact}
+\makeatletter
+\newsavebox{\@brx}
+\newcommand{\llangle}[1][]{\savebox{\@brx}{\(\m@th{#1\langle}\)}%
+  \mathopen{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\newcommand{\rrangle}[1][]{\savebox{\@brx}{\(\m@th{#1\rangle}\)}%
+  \mathclose{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\makeatother
 \newcommand{\ldbc}{[\![}
 \newcommand{\rdbc}{]\!]}
 \newcommand{\tbar}{[\vec{x}/\vec{t}]}
@@ -170,6 +177,10 @@ Rules of SkNMILL:
   Explain what the rules do, e.g. when read bottom-up, and what are the differences from the non-skew case
 }
 
+In SkNMILL, structural rules (left exchange, contraction, and weakening) are absent and left logical rules are only allowed to apply at the stoup position where could be empty.
+These two features present differences between $A \mid \Gamma$ and $- \mid \Gamma$ which are form of antecedents and perform distinctions with $\I$, $\ot$, $\lolli$ fragment of NMILL.
+Without these essential features, we cannot obtain the correspondence with skew monoidal closed categories.
+
 Let us check some example why SkNMILL characterizes skew monoidal closed categories.
 If we interpret morphism $A \Longrightarrow C$ as a sequent $A \mid \quad \vdash C$, then we can see the natural transformations are derivable in this sequent calculus.
 For example, natural transformations $\lambda : \I \ot A \Longrightarrow A , \rho : A \Longrightarrow A \ot \I$, and $\alpha : (A \ot B) \ot C \Longrightarrow A \ot (B \ot C)$ in skew monoidal closed categories are admissible in SkNMILL:
@@ -229,7 +240,7 @@ Here we define proof equivelences on $\ot$ and $\lolli$ interaction cases:
 \end{align*}
 
 \niccolo{
-We should add all equations, not only the ones about the interaction of monoidal and closed structure. Possibly in a Figure since there are plenty of equations.  
+We should add all equations, not only the ones about the interaction of monoidal and closed structure. Possibly in a Figure since there are plenty of equations.
 }
 
 Next, we check cut-freeness by proving following two cut rules are admissible in the sequent calculus system:
@@ -299,8 +310,40 @@ Two cut rules $\mathsf{scut}$ and $\mathsf{ccut}$
     S \mid \Delta_0, B , \Delta_1 \vdash C
   }
   \]
-  The last one using cut. So we could introduce the definitions of $\ldbc S \mid \Gamma \rdbc_{\ot}$ and $\ldbc \Delta \mid C \rdbc_{\lolli}$ at this point. 
+  The last one using cut. So we could introduce the definitions of $\ldbc S \mid \Gamma \rdbc_{\ot}$ and $\ldbc \Delta \mid C \rdbc_{\lolli}$ at this point.
   }
+  \begin{fact}
+    Folloing rules are admissible in SkNMILL:
+    \begin{displaymath}
+      \infer[\tl^{-1}]{A \mid B, \Gamma \vdash C}{A \ot B \mid \Gamma \vdash C}
+      \qquad
+      \infer[\unitl^{-1}]{- \mid \Gamma \vdash C}{\I \mid \Gamma \vdash C}
+      \qquad
+      \infer[\lright^{-1}]{S \mid \Gamma , A \vdash B}{S \mid \Gamma \vdash A \lolli B}
+    \end{displaymath}
+    \begin{displaymath}
+      \infer{\ldbc S \mid \Gamma \rdbc_{\ot} \mid \Delta \vdash C}{
+        S \mid \Gamma ,\Delta \vdash C
+      }
+      \qquad
+      \infer{S \mid \Gamma \vdash \ldbc \Delta \mid C \rdbc_{\lolli}}{
+        S \mid \Gamma , \Delta \vdash C
+      }
+      \qquad
+      \infer{S \mid \Delta_0, A \lolli B, \Gamma , \Delta_1 \vdash C}{
+        - \mid \Gamma \vdash A
+        &
+        S \mid \Delta_0, B , \Delta_1 \vdash C
+      }
+    \end{displaymath}
+    Inductive definitions of formulae $\ldbc A \mid \Gamma \rdbc_{\ot}$ (defined as $\ldbc S \mid \Gamma \rdbc_{\ot} = \ldbc S \llangle \text{ } \llangle \Gamma \rdbc_{\ot}$) and $\ldbc \Gamma \mid C \rdbc_{\lolli}$ are from \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}, respectively:
+    \begin{align*}
+      \ldbc - \llangle = \I \qquad \ldbc A \llangle = A \quad\qquad A \llangle \text{ } \rdbc_{\ot} = A \qquad A \llangle B , \Gamma \rdbc_{\ot} = (A \ot B ) \llangle \text{ } \Gamma \rdbc_{\ot}
+    \end{align*}
+    \begin{displaymath}
+      \ldbc \quad \mid C \rdbc_{\lolli} = C \qquad \ldbc A , \Gamma \mid C \rdbc_{\lolli} = A \lolli \ldbc \Gamma \mid C \rdbc_{\lolli}
+    \end{displaymath}
+  \end{fact}
 %%We have a cut-free proof theory which characterizes skew monoidal closed categories nicely so far.
 %%According to Curry-Howard-Lambek correspondence, we can interpret morphisms in skew monoidal closed categories as derivations in the sequent calculus system.
 %%This fact allows us to tackle problems in skew monoidal closed categories by methods in proof theory.
@@ -1143,10 +1186,6 @@ We can substantiate statement above by following results.
     }
   \end{displaymath}
 \end{lemma}
-Inductive definition of formula $\ldbc \Gamma \mid C \rdbc_{\lolli}$ is from \cite{uustalu:deductive:nodate}:
-\begin{displaymath}
-  \ldbc \quad \mid C \rdbc_{\lolli} = C \qquad \ldbc A , \Gamma \mid C \rdbc_{\lolli} = A \lolli \ldbc \Gamma \mid C \rdbc_{\lolli}
-\end{displaymath}
 
 $\tr^{\RI}$ is a generalized version of $\tr$.
 We endorse it in order to strengthen inductive hypothesis and make our proof smoothly.
