@@ -53,6 +53,17 @@
 \newcommand{\F}{\mathsf{F}}
 \newcommand{\xvdash}{\vdash^{x}}
 
+\newcommand{\highlight}[1]{\textcolor{blue}{#1}}
+
+%%\newcommand{\tarmo}[1]{}
+%%\newcommand{\niccolo}[1]{}
+%%\newcommand{\cheng}[1]{}
+
+\newcommand{\cheng}[1]{{\color{blue}\textbf{Cheng: }#1}}
+\newcommand{\niccolo}[1]{{\color{red}\textbf{Niccol{\`o}: }#1}}
+\newcommand{\tarmo}[1]{{\color{ForestGreen}\textbf{Tarmo: }#1}}
+
+
 \title{Focusing Skew Monoidal Closed Categories}
 \author{Tarmo Uustalu
 \institute{Reykjavik University, Iceland}
@@ -121,7 +132,7 @@ developed normal forms for skew monoidal (non-closed) categories \cite{uustalu:s
 %% Next section, we will see a focused sequent calculus system and its connection with original sequent calculus system.
 %% We will see that all derivations in a same equivalence class under proof conversion relation, they will correspond to a unique derivation in focused system.
 
-\section{Skew variant of NMILL}
+\section{A Sequent Calculus for SkNMILL}
 In this section, we introduce a skew variant of NMILL, called SkNMILL
 Following the settings from \cite{uustalu:sequent:2018}, \cite{uustalu:deductive:nodate}, and \cite{uustalu:proof:nodate}, the sequent $S \mid \Gamma \vdash A$ in our calculus system splits in three parts.
 Succedent is a single formula $A$, and antecedent is divided into two parts: an optional formula $S$, called \emph{stoup}, and an ordered list of formulae $\Gamma$.
@@ -154,6 +165,10 @@ Rules of SkNMILL:
   \quad
   \infer[\unitr]{- \mid \quad \vdash \I}{}
 \end{displaymath}
+
+\niccolo{
+  Explain what the rules do, e.g. when read bottom-up, and what are the differences from the non-skew case
+}
 
 Let us check some example why SkNMILL characterizes skew monoidal closed categories.
 If we interpret morphism $A \Longrightarrow C$ as a sequent $A \mid \quad \vdash C$, then we can see the natural transformations are derivable in this sequent calculus.
@@ -213,6 +228,10 @@ Here we define proof equivelences on $\ot$ and $\lolli$ interaction cases:
   \lleft \text{ } (f, \tr \text{ } (g, h)) &\circeq \tr \text{ } (\lleft \text{ } (f , g), h) &&f: - \mid \Gamma \vdash A, g : B \mid \Delta \vdash C, h : - \mid \Lambda \vdash D
 \end{align*}
 
+\niccolo{
+We should add all equations, not only the ones about the interaction of monoidal and closed structure. Possibly in a Figure since there are plenty of equations.  
+}
+
 Next, we check cut-freeness by proving following two cut rules are admissible in the sequent calculus system:
 \begin{theorem}
 Two cut rules $\mathsf{scut}$ and $\mathsf{ccut}$
@@ -260,8 +279,28 @@ Two cut rules $\mathsf{scut}$ and $\mathsf{ccut}$
     where $g : A' \mid B' , \Delta_0 , A , \Delta_1 \vdash C$, $h : S \mid \Delta_0 , A , \Delta_1 , A' \vdash B'$.
   \end{enumerate}
 \end{proof}
+\niccolo{The above proof is interesting, but also quite long. We could move this to the Appendix if we need to make some room in the main text.
+}
 
-
+\niccolo{
+  We should mention (in a Proposition?) that some other rules are admissible: inverses of $\unitl$, $\tl$ and $\lright$ (and these are the only invertible ones, in particular $\pass$ is not invertible), and also:
+  \[
+  \infer{\ldbc S \mid \Gamma \rdbc_{\ot} \mid \Delta \vdash C}{
+    S \mid \Gamma ,\Delta \vdash C
+  }
+  \qquad
+  \infer{S \mid \Gamma \vdash \ldbc \Delta \mid C \rdbc_{\lolli}}{
+    S \mid \Gamma , \Delta \vdash C
+  }
+  \qquad
+  \infer{S \mid \Delta_0, A \lolli B, \Gamma , \Delta_1 \vdash C}{
+    - \mid \Gamma \vdash A
+    &
+    S \mid \Delta_0, B , \Delta_1 \vdash C
+  }
+  \]
+  The last one using cut. So we could introduce the definitions of $\ldbc S \mid \Gamma \rdbc_{\ot}$ and $\ldbc \Delta \mid C \rdbc_{\lolli}$ at this point. 
+  }
 %%We have a cut-free proof theory which characterizes skew monoidal closed categories nicely so far.
 %%According to Curry-Howard-Lambek correspondence, we can interpret morphisms in skew monoidal closed categories as derivations in the sequent calculus system.
 %%This fact allows us to tackle problems in skew monoidal closed categories by methods in proof theory.
@@ -492,6 +531,19 @@ Notice that morphism $(A \ot \I) \lolli B \Longrightarrow A \lolli (\I \lolli B)
 In general, this facts means that we \emph{cannot} internalize both directions of  adjunction bijection in a skew monoidal closed category.
 It requires our skew category to at least be associative normal, which means that natural transformation $\alpha$ is an isomorhphism, then we can internalize both directions of adjunction bijection.
 
+\niccolo{
+I don't think we should give the definition of skew monoidal closed category using all these structural laws and equations, since we know that it can be done with much less (and all this structure takes a lot of room!). I suggest following the definition given in \cite{uustalu:eilenberg-kelly:2020}, using $\lambda$, $\rho$ and $\alpha$ (it is enough to state that there is an adjunction, no need to show $\eta/\epsilon$ nor $p/\mathsf{M}$). Afterwards we can comment on the fact that the definition can equivalently be stated using $i$, $j$ and $L$, and that the adjunction cannot be generally internalized.
+}
+
+\niccolo{
+I suggest following the discussion in the introduction and proceed as follows:
+\begin{enumerate}
+\item The sequent calculus defines a skew monoidal closed category FSkMCC($\mathsf{At}$) with formulae as objects and set of derivations $A \mid ~ \vdash B$ quotiented by $\circeq$ as homset between objects $A$ and $B$. We already mentioned in the previous section the definitions of $\lambda$, $\rho$ and $\alpha$, I am not sure if that discussion should be moved here.
+\item Given a skew monoidal closed category $\mathbb{C}$, every function $F_{\mathsf{At}} : \mathsf{At} \to \mathbb{C}$, giving an interpretation of atomic formulae as objects of $\mathbb{C}$, extends to a skew monoidal closed functor $F :$ FSkMCC$(\mathsf{At}) \to \mathbb{C}$ (then we should give the definition of skew monoidal closed functor beforehand). This shows that skew monoidal closed categories are categorical models of SkNMILL.
+\item FSkMCC($\mathsf{At}$) is the initial model, a.k.a. the free skew monoidal closed category on $\mathsf{At}$. The proof of this calculus is where we should introduce the Hilbert-style calculus (again with a reduced number of rules/equations). Theorem \ref{thm:wkcomplete} is a consequence of point 1 above, i.e. FSkMCC($\mathsf{At}$) is a skew monoidal closed category. Theorem  \ref{thm:sound} instead follows from point 2.
+\end{enumerate}
+}
+
 Give a set $\mathsf{At}$ which contains countably infinite atomic formulae, we can generate a free skew monoidal closed category according to following rules:
 \begin{displaymath}
     \infer[\id]{A \Longrightarrow A}{}
@@ -635,7 +687,7 @@ We show soundness by induction on derivations in sequent calculus.
 Notice that soundness of skew monoidal categories and skew closed categories are proved respectively in \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}.
 However, there are two different ways to interpret sequents in these two papers.
 We pick the interpretation in \cite{uustalu:sequent:2018} and show that soundness of $\lleft$ and $\lright$ also hold.
-\begin{theorem}
+\begin{theorem}\label{thm:sound}
   (Soundness)For any derivation $f : S \mid \Gamma \vdash C$, there is a derivation $\mathsf{sound}$ $f : \ldbc S \mid \Gamma \rdbc_{\ot} \Longrightarrow C$.
 \end{theorem}
 \begin{proof}
@@ -698,7 +750,7 @@ We pick the interpretation in \cite{uustalu:sequent:2018} and show that soundnes
   }
   \end{displaymath}
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:wkcomplete}
   (Weak completeness) For any derivation $f : A\Longrightarrow C$, there is a derivation $\mathsf{complt}$ $f : A \mid \quad \vdash C$.
 \end{theorem}
 \begin{proof}
