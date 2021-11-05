@@ -25,6 +25,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{defn}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
 %\newtheorem*{proof}{Proof : }
 \newtheorem{fact}[theorem]{Fact}
 \makeatletter
@@ -139,46 +140,48 @@ developed normal forms for skew monoidal (non-closed) categories \cite{uustalu:s
 %% Next section, we will see a focused sequent calculus system and its connection with original sequent calculus system.
 %% We will see that all derivations in a same equivalence class under proof conversion relation, they will correspond to a unique derivation in focused system.
 
-\section{A Sequent Calculus for Skew Noncommutative MILL}
+\section{A Sequent Calculus for Skew Noncommutative MILL}\label{sec2}
 In this section, we introduce a skew variant of NMILL, called SkNMILL
 Following the settings from \cite{uustalu:sequent:2018}, \cite{uustalu:deductive:nodate}, and \cite{uustalu:proof:nodate}, the sequent $S \mid \Gamma \vdash A$ in our calculus system splits in three parts.
 Succedent is a single formula $A$, and antecedent is divided into two parts: an optional formula $S$, called \emph{stoup}, and an ordered list of formulae $\Gamma$.
-
-Rules of SkNMILL:
-\begin{displaymath}
-  \infer[\pass]{- \mid A , \Gamma \vdash C}{A \mid \Gamma \vdash C}
-  \quad
-  \infer[\unitl]{\I \mid \Gamma \vdash C}{- \mid \Gamma \vdash C}
-  \quad
-  \infer[\tl]{A \ot B \mid \Gamma \vdash C}{A \mid B , \Gamma \vdash C}
-\end{displaymath}
-\begin{displaymath}
-  \infer[\tr]{S \mid \Gamma , \Delta \vdash A \ot B}{
-    S \mid \Gamma \vdash A
-    &
-    - \mid \Delta \vdash B
-  }
-  \quad
-  \infer[\lleft]{A \lolli B \mid \Gamma , \Delta \vdash C}{
-    - \mid \Gamma \vdash A
-    &
-    B \mid \Delta \vdash C
+\begin{defn}
+  \emph{SkNMILL} is a sequent calculus system whose sequents are in the form of $S \mid \Gamma \vdash A$ coustructed with following rules
+  \begin{displaymath}
+    \infer[\pass]{- \mid A , \Gamma \vdash C}{A \mid \Gamma \vdash C}
+    \quad
+    \infer[\unitl]{\I \mid \Gamma \vdash C}{- \mid \Gamma \vdash C}
+    \quad
+    \infer[\tl]{A \ot B \mid \Gamma \vdash C}{A \mid B , \Gamma \vdash C}
+  \end{displaymath}
+  \begin{displaymath}
+    \infer[\tr]{S \mid \Gamma , \Delta \vdash A \ot B}{
+      S \mid \Gamma \vdash A
+      &
+      - \mid \Delta \vdash B
     }
-\end{displaymath}
-\begin{displaymath}
-  \infer[\lright]{S \mid \Gamma \vdash A \lolli B}{S \mid \Gamma , A \vdash B}
-  \quad
-  \infer[\ax]{A \mid \quad \vdash A}{}
-  \quad
-  \infer[\unitr]{- \mid \quad \vdash \I}{}
-\end{displaymath}
+    \quad
+    \infer[\lleft]{A \lolli B \mid \Gamma , \Delta \vdash C}{
+      - \mid \Gamma \vdash A
+      &
+      B \mid \Delta \vdash C
+      }
+  \end{displaymath}
+  \begin{displaymath}
+    \infer[\lright]{S \mid \Gamma \vdash A \lolli B}{S \mid \Gamma , A \vdash B}
+    \quad
+    \infer[\ax]{A \mid \quad \vdash A}{}
+    \quad
+    \infer[\unitr]{- \mid \quad \vdash \I}{}
+  \end{displaymath}
+\end{defn}
 
-\niccolo{
-  Explain what the rules do, e.g. when read bottom-up, and what are the differences from the non-skew case
-}
+
+%\niccolo{
+%  Explain what the rules do, e.g. when read bottom-up, and what are the differences from the non-skew case
+%}
 
 In SkNMILL, structural rules (left exchange, contraction, and weakening) are absent and left logical rules are only allowed to apply at the stoup position where could be empty.
-These two features present differences between $A \mid \Gamma$ and $- \mid \Gamma$ which are form of antecedents and perform distinctions with $\I$, $\ot$, $\lolli$ fragment of NMILL.
+These two features help us to distinguish two different antecedents $A \mid \Gamma$ and $- \mid \Gamma$ and perform differences with $\I$, $\ot$, $\lolli$ fragment of NMILL.
 Without these essential features, we cannot obtain the correspondence with skew monoidal closed categories.
 
 Let us check some example why SkNMILL characterizes skew monoidal closed categories.
@@ -227,11 +230,27 @@ For example, $\rho^{-1}$ is not derivable in SkNMILL:
 We interpret $\rho^{-1}$ into $A \ot \I \mid \quad \vdash A$, then according to bottom-up proof search strategy, we first apply $\tl$ but we get stuck immediately.
 Therefore, $\rho^{-1}$ is not derivable in our sequent calculus.
 Other cases are similar.
-In categorical semantics section we will see more details about relationship between SkNMILL and skew monoidal closed categories.
+In categorical semantics section we will see more details about relationship between SkNMILL and free skew monoidal closed categories.
 
-In \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}, Uustalu et al. provided proof equivalences between $\ot$ only and $\lolli$ only systems respectively.
-Here we define proof equivelences on $\ot$ and $\lolli$ interaction cases:
+Notice that derivations in SkNMILL are quotiented by an equivelence relation $\circeq$ defiend as following.
+Based on equivalence equations originated from \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}, we add $tr$ and $\lleft$ interaction case to characterize skew monoidal closed categories nicely.
 \begin{align*}
+  \ax_{\I} &\circeq \unitl \text{ } (\unitr)
+  \\
+  \ax_{A \ot B} &\circeq \tl \text{ } (\tr \text{ } (\ax_{A} , \pass \text{ } \ax_{B}))
+  \\
+  \ax_{A \lolli B} &\circeq \lright \text{ } (\lleft \text{ } (\pass \text{ } \ax_{A}, \ax_{B} ))
+  \\
+  \tr \text{ } (\pass \text{ } f, g) &\circeq \pass \text{ } (\tr \text{ } (f, g)) &&f : A' \mid \Gamma \vdash A, g : - \mid \Delta \vdash B
+  \\
+  \tr \text{ } (\unitl \text{ } f, g) &\circeq \unitl \text{ } (\tr \text{ } (f , g)) &&f : - \mid \Gamma \vdash A , g : - \mid \Delta \vdash B
+  \\
+  \tr \text{ } (\tl \text{ } f, g) &\circeq \tl \text{ } (\tr \text{ } (f , g)) &&f : A' \mid B' , \Gamma \vdash A , g : - \mid \Delta \vdash B
+  \\
+  \pass \text{ } (\lright \text{ } f) &\circeq \lright \text{ } (\pass \text{ } f) &&f : A' \mid \Gamma , A \vdash B
+  \\
+  \lleft \text{ } (f, \lright \text{ } g) &\circeq \lright \text{ } (\lleft \text{ } (f, g)) &&f : - \mid \Gamma \vdash A', g : B' \mid \Delta , A \vdash B
+  \\
   \unitl \text{ } (\lright \text{ } f) &\circeq \lright \text{ } (\unitl \text{ } f) &&f : - \mid \Gamma , A \vdash B
   \\
   \tl \text{ } (\lright \text{ } f) &\circeq \lright \text{ } (\tl \text{ } f) &&f : A \mid B , \Gamma , C \vdash D
@@ -239,9 +258,43 @@ Here we define proof equivelences on $\ot$ and $\lolli$ interaction cases:
   \lleft \text{ } (f, \tr \text{ } (g, h)) &\circeq \tr \text{ } (\lleft \text{ } (f , g), h) &&f: - \mid \Gamma \vdash A, g : B \mid \Delta \vdash C, h : - \mid \Lambda \vdash D
 \end{align*}
 
-\niccolo{
-We should add all equations, not only the ones about the interaction of monoidal and closed structure. Possibly in a Figure since there are plenty of equations.
-}
+%\niccolo{
+%We should add all equations, not only the ones about the interaction of monoidal and closed structure. Possibly in a Figure since there are plenty of equations.
+%}
+
+There are some useful rules are admissible in SkNMILL.
+\begin{remark}
+  Following rules are admissible in SkNMILL:
+  \begin{displaymath}
+    \infer[\tl^{-1}]{A \mid B, \Gamma \vdash C}{A \ot B \mid \Gamma \vdash C}
+    \qquad
+    \infer[\unitl^{-1}]{- \mid \Gamma \vdash C}{\I \mid \Gamma \vdash C}
+    \qquad
+    \infer[\lright^{-1}]{S \mid \Gamma , A \vdash B}{S \mid \Gamma \vdash A \lolli B}
+  \end{displaymath}
+  \begin{displaymath}
+    \infer{\ldbc S \mid \Gamma \rdbc_{\ot} \mid \Delta \vdash C}{
+      S \mid \Gamma ,\Delta \vdash C
+    }
+    \qquad
+    \infer{S \mid \Gamma \vdash \ldbc \Delta \mid C \rdbc_{\lolli}}{
+      S \mid \Gamma , \Delta \vdash C
+    }
+    \qquad
+    \infer{S \mid \Delta_0, A \lolli B, \Gamma , \Delta_1 \vdash C}{
+      - \mid \Gamma \vdash A
+      &
+      S \mid \Delta_0, B , \Delta_1 \vdash C
+    }
+  \end{displaymath}
+  Inductive definitions of formulae $\ldbc A \mid \Gamma \rdbc_{\ot}$ (defined as $\ldbc S \mid \Gamma \rdbc_{\ot} = \ldbc S \llangle \text{ } \llangle \Gamma \rdbc_{\ot}$) and $\ldbc \Gamma \mid C \rdbc_{\lolli}$ are originated from \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate} respectively:
+  \begin{align*}
+    \ldbc - \llangle = \I \qquad \ldbc A \llangle = A \quad\qquad A \llangle \text{ } \rdbc_{\ot} = A \qquad A \llangle B , \Gamma \rdbc_{\ot} = (A \ot B ) \llangle \text{ } \Gamma \rdbc_{\ot}
+  \end{align*}
+  \begin{displaymath}
+    \ldbc \quad \mid C \rdbc_{\lolli} = C \qquad \ldbc A , \Gamma \mid C \rdbc_{\lolli} = A \lolli \ldbc \Gamma \mid C \rdbc_{\lolli}
+  \end{displaymath}
+\end{remark}
 
 Next, we check cut-freeness by proving following two cut rules are admissible in the sequent calculus system:
 \begin{theorem}
@@ -290,93 +343,56 @@ Two cut rules $\mathsf{scut}$ and $\mathsf{ccut}$
     where $g : A' \mid B' , \Delta_0 , A , \Delta_1 \vdash C$, $h : S \mid \Delta_0 , A , \Delta_1 , A' \vdash B'$.
   \end{enumerate}
 \end{proof}
-\niccolo{The above proof is interesting, but also quite long. We could move this to the Appendix if we need to make some room in the main text.
-}
+SkNMILL is a cut-free calculus so we are in a good shape and could discuss more about its correspondence with categorical structures.
+%\niccolo{The above proof is interesting, but also quite long. We could move this to the Appendix if we need to make some room in the main text.
+%}
 
-\niccolo{
-  We should mention (in a Proposition?) that some other rules are admissible: inverses of $\unitl$, $\tl$ and $\lright$ (and these are the only invertible ones, in particular $\pass$ is not invertible), and also:
-  \[
-  \infer{\ldbc S \mid \Gamma \rdbc_{\ot} \mid \Delta \vdash C}{
-    S \mid \Gamma ,\Delta \vdash C
-  }
-  \qquad
-  \infer{S \mid \Gamma \vdash \ldbc \Delta \mid C \rdbc_{\lolli}}{
-    S \mid \Gamma , \Delta \vdash C
-  }
-  \qquad
-  \infer{S \mid \Delta_0, A \lolli B, \Gamma , \Delta_1 \vdash C}{
-    - \mid \Gamma \vdash A
-    &
-    S \mid \Delta_0, B , \Delta_1 \vdash C
-  }
-  \]
-  The last one using cut. So we could introduce the definitions of $\ldbc S \mid \Gamma \rdbc_{\ot}$ and $\ldbc \Delta \mid C \rdbc_{\lolli}$ at this point.
-  }
-  \begin{fact}
-    Folloing rules are admissible in SkNMILL:
-    \begin{displaymath}
-      \infer[\tl^{-1}]{A \mid B, \Gamma \vdash C}{A \ot B \mid \Gamma \vdash C}
-      \qquad
-      \infer[\unitl^{-1}]{- \mid \Gamma \vdash C}{\I \mid \Gamma \vdash C}
-      \qquad
-      \infer[\lright^{-1}]{S \mid \Gamma , A \vdash B}{S \mid \Gamma \vdash A \lolli B}
-    \end{displaymath}
-    \begin{displaymath}
-      \infer{\ldbc S \mid \Gamma \rdbc_{\ot} \mid \Delta \vdash C}{
-        S \mid \Gamma ,\Delta \vdash C
-      }
-      \qquad
-      \infer{S \mid \Gamma \vdash \ldbc \Delta \mid C \rdbc_{\lolli}}{
-        S \mid \Gamma , \Delta \vdash C
-      }
-      \qquad
-      \infer{S \mid \Delta_0, A \lolli B, \Gamma , \Delta_1 \vdash C}{
-        - \mid \Gamma \vdash A
-        &
-        S \mid \Delta_0, B , \Delta_1 \vdash C
-      }
-    \end{displaymath}
-    Inductive definitions of formulae $\ldbc A \mid \Gamma \rdbc_{\ot}$ (defined as $\ldbc S \mid \Gamma \rdbc_{\ot} = \ldbc S \llangle \text{ } \llangle \Gamma \rdbc_{\ot}$) and $\ldbc \Gamma \mid C \rdbc_{\lolli}$ are from \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}, respectively:
-    \begin{align*}
-      \ldbc - \llangle = \I \qquad \ldbc A \llangle = A \quad\qquad A \llangle \text{ } \rdbc_{\ot} = A \qquad A \llangle B , \Gamma \rdbc_{\ot} = (A \ot B ) \llangle \text{ } \Gamma \rdbc_{\ot}
-    \end{align*}
-    \begin{displaymath}
-      \ldbc \quad \mid C \rdbc_{\lolli} = C \qquad \ldbc A , \Gamma \mid C \rdbc_{\lolli} = A \lolli \ldbc \Gamma \mid C \rdbc_{\lolli}
-    \end{displaymath}
-  \end{fact}
+%\niccolo{
+%  We should mention (in a Proposition?) that some other rules are admissible: inverses of $\unitl$, $\tl$ and $\lright$ (and these are the only invertible ones, in particular $\pass$ is not invertible), and also:
+%  \[
+%  \infer{\ldbc S \mid \Gamma \rdbc_{\ot} \mid \Delta \vdash C}{
+%    S \mid \Gamma ,\Delta \vdash C
+%  }
+%  \qquad
+%  \infer{S \mid \Gamma \vdash \ldbc \Delta \mid C \rdbc_{\lolli}}{
+%    S \mid \Gamma , \Delta \vdash C
+%  }
+%  \qquad
+%    - \mid \Gamma \vdash A
+%    &
+%    S \mid \Delta_0, B , \Delta_1 \vdash C
+%  }
+%  \]
+%  The last one using cut. So we could introduce the definitions of $\ldbc S \mid \Gamma \rdbc_{\ot}$ and $\ldbc \Delta \mid C \rdbc_{\lolli}$ at this point.
+%  }
+
 %%We have a cut-free proof theory which characterizes skew monoidal closed categories nicely so far.
 %%According to Curry-Howard-Lambek correspondence, we can interpret morphisms in skew monoidal closed categories as derivations in the sequent calculus system.
 %%This fact allows us to tackle problems in skew monoidal closed categories by methods in proof theory.
 %%In particular, we will use Andreoli's focusing technique \cite{andreoli:logic:1992} to analyze and solve coherence problem of skew monoidal closed categories.
 
 \section{Categorical Semantics via Skew Monoidal Closed Categories}
-In this section we are going to deal with categorical semantics of SkNMILL.
-First we introduce definition of skew monoidal closed categories and construction of free skew monoidal closed category FskMCC($\mathsf{At}$) on set $\mathsf{At}$, a set of atomic formulae.
-We conclude this section by proving soundness and completeness between SkNMILL and FskMCC($\mathsf{At}$).
 
-A $skew$ $monoidal$ $closed$ $category$ is a category $\mathbb{C}$ equipped with a unit $\mathsf{I}$, two adjoint functors $- \ot B : \mathbb{C} \longrightarrow \mathbb{C}$ and $B \lolli - : \mathbb{C} \longrightarrow \mathbb{C}$
-, $- \ot B  \dashv B \lolli -$, and eight natural transformations
+
+%\niccolo{
+%I don't think we should give the definition of skew monoidal closed category using all these structural laws and equations, since we know that it can be done with much less (and all this structure takes a lot of room!). I suggest following the definition given in \cite{uustalu:eilenberg-kelly:2020}, using $\lambda$, $\rho$ and $\alpha$ (it is enough to state that there is an adjunction, no need to show $\eta/\epsilon$ nor $p/\mathsf{M}$). Afterwards we can comment on the fact that the definition can equivalently be stated using $i$, $j$ and $L$, and that the adjunction cannot be generally internalized.
+%}
+
+%\niccolo{
+%I suggest following the discussion in the introduction and proceed as follows:
+%\begin{enumerate}
+%\item The sequent calculus defines a skew monoidal closed category FSkMCC($\mathsf{At}$) with formulae as objects and set of derivations $A \mid ~ \vdash B$ quotiented by $\circeq$ as homset between objects $A$ and $B$. We already mentioned in the previous section the definitions of $\lambda$, $\rho$ and $\alpha$, I am not sure if that discussion should be moved here.
+%\item Given a skew monoidal closed category $\mathbb{C}$, every function $F_{\mathsf{At}} : \mathsf{At} \to \mathbb{C}$, giving an interpretation of atomic formulae as objects of $\mathbb{C}$, extends to a skew monoidal closed functor $F :$ FSkMCC$(\mathsf{At}) \to \mathbb{C}$ (then we should give the definition of skew monoidal closed functor beforehand). This shows that skew monoidal closed categories are categorical models of SkNMILL.
+%\item FSkMCC($\mathsf{At}$) is the initial model, a.k.a. the free skew monoidal closed category on $\mathsf{At}$. The proof of this calculus is where we should introduce the Hilbert-style calculus (again with a reduced number of rules/equations). Theorem \ref{thm:wkcomplete} is a consequence of point 1 above, i.e. FSkMCC($\mathsf{At}$) is a skew monoidal closed category. Theorem  \ref{thm:sound} instead follows from point 2.
+%\end{enumerate}
+%}
+\begin{defn}
+A \emph{skew monoidal closed category} $\mathbb{C}$ is a category with a unit $\I$, and two functors $\ot : \mathbb{C} \times \mathbb{C} \rightarrow \mathbb{C}$ and $\lolli : \mathbb{C}^{\mathsf{op}} \times \mathbb{C} \rightarrow \mathbb{C}$, with an adjunction $- \ot B \dashv B \lolli -$ natural in $B$,
+and three natural transfomations
 \begin{displaymath}
-  \lambda_A : \mathsf{I} \otimes A \Longrightarrow A \qquad
-  \rho_A : A \Longrightarrow A \otimes \mathsf{I} \qquad
-  \alpha_{A,B,C} : (A\otimes B) \otimes C \Longrightarrow A\otimes (B\otimes C)
+  \lambda : \I \ot A \Longrightarrow A \qquad \rho : A \Longrightarrow A \ot \I \qquad \alpha : (A \ot B) \ot C \Longrightarrow A \ot (B \ot C)
 \end{displaymath}
-\begin{displaymath}
-  i_A : \I \lolli A \Longrightarrow A \qquad
-  j_A : \I \Longrightarrow A \lolli A \qquad
-  \msfL_{A, B, C} : B \lolli C \Longrightarrow (A \lolli B) \lolli (A \lolli C)
-\end{displaymath}
-\begin{displaymath}
-  \eta_{A , B} : A \Longrightarrow B \lolli (A \ot B)
-  \qquad
-  \epsilon_{A , B} : (A \lolli B) \ot A \Longrightarrow B
-  \qquad
-  p_{A, B , C} : (A \ot B) \lolli C \Longrightarrow A \lolli (B \lolli C)
-\end{displaymath}
-\begin{displaymath}
-  \mathsf{M}_{A , B ,C} : (B \lolli C) \ot (A \lolli B) \Longrightarrow A \lolli C
-\end{displaymath}
-satisfying following eighteen equations (m1)-(m5), (c1)-(c5), and (a1)-(a8).
+satisfying following Mac Lane axioms (m1)-(m5)
 \begin{center}
   (m1)
   % https://q.uiver.app/?q=WzAsMyxbMSwwLCJcXEkgXFxvdCBcXEkiXSxbMCwxLCJcXEkiXSxbMiwxLCJcXEkiXSxbMSwwLCJcXHJob197XFxJfSJdLFswLDIsIlxcbGFtYmRhX3tcXEl9Il0sWzEsMiwiIiwyLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
@@ -430,282 +446,124 @@ satisfying following eighteen equations (m1)-(m5), (c1)-(c5), and (a1)-(a8).
 	\arrow["{\alpha_{A , B ,C} \ot D}", from=2-1, to=1-1]
 \end{tikzcd}
 \end{center}
-\begin{center}
-  (c1)
-  % https://q.uiver.app/?q=WzAsMyxbMSwwLCJcXEkgXFxsb2xsaSBcXEkiXSxbMCwxLCJcXEkiXSxbMiwxLCJcXEkiXSxbMSwyLCIiLDAseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxLDAsImpfe1xcSX0iXSxbMCwyLCJpX3tcXEl9Il1d
-\begin{tikzcd}
-	& {\I \lolli \I} \\
-	\I && \I
-	\arrow[Rightarrow, no head, from=2-1, to=2-3]
-	\arrow["{j_{\I}}", from=2-1, to=1-2]
-	\arrow["{i_{\I}}", from=1-2, to=2-3]
-\end{tikzcd}
-(c2)
-% https://q.uiver.app/?q=WzAsNCxbMCwwLCJBXFxsb2xsaSBDIl0sWzMsMCwiKEEgXFxsb2xsaSBBKSBcXGxvbGxpIChBIFxcbG9sbGkgQykiXSxbMywxLCJcXEkgXFxsb2xsaSAoQSBcXGxvbGxpIEMpIl0sWzAsMSwiQSBcXGxvbGxpIEMiXSxbMCwxLCJcXG1zZkxfe0EgLCBBICxDfSJdLFsxLDIsImpfQSBcXGxvbGxpIChBIFxcbG9sbGkgQykiXSxbMiwzLCJpX3tBIFxcbG9sbGkgQ30iXSxbMywwLCIiLDAseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
-\begin{tikzcd}
-	{A\lolli C} &&& {(A \lolli A) \lolli (A \lolli C)} \\
-	{A \lolli C} &&& {\I \lolli (A \lolli C)}
-	\arrow["{\msfL_{A , A ,C}}", from=1-1, to=1-4]
-	\arrow["{j_A \lolli (A \lolli C)}", from=1-4, to=2-4]
-	\arrow["{i_{A \lolli C}}", from=2-4, to=2-1]
-	\arrow[Rightarrow, no head, from=2-1, to=1-1]
-\end{tikzcd}
-
-(c3)
-% https://q.uiver.app/?q=WzAsMyxbMCwwLCJCIFxcbG9sbGkgQiJdLFsyLDAsIihBIFxcbG9sbGkgQikgXFxsb2xsaSAoQSBcXGxvbGxpIEIpIl0sWzEsMSwiXFxJIl0sWzAsMSwiXFxtc2ZMX3tBICxCICwgQn0iXSxbMiwxLCJqX3tBIFxcbG9sbGkgQn0iLDJdLFsyLDAsImpfQiJdXQ==
-\begin{tikzcd}
-	{B \lolli B} && {(A \lolli B) \lolli (A \lolli B)} \\
-	& \I
-	\arrow["{\msfL_{A ,B , B}}", from=1-1, to=1-3]
-	\arrow["{j_{A \lolli B}}"', from=2-2, to=1-3]
-	\arrow["{j_B}", from=2-2, to=1-1]
-\end{tikzcd}
-
-(c4)
-% https://q.uiver.app/?q=WzAsMyxbMCwwLCJCXFxsb2xsaSBDIl0sWzIsMCwiKFxcSSBcXGxvbGxpIEIpIFxcbG9sbGkgKFxcSSBcXGxvbGxpIEMpIl0sWzEsMSwiKFxcSSBcXGxvbGxpIEIpIFxcbG9sbGkgQyJdLFswLDEsIlxcbXNmTF97XFxJICwgQiAsQ30iXSxbMSwyLCIoXFxJIFxcbG9sbGkgQikgXFxsb2xsaSBpX3tDfSJdLFswLDIsImlfe0J9IFxcbG9sbGkgQyIsMl1d
-\begin{tikzcd}
-	{B\lolli C} && {(\I \lolli B) \lolli (\I \lolli C)} \\
-	& {(\I \lolli B) \lolli C}
-	\arrow["{\msfL_{\I , B ,C}}", from=1-1, to=1-3]
-	\arrow["{(\I \lolli B) \lolli i_{C}}", from=1-3, to=2-2]
-	\arrow["{i_{B} \lolli C}"', from=1-1, to=2-2]
-\end{tikzcd}
-
-(c5)
-% https://q.uiver.app/?q=WzAsNSxbMCwwLCJDIFxcbG9sbGkgRCJdLFsyLDAsIihBIFxcbG9sbGkgQykgXFxsb2xsaSAoQSBcXGxvbGxpIEQpIl0sWzIsMSwiKChBIFxcbG9sbGkgQikgXFxsb2xsaSAoQSBcXGxvbGxpIEMpKSBcXGxvbGxpICgoQSBcXGxvbGxpIEIpIFxcbG9sbGkgKEEgXFxsb2xsaSBEKSkiXSxbMiwyLCIoQiBcXGxvbGxpIEMpIFxcbG9sbGkgKChBIFxcbG9sbGkgQikgXFxsb2xsaSAoQSBcXGxvbGxpIEQpKSJdLFswLDIsIihCXFxsb2xsaSBDKSBcXGxvbGxpIChCIFxcbG9sbGkgRCkiXSxbMCwxLCJcXG1zZkxfe0EgLCBDICwgRH0iXSxbMSwyLCJcXG1zZkxfe0FcXGxvbGxpIEIgLCBBIFxcbG9sbGkgQyAsIEEgXFxsb2xsaSBEfSJdLFsyLDMsIlxcbXNmTF97QSwgQiwgQ30gXFxsb2xsaSAoKEEgXFxsb2xsaSBCKSBcXGxvbGxpIChBIGxvbGxpIEQpKSJdLFs0LDMsIihCIFxcbG9sbGkgQykgXFxsb2xsaSBcXG1zZkxfe0EgLCBCICxEfSIsMl0sWzAsNCwiXFxtc2ZMX3tCICwgQyAsRH0iLDJdXQ==
-\begin{tikzcd}
-	{C \lolli D} && {(A \lolli C) \lolli (A \lolli D)} \\
-	&& {((A \lolli B) \lolli (A \lolli C)) \lolli ((A \lolli B) \lolli (A \lolli D))} \\
-	{(B\lolli C) \lolli (B \lolli D)} && {(B \lolli C) \lolli ((A \lolli B) \lolli (A \lolli D))}
-	\arrow["{\msfL_{A , C , D}}", from=1-1, to=1-3]
-	\arrow["{\msfL_{A\lolli B , A \lolli C , A \lolli D}}", from=1-3, to=2-3]
-	\arrow["{\msfL_{A, B, C} \lolli ((A \lolli B) \lolli (A \lolli D))}", from=2-3, to=3-3]
-	\arrow["{(B \lolli C) \lolli \msfL_{A , B ,D}}"', from=3-1, to=3-3]
-	\arrow["{\msfL_{B , C ,D}}"', from=1-1, to=3-1]
-\end{tikzcd}
-\end{center}
-\begin{center}
-  (a1)
-  % https://q.uiver.app/?q=WzAsNSxbMCwwLCIoQSBcXG90IChCIFxcb3QgQykpIFxcbG9sbGkgRCJdLFsyLDAsIkEgXFxsb2xsaSAoKEIgXFxvdCBDKSBcXGxvbGxpIEQpIl0sWzIsMSwiQSBcXGxvbGxpIChCIFxcbG9sbGkgKEMgXFxsb2xsaSBEKSkiXSxbMCwxLCIoKEEgXFxvdCBCKSBcXG90IEMpIFxcbG9sbGkgRCJdLFsxLDEsIihBIFxcb3QgQikgXFxsb2xsaSAoQyBcXGxvbGxpIEQpIl0sWzAsMSwicF97QSAsIEIgXFxvdCBDICwgRH0iXSxbMSwyLCJcXGlkIFxcbG9sbGkgcF97QiAsIEMgLER9Il0sWzAsMywiXFxhbHBoYV97QSAsIEIgLCBDfSBcXGxvbGxpIFxcaWQiLDJdLFszLDQsInBfe0EgXFxvdCBCICwgQyAsIER9IiwyXSxbNCwyLCJwX3tBICwgQiAsIEMgXFxsb2xsaSBEfSIsMl1d
-\begin{tikzcd}
-	{(A \ot (B \ot C)) \lolli D} && {A \lolli ((B \ot C) \lolli D)} \\
-	{((A \ot B) \ot C) \lolli D} & {(A \ot B) \lolli (C \lolli D)} & {A \lolli (B \lolli (C \lolli D))}
-	\arrow["{p_{A , B \ot C , D}}", from=1-1, to=1-3]
-	\arrow["{\id \lolli p_{B , C ,D}}", from=1-3, to=2-3]
-	\arrow["{\alpha_{A , B , C} \lolli \id}"', from=1-1, to=2-1]
-	\arrow["{p_{A \ot B , C , D}}"', from=2-1, to=2-2]
-	\arrow["{p_{A , B , C \lolli D}}"', from=2-2, to=2-3]
-\end{tikzcd}
-
-  (a2)
-  % https://q.uiver.app/?q=WzAsMyxbMCwwLCJBIFxcbG9sbGkgQyJdLFsxLDEsIigoQiBcXGxvbGxpIEEpIFxcb3QgQikgXFxsb2xsaSBDIl0sWzIsMCwiKEIgXFxsb2xsaSBBKSBcXGxvbGxpIChCIFxcbG9sbGkgQykiXSxbMCwyLCJcXG1zZkxfe0EgLEIsIEN9Il0sWzEsMiwicF97QiBcXGxvbGxpIEEgLCBCICwgQ30iLDJdLFswLDEsIlxcZXBzaWxvbl97QiwgQX0gXFxsb2xsaSBcXGlkIiwyXV0=
-\begin{tikzcd}
-	{A \lolli C} && {(B \lolli A) \lolli (B \lolli C)} \\
-	& {((B \lolli A) \ot B) \lolli C}
-	\arrow["{\msfL_{A ,B, C}}", from=1-1, to=1-3]
-	\arrow["{p_{B \lolli A , B , C}}"', from=2-2, to=1-3]
-	\arrow["{\epsilon_{B, A} \lolli \id}"', from=1-1, to=2-2]
-\end{tikzcd}
-
-(a3)
-% https://q.uiver.app/?q=WzAsMyxbMCwwLCIoQSBcXG90IEIpIFxcbG9sbGkgQyJdLFsyLDAsIkEgXFxsb2xsaSAoQiBcXGxvbGxpIEMpIl0sWzEsMSwiKEIgXFxsb2xsaSAoQSBcXG90IEIpKSBcXGxvbGxpIChCIFxcbG9sbGkgQykiXSxbMiwxLCJcXGV0YV97QSAsQn0gXFxsb2xsaSBcXGlkIiwyXSxbMCwxLCJwX3tBICwgQiAsQ30iXSxbMCwyLCJcXG1zZkxfe0IgLCBBXFxvdCBCICwgQ30iLDJdXQ==
-\begin{tikzcd}
-	{(A \ot B) \lolli C} && {A \lolli (B \lolli C)} \\
-	& {(B \lolli (A \ot B)) \lolli (B \lolli C)}
-	\arrow["{\eta_{A ,B} \lolli \id}"', from=2-2, to=1-3]
-	\arrow["{p_{A , B ,C}}", from=1-1, to=1-3]
-	\arrow["{\msfL_{B , A\ot B , C}}"', from=1-1, to=2-2]
-\end{tikzcd}
-
-(a4)
-% https://q.uiver.app/?q=WzAsMyxbMCwwLCIoQSBcXGxvbGxpIEMpIFxcb3QgKEIgXFxsb2xsaSBBKSJdLFsyLDAsIkIgXFxsb2xsaSBDIl0sWzEsMSwiKChCIFxcbG9sbGkgQSkgXFxsb2xsaSAoQiBcXGxvbGxpIEMpKSBcXG90IChCIFxcbG9sbGkgQSkiXSxbMiwxLCJcXGVwc2lsb25fe0IgXFxsb2xsaSBBICwgQiBcXGxvbGxpIEN9IiwyXSxbMCwxLCJcXG1hdGhzZntNfV97QiwgQSAsIEN9Il0sWzAsMiwiXFxtc2ZMX3tCICwgQSwgQ30gXFxvdCBcXGlkIiwyXV0=
-\begin{tikzcd}
-	{(A \lolli C) \ot (B \lolli A)} && {B \lolli C} \\
-	& {((B \lolli A) \lolli (B \lolli C)) \ot (B \lolli A)}
-	\arrow["{\epsilon_{B \lolli A , B \lolli C}}"', from=2-2, to=1-3]
-	\arrow["{\mathsf{M}_{B, A , C}}", from=1-1, to=1-3]
-	\arrow["{\msfL_{B , A, C} \ot \id}"', from=1-1, to=2-2]
-\end{tikzcd}
-
-(a5)
-% https://q.uiver.app/?q=WzAsMyxbMCwwLCJBIFxcbG9sbGkgQyJdLFsyLDAsIihCIFxcbG9sbGkgQSkgXFxsb2xsaSAoQiBcXGxvbGxpIEMpIl0sWzEsMSwiKEIgXFxsb2xsaSBBKSBcXGxvbGxpICgoQSBcXGxvbGxpIEMpIFxcb3QgKEIgXFxsb2xsaSBBKSkiXSxbMCwxLCJcXG1zZkxfe0IsIEEgLCBDfSJdLFsyLDEsIlxcaWQgXFxsb2xsaSBcXG1hdGhzZntNfV97QiAsIEEgLEN9ICIsMl0sWzAsMiwiXFxldGFfe0EgXFxsb2xsaSBDICwgQiBcXGxvbGxpIEF9IiwyXV0=
-\begin{tikzcd}
-	{A \lolli C} && {(B \lolli A) \lolli (B \lolli C)} \\
-	& {(B \lolli A) \lolli ((A \lolli C) \ot (B \lolli A))}
-	\arrow["{\msfL_{B, A , C}}", from=1-1, to=1-3]
-	\arrow["{\id \lolli \mathsf{M}_{B , A ,C} }"', from=2-2, to=1-3]
-	\arrow["{\eta_{A \lolli C , B \lolli A}}"', from=1-1, to=2-2]
-\end{tikzcd}
-
-(a6)
-% https://q.uiver.app/?q=WzAsMyxbMCwwLCJcXEkiXSxbMiwwLCJBIFxcbG9sbGkgQSJdLFsxLDEsIkEgXFxsb2xsaSAoXFxJIFxcb3QgQSkiXSxbMCwxLCJqX3tBfSJdLFsyLDEsIlxcaWQgXFxsb2xsaSBcXGxhbWJkYV97QX0iLDJdLFswLDIsIlxcZXRhX3tcXEkgLCBBfSIsMl1d
-\begin{tikzcd}
-	\I && {A \lolli A} \\
-	& {A \lolli (\I \ot A)}
-	\arrow["{j_{A}}", from=1-1, to=1-3]
-	\arrow["{\id \lolli \lambda_{A}}"', from=2-2, to=1-3]
-	\arrow["{\eta_{\I , A}}"', from=1-1, to=2-2]
-\end{tikzcd}
-(a7)
-% https://q.uiver.app/?q=WzAsMyxbMCwwLCJcXEkgXFxvdCBBIl0sWzIsMCwiQSJdLFsxLDEsIihBIFxcbG9sbGkgQSkgXFxvdCBBIl0sWzAsMSwiXFxsYW1iZGFfe0F9Il0sWzIsMSwiXFxlcHNpbG9uX3tBLCBBfSIsMl0sWzAsMiwial97QX0gXFxvdCBcXGlkIiwyXV0=
-\begin{tikzcd}
-	{\I \ot A} && A \\
-	& {(A \lolli A) \ot A}
-	\arrow["{\lambda_{A}}", from=1-1, to=1-3]
-	\arrow["{\epsilon_{A, A}}"', from=2-2, to=1-3]
-	\arrow["{j_{A} \ot \id}"', from=1-1, to=2-2]
-\end{tikzcd}
-
-(a8)
-% https://q.uiver.app/?q=WzAsMyxbMCwwLCIoQSBcXG90IFxcSSkgXFxsb2xsaSBCIl0sWzIsMCwiQSBcXGxvbGxpIEIiXSxbMSwxLCJBIFxcbG9sbGkgKFxcSSBcXGxvbGxpIEIpIl0sWzAsMSwiXFxyaG9fe0F9IFxcbG9sbGkgXFxpZCJdLFsyLDEsIlxcaWQgXFxsb2xsaSBpX3tCfSIsMl0sWzAsMiwicF97QSAsIFxcSSAsIEJ9IiwyXV0=
-\begin{tikzcd}
-	{(A \ot \I) \lolli B} && {A \lolli B} \\
-	& {A \lolli (\I \lolli B)}
-	\arrow["{\rho_{A} \lolli \id}", from=1-1, to=1-3]
-	\arrow["{\id \lolli i_{B}}"', from=2-2, to=1-3]
-	\arrow["{p_{A , \I , B}}"', from=1-1, to=2-2]
-\end{tikzcd}
-\end{center}
-Equations (m1)-(m5) are called Mac Lane axiomsm.
-On the other hand, (c1)-(c5) are internal hom variants of Mac Lan Axioms.
-(a1)-(a8) are from \cite{street:skew-closed:2013}, and aims to establish bijections bewteen natural transformations(e.g. there is a bijection among $i$ and $\lambda$).
-(a1) and (a8) are presented in hom-set form in original paper but they are rewritten into internal hom presentations here.
-Notice that morphism $(A \ot \I) \lolli B \Longrightarrow A \lolli (\I \lolli B)$ in (a8) is actually an isomorphism in hom-set presentation, but only one direction left in the form internal hom.
-In general, this facts means that we \emph{cannot} internalize both directions of  adjunction bijection in a skew monoidal closed category.
-It requires our skew category to at least be associative normal, which means that natural transformation $\alpha$ is an isomorhphism, then we can internalize both directions of adjunction bijection.
-
-\niccolo{
-I don't think we should give the definition of skew monoidal closed category using all these structural laws and equations, since we know that it can be done with much less (and all this structure takes a lot of room!). I suggest following the definition given in \cite{uustalu:eilenberg-kelly:2020}, using $\lambda$, $\rho$ and $\alpha$ (it is enough to state that there is an adjunction, no need to show $\eta/\epsilon$ nor $p/\mathsf{M}$). Afterwards we can comment on the fact that the definition can equivalently be stated using $i$, $j$ and $L$, and that the adjunction cannot be generally internalized.
-}
-
-\niccolo{
-I suggest following the discussion in the introduction and proceed as follows:
-\begin{enumerate}
-\item The sequent calculus defines a skew monoidal closed category FSkMCC($\mathsf{At}$) with formulae as objects and set of derivations $A \mid ~ \vdash B$ quotiented by $\circeq$ as homset between objects $A$ and $B$. We already mentioned in the previous section the definitions of $\lambda$, $\rho$ and $\alpha$, I am not sure if that discussion should be moved here.
-\item Given a skew monoidal closed category $\mathbb{C}$, every function $F_{\mathsf{At}} : \mathsf{At} \to \mathbb{C}$, giving an interpretation of atomic formulae as objects of $\mathbb{C}$, extends to a skew monoidal closed functor $F :$ FSkMCC$(\mathsf{At}) \to \mathbb{C}$ (then we should give the definition of skew monoidal closed functor beforehand). This shows that skew monoidal closed categories are categorical models of SkNMILL.
-\item FSkMCC($\mathsf{At}$) is the initial model, a.k.a. the free skew monoidal closed category on $\mathsf{At}$. The proof of this calculus is where we should introduce the Hilbert-style calculus (again with a reduced number of rules/equations). Theorem \ref{thm:wkcomplete} is a consequence of point 1 above, i.e. FSkMCC($\mathsf{At}$) is a skew monoidal closed category. Theorem  \ref{thm:sound} instead follows from point 2.
-\end{enumerate}
-}
-
-Give a set $\mathsf{At}$ which contains countably infinite atomic formulae, we can generate a free skew monoidal closed category according to following rules:
+\end{defn}
+Uustalu et al. \cite{uustalu:eilenberg-kelly:2020} proved that there is a bijection between natural transformation tuples $(\lambda , \rho , \alpha)$ and $j , i , \msfL$ and moreover $\alpha$ and $\msfL$ are interdefinable with a natural transformation
 \begin{displaymath}
-    \infer[\id]{A \Longrightarrow A}{}
-    \quad
-    \infer[\mathsf{comp}]{A \Longrightarrow C}{
-      A \Longrightarrow B
-      &
-      B \Longrightarrow C
-    }
+  \mathsf{p}_{A , B , C} : (A \ot B) \lolli C \Longrightarrow A \lolli (B \lolli C)
 \end{displaymath}
-\begin{displaymath}
-  \infer[\otimes]{A \ot B \Longrightarrow C \ot D}{
-    A \Longrightarrow C
-    &
-    B \Longrightarrow D
-  }
-  \quad
-  \infer[\lolli]{A \lolli B \Longrightarrow C \lolli D}{
-    C \Longrightarrow A
-    &
-    B \Longrightarrow D
-  }
-\end{displaymath}
-\begin{displaymath}
-  \infer[\lambda]{\I \ot A \Longrightarrow A}{}
-  \quad
-  \infer[\rho]{A \Longrightarrow A \ot \I}{}
-  \quad
-  \infer[\alpha]{(A \ot B) \ot C \Longrightarrow A \ot (B \ot C)}{}
-\end{displaymath}
-\begin{displaymath}
-  \infer[i]{\I \lolli A \Longrightarrow A}{}
-  \quad
-  \infer[j]{\I \Longrightarrow A \lolli A}{}
-  \quad
-  \infer[\mathsf{L}]{B \lolli C \Longrightarrow (A \lolli B) \lolli (A \lolli C)}{}
-\end{displaymath}
-\begin{displaymath}
-  \infer[\eta]{A \Longrightarrow B \lolli (A \ot B)}{}
-  \quad
-  \infer[\epsilon]{(A \lolli B) \ot A \Longrightarrow B}{}
-  \quad
-  \infer[p]{(A \ot B) \lolli C \Longrightarrow A \lolli (B \lolli C)}{}
-\end{displaymath}
-\begin{displaymath}
-  \infer[\mathsf{M}]{(B \lolli C) \ot (A \lolli B) \Longrightarrow A \lolli C}{}
-  \quad
-  \infer[\mathsf{adj_1}]{A \Longrightarrow B \lolli C}{A \ot B \Longrightarrow C}
-  \quad
-  \infer[\mathsf{adj_2}]{A \ot B \Longrightarrow C}{A \Longrightarrow B \lolli C}
-\end{displaymath}
-Following equations are satisfied:
-\begin{align*}
-  \id \circ f \doteq f \qquad f \doteq f \circ \id \qquad (f \circ g) \circ h \doteq f \circ (g \circ h) &&\text{(category laws)}
+which presents internal adjointness.
+
+Now we can examine whether SkNMILL is a skew monoidal closed category.
+We assume a set $\mathsf{At}$ which has countably infinite members as propositional letters, then we can generate a free skew monoidal closed category FSkMCC($\mathsf{At}$) with formulae as objects and quotiented (by $\circeq$) derivations $A \mid \quad \vdash B$ as morphisms between objects $A$ and $B$.
+As we discussed in section \ref{sec2}, SkNMILL satisfies $\lambda$, $\rho$, and $\alpha$ and (m1)-(m5) with proof equivalence relaiton $\circeq$.
+
+\begin{defn}
+  A skew monoidal closed functor $F : \mathbb{C} \rightarrow \mathbb{D}$ between two skew monoidal closed categories $(\mathbb{C} , \I , \ot , \lolli)$ and $(\mathbb{D} , \I' , \ot' , \lolli')$ is a functor from $\mathbb{C}$ to $\mathbb{D}$ satisfying
+  \begin{align*}
+    F \I \cong \I' \qquad F (C_{1} \ot C_{2}) \cong F C_{1} \ot' F C_{2} \qquad
+    F(C_{1} \lolli C_{2}) \cong F C_{1} \lolli' F C_{2}
+  \end{align*}
+  and preserving strutural laws $\lambda$, $\rho$, and $\alpha$ and .
   \\
-  \id \ot \id \doteq \id \qquad (h \circ f) \ot (k \circ g) \doteq h \ot k \circ f \ot g &&(\ot \text{ functorial})
-  \\
-  \id \lolli \id \doteq \id \qquad (h \circ f) \ot (k \circ g) \doteq f \lolli k \circ h \lolli g &&(\lolli \text{ functorial})
-\end{align*}
-\begin{align*}
-    \lambda \circ \id \ot f \doteq f \circ \lambda \qquad \rho \circ f \doteq f \ot \id \circ \rho
-    \\
-    \alpha \circ (f \ot g) \ot h \doteq f \ot (g \ot h) \circ \alpha
-    \\
-    i \circ \id \lolli f \doteq f \circ i \qquad f \lolli \id \circ j \doteq \id \lolli f \circ j && \lambda , \rho , \alpha , i , j , \msfL , \eta , \epsilon , p , \mathsf{M} \text{ are}
-    \\
-    (f \lolli g) \lolli (\id \lolli h) \circ \msfL \doteq \id \lolli (f \lolli \id) \circ \msfL \circ g \lolli h &&\text{(extra)natural transformations}
-    \\
-    f \circ \epsilon \doteq \epsilon \circ (\id \lolli f) \ot \id
-    \qquad
-    \eta \circ f \doteq \id \lolli (f \ot \id) \circ \eta
-    \\
-    \id \lolli (\id \lolli f) \circ p \doteq p  \circ (\id \ot \id) \lolli f
-    \\
-    \id \lolli f \circ \mathsf{M} \doteq \mathsf{M} \circ (\id \lolli \id) \ot (\id \lolli f)
-    %%%%Extra natural version?
-    %f \lolli (g \lolli h) \circ p \doteq p \circ (f \ot g) \lolli h
-    %\\
-    %f \lolli h \circ \mathsf{M} \doteq \mathsf{M} \circ (g \lolli h) \ot (f \lolli g)
-    %%%%Extra natural version?
-\end{align*}
-\begin{align*}
-  \id \lolli \msfL \circ \msfL \doteq \msfL \lolli \id \circ \msfL \circ \msfL
-  \\
-  i \circ j \lolli \id \circ \msfL \doteq \id \qquad \msfL \circ j \doteq j
-  &&\text{c1-c5}
-  \\
-  \id \lolli i \circ \msfL \doteq i \lolli \id \qquad i \circ j \doteq \id
-\end{align*}
-\begin{align*}
-    \lambda \circ \rho \doteq \id \qquad \id \doteq \id \ot \lambda \circ \alpha \circ \rho \ot \id
-    \\
-    \lambda \circ \alpha \doteq \lambda \ot \id \qquad \alpha \circ \rho \doteq \id \ot \rho
-    &&\text{m1-m5}
-    \\
-    \alpha \circ \alpha \doteq
-    \id \ot \alpha \circ \alpha \circ \alpha \ot \id
-\end{align*}
-\begin{align*}
-    \id \lolli p \circ p \doteq p \circ p \circ \alpha \lolli \id
-    \qquad
-    \msfL \doteq p \circ \epsilon \lolli \id
-    \\
-    p \doteq \eta \lolli \id \circ \msfL
-    \qquad
-    \mathsf{M} \doteq \epsilon \circ \msfL \ot \id
-    \qquad
-    \msfL \doteq \id \lolli \mathsf{M} \circ \eta
-    &&\text{a1-a8}
-    \\
-    j \doteq \id \lolli \lambda \circ \eta
-    \qquad
-    \lambda \doteq \epsilon \circ j \ot \id
-    \qquad
-    \id \lolli i \circ p \doteq \rho \lolli \id
-\end{align*}
+  A skew monoidal closed functor is strict if
+  \begin{align*}
+    F \I = \I' \qquad F (C_{1} \ot C_{2}) = F C_{1} \ot' F C_{2} \qquad
+    F(C_{1} \lolli C_{2}) = F C_{1} \lolli' F C_{2}
+  \end{align*}
+\end{defn}
+%Next we show that given any skew monoidal closed category $\mathbb{C}$ and a function $F_{\mathsf{At}} : \mathsf{At} \rightarrow \mathbb{C}$ providing interpretation of atomic formulae as objects of $\mathbb{C}$, we can extend function $F_{\mathsf{At}}$ to a skew monoidal closed functor $F : \text{FSkMCC} \rightarrow \mathbb{C}$.
+  Given any skew monoidal closed category $(\mathbb{C} , \I' , \ot' , \lolli')$ and a function $F_{\mathsf{At}} : \mathsf{At} \rightarrow \mathbb{C}$ providing interpretation of atomic formulae as objects of $\mathbb{C}$, there exists a skew monoidal closed functor $F : \text{FSkMCC}(\mathsf{At}) \rightarrow \mathbb{C}$.
+
+  Let $\mathsf{Fma}$ denote the collection of FSkMCC($\mathsf{At}$) and $\mathbb{C}_{0}$ denote the collection of $\mathbb{C}$, then we can define a mapping $F_{0} : \mathsf{Fma} \rightarrow \mathbb{C}_{0}$
+  \begin{equation*}
+    F_{0} (A)=
+    \begin{cases}
+      F_{\mathsf{At}} (A) &\text{if } A \text{ is atomic}
+      \\
+      \I' &\text{if } A = \I
+      \\
+      F_{\mathsf{At}} (B) \ot' F_{\mathsf{At}} (C) &\text{if } A = B \ot C
+      \\
+      F_{\mathsf{At}} (B) \lolli' F_{\mathsf{At}} (C) &\text{if } A = B \lolli C
+    \end{cases}
+  \end{equation*}
+  and another mapping $F_{1} : A \mid \quad \vdash B \to \mathbb{C} (F_{0} (A), F_{0} (B))$ inductively.
+  Integrating mapping $F_{0}$ and $F_{1}$, we have a skew monoidal closed functor from FSkMCC($\mathsf{At}$) to $\mathbb{C}$.
+  This fact tells us that any skew monoidal closed category is also a categorical model of SkMNILL.
+
+  Next we consider the free construction of skew monoidal closed category over a set $\mathsf{At}$ with Hilbert-style presentation.
+  \begin{defn}
+    A free skew monoidal closed category FSkMCC($\mathsf{At}$)$_{H}$ whose objects is $\mathsf{Fma}$ and derivations are sequents $A \Longrightarrow C$ is a Hilbert-style sequent calculus system (categorical calculus) constructed from following inference rules
+    \begin{displaymath}
+        \infer[\id]{A \Longrightarrow A}{}
+        \quad
+        \infer[\mathsf{comp}]{A \Longrightarrow C}{
+          A \Longrightarrow B
+          &
+          B \Longrightarrow C
+        }
+    \end{displaymath}
+    \begin{displaymath}
+      \infer[\otimes]{A \ot B \Longrightarrow C \ot D}{
+        A \Longrightarrow C
+        &
+        B \Longrightarrow D
+      }
+      \quad
+      \infer[\lolli]{A \lolli B \Longrightarrow C \lolli D}{
+        C \Longrightarrow A
+        &
+        B \Longrightarrow D
+      }
+    \end{displaymath}
+    \begin{displaymath}
+      \infer[\lambda]{\I \ot A \Longrightarrow A}{}
+      \quad
+      \infer[\rho]{A \Longrightarrow A \ot \I}{}
+      \quad
+      \infer[\alpha]{(A \ot B) \ot C \Longrightarrow A \ot (B \ot C)}{}
+    \end{displaymath}
+    \begin{displaymath}
+      \infer[\epsilon]{(A \lolli B) \ot A \Longrightarrow B}{}
+      \quad
+      \infer[\mathsf{adj_1}]{A \Longrightarrow B \lolli C}{A \ot B \Longrightarrow C}
+    \end{displaymath}
+    satisfying following equations
+    \begin{align*}
+      \id \circ f \doteq f \qquad f \doteq f \circ \id \qquad (f \circ g) \circ h \doteq f \circ (g \circ h) &&\text{(category laws)}
+      \\
+      \id \ot \id \doteq \id \qquad (h \circ f) \ot (k \circ g) \doteq h \ot k \circ f \ot g &&(\ot \text{ functorial})
+      \\
+      \id \lolli \id \doteq \id \qquad (h \circ f) \ot (k \circ g) \doteq f \lolli k \circ h \lolli g &&(\lolli \text{ functorial})
+    \end{align*}
+    \begin{align*}
+        \lambda \circ \id \ot f \doteq f \circ \lambda
+        \\
+        \rho \circ f \doteq f \ot \id \circ \rho &&\lambda , \rho , \alpha \text{ are natural transformations}
+        \\
+        \alpha \circ (f \ot g) \ot h \doteq f \ot (g \ot h) \circ \alpha
+        %%%%Extra natural version?
+        %f \lolli (g \lolli h) \circ p \doteq p \circ (f \ot g) \lolli h
+        %\\
+        %f \lolli h \circ \mathsf{M} \doteq \mathsf{M} \circ (g \lolli h) \ot (f \lolli g)
+        %%%%Extra natural version?
+    \end{align*}
+    \begin{align*}
+        \lambda \circ \rho \doteq \id \qquad \id \doteq \id \ot \lambda \circ \alpha \circ \rho \ot \id
+        \\
+        \lambda \circ \alpha \doteq \lambda \ot \id \qquad \alpha \circ \rho \doteq \id \ot \rho
+        &&\text{(m1)-(m5)}
+        \\
+        \alpha \circ \alpha \doteq
+        \id \ot \alpha \circ \alpha \circ \alpha \ot \id
+    \end{align*}
+  \end{defn}
 \begin{fact}
-  We do not need all rules above to generate a free skew monoidal closed category.
-  For example, suppose we have $\lambda , \rho , \alpha , \epsilon$, and $\mathsf{adj_1}$, then $i, j, \mathsf{L}, \eta$, and  $\mathsf{adj_2}$ are admissible.
+  Natural transformations $i$, $j$, $\msfL$, $\mathsf{p}$, and $\eta : A \Longrightarrow B \lolli (A \ot B)$ and inference rule
+  \begin{displaymath}
+    \infer[\mathsf{adj}_{2}]{A \ot B \Longrightarrow C}{A \Longrightarrow B \lolli C}
+  \end{displaymath}
+   are interdefinable with $\lambda$, $\rho$, $\alpha$, $\epsilon$, and $\mathsf{adj}_{1}$.
   \begin{align*}
     i &\defeq \mathsf{comp} \text{ } (\rho ,  (\mathsf{adj_2} \text{ } \id))
     \\
@@ -717,270 +575,55 @@ Following equations are satisfied:
     \\
     \mathsf{adj_2} &\defeq \comp \text{ } ((f \ot \id), \epsilon) && f : A \Longrightarrow B \lolli C
     \\
-    p &\defeq \comp \text{ } (\msfL , (\eta \lolli \id))
-    \\
-    \mathsf{M} &\defeq \comp \text{ } ((\msfL \ot \id) , \epsilon)
+    \mathsf{p} &\defeq \comp \text{ } (\msfL , (\eta \lolli \id))
+    %\\
+    %\mathsf{M} &\defeq \comp \text{ } ((\msfL \ot \id) , \epsilon)
   \end{align*}
-  This fact represents the bijections between natural transformations in skew monoidal closed categories.
-  %Moreover, in \cite{street:skew-closed:2013} there are two natural transformations $p$ and $\mathsf{M}$.
-  %However these two natural transformations and their corresponding morphism equivalences could be defined mutually with $\msfL$ so we do not present them explicitly here.
 \end{fact}
-
-We show soundness by induction on derivations in sequent calculus.
-Notice that soundness of skew monoidal categories and skew closed categories are proved respectively in \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}.
-However, there are two different ways to interpret sequents in these two papers.
-We pick the interpretation in \cite{uustalu:sequent:2018} and show that soundness of $\lleft$ and $\lright$ also hold.
-\begin{theorem}\label{thm:sound}
-  (Soundness)For any derivation $f : S \mid \Gamma \vdash C$, there is a derivation $\mathsf{sound}$ $f : \ldbc S \mid \Gamma \rdbc_{\ot} \Longrightarrow C$.
-\end{theorem}
-\begin{proof}
-  Proof of soundness is by induction on $f : S \mid \Gamma \vdash C$.
-
-  First case is $f = \lleft \text{ } f' f''$ where $f' : - \mid \Gamma \vdash A$ and $f'' : B \mid \Delta \vdash C$.
-  We obtain two repeated application version of adjoint rules first $\mathsf{Gadj_1}$ and $\mathsf{Gadj_2}$(we use $\ldbc - \rdbc_{\ot}$ and $\ldbc - \rdbc_{\lolli}$ to indicate the interpretation):
-  \begin{displaymath}
-    \infer[\mathsf{Gadj_1}]{S \Longrightarrow \ldbc \Gamma \mid C\rdbc_{\lolli}}{\ldbc S \mid \Gamma \rdbc_{\ot} \Longrightarrow A}
-    \quad
-    \text{ and }
-    \quad
-    \infer[\mathsf{Gadj_2}]{\ldbc A \mid \Gamma \rdbc_{\ot} \Longrightarrow C}{A \Longrightarrow \ldbc \Gamma \mid C\rdbc_{\lolli}}
-  \end{displaymath}
-  Next, for any $f' : - \mid \Gamma \vdash A$ and $f'' : B\mid \Delta \vdash C$:
-  \begin{displaymath}
-    \infer[\lleft]{A \lolli B \mid \Gamma , \Delta \vdash C}{
-      \deduce{- \mid \Gamma \vdash A}{f'}
-      &
-      \deduce{B \mid \Delta \vdash C}{f''}
-    }
-  \end{displaymath}
-  \begin{displaymath}
-  \defeq
-  \quad
-  \vcenter{
-    \infer[\mathsf{Gadj_2}]{\ldbc A\multimap B \mid \Gamma , \Delta \rdbc_{\ot} \Longrightarrow C}{
-      \infer[\mathsf{comp}]{\ldbc A\multimap B \mid \Gamma \rdbc_{\ot} \Longrightarrow \ldbc \Delta \mid C\rdbc_{\lolli}}{
-        \infer{\ldbc A\multimap B \mid \Gamma \rdbc_{\ot} \Longrightarrow A\multimap B \otimes \ldbc - \mid \Gamma \rdbc_{\ot}}{\text{Lemma 4.3 in \cite{uustalu:sequent:2018}}}
-        &
-        \infer[\mathsf{Gadj_2}]{A\multimap B \otimes \ldbc - \mid \Gamma \rdbc_{\ot} \Longrightarrow \ldbc \Delta \mid C\rdbc_{\lolli}}{
-          \infer[\lolli]{A\multimap B \Longrightarrow \ldbc - \mid \Gamma \rdbc_{\ot} \multimap \ldbc \Delta \mid C\rdbc_{\lolli}}{
-            \deduce{\ldbc - \mid \Gamma \rdbc_{\ot} \Longrightarrow A}{\mathsf{sound} \text{ } f}
-            &
-            \infer[\mathsf{Gadj_1}]{B \Longrightarrow \ldbc \Delta \mid C \rdbc_{\lolli}}{
-              \deduce{\ldbc B \mid \Delta \rdbc_{\ot} \Longrightarrow C}{\mathsf{sound} \text{ } g}
-            }
-          }
-        }
-      }
-    }
-  }
-  \end{displaymath}
-  The other case is $f = \lright \text{ } f'$ where $f' : S \mid \Gamma , A \vdash B$:
-  \begin{displaymath}
-  \vcenter{
-    \infer[\lright]{S \mid \Gamma \vdash A \lolli B}{
-    \deduce{S \mid \Gamma , A \vdash B}{f'}
-    }
-  }
-    \quad
-    \defeq
-    \quad
-    \vcenter{
-    \infer[\mathsf{adj_1}]{\ldbc S \mid \Gamma \rdbc_{\ot} \Longrightarrow A \lolli B}{
-      \infer[\text{Definition of } \ldbc - \rdbc_{\ot}]{\ldbc S \mid \Gamma \rdbc_{\ot} \ot A \Longrightarrow B}{
-        \deduce{\ldbc S \mid \Gamma , A \rdbc_{\ot} \Longrightarrow B}{\mathsf{sound} \text{ } f'}
-      }
-    }
-  }
-  \end{displaymath}
-\end{proof}
-\begin{theorem}\label{thm:wkcomplete}
-  (Weak completeness) For any derivation $f : A\Longrightarrow C$, there is a derivation $\mathsf{complt}$ $f : A \mid \quad \vdash C$.
-\end{theorem}
-\begin{proof}
-In previous studies from Uustalu et al. (\cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}), main cases of completeness are proved.
-Therefore, we only have to show new cases in skew monoidal closed categories.
-In particular, new cases are unit, counit, $p$, $\mathsf{M}$, and two adjoint rules.
-\begin{itemize}
-  \item (Counit)Case $f = \epsilon : (A\multimap B)\otimes A \Longrightarrow B$. We define:
-  \begin{displaymath}
-    \mathsf{complt} \left(
-                    \infer[\epsilon]{(A\multimap B)\otimes A \Longrightarrow B}{}
-                    \right)
-                    \quad
-                    \defeq
-                    \quad
-                    \vcenter{
-                    \infer[\tl]{(A\multimap B) \otimes A \mid \quad \vdash B}{
-                      \infer[\lleft]{A\multimap B \mid A \vdash B}{
-                        \infer[\pass]{- \mid A \vdash A}{
-                          \infer[\ax]{A \mid \quad \vdash A}{}
-                        }
-                        &
-                        \infer[\ax]{B \mid \quad \vdash B}{}
-                      }
-                    }
-                    }
-  \end{displaymath}
-  \item (Unit)Case $f = \eta : A \Longrightarrow B \multimap (A\otimes B)$. We define:
-  \begin{displaymath}
-    \mathsf{complt} \left(
-                    \infer[\eta]{A \Longrightarrow B \lolli (A \ot B)}{}
-                    \right)
-                    \quad
-                    =_{\text{df}}
-                    \quad
-                    \vcenter{
-                    \infer[\multimap \mathsf{R}]{A \mid \quad \vdash B \multimap (A\otimes B)}{
-                      \infer[\tr]{A \mid B \vdash A\otimes B}{
-                        \infer[\ax]{A \mid \quad \vdash A}{}
-                        &
-                        \infer[\pass]{- \mid B \vdash B}{
-                          \infer[\ax]{B \mid \quad \vdash B}{}
-                        }
-                      }
-                    }
-                    }
-  \end{displaymath}
-  \item ($p$, internal adjointness)Case $f = p : (A \ot B) \lolli C \Longrightarrow A \lolli (B \lolli C)$. We define:
-  \begin{displaymath}
-    \mathsf{complt} \left(
-                    \infer[p]{(A \ot B) \lolli C \Longrightarrow A \lolli (B \lolli C)}{}
-                    \right)
-                    \quad
-                    =_{\text{df}}
-                    \quad
-                    \vcenter{
-                    \infer[\lright]{(A \ot B) \lolli C \mid \quad \vdash A \lolli (B \lolli C)}{
-                      \infer[\lright]{(A \ot B) \lolli C \mid A \vdash B \lolli C}{
-                        \infer[\lleft]{(A \ot B) \lolli C \mid A , B \vdash C}{
-                          \infer[\pass]{- \mid A , B \vdash A \ot B}{
-                            \infer[\tr]{A \mid B \vdash A \ot B}{
-                              \infer[\ax]{A \mid \quad \vdash A}{}
-                              &
-                              \infer[\pass]{- \mid B \vdash B}{
-                                \infer[\ax]{B \mid \quad \vdash B}{}
-                              }
-                            }
-                          }
-                          &
-                          \infer[\ax]{C \mid \quad \vdash C}{}
-                        }
-                      }
-                    }
-                    }
-  \end{displaymath}
-  \item ($\mathsf{M}$, internal composition)Case $f = \mathsf{M} : (B \lolli C) \ot (A \lolli B) \Longrightarrow A \lolli C$. We define:
-  \begin{displaymath}
-    \mathsf{complt} \left(
-                    \infer[\mathsf{M}]{(B \lolli C) \ot (A \lolli B) \Longrightarrow A \lolli C}{}
-                    \right)
-                    \quad
-                    =_{\text{df}}
-                    \quad
-                    \vcenter{
-    \infer[\lright]{(B \lolli C) \ot (A \lolli B) \mid \quad \vdash A \lolli C}{
-      \infer[\tl]{(B \lolli C) \ot (A \lolli B) \mid A \vdash C}{
-        \infer[\lleft]{B \lolli C \mid A \lolli B , A \vdash C}
-        {
-          \infer[\pass]{- \mid A \lolli B , A \vdash B}{
-            \infer[\lleft]{A \lolli B \mid A \vdash B}{
-              \infer[\pass]{- \mid A \vdash A}{
-                \infer[\ax]{A \mid \quad \vdash A}{}
-              }
-              &
-              \infer[\ax]{B \mid \quad \vdash B}{}
-            }
-          }
-          &
-          \infer[\ax]{C \mid \quad \vdash C}{}
-        }
-      }
-    }
-    }
-  \end{displaymath}
-\end{itemize}
-Two adjoint rules need invertibility of $\otimes \mathsf{L}$ and $\multimap \mathsf{R}$ which are proved respectively in \cite{uustalu:sequent:2018} and \cite{uustalu:deductive:nodate}.
-\begin{itemize}
-  \item Case $f = \mathsf{adj_1}$ $g$ where $g : A\otimes B \Longrightarrow C$. We define:
-  \begin{displaymath}
-    \mathsf{complt} \left( \vcenter{
-    \infer[\mathsf{adj_1}]{A\Longrightarrow B\multimap C}{
-      \deduce{A\otimes B \Longrightarrow C}{g}
-    }
-    }
-    \right)
-                           \quad
-                           =_{\text{df}}
-                           \quad
-                           \vcenter{
-                           \infer[\lright]{A \mid \quad \vdash B \multimap C}{
-                            \infer[\tl^{-1}]{A \mid B \vdash C}{
-                              \deduce{A\otimes B \mid \quad \vdash C}{\mathsf{complt} \text{ } g}
-                            }
-                           }
-                           }
-  \end{displaymath}
-  \item Case $f = \mathsf{adj_2}$ $g$ where $g : A \Longrightarrow B\multimap C$. We define:
-  \begin{displaymath}
-    \mathsf{complt} \left( \vcenter{
-    \infer[\mathsf{adj_2}]{A \otimes B \Longrightarrow C}{
-      \deduce{A \Longrightarrow B\multimap C}{g}
-    }
-    }
-                           \right)
-                           \quad
-                           =_{\text{df}}
-                           \quad
-                           \vcenter{
-                           \infer[\tl]{A \otimes B \mid \quad \vdash C}{
-                            \infer[\lright^{-1}]{A \mid B \vdash C}{
-                              \deduce{A \mid \quad \vdash B \multimap C}{\mathsf{complt} \text{ } g}
-                            }
-                           }
-                           }
-  \end{displaymath}
-\end{itemize}
-\end{proof}
-
+Soundness and completeness among FSkMCC($\mathsf{At}$)$_{H}$ and FSkMCC($\mathsf{At}$) is justified because we can prove bijection of derivations (quotiented by $\doteq$ and $\circeq$ respectively) between these two deductive systems by induction on derivations.
 \section{Proof-Theoretic Semantics via Focusing}
-The focused sequent calculus here has four phases($\RI , \LI , \Pass$, and $\F$) with  special annotations $\bullet$(tag) on $\vdash$.
-\begin{displaymath}
-  \infer[\lright]{S \mid \Gamma \vdash^{x}_{\RI} A \lolli B}{S \mid \Gamma , A^{x} \vdash^{x}_{\RI} B}
-  \quad
-  \infer[\LI 2 \RI]{S \mid \Gamma \vdash^{x}_{\RI} P}{S \mid \Gamma \vdash^{x}_{\LI} P}
-\end{displaymath}
-\begin{displaymath}
-  \infer[\unitl]{\I \mid \Gamma \xvdash_{\LI} P}{- \mid \Gamma \xvdash_{\LI} P}
-  \quad
-  \infer[\tl]{A \ot B \mid \Gamma \xvdash_{\LI} P}{A \mid B , \Gamma \xvdash_{\LI} P}
-  \quad
-  \infer[\Pass 2 \LI]{T \mid \Gamma \xvdash_{\LI} P}{T \mid \Gamma \xvdash_{\Pass} P}
-\end{displaymath}
-\begin{displaymath}
-  \infer[\pass]{- \mid A^{x} , \Gamma \xvdash_{\Pass} P }{A^{\circ} \mid \Gamma \xvdash_{\LI} P}
-  \quad
-  \infer[\F 2 \Pass]{T \mid \Gamma \xvdash_{\Pass} P}{T \mid \Gamma \xvdash_{\F} P}
-\end{displaymath}
-\begin{displaymath}
-  \infer[\tr]{T \mid \Gamma , \Delta \xvdash_{\F} A \ot B}{
-    T \mid \Gamma \vdash^{\bullet}_{\RI} A
-    &
-    - \mid \Delta \vdash_{\RI} B
-  }
-  \quad
-  \infer[\lleft]{A \lolli B \mid \Gamma , \Delta \xvdash_{\F} P}{
-    - \mid \Gamma^{\circ} \vdash_{\RI} A
-    &
-    B \mid \Delta \vdash_{\LI} P
-    &
-    \text{if } x = \bullet \text{, then } \exists F^{\bullet} \in \Gamma
-  }
-\end{displaymath}
-\begin{displaymath}
-  \infer[\ax]{A \mid \quad \vdash_{\F} A}{}
-  \quad
-  \infer[\unitr]{- \mid \quad \vdash \I}{}
-\end{displaymath}
+\begin{defn}
+  The \emph{focused sequent calculus} for SkNMILL has four phases($\RI , \LI , \Pass$, and $\F$) with  special annotations $\bullet$(tag) on $\vdash$ so SkNMILL defines a skew monoidal closed category FSkMCC($\mathsf{At}$).
+
+  \begin{displaymath}
+    \infer[\lright]{S \mid \Gamma \vdash^{x}_{\RI} A \lolli B}{S \mid \Gamma , A^{x} \vdash^{x}_{\RI} B}
+    \quad
+    \infer[\LI 2 \RI]{S \mid \Gamma \vdash^{x}_{\RI} P}{S \mid \Gamma \vdash^{x}_{\LI} P}
+  \end{displaymath}
+  \begin{displaymath}
+    \infer[\unitl]{\I \mid \Gamma \xvdash_{\LI} P}{- \mid \Gamma \xvdash_{\LI} P}
+    \quad
+    \infer[\tl]{A \ot B \mid \Gamma \xvdash_{\LI} P}{A \mid B , \Gamma \xvdash_{\LI} P}
+    \quad
+    \infer[\Pass 2 \LI]{T \mid \Gamma \xvdash_{\LI} P}{T \mid \Gamma \xvdash_{\Pass} P}
+  \end{displaymath}
+  \begin{displaymath}
+    \infer[\pass]{- \mid A^{x} , \Gamma \xvdash_{\Pass} P }{A^{\circ} \mid \Gamma \xvdash_{\LI} P}
+    \quad
+    \infer[\F 2 \Pass]{T \mid \Gamma \xvdash_{\Pass} P}{T \mid \Gamma \xvdash_{\F} P}
+  \end{displaymath}
+  \begin{displaymath}
+    \infer[\tr]{T \mid \Gamma , \Delta \xvdash_{\F} A \ot B}{
+      T \mid \Gamma \vdash^{\bullet}_{\RI} A
+      &
+      - \mid \Delta \vdash_{\RI} B
+    }
+    \quad
+    \infer[\lleft]{A \lolli B \mid \Gamma , \Delta \xvdash_{\F} P}{
+      - \mid \Gamma^{\circ} \vdash_{\RI} A
+      &
+      B \mid \Delta \vdash_{\LI} P
+      &
+      \text{if } x = \bullet \text{, then } \exists F^{\bullet} \in \Gamma
+    }
+  \end{displaymath}
+  \begin{displaymath}
+    \infer[\ax]{A \mid \quad \vdash_{\F} A}{}
+    \quad
+    \infer[\unitr]{- \mid \quad \vdash \I}{}
+  \end{displaymath}
+\end{defn}
+
 We explain the intuition of this focused system from bottom-up proof search perspective.
 One important thing is that even though we have tagged suquents in a proof, but the end sequent should keep tag free.
 \begin{itemize}
@@ -1207,12 +850,12 @@ If we have a derivation in focused system, then we can define a function $\maths
 On the other hand, we can define a function $\mathsf{focus}$ to map each derivation in cut-free sequent calculus to a derivaiton in focused calculus because lemma \ref{AdmissibleInRI} holds.
 Specifically, for each derivation in cut-free sequent calculus, function $\mathsf{focus}$ adds phase label $\RI$ on $\vdash$ and rename each rule into its $\RI$ version.
 
-Moreover, we can show that two equivalent derivations in SkNMILL sequent calculus become identical in focused seqeunt calculus.
+Moreover, we can show that two equivalent derivations in SkNMILL become identical in focused seqeunt calculus.
 Therefore, deciding two proofs to be equivalent could be done by checking whether their corresponding focused derivation are identical.
 %Next, we can extend this result to decide equality of morphisms in skew monoidal closed categories.
 
 We take one more step to extend the results to categorical side.
-According to categorical semantics section above, we have soundness and completeness in our hands, so we can construct an effective procedure to determine equivalence of morphisms in a free skew monoidal closed category.
+According to categorical semantics section above, we know SkNMILL is sound and complete with free skew monoidal categories, so we can construct an effective procedure to determine equivalence of morphisms in a free skew monoidal closed category.
 \begin{enumerate}
   \item Given two moprhisms $f$ and $g$ in a free skew monoidal closed category.
   \item Use $\mathsf{complt}$ function to obtain two derivations $\mathsf{complt} \text{ } f$ and $\mathsf{complt} \text{ } g$ in sequent calculus system.
