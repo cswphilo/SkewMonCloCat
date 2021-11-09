@@ -752,39 +752,46 @@ As a first attempt to focusing, we na{\"i}vely merge together the rules of the f
 \begin{equation}\label{eq:naive}
 %  \def\arraystretch{2.5}
   \begin{array}{lc}
-    \text{(right invertible)} & \\ &
+    \text{(right invertible)} & %\\ &
+    \proofbox{
     \infer[\lright]{S \mid \Gamma \vdash_{\RI} A \lolli B}{S \mid \Gamma , A \vdash_{\RI} B}
     \qquad
     \infer[\LI 2 \RI]{S \mid \Gamma \vdash_{\RI} P}{S \mid \Gamma \vdash_{\LI} P}
+    }
 %  \end{displaymath}
     %  \begin{displaymath}
-    \\
-    \text{(left invertible)} & \\ &
+    \\[6pt]
+    \text{(left invertible)} & %\\ &
+    \proofbox{
     \infer[\unitl]{\I \mid \Gamma \vdash_{\LI} P}{- \mid \Gamma \vdash_{\LI} P}
     \qquad
     \infer[\tl]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B , \Gamma \vdash_{\LI} P}
     \qquad
     \infer[\Pass 2 \LI]{T \mid \Gamma \vdash_{\LI} P}{T \mid \Gamma \vdash_{\Pass} P}
+    }
 %  \end{displaymath}
     %  \begin{displaymath}
-    \\
-    \text{(passivation)} & \\ &
-    \hspace{-1.7cm}
-    \infer[\pass]{- \mid A , \Gamma \vdash_{\Pass} P }{
+    \\[6pt]
+    \text{(passivation)} & %\\ &
+%    \hspace{-1.7cm}
+    \proofbox{
+      \infer[\pass]{- \mid A , \Gamma \vdash_{\Pass} P }{
       A\mid \Gamma \vdash_{\LI} P
     }
-    \quad
+    \qquad
 %    \\[6pt]
 %    \multicolumn{2}{c}{
     \infer[\F 2 \Pass]{T \mid \Gamma \vdash_{\Pass} P}{
       T \mid \Gamma \vdash_{\F} P
     }
+    }
 %    }
 %  \end{displaymath}
     %  \begin{displaymath}
     \\
-    \text{(focusing)} &    \\ &
-    \hspace{-2.4cm}
+    \text{(focusing)} &    \\ %&
+    %\hspace{-2.4cm}
+    \multicolumn{2}{c}{
     \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
     \quad
     \infer[\unitr]{- \mid \quad \vdash_{\F} \I}{}
@@ -799,6 +806,7 @@ As a first attempt to focusing, we na{\"i}vely merge together the rules of the f
       - \mid \Gamma \vdash_{\RI} A
       &
       B \mid \Delta \vdash_{\LI} P
+    }
     }
 %  \end{displaymath}
 %  \begin{displaymath}
@@ -825,13 +833,13 @@ The focused sequent calculus in (\ref{eq:naive}) is sound and complete wrt. the 
 \begin{enumerate}
 \item The first premise of the $\tr$ rule is in phase $\RI$, since $A$ is potentially an implication on which the invertible right rule $\lright$ could act upon. Proof search on the first premise eventually hits phase $\Pass$, when we have the possibility of applying the $\pass$ rule if the stoup is empty. This implies the existence of situations where either of the rules $\tr$ and $\pass$ can be applied first, in both cases resulting in valid focused derivations. The congruence relation $\circeq$ eliminates this form of nondeterminism via the 4th equation in Figure \ref{fig:circeq}, i.e. the permutative conversion involving $\tr$ and $\pass$.
 %  The other occurs when we decompose $\ot$ in succedent, left premise goes back to phase $\RI$, so if the left premise of $\tr$ application is empty, then $\pass$ could be applied in phase $\Pass$.
-  Consider the two distinct derivations of $- \mid X , \Gamma , \Delta \vdash_{\RI} P \ot C$ under assumptions $f : X \mid \Gamma \vdash_{\LI} P$ and $g : - \mid \Delta \vdash_{\RI} C$.
+  Consider the two distinct derivations of $- \mid X , \Gamma , \Delta \vdash_{\Pass} P \ot C$ under assumptions $f : X \mid \Gamma \vdash_{\LI} P$ and $g : - \mid \Delta \vdash_{\RI} C$.
   \begin{equation}\label{eq:passtr}
 %  \vcenter{
 %  \text{(1)}
     %  \quad
     \proofbox{
-    \infer[\mathsf{sw}]{- \mid X , \Gamma , \Delta \vdash_{\RI} P \ot C}{
+%    \infer[\mathsf{sw}]{- \mid X , \Gamma , \Delta \vdash_{\RI} P \ot C}{
       \infer[\pass]{- \mid X , \Gamma , \Delta \vdash_{\Pass} P \ot C}{
         \infer[\mathsf{sw}]{X \mid \Gamma , \Delta \vdash_{\LI} P \ot C}{
           \infer[\tr]{X \mid \Gamma , \Delta \vdash_{\F} P \ot C}{
@@ -843,11 +851,11 @@ The focused sequent calculus in (\ref{eq:naive}) is sound and complete wrt. the 
           }
         }
       }
-    }
-    }
+%    }
+%    }
     \qquad
-    \proofbox{
-    \infer[\mathsf{sw}]{- \mid X , \Gamma , \Delta \vdash_{\RI} P \ot C}{
+%    \proofbox{
+    \infer[\mathsf{sw}]{- \mid X , \Gamma , \Delta \vdash_{\Pass} P \ot C}{
       \infer[\tr]{- \mid X , \Gamma , \Delta \vdash_{\F} P \ot C}{
         \infer[\mathsf{sw}]{- \mid X , \Gamma \vdash_{\RI} P}{
           \infer[\pass]{- \mid X , \Gamma \vdash_{\Pass} P}{
@@ -865,7 +873,7 @@ The focused sequent calculus in (\ref{eq:naive}) is sound and complete wrt. the 
   \end{equation}
   The rule $\mathsf{sw}$ is a sequence of (appropriately typed) phase
   switching rules $\LI2\RI$, $\Pass2\LI$ and $\F2\Pass$.
-  \item Rules $\tr$ and $\lleft$ appear in the same phase $\F$, though there are situations where both rules can be applied first, which can lead to two valid but distinct focused derivations. More precisely, there are cases when $\tr$ and $\lleft$ can be interchangeably applied. This form of nondeterminism is tamed in the congruence relation $\circeq$ by the last permutative conversion in Figure \ref{fig:circeq}, involving $\tr$ and $\lleft$. As an example, consider the following two valid derivations of $A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\RI} P \ot D$ under the assumption of $f : - \mid \Gamma \vdash_{\RI} A$, $g : X \mid \Delta \vdash_{\LI} P$ and $h : - \mid \Lambda \vdash_{\RI} D$.
+  \item Rules $\tr$ and $\lleft$ appear in the same phase $\F$, though there are situations where both rules can be applied first, which can lead to two valid but distinct focused derivations. More precisely, there are cases when $\tr$ and $\lleft$ can be interchangeably applied. This form of nondeterminism is tamed in the congruence relation $\circeq$ by the last permutative conversion in Figure \ref{fig:circeq}, involving $\tr$ and $\lleft$. As an example, consider the following two valid derivations of $A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\F} P \ot D$ under the assumption of $f : - \mid \Gamma \vdash_{\RI} A$, $g : X \mid \Delta \vdash_{\LI} P$ and $h : - \mid \Lambda \vdash_{\RI} D$.
 %  In this case $\tr$ and $\lleft$ rule applications are interchangeable.
 %  For convenience, we define an abbreviation of consecutive phase switching rule applications under suitable condition
 %  \begin{displaymath}
@@ -879,11 +887,11 @@ The focused sequent calculus in (\ref{eq:naive}) is sound and complete wrt. the 
     \begin{equation}\label{eq:llefttr}
       \hspace{-.5cm}
       \proofbox{
-    \infer[\mathsf{sw}]{A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\RI} P \ot D}{
+%    \infer[\mathsf{sw}]{A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\RI} P \ot D}{
       \infer[\lleft]{A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\F} P \ot D}{
         \deduce{- \mid \Gamma \vdash_{\RI} A}{f}
         &\hspace{-.6cm}
-        \infer[\mathsf{sw}]{X \mid \Delta , \Lambda \vdash_{\RI} P \ot D}{
+        \infer[\mathsf{sw}]{X \mid \Delta , \Lambda \vdash_{\LI} P \ot D}{
           \infer[\tr]{X \mid \Delta , \Lambda \vdash_{\F} P\ot D}{
             \infer[\mathsf{sw}]{X \mid \Delta \vdash_{\RI} P}{
               \deduce{X \mid \Delta \vdash_{\LI} P}{g}
@@ -893,15 +901,15 @@ The focused sequent calculus in (\ref{eq:naive}) is sound and complete wrt. the 
           }
         }
       }
-    }
-    }
-      \hspace{-.1cm}
+%    }
+%    }
+      \hspace{.2cm}
 %    \quad
 %  \end{displaymath}
 %  However, there is another proof of for $A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\RI} C \ot D$
     %  \begin{displaymath}
-    \proofbox{
-    \infer[\mathsf{sw}]{A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\RI} P\ot D}{
+%    \proofbox{
+%    \infer[\mathsf{sw}]{A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\RI} P\ot D}{
       \infer[\tr]{A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\F} P \ot D}{
         \infer[\mathsf{sw}]{A \lolli X \mid \Gamma , \Delta \vdash_{\RI} P}{
           \infer[\lleft]{A \lolli X \mid \Gamma , \Delta \vdash_{\F} P}{
@@ -914,7 +922,7 @@ The focused sequent calculus in (\ref{eq:naive}) is sound and complete wrt. the 
         \deduce{- \mid \Lambda \vdash_{\RI} D}{h}
       }
     }
-    }
+%    }
     \end{equation}
 \end{enumerate}
 
@@ -977,30 +985,35 @@ Derivations in the tagged focused sequent calculus are generated by the rules
 \begin{equation}\label{eq:focus}
 %  \def\arraystretch{2.5}
   \begin{array}{lc}
-    \text{(right invertible)} & \\ &
-    \infer[\lright]{S \mid \Gamma \vdash^{x}_{\RI} A \lolli B}{S \mid \Gamma , A^{x} \vdash^{x}_{\RI} B}
+    \text{(right invertible)} & %\\[-4pt] &
+    \proofbox{
+      \infer[\lright]{S \mid \Gamma \vdash^{x}_{\RI} A \lolli B}{S \mid \Gamma , A^{x} \vdash^{x}_{\RI} B}
     \qquad
     \infer[\LI 2 \RI]{S \mid \Gamma \vdash^{x}_{\RI} P}{S \mid \Gamma \vdash^{x}_{\LI} P}
+    }
 %  \end{displaymath}
     %  \begin{displaymath}
-    \\
-    \text{(left invertible)} & \\ &
-    \infer[\unitl]{\I \mid \Gamma \vdash_{\LI} P}{- \mid \Gamma \vdash_{\LI} P}
+    \\[6pt]
+    \text{(left invertible)} & %\\[-4pt] &
+    \proofbox{
+      \infer[\unitl]{\I \mid \Gamma \vdash_{\LI} P}{- \mid \Gamma \vdash_{\LI} P}
     \qquad
     \infer[\tl]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B , \Gamma \vdash_{\LI} P}
     \qquad
     \infer[\Pass 2 \LI]{T \mid \Gamma \xvdash_{\LI} P}{T \mid \Gamma \xvdash_{\Pass} P}
+    }
 %  \end{displaymath}
     %  \begin{displaymath}
     \\
-    \text{(passivation)} & \\ &
-    \hspace{-1.7cm}
+    \text{(passivation)} & \\ %&
+    %\hspace{-1.7cm}
+   \multicolumn{2}{c}{
     \infer[\pass]{- \mid A^{x} , \Gamma \xvdash_{\Pass} P }{
       A\mid \Gamma^{\circ} \vdash_{\LI} P
     }
     \quad
 %    \\[6pt]
-%    \multicolumn{2}{c}{
+%    
     \infer[\F 2 \Pass]{T \mid \Gamma \xvdash_{\Pass} P}{
       T \mid \Gamma^\circ \vdash_{\F} P &
       T = - \vee T = X
@@ -1010,14 +1023,15 @@ Derivations in the tagged focused sequent calculus are generated by the rules
       T \mid \Gamma \xvdash_{\F} P &
       T = A \lolli B
     }
-%    }
+    }
 %  \end{displaymath}
     %  \begin{displaymath}
-    \\
-    \text{(focusing)} &    \\ &
-    \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+    \\[6pt]
+    \text{(focusing)} &    %\\[-4pt] &
+    \proofbox{\infer[\ax]{X \mid \quad \vdash_{\F} X}{}
     \qquad
     \infer[\unitr]{- \mid \quad \vdash_{\F} \I}{}
+    }
     \\[6pt]
     \multicolumn{2}{c}{
     \infer[\tr]{T \mid \Gamma , \Delta \xvdash_{\F} A \ot B}{
@@ -1080,12 +1094,14 @@ In black phase, the search for a proof of $T \mid \Gamma^\circ \vdash^\bullet_\R
 %  Black tags produced by $\lright$ play essential roles here because if there is no black formula in $\Gamma$, then it implies that we cannot do $\lleft$ after $\tr$.
 %  In this situation, we must decompose $\lolli$ in stoup prior than $\ot$ in conclusion.
 
-The tagged focused system solves the two types of nondeterminism without losing provablity. For example, only one of the two derivations in (\ref{eq:passtr}) is valid using the rules in (\ref{eq:focus}), removing nondeterminism of type 1:
+The tagged focused system solves the two types of nondeterminism without losing provablity. For example, only one of the two derivations in (\ref{eq:passtr}) is valid using the rules in (\ref{eq:focus}), and similarly for (\ref{eq:llefttr})
+%is valid using the rules in (\ref{eq:focus}), removing nondeterminism of type 2:
+%removing nondeterminism of type 1:
 %given a sequent $A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\RI} C \ot D$ and supposed that $B$ is irreducible, $C = A' \lolli B'$,
 %  we can construct a proof:
 \begin{displaymath}
   \begin{array}{cc}
-    \infer[\mathsf{sw}]{- \mid X , \Gamma , \Delta \vdash_{\RI} P \ot C}{
+%    \infer[\mathsf{sw}]{- \mid X , \Gamma , \Delta \vdash_{\RI} P \ot C}{
       \infer[\pass]{- \mid X , \Gamma , \Delta \vdash_{\Pass} P \ot C}{
         \infer[\mathsf{sw}]{X \mid \Gamma , \Delta \vdash_{\LI} P \ot C}{
           \infer[\tr]{X \mid \Gamma , \Delta \vdash_{\F} P \ot C}{
@@ -1097,9 +1113,9 @@ The tagged focused system solves the two types of nondeterminism without losing 
           }
         }
       }
-    }
+%    }
     &
-    \infer[\mathsf{sw}]{- \mid X , \Gamma , \Delta \vdash_{\RI} P \ot C}{
+    \infer[\mathsf{sw}]{- \mid X , \Gamma , \Delta \vdash_{\Pass} P \ot C}{
       \infer[\tr]{- \mid X , \Gamma , \Delta \vdash_{\F} P \ot C}{
         \infer[\mathsf{sw}]{- \mid X , \Gamma \vdash^{\bullet}_{\RI} P}{
           \deduce{- \mid X , \Gamma \vdash^{\bullet}_{\Pass} P}{??}
@@ -1112,150 +1128,166 @@ The tagged focused system solves the two types of nondeterminism without losing 
     (\text{same derivation as in (\ref{eq:passtr})})
     &
     (\text{$\pass$ not applicable since $X$ is not tagged})
-  \end{array}
-  \end{displaymath}
-Analogously, only one of the two derivations in (\ref{eq:llefttr}) is valid using the rules in (\ref{eq:focus}), removing nondeterminism of type 2:
-  \begin{displaymath}
-    \infer[\mathsf{sw}]{A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\RI} (A' \lolli B') \ot D}{
-      \infer[\lleft]{A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\F} (A' \lolli B') \ot D}{
-        \deduce{- \mid \Gamma \vdash_{\RI} A}{\vdots}
+    \\[6pt]
+%    \infer[\mathsf{sw}]{A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\RI} P \ot D}{
+      \infer[\lleft]{A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\F} P \ot D}{
+        \deduce{- \mid \Gamma \vdash_{\RI} A}{f}
         &
-        \infer[\mathsf{sw}]{B \mid \Delta , \Lambda \vdash_{\RI} (A' \lolli B') \ot D}{
-          \infer[\tr]{B \mid \Delta , \Lambda \vdash_{\F} (A' \lolli B') \ot D}{
-            \deduce{B \mid \Delta \vdash^{\bullet}_{\RI} A' \lolli B'}{\vdots}
+        \infer[\mathsf{sw}]{X \mid \Delta , \Lambda \vdash_{\LI} P \ot D}{
+          \infer[\tr]{X \mid \Delta , \Lambda \vdash_{\F} P \ot D}{
+            \infer[\mathsf{sw}]{X \mid \Delta \vdash^{\bullet}_{\RI} P}{
+              \deduce{X \mid \Delta \vdash^{\bullet}_{\LI} P}{g}
+              }
             &
-            \deduce{- \mid \Lambda \vdash_{\RI} D}{\vdots}
+            \deduce{- \mid \Lambda \vdash_{\RI} D}{h}
           }
         }
       }
-    }
-  \end{displaymath}
-  However, the other way around(decompose $\ot$ prior to $\lolli$) is impossible.
-  Because the sequent is black, if we want to decompose $A \lolli B$, we have to decompose $A' \lolli B'$ first to obtain $A^{\bullet}$ in context then send $\Gamma , \Delta , A'$ to left premise of $\lleft$ application.
-  In the end, the proof tree cannot close:
-  \begin{displaymath}
-    \infer[\mathsf{sw}]{A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\RI} (A' \lolli B') \ot D}{
-      \infer[\tr]{A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\F} (A' \lolli B') \ot D}{
-        \infer[\lright]{A \lolli B \mid \Gamma , \Delta \vdash^{\bullet}_{\RI} A' \lolli B'}{
-          \infer[\mathsf{sw}]{A \lolli B \mid \Gamma , \Delta , A'^{\bullet} \vdash_{\RI} B'}{
-            \infer[\lleft]{A \lolli B \mid \Gamma , \Delta , A'^{\bullet} \vdash_{\F} B'}{
-              \deduce{- \mid \Gamma , \Delta , A' \vdash_{\RI} A}{??}
-              &
-              \deduce{B \mid \quad \vdash_{\LI} B'}{??}
-            }
-          }
+%    }
+    &
+%   \infer[\mathsf{sw}]{A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\RI} P \ot D}{
+      \infer[\tr]{A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\F} P \ot D}{
+        \infer[\mathsf{sw}]{A \lolli X \mid \Gamma , \Delta \vdash^{\bullet}_{\RI} P}{
+          \deduce{A \lolli X \mid \Gamma , \Delta \vdash^{\bullet}_{\F} P}{??}
         }
+%            \infer[\lleft]{A \lolli X \mid \Gamma , \Delta , \vdash^{\bullet}_{\F} P}{
+%              \deduce{- \mid \Gamma , \Delta , A' \vdash_{\RI} A}{??}
+%              &
+%              \deduce{X \mid \quad \vdash_{\LI} X'}{??}
+%            }
+%          }
+%        }
         &
-        \deduce{- \mid \Lambda \vdash_{\RI} D}{\vdots}
+        \deduce{- \mid \Lambda \vdash_{\RI} D}{h}
       }
-    }
+%    }
+    \\
+    (\text{same derivation as in (\ref{eq:llefttr})})
+    &
+    (\text{$\lleft$ not applicable since $\Gamma$ is tag-free})
+   \end{array}
   \end{displaymath}
-  The situation is worse if $C$ is positive, we cannot produce tags from $\lright$ application to ensure applicability of $\lleft$, so the whole derivation gets stuck and cannont close.
+%  However, the other way around(decompose $\ot$ prior to $\lolli$) is impossible.
+%  Because the sequent is black, if we want to decompose $A \lolli B$, we have to decompose $A' \lolli B'$ first to obtain $A^{\bullet}$ in context then send $\Gamma , \Delta , A'$ to left premise of $\lleft$ application.
+%  In the end, the proof tree cannot close:
+ % \begin{displaymath}
+ % \end{displaymath}
+%  The situation is worse if $C$ is positive, we cannot produce tags from $\lright$ application to ensure applicability of $\lleft$, so the whole derivation gets stuck and cannont close.
 
 %  We can solve non-determinacy case 2 by following construction.
 %  Given a sequent $- \mid A , \Gamma , \Delta \vdash_{\RI} B \ot C$, there is only one proof can be constructed in tagged focused system.
 
-  We show that there is no loss of provablity in tagged focused system with providing a proof of sequent $X \lolli Y \mid Z \vdash_{\RI} (X \lolli Y) \ot Z$.
-  \begin{displaymath}
-    \infer[\mathsf{sw}]{X \lolli Y \mid Z \vdash_{\RI} (X \lolli Y) \ot Z}{
-      \infer[\tr]{X \lolli Y \mid Z \vdash_{\F} (X \lolli Y) \ot Z}{
-        \infer[\lright]{X \lolli Y \mid \quad \vdash^{\bullet}_{\RI} X \lolli Y}{
-          \infer[\mathsf{sw}]{X \lolli Y \mid X^{\bullet} \vdash_{\RI} Y}{
-            \infer[\lleft]{X \lolli Y \mid X^{\bullet} \vdash_{\F} Y}{
-              \infer[\mathsf{sw}]{- \mid X \vdash_{\RI} X}{
-                \infer[\pass]{- \mid X \vdash_{\Pass} X}{
-                  \infer[\mathsf{sw}]{X \mid \quad \vdash_{\LI} X}{
-                    \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
-                  }
-                }
-              }
-              &
-              \infer[\mathsf{sw}]{Y \mid \quad \vdash_{\LI} Y}{
-                \infer[\ax]{Y \mid \quad \vdash_{\F} Y}{}
-              }
-            }
-          }
-        }
-        &
-        \infer[\mathsf{sw}]{- \mid Z \vdash_{\RI} Z}{
-          \infer[\pass]{- \mid Z \vdash_{\Pass} Z}{
-            \infer[\mathsf{sw}]{Z \mid \quad \vdash_{\LI} Z}{
-              \infer[\ax]{Z \mid \quad \vdash_{\F} Z}{}
-            }
-          }
-        }
-      }
-    }
-  \end{displaymath}
+ The extra restriction on sequents and formulae imposed on the rules in (\ref{eq:focus}) do not reduce provability, e.g. sequents $X \lolli Y \mid Z \vdash_{\RI} (X \lolli Y) \ot Z$, whose proof requires the application of $\tr$ before $\lleft$, and $X \lolli (Y \ot Z) \mid X \vdash_\F Y \ot Z$, where $\lleft$ must appear below $\tr$ in the proof tree, are both derivable.
+%  \begin{displaymath}
+%    \infer[\mathsf{sw}]{X \lolli Y \mid Z \vdash_{\RI} (X \lolli Y) \ot Z}{
+%      \infer[\tr]{X \lolli Y \mid Z \vdash_{\F} (X \lolli Y) \ot Z}{
+%        \infer[\lright]{X \lolli Y \mid \quad \vdash^{\bullet}_{\RI} X \lolli Y}{
+%          \infer[\mathsf{sw}]{X \lolli Y \mid X^{\bullet} \vdash_{\RI} Y}{
+%            \infer[\lleft]{X \lolli Y \mid X^{\bullet} \vdash_{\F} Y}{
+%              \infer[\mathsf{sw}]{- \mid X \vdash_{\RI} X}{
+%                \infer[\pass]{- \mid X \vdash_{\Pass} X}{
+%                  \infer[\mathsf{sw}]{X \mid \quad \vdash_{\LI} X}{
+%                    \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+%                  }
+%                }
+%              }
+%              &
+%              \infer[\mathsf{sw}]{Y \mid \quad \vdash_{\LI} Y}{
+%                \infer[\ax]{Y \mid \quad \vdash_{\F} Y}{}
+%              }
+%            }
+%          }
+%        }
+%        &
+%        \infer[\mathsf{sw}]{- \mid Z \vdash_{\RI} Z}{
+%          \infer[\pass]{- \mid Z \vdash_{\Pass} Z}{
+%            \infer[\mathsf{sw}]{Z \mid \quad \vdash_{\LI} Z}{
+%              \infer[\ax]{Z \mid \quad \vdash_{\F} Z}{}
+%            }
+%          }
+%        }
+%      }
+%    }
+%  \end{displaymath}
 %\end{itemize}
 
 %This fact shows that in tagged focused system, we cannot permute $\tr$ and $\lleft$ applications arbitrarily.
 %In this sense, two equivalent proofs in \SkNMILL\ become identical in focused calculus.
-In summary, our tagged focused system here not only can prove every sequent in \SkNMILL (\SkNMILL and tagged focused system are equivalent) but also without producing redundant non-determinacy.
-Moreover, not only $\tr$ and $\lleft$ equivalent case becomes identical in focused system, but any other equivalent cases hold the same fact.
-
-We can substantiate equivalence between \SkNMILL and tagged focused calculus by following results.
-\begin{lemma}\label{AdmissibleInRI}
-  Following rules are admissible in tagged focused system:
-  \begin{displaymath}
+ Moreover, the tagged focused sequent calculus is sound and complete wrt. the  sequent calculus of Section \ref{sec2}.
+Soundness is immediate: there exist functions $\mathsf{emb}_{ph} : S \mid \Gamma \vdash^x_{ph} A \to S \mid \Gamma \vdash A$, for all $ph \in \{\RI,\LI,\Pass, \F \}$, which simply erases all phase annotations and tags. Completeness follows from the fact that the following rules are all admissibile: % here not only can prove every sequent in \SkNMILL (\SkNMILL and tagged focused system are equivalent) but also without producing redundant non-determinacy.
+%Moreover, not only $\tr$ and $\lleft$ equivalent case becomes identical in focused system, but any other equivalent cases hold the same fact.
+%We can substantiate equivalence between \SkNMILL and tagged focused calculus by following results.
+%\begin{lemma}\label{AdmissibleInRI}
+%  Following rules are admissible in tagged focused system:
+\begin{equation}\label{eq:admis}
+  \begin{array}{c}
+    \hspace{-3.9pt}
     \infer[\unitl^{\RI}]{\I \mid \Gamma \vdash_{\RI} C}{- \mid \Gamma \vdash_{\RI} C}
     \quad
     \infer[\tl^{\RI}]{A \mid B, \Gamma \vdash_{\RI} C}{A \mid B, \Gamma \vdash_{\RI} C}
     \quad
     \infer[\pass^{\RI}]{- \mid \Gamma \vdash_{\RI} C}{A \mid \Gamma \vdash_{\RI} C}
-  \end{displaymath}
-  \begin{displaymath}
+    \quad
+    \infer[\ax^{\RI}]{A \mid \quad \vdash_{\RI} A}{}
+    \quad
+    \infer[\unitr^{\RI}]{- \mid \quad \vdash_{\RI} \I}{}
+\\[6pt]
     \infer[\lleft^{\RI}]{A \lolli B \mid \Gamma , \Delta \vdash_{\RI} C}{
     - \mid \Gamma \vdash_{\RI} A
     &
     B \mid \Delta \vdash_{\RI} C
     }
-    \quad
-    \infer[\ax^{\RI}]{A \mid \quad \vdash_{\RI} A}{}
-    \quad
-    \infer[\unitr^{\RI}]{- \mid \quad \vdash_{\RI} \I}{}
-  \end{displaymath}
-  \begin{displaymath}
-    \infer[\tr^{\RI}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A \rdbc_{\lolli} \ot B}{
+    \qquad
+    \infer[\tr_{\Gamma'}^{\RI}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A \rdbc_{\lolli} \ot B}{
       S \mid \Gamma , \Gamma' \vdash_{\RI} A
       &
       - \mid \Delta \vdash_{\RI} B
     }
-  \end{displaymath}
-\end{lemma}
-
-$\tr^{\RI}$ is a generalized version of $\tr$.
-We endorse it in order to strengthen inductive hypothesis and make our proof smoothly.
-For example, considering following proof tree, if we invoke simple version of $\tr$ in phase $\RI$, then we cannot proof its admissibility:
+  \end{array}
+\end{equation}
+%\end{lemma}
+The interesting one is $\tr_{\Gamma'}^{\RI}$. The tensor right rule $\tr^\RI$, with premises and conclusion in phase $\RI$, is derivable from the latter by taking an empty $\Gamma'$. 
+Without this generalization including the extra context $\Gamma'$, one quickly discovers that finding a proof of $\tr^\RI$, proceeding by induction on the structure of the derivation of the first premise, is not possible when this derivation ends with an application of $\lright$:
+%The generalization is necessary for making the inductive hypothesis strong enough and make our proof smoothly.
+%For example, considering following proof tree, if we invoke simple version of $\tr$ in phase $\RI$, then we cannot proof its admissibility:
 \begin{displaymath}
-  \infer[\tr^{\RI}_s]{S \mid \Gamma , \Delta \vdash_{\RI} (A' \lolli B') \ot B}{
+  \proofbox{
+    \infer[\tr^{\RI}]{S \mid \Gamma , \Delta \vdash_{\RI} (A' \lolli B') \ot B}{
     \infer[\lright]{S \mid \Gamma \vdash_{\RI} A' \lolli B'}{
       \deduce{S \mid \Gamma , A' \vdash_{\RI} B'}{f}
     }
     &
     \deduce{- \mid \Delta \vdash_{\RI} B}{g}
-  }
+    }
+    } = \quad ??
 \end{displaymath}
-In this case, we cannot permute $\tr^{\RI}_s$ up to use inductive hypothesis.
-Therefore we need to have a stronger version of $\tr$ which performs $\tr$ and $\lright$ in the same time.
-There is no generality loss because we can always take $\Gamma'$ as empty then reduce to simple $\tr$.
+The inductive hypothesis applied to $f$ and $g$ would produce a derivation of the wrong sequent. The use of $\Gamma'$ in the generalized rule $\tr_{\Gamma'}^{\RI}$ is there to fix precisely this issue.
+%In this case, we cannot permute $\tr^{\RI}_s$ up to use inductive hypothesis.
+%Therefore we need to have a stronger version of $\tr$ which performs $\tr$ and $\lright$ in the same time.
+%There is no generality loss because we can always take $\Gamma'$ as empty then reduce to simple $\tr$.
 
-If we have a derivation in focused system, then we can define a function $\mathsf{emb}$ which erases phases and tags to obtain a derivation in original unfocused seqeuent calculus.
-On the other hand, we can define a function $\mathsf{focus}$ to map each derivation in cut-free sequent calculus to a derivaiton in focused calculus because lemma \ref{AdmissibleInRI} holds.
-Specifically, for each derivation in cut-free sequent calculus, function $\mathsf{focus}$ adds phase label $\RI$ on $\vdash$ and rename each rule into its $\RI$ version.
+The admissibility of the rules in \ref{eq:admis} allows the construction of a function $\mathsf{focus} : S \mid \Gamma \vdash A \to S \mid \Gamma \vdash_\RI A$, transforming each rule in (\ref{eq:seqcalc}) to the corresponding focused rule in phase $\RI$.
+%satisfying $\mathsf{focus}\;f = \mathsf{focus}\;g$ whenever $f \circeq g$. In turns, the existence of such function $\mathsf{focus}$ is equivalent to the
+%On the other hand, we can define a function $\mathsf{focus}$ to map each derivation in cut-free sequent calculus to a derivaiton in focused calculus because lemma \ref{AdmissibleInRI} holds.
+%Specifically, for each derivation in cut-free sequent calculus, function $\mathsf{focus}$ adds phase label $\RI$ on $\vdash$ and rename each rule into its $\RI$ version.
+It is possible to prove that the function $\mathsf{focus}$ maps  $\circeq$-equivalent derivations in the sequent calculus for \SkNMILL\ to syntactically identical derivations in focused seqeunt calculus. Moreover, one can also show that $\mathsf{focus}$ is the inverse of $\mathsf{emb}_\RI$, i.e. $\mathsf{focus}\;(\mathsf{emb}_\RI \;f) = f$ for all $f : S \mid \Gamma \vdash_\RI A$ and $\mathsf{emb}_\RI\;(\mathsf{focus}\;g) \circeq g$ for all $g : S \mid \Gamma \vdash A$. In other words, each $\circeq$-equivalence class in the sequent calculus corresponds uniquely to a single derivation in the focused sequent calculus.
 
-Moreover, we can show that two equivalent derivations in \SkNMILL\ become identical in focused seqeunt calculus.
-Therefore, deciding two proofs to be equivalent could be done by checking whether their corresponding focused derivation are identical.
+The focused sequent calculus solves the \emph{coherence problem} for skew monoidal closed categories.
+As proved in Section \ref{sec:catsem}, the sequent calculus for \SkNMILL\ has an underlying category $\FSkMCC(\mathsf{At})$, which is the \emph{free} skew monoidal closed category on the set $\mathsf{At}$. Solving the coherence problem then corresponds to decide whether two parallel morphisms in $\FSkMCC(\mathsf{At})$ are equal wrt. the equational theory of skew monoidal closed categories. The latter problem is in turns equivalent to decide whether two derivations $f,g : S \mid \Gamma \vdash A$ are in the same $\circeq$-equivalence class. But this is the same as deciding whether $\mathsf{focus}\;f = \mathsf{focus}\;g$ in the focused sequent calculus, and deciding syntactic equality of focused derivations is a simple task.
+
+%ies, so we can construct an effective procedure to determine equivalence of morphisms in a free skew monoidal closed category.
+%Given two parallel morphisms in a category composed exclusively of of commutativity of diagrams of canonical morphisms 
+%Therefore, deciding two proofs to be equivalent could be done by checking whether their corresponding focused derivation are identical.
 %Next, we can extend this result to decide equality of morphisms in skew monoidal closed categories.
 
-We take one more step to extend the results to categorical side.
-According to categorical semantics section above, we know \SkNMILL\ is sound and complete with free skew monoidal categories, so we can construct an effective procedure to determine equivalence of morphisms in a free skew monoidal closed category.
-\begin{enumerate}
-  \item Given two moprhisms $f$ and $g$ in a free skew monoidal closed category.
-  \item Use $\mathsf{complt}$ function to obtain two derivations $\mathsf{complt} \text{ } f$ and $\mathsf{complt} \text{ } g$ in sequent calculus system.
-  \item Apply $\mathsf{complt} \text{ } f$ and $\mathsf{complt} \text{ } g$ to function $\mathsf{focus}$ respectively.
-  \item If $\mathsf{focus} \text{ } (\mathsf{complt} \text{ } f) = \mathsf{focus} \text{ } (\mathsf{complt} \text{ } g)$, then $f \doteq g$, else $f \not\doteq g$.
-\end{enumerate}
+%We take one more step to extend the results to categorical side.
+%According to categorical semantics section above, we know \SkNMILL\ is sound and complete with free skew monoidal categories, so we can construct an effective procedure to determine equivalence of morphisms in a free skew monoidal closed category.
+%\begin{enumerate}
+%  \item Given two moprhisms $f$ and $g$ in a free skew monoidal closed category.
+%  \item Use $\mathsf{complt}$ function to obtain two derivations $\mathsf{complt} \text{ } f$ and $\mathsf{complt} \text{ } g$ in sequent calculus system.
+%  \item Apply $\mathsf{complt} \text{ } f$ and $\mathsf{complt} \text{ } g$ to function $\mathsf{focus}$ respectively.
+%  \item If $\mathsf{focus} \text{ } (\mathsf{complt} \text{ } f) = \mathsf{focus} \text{ } (\mathsf{complt} \text{ } g)$, then $f \doteq g$, else $f \not\doteq g$.
+%\end{enumerate}
 
 %%\begin{theorem}
 %%  \begin{enumerate}
