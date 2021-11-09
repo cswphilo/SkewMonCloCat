@@ -99,7 +99,7 @@ Niccol{\`o} Veltri \qquad\qquad Cheng-Syuan Wan
 \begin{document}
 \maketitle
 \begin{abstract}
-  Monoidal closed categories are used as standard categorical models of intuitionistic noncommutative linear logic: the monoidal unit and tensor model the multiplicative unit and conjunction; the internal hom models linear implication. In recent years, the weaker notion of skew monoidal closed category has been proposed by Ross Street, where the three structural laws of left and right unitality and associativity are not required to be invertible, they are merely natural transformations with a specific orientation. A question arises naturally: Is it possible to find logical proof systems which are naturally modelled by skew monoidal closed categories? We answer positively by introducing three equivalent deductive systems that serve the purpose: a Hilbert-style calculus; a cut-free sequent calculus; a calculus of normal forms obtained from an adaptation of Andreoli's focusing technique to our skew setting. The resulting focused sequent calculus peculiarly employs a system of tags for keeping track of new formulae appearing in the antecedent and appropriately reducing nondeterministic choices in proof search. Focusing solves the coherence problem for skew monoidal closed categories, which implies the existence of effective procedures for deciding equality of canonical morphisms in all models.
+  Monoidal closed categories are used as standard categorical models of intuitionistic noncommutative linear logic: the monoidal unit and tensor model the multiplicative unit and conjunction; the internal hom models linear implication. In recent years, the weaker notion of skew monoidal closed category has been proposed by Ross Street, where the three structural laws of left and right unitality and associativity are not required to be invertible, they are merely natural transformations with a specific orientation. A question arises naturally: Is it possible to find logical proof systems which are naturally modelled by skew monoidal closed categories? We answer positively by introducing a a cut-free sequent calculus that serves the purpose. We study the proof-theoretic semantics of the sequent calculus by identifying a calculus of derivations in normal form, obtained from an adaptation of Andreoli's focusing technique to the skew setting. The resulting focused sequent calculus peculiarly employs a system of tags for keeping track of new formulae appearing in the antecedent and appropriately reducing nondeterministic choices in proof search. Focusing solves the coherence problem for skew monoidal closed categories, which implies the existence of effective procedures for deciding equality of canonical morphisms in all models.
 
 %%   In previous works from Uustalu et al, proof theory of some variants of skew monoidal categories are developed.
 %%   We also know that given a skew monoidal category, there is a corresponding skew closed structure on the same category.
@@ -252,7 +252,7 @@ Examples of non valid sequents include the ``inverses'' of the goals in (\ref{eq
 The three sequents $X \mid ~ \vdash \I \ot X$, $X \ot \I \mid ~ \vdash X$ and $X \ot (Y \ot Z) \mid ~ \vdash (X \ot Y) \ot Z$ have no derivations. All possible attempts of constructing a valid proof for each of them end in failure.
 \begin{displaymath}
   \begin{array}{ccc}
-  (\lambda^{-1}) & (\rho)^{-1} & (\alpha^{-1}) \\[6pt]
+  (\lambda^{-1}) & (\rho^{-1}) & (\alpha^{-1}) \\[6pt]
     \infer[\tr]{X \mid ~\vdash \I \ot X}{
       \deduce[??]{X \mid ~ \vdash \I}{
       }
