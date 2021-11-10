@@ -66,6 +66,9 @@
 \newcommand{\xvdash}{\vdash^{x}}
 \newcommand{\yvdash}{\vdash^{y}}
 
+\newcommand{\otd}{\ot^D}
+\newcommand{\lollid}{\;\textsuperscript{$D$}\!\!\lolli}
+
 \newcommand{\highlight}[1]{\textcolor{blue}{#1}}
 
 \newcommand{\proofbox}[1]{\begin{tabular}{l} #1 \end{tabular}}
@@ -99,7 +102,7 @@ Niccol{\`o} Veltri \qquad\qquad Cheng-Syuan Wan
 \begin{document}
 \maketitle
 \begin{abstract}
-  Monoidal closed categories are used as standard categorical models of intuitionistic noncommutative linear logic: the monoidal unit and tensor model the multiplicative unit and conjunction; the internal hom models linear implication. In recent years, the weaker notion of skew monoidal closed category has been proposed by Ross Street, where the three structural laws of left and right unitality and associativity are not required to be invertible, they are merely natural transformations with a specific orientation. A question arises naturally: Is it possible to find logical proof systems which are naturally modelled by skew monoidal closed categories? We answer positively by introducing a a cut-free sequent calculus that serves the purpose. We study the proof-theoretic semantics of the sequent calculus by identifying a calculus of derivations in normal form, obtained from an adaptation of Andreoli's focusing technique to the skew setting. The resulting focused sequent calculus peculiarly employs a system of tags for keeping track of new formulae appearing in the antecedent and appropriately reducing nondeterministic choices in proof search. Focusing solves the coherence problem for skew monoidal closed categories, which implies the existence of effective procedures for deciding equality of canonical morphisms in all models.
+  Monoidal closed categories are used as standard categorical models of intuitionistic noncommutative linear logic: the monoidal unit and tensor model the multiplicative unit and conjunction; the internal hom models linear implication. In recent years, the weaker notion of skew monoidal closed category has been proposed by Ross Street, where the three structural laws of left and right unitality and associativity are not required to be invertible, they are merely natural transformations with a specific orientation. A question arises naturally: Is it possible to find logical proof systems which are naturally modelled by skew monoidal closed categories? We answer positively by introducing a a cut-free sequent calculus that serves the purpose. We study the proof-theoretic semantics of the sequent calculus by identifying a calculus of derivations in normal form, obtained from an adaptation of Andreoli's focusing technique to the skew setting. The resulting focused sequent calculus peculiarly employs a system of tags for keeping track of new formulae appearing in the antecedent and appropriately reducing nondeterministic choices in proof search. Focusing solves the coherence problem for skew monoidal closed categories, which implies the existence of effective procedures for deciding equality of canonical maps in all models.
 
 %%   In previous works from Uustalu et al, proof theory of some variants of skew monoidal categories are developed.
 %%   We also know that given a skew monoidal category, there is a corresponding skew closed structure on the same category.
@@ -114,7 +117,7 @@ Niccol{\`o} Veltri \qquad\qquad Cheng-Syuan Wan
 It is a well-known fact from the late 80s/early 90s that symmetric monoidal closed categories are standard categorical models of \MILL, multiplicative intuitionistic linear logic, whose logical connectives comprise of multiplicative unit $\I$ and conjunction $\ot$ and linear implication $\lolli$ \cite{mellies:categorical:09}. Probably lesser-known, though a quite straightforward generalization of the previous sentence which actually predated the inception of linear logic altogether, is the fact that (non-necessarily symmetric) monoidal biclosed categories are categorical models of the noncommutative variant of \MILL\ (for which we use the abbreviation \NMILL) \cite{abrusci:noncommutative:1990}, where the structural rule of exchange is absent and there are two ordered implications $\lolli$ and $\illol$ \cite{lambek:deductive:68}. A proof system for \NMILL\ is typically called \emph{Lambek calculus}. Lambek refers to the implications $\lolli$ and $\illol$ as residuals, and models of Lambek calculus are thereupon called residual categories. The Lambek calculus is often practically employed in formal investigations of natural languages \cite{lambek:mathematics:58}.
 By dropping one of the ordered implication of \NMILL\ one obtains a fragment of the Lambek calculus enjoying categorical semantics in every monoidal closed category.
 
-In recent years, Ross Street introduced the new notion of skew monoidal closed categories \cite{street:skew-closed:2013}. These are a weakening of monoidal closed categories: their structure includes a unit $I$, a tensor $\ot$, an internal hom $\lolli$ and an adjunction relating the latter two operations, as in usual non-skew monoidal categories. The difference lays in the three structural laws of left and right unitality, $\lambda_A : \I \ot A \to A$ and $\rho_A : A \to A \ot \I$, and associativity, $\alpha_{A,B,C} : (A \ot B) \ot C \to A \ot (B \ot C)$, which are usually required to be natural isomorphisms, but in the skew variant are merely natural transformations with the specified orientation. Street originally proposed this weaker notion for better understanding and fixing a famous imbalance, first noticed by Eilenberg and Kelly \cite{eilenberg:closed:1966}, found in the usual adjunction relating monoidal and closed structures \cite{street:skew-closed:2013,uustalu:eilenberg-kelly:2020}. In the last decade, skew monoidal closed categories, together with their non-closed/non-monoidal variants, have been thoroughly studied, with applications ranging from algebra and homotopy theory to programming language semantics \cite{szlachanyi:skew-monoidal:2012,lack:skew:2012,lack:triangulations:2014,altenkirch:monads:2014,buckley:catalan:2015,bourke:skew:2017,bourke:skew:2018,tomita:realizability:21}.
+In recent years, Ross Street introduced the new notion of (left) skew monoidal closed categories \cite{street:skew-closed:2013}. These are a weakening of monoidal closed categories: their structure includes a unit $I$, a tensor $\ot$, an internal hom $\lolli$ and an adjunction relating the latter two operations, as in usual non-skew monoidal categories. The difference lays in the three structural laws of left and right unitality, $\lambda_A : \I \ot A \to A$ and $\rho_A : A \to A \ot \I$, and associativity, $\alpha_{A,B,C} : (A \ot B) \ot C \to A \ot (B \ot C)$, which are usually required to be natural isomorphisms, but in the skew variant are merely natural transformations with the specified orientation. Street originally proposed this weaker notion for better understanding and fixing a famous imbalance, first noticed by Eilenberg and Kelly \cite{eilenberg:closed:1966}, found in the usual adjunction relating monoidal and closed structures \cite{street:skew-closed:2013,uustalu:eilenberg-kelly:2020}. In the last decade, skew monoidal closed categories, together with their non-closed/non-monoidal variants, have been thoroughly studied, with applications ranging from algebra and homotopy theory to programming language semantics \cite{szlachanyi:skew-monoidal:2012,lack:skew:2012,lack:triangulations:2014,altenkirch:monads:2014,buckley:catalan:2015,bourke:skew:2017,bourke:skew:2018,tomita:realizability:21}.
 
 A question arises naturally: is it possible to characterize skew monoidal closed categories as standard categorical models of a certain logical proof system, e.g. a skew variant of \NMILL?
 This paper provides a positive answer to this question. We introduce a cut-free sequent calculus for a skew variant of \NMILL, which we name (rather unoriginally) \SkNMILL. Sequents are peculiarly defined as triples $S \mid \Gamma \vdash A$, where the succedent is a single formula $A$ (as in intuitionistic linear logic), but the antecedent is split in two parts: an optional formula $S$, called \emph{stoup} \cite{girard:constructive:91}, and an ordered list of formulae $\Gamma$. Inference rules are similar to the ones of \NMILL\ but with specific structural restrictions for accurately capturing the structural laws of skew monoidal closed categories, and nothing more. In particular, and in analogy with \NMILL, the structural rules of contraction, weakening and exchange are all absent. Sets of derivations are quotiented by a congruence relation $\circeq$, carefully chosen to serve as the proof-theoretic counterpart of the equational theory of skew monoidal closed categories. The design of the sequent calculus draws inspiration from, and further advance, the line of work of Uustalu, Veltri and Zeilberger on proof systems for various categories with skew structure: skew semigroup (a.k.a. Tamari order) \cite{zeilberger:semiassociative:19}, skew monoidal (non-closed) \cite{uustalu:sequent:2021,uustalu:proof:nodate} and its symmetric variant \cite{veltri:coherence:2021}, skew prounital (non-monoidal) closed \cite{uustalu:deductive:nodate}.
@@ -122,7 +125,7 @@ This paper provides a positive answer to this question. We introduce a cut-free 
 The metatheory of \SkNMILL\ is developed in two different but related directions:
 \begin{enumerate}[($i$)]
   \item We study the categorical semantics of \SkNMILL, by showing that the cut-free sequent calculus admits an interpretation of formulae, derivations and equational theory $\circeq$ in every skew monoidal closed category. Moreover, the sequent calculus is \emph{canonical} among skew monoidal closed categories, in the sense that it gives a particular presentation of the \emph{initial} (also called \emph{term} or \emph{free}) model. This can be made precise by introducing a Hilbert-style calculus which directly represents the initial model and subsequently proving that derivations in the two calculi are in a bijective correspondence.
-This shows that the categorical semantics of \SkNMILL\ is sound and, most importantly, complete. The latter fact implies that deciding the commutativity of a diagram made of canonical morphisms (i.e. structural laws) in an arbitrary skew monoidal category, a problem typically referred to as \emph{coherence} in the categorical literature, is reduced to checking whether the corresponding derivations in the sequnt calculus are $\circeq$-related.
+This shows that the categorical semantics of \SkNMILL\ is sound and, most importantly, complete. The latter fact implies that deciding the commutativity of a diagram made of canonical maps (i.e. structural laws) in an arbitrary skew monoidal category, a problem typically referred to as \emph{coherence} in the categorical literature, is reduced to checking whether the corresponding derivations in the sequnt calculus are $\circeq$-related.
 
 \item We investigate the proof-thereoretic semantics of \SkNMILL, by defining a normalization strategy for sequent calculus derivations wrt. the congruence $\circeq$, when the latter is considered as weakly confluent and strongly normalizing reduction relation. The shape of normal forms is made explicit in a new \emph{focused} sequent calculus, whose derivations act as targets of the normalization procedure. The sequent calculus is ``focused'' in the sense of Andreoli \cite{andreoli:logic:1992}, as it implements a sound and complete goal-directed proof search strategy attempting to build a derivation in the (original, unfocused) sequent calculus. The focused system in this paper extends the previously
 developed normal forms for skew monoidal (non-closed) categories \cite{uustalu:sequent:2021,uustalu:proof:nodate}. The presence of both positive ($\I$,$\ot$) and negative ($\lolli$) connectives requires some extra care in the implementation of the proof search algorithm, which is reflected in the design of the focused sequent calculus, in particular when aiming at removing all possible nondeterministic choices (wrt. the conversion $\circeq$) that can arise during proof search. This is technically realized in the focused sequent calculus by the peculiar employment of a system of \emph{tags} for keeping track of new formulae appearing in the antecedent. The focused sequent calculus can also be seen as a concrete presentation of the initial model for \SkNMILL, and as such can be used for solving the coherence problem in an effective fashion: deciding commutativity of canonical diagrams in arbitrary skew monoidal categories is equivalent to deciding the \emph{syntactic} equality of the corresponding focused derivations.
@@ -495,7 +498,7 @@ $\ldbc A_1,\dots,A_n \mid C \rdbc_{\lolli} = A_1 \lolli (A_2 \lolli (\dots \loll
 %\end{enumerate}
 %}
 \begin{defn}\label{def:skewcat}
-A \emph{skew monoidal closed category} $\mathbb{C}$ is a category with a unit object $\I$ and two functors $\ot : \mathbb{C} \times \mathbb{C} \rightarrow \mathbb{C}$ and $\lolli : \mathbb{C}^{\mathsf{op}} \times \mathbb{C} \rightarrow \mathbb{C}$ forming an adjunction $- \ot B \dashv B \lolli -$ natural in $B$,
+A \emph{(left) skew monoidal closed category} $\mathbb{C}$ is a category with a unit object $\I$ and two functors $\ot : \mathbb{C} \times \mathbb{C} \rightarrow \mathbb{C}$ and $\lolli : \mathbb{C}^{\mathsf{op}} \times \mathbb{C} \rightarrow \mathbb{C}$ forming an adjunction $- \ot B \dashv B \lolli -$ natural in $B$,
 and three natural transfomations %$\lambda$, $\rho$, $\alpha$ with components
 \begin{displaymath}
   \lambda_A : \I \ot A \to A \qquad \rho_A : A \to A \ot \I \qquad \alpha_{A,B,C} : (A \ot B) \ot C \to A \ot (B \ot C)
@@ -559,8 +562,28 @@ The notion of skew monoidal closed category admits other equivalent characteriza
 j_A : \I \to A \lolli A \qquad i_A : \I \lolli A \to A \qquad L_{A,B,C} : B \lolli C \to (A \lolli B) \lolli (A \lolli C)
 \]
 Moreover, $\alpha$ and $L$ are interdefinable with a natural transformation $\mathsf{p}_{A , B , C} : (A \ot B) \lolli C \Longrightarrow A \lolli (B \lolli C)$, representing an internalization of the adjunction between $\ot$ and $\lolli$.
-
-
+\begin{example}[from \cite{uustalu:eilenberg-kelly:2020}]
+This example explains how to turn every categorical model of \MILL\ extended with a $\diamond$-like modality for possibility (or something like the exponential modality ! of linear logic) into a model of \SkNMILL. 
+Let $(\mathbb{C},\I,\ot,\lolli)$ be a (possibly symmetric) monoidal closed category and let $(D,\varepsilon, \delta)$ be a comonad on $\mathbb{C}$, where $\varepsilon_A : D\,A \to A$ and $\delta_A : D\,A \to D\,(D\,A)$ are the counit and comultiplication of $D$. Suppose the comonad $D$ to be \emph{lax monoidal}, i.e. coming with a map $\mathsf{e} : \I \to D\,I$ and a natural transformation $\mathsf{m}_{A,B} : D \,A \ot D\,B \to D\,(A \ot B)$ cohering suitably with $\lambda$, $\rho$, $\alpha$, $\varepsilon$ and $\delta$.
+Then $\mathbb{C}$ has also a skew monoidal closed structure given by  $A \otd B = A \ot D\,B$ and $B \lollid C = D\,B \lolli C$. The adjunction $- \ot D\,B \dashv D\,B \lolli -$ yields an adjunction $- \otd B \dashv B \lollid -$. The structural laws are
+\[
+\begin{array}{c}
+\lambda^D_A \, = \, \xymatrix@C=3pc{\I \ot D\,A \ar[r]^-{\I \ot \varepsilon_A} & \I \ot A \ar[r]^-{\lambda_A} & A} 
+\hspace*{1.5cm}
+\rho^D_A \, = \, \xymatrix@C=3pc{A \ar[r]^-{\rho_A} & A \ot \I \ar[r]^-{A \ot \mathsf{e}} & A \ot D\,\I} 
+\\
+\begin{array}{rcl}
+\alpha^D_{A,B,C} & = & \xymatrix@C=5pc{(A \ot D\,B) \ot D\,C 
+                   \ar[r]^-{(A \ot D B) \ot \delta_C}
+                   & (A \ot D\,B) \ot D\,(D\,C)} \\
+& & \hspace*{1.5cm} \xymatrix@C=5pc{\ar[r]^-{\alpha_{A,DB,D(DC)}}
+                  & A \ot (D\,B \ot D\,(D\,C)) \ar[r]^-{A \ot \mathsf{m}_{B,DC}}
+                  & A \ot D\,(B \ot D\,C)}
+\end{array}
+\end{array}
+\]
+$(\mathbb{C},\I,\otd,\lollid)$  is a ``genuine'' skew monoidal closed category, in the sense that $\lambda^D$, $\rho^D$ and $\alpha^D$ are all generally not invertible.
+\end{example}
 \begin{defn}
   A \emph{(strict) skew monoidal closed functor} $F : \mathbb{C} \rightarrow \mathbb{D}$ between skew monoidal closed categories $(\mathbb{C} , \I , \ot , \lolli)$ and $(\mathbb{D} , \I' , \ot' , \lolli')$ is a functor from $\mathbb{C}$ to $\mathbb{D}$ satisfying
 %   \begin{align*}
@@ -577,14 +600,11 @@ Moreover, $\alpha$ and $L$ are interdefinable with a natural transformation $\ma
 \end{defn}
 %Next we show that given any skew monoidal closed category $\mathbb{C}$ and a function $F_{\mathsf{At}} : \mathsf{At} \rightarrow \mathbb{C}$ providing interpretation of atomic formulae as objects of $\mathbb{C}$, we can extend function $F_{\mathsf{At}}$ to a skew monoidal closed functor $F : \text{FSkMCC} \rightarrow \mathbb{C}$.
 %From now on we drop the attribute ``strict''.
-\begin{example}
-A good example??
-\end{example}
 
 The formulae, derivations and equivalence $\circeq$ of the sequent calculus for \SkNMILL\ determine a skew monoidal closed category \FSkMCC($\mathsf{At}$).
 \begin{defn}\label{def:fskmcc}
   The skew monoidal closed category \FSkMCC($\mathsf{At}$) has
-  objects as formulae, in particular the operations $I$, $\ot$ and $\lolli$ are given by the logical connectives. The set of morphisms between formulae $A$ and $B$ is the set of derivations $A \mid ~ \vdash B$ quotiented by the equivalence relation $\circeq$. The identity morphism is $\ax$, while composition is given by $\mathsf{scut}$. Derivations for the structural laws $\lambda$, $\rho$,$\alpha$ are given in (\ref{eq:lra}). All the equations of skew monoidal closed categories hold wrt. $\circeq$.
+  objects as formulae, in particular the operations $I$, $\ot$ and $\lolli$ are given by the logical connectives. The set of maps between formulae $A$ and $B$ is the set of derivations $A \mid ~ \vdash B$ quotiented by the equivalence relation $\circeq$. The identity map is $\ax$, while composition is given by $\mathsf{scut}$. Derivations for the structural laws $\lambda$, $\rho$,$\alpha$ are given in (\ref{eq:lra}). All the equations of skew monoidal closed categories hold wrt. $\circeq$.
 \end{defn}
 
 Skew monoidal closed categories correspond precisely to categorical models of \SkNMILL, in the sense specified by the following theorem.
@@ -614,7 +634,7 @@ Skew monoidal closed categories correspond precisely to categorical models of \S
 %      F_{\mathsf{At}} (B) \lolli' F_{\mathsf{At}} (C) &\text{if } A = B \lolli C
 %    \end{cases}
   \end{equation*}
-  The encoding of antecedents as formulae $\ldbc S \mid \Gamma \rdbc_{\ot}$, introduced immediately after (\ref{eq:inter:ante}), can be replicated also in $\mathbb{C}$ by simply replacing $\ot$ with $\ot'$ in the definition. Using this encoding, it is possible to show that each rule in (\ref{eq:seqcalc}) is derivable in $\mathbb{C}$. As an illustrative case, consider the rule $\pass$. Assume given a morphism $f : \ldbc A \mid \Gamma \rdbc_{\ot'} \to C$ in $\mathbb{C}$. Then, assuming $\Gamma = A_1,\dots,A_n$, we can define the passivation of $f$ as
+  The encoding of antecedents as formulae $\ldbc S \mid \Gamma \rdbc_{\ot}$, introduced immediately after (\ref{eq:inter:ante}), can be replicated also in $\mathbb{C}$ by simply replacing $\ot$ with $\ot'$ in the definition. Using this encoding, it is possible to show that each rule in (\ref{eq:seqcalc}) is derivable in $\mathbb{C}$. As an illustrative case, consider the rule $\pass$. Assume given a map $f : \ldbc A \mid \Gamma \rdbc_{\ot'} \to C$ in $\mathbb{C}$. Then, assuming $\Gamma = A_1,\dots,A_n$, we can define the passivation of $f$ as
 \[\xymatrixcolsep{7pc}
 \xymatrix{
   (\dots ((\I \ot' A_1) \ot' A_2) \dots ) \ot' A_n
@@ -624,7 +644,7 @@ Skew monoidal closed categories correspond precisely to categorical models of \S
   C
 }
 \]
-This implies the existence of a function $F_1$, sending each derivation $f : S \mid \Gamma \vdash A$ to a morphism $F_1f : F_0(\ldbc S \mid \Gamma \rdbc_{\ot}) \to FA$ in $\mathbb{C}$, defined by induction on the last inference rule appearing in the proof tree of $f$. When restricted to sequents of the form $A \mid ~ \vdash B$, the function $F_1$ provides the action on morphisms of $F$.
+This implies the existence of a function $F_1$, sending each derivation $f : S \mid \Gamma \vdash A$ to a map $F_1f : F_0(\ldbc S \mid \Gamma \rdbc_{\ot}) \to FA$ in $\mathbb{C}$, defined by induction on the last inference rule appearing in the proof tree of $f$. When restricted to sequents of the form $A \mid ~ \vdash B$, the function $F_1$ provides the action on maps of $F$.
 It is possible to show that $F$ preserves the skew monoidal closed structure on the nose, so it is a skew monoidal closed functor.
 %$\mathbb{C}$.
 %A \mid \quad \vdash B \to \mathbb{C} (F_{0} (A), F_{0} (B))$
@@ -1273,7 +1293,7 @@ The admissibility of the rules in \ref{eq:admis} allows the construction of a fu
 It is possible to prove that the function $\mathsf{focus}$ maps  $\circeq$-equivalent derivations in the sequent calculus for \SkNMILL\ to syntactically identical derivations in focused seqeunt calculus. Moreover, one can also show that $\mathsf{focus}$ is the inverse of $\mathsf{emb}_\RI$, i.e. $\mathsf{focus}\;(\mathsf{emb}_\RI \;f) = f$ for all $f : S \mid \Gamma \vdash_\RI A$ and $\mathsf{emb}_\RI\;(\mathsf{focus}\;g) \circeq g$ for all $g : S \mid \Gamma \vdash A$. In other words, each $\circeq$-equivalence class in the sequent calculus corresponds uniquely to a single derivation in the focused sequent calculus.
 
 The focused sequent calculus solves the \emph{coherence problem} for skew monoidal closed categories.
-As proved in Section \ref{sec:catsem}, the sequent calculus for \SkNMILL\ has an underlying category $\FSkMCC(\mathsf{At})$, which is the \emph{free} skew monoidal closed category on the set $\mathsf{At}$. Solving the coherence problem then corresponds to decide whether two parallel morphisms in $\FSkMCC(\mathsf{At})$ are equal wrt. the equational theory of skew monoidal closed categories. The latter problem is in turns equivalent to decide whether two derivations $f,g : S \mid \Gamma \vdash A$ are in the same $\circeq$-equivalence class. But this is the same as deciding whether $\mathsf{focus}\;f = \mathsf{focus}\;g$ in the focused sequent calculus, and deciding syntactic equality of focused derivations is a simple task.
+As proved in Section \ref{sec:catsem}, the sequent calculus for \SkNMILL\ has an underlying category $\FSkMCC(\mathsf{At})$, which is the \emph{free} skew monoidal closed category on the set $\mathsf{At}$. Solving the coherence problem then corresponds to decide whether two parallel maps in $\FSkMCC(\mathsf{At})$ are equal wrt. the equational theory of skew monoidal closed categories. The latter problem is in turns equivalent to decide whether two derivations $f,g : S \mid \Gamma \vdash A$ are in the same $\circeq$-equivalence class. But this is the same as deciding whether $\mathsf{focus}\;f = \mathsf{focus}\;g$ in the focused sequent calculus, and deciding syntactic equality of focused derivations is a simple task.
 
 %ies, so we can construct an effective procedure to determine equivalence of morphisms in a free skew monoidal closed category.
 %Given two parallel morphisms in a category composed exclusively of of commutativity of diagrams of canonical morphisms 
