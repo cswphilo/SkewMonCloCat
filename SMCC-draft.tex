@@ -224,7 +224,7 @@ Examples of valid derivations in the sequent calculus, corresponding to structur
   (\lambda) & (\rho) & (\alpha) \\
   \infer[\tl]{\I \ot A \mid \quad \vdash A}{
     \infer[\unitl]{\I \mid A \vdash A}{
-      \infer[\pass]{ \mid A \vdash A}{
+      \infer[\pass]{- \mid A \vdash A}{
         \infer[\ax]{A \mid \quad \vdash A}{}
       }
     }
@@ -255,9 +255,9 @@ Examples of valid derivations in the sequent calculus, corresponding to structur
   }
   \end{array}
 \end{equation}
-Examples of non-provable sequents include the ``inverses'' of the conclusions in (\ref{eq:lra}), obtained by swapping the stoup formula with the succedent formula.
+Examples of non-derivable sequents include the ``inverses'' of the conclusions in (\ref{eq:lra}), obtained by swapping the stoup formula with the succedent formula.
 %Another important thing is that SkNMILL could not prove the inverse of any natural transformations above.
-More precisely, the three sequents $X \mid ~ \vdash \I \ot X$, $X \ot \I \mid ~ \vdash X$ and $X \ot (Y \ot Z) \mid ~ \vdash (X \ot Y) \ot Z$ do not have any derivation. All possible attempts of constructing a valid proof for each of them end in failure.
+More precisely, the three sequents $X \mid ~ \vdash \I \ot X$, $X \ot \I \mid ~ \vdash X$ and $X \ot (Y \ot Z) \mid ~ \vdash (X \ot Y) \ot Z$ do not have any derivation. All possible attempts of constructing a valid derivation for each of them end in failure.
 \begin{displaymath}
   \begin{array}{ccc}
   (\lambda^{-1}) & (\rho^{-1}) & (\alpha^{-1}) \\[6pt]
