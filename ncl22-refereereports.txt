@@ -1,0 +1,178 @@
+From: "NCL'22" <ncl22@easychair.org>
+To: Tarmo Uustalu <tarmo@cs.ioc.ee>
+Subject: NCL'22 notification for paper 26
+Date: Tue, 21 Dec 2021 04:21:54 +0100
+
+
+Dear Tarmo Uustalu,
+
+On behalf of the program committee for Non-Classical Logics. Theory
+and Applications 2022, we are pleased to inform you that your
+submission,
+
+26 Proof Theory of Skew Non-Commutative MILL
+
+has been accepted for publication in the proceedings of
+NCL'22. Congratulations!
+
+In this year's edition of NCL we received a great number of
+submissions of excellent quality, which made us set the acceptance bar
+very high. Final decisions were the resultants of the reports and
+scores given by the reviewers as well as post-review discussions
+between PC members. Below are the reviews and scores for your
+submission.
+
+In the following days we will send a separate email with detailed
+instructions on how to prepare and upload the final version of your
+submission.
+
+Finally, we are still hoping to be able to hold the conference as a
+physical event, however observing the new global outbreak of COVID-19
+caused by the Omicron variant we are currently uncertain about the
+feasibility of this plan. We therefore decided to postpone the final
+decision until the first decade of January 2022 to see how the
+situation develops and assess whether we can reasonably stick to the
+in-person format of the conference.
+
+Best regards,
+
+Andrzej & Michał
+
+SUBMISSION: 26
+TITLE: Proof Theory of Skew Non-Commutative MILL
+
+
+----------------------- REVIEW 1 ---------------------
+SUBMISSION: 26
+TITLE: Proof Theory of Skew Non-Commutative MILL
+AUTHORS: Tarmo Uustalu, Niccolò Veltri and Cheng-Syuan Wan
+
+----------- Overall evaluation -----------
+SCORE: 0 (borderline paper)
+
+----- TEXT:
+
+As the autors write at the beginning in paper abstract: "Monoidal
+closed categories are standard categorical models of NMILL,
+non-commutative multiplicative intuitionistic linear logic: the
+monoidal unit and tensor model the multiplicative unit and
+conjunction; the internal hom models linear implication.  In the paper
+aujtos proposed sequent calculus and categorial semantics to skew
+(i.e. weaker version if this system. From technical point of view all
+this looks sound. However all this seems to me artificial.  Why it is
+important? What is new, original in proofs? Just one more
+sophicalicated logical system prosented without deeper motivations.
+
+----------- Reviewer's confidence -----------
+SCORE: 3 ((medium))
+
+
+
+----------------------- REVIEW 2 ---------------------
+SUBMISSION: 26
+TITLE: Proof Theory of Skew Non-Commutative MILL
+AUTHORS: Tarmo Uustalu, Niccolò Veltri and Cheng-Syuan Wan
+
+----------- Overall evaluation -----------
+SCORE: 3 (strong accept)
+
+----- TEXT:
+
+The paper is a continuation of previous works by T. Uustalu, N. Veltri
+and N. Zeilberger. It focuses on a sequent calculus for NMILL^s, which
+is a skew variant of non-commutative multiplicative intuitionistic
+linear logic. The interest in this logic is clearly motivated by the
+categorical notion of skew monoidal closed category.
+
+The authors present the sequent calculus (based on previous results
+[25,24,22,26]), two cut rules are added to the calculus that were
+shown admissible elsewhere [25]. In the next sections the authors
+study the categorical and the proof-theoretic semantics of NMILL^s. In
+the former case it is demonstrated that the presented sequent calculus
+is the initial model of NMILL^s. The latter leads to the study of
+normal forms wrt the relation of reduction of derivations. The
+normalization steps are made explicit by the introduction of another
+variant of sequent calculus which is a focused system with tag
+annotations. In addition, the focused system allows for a
+goal-directed proof-search, it was formalized in the Agda
+proof-assistant, and it can be used as a tool in solving the coherence
+problem for skew monoidal closed categories.
+
+As the authors admit, the paper presents part of a larger project, and
+one can see that it is quite multi-threaded. The results are
+interesting and definitely in the scope of the conference, the paper
+is very carefully written and of high quality, hence my recommendation
+with the highest score.
+
+However, I found some parts of the paper difficult to read as the
+content is quite condensed and relies on previous works. You can blame
+it on the limits of the size of the paper but it would be of benefit
+to the reader if the previous results were clearly marked - so, for
+example, the reader would not expect a proof after the formulation of
+Theorem 2.1 (I found the proof in [25]).
+
+In the proof of Theorem 3.1 the illustrative case given on the top of
+page 7 is for IL rather than pass. I found no other mistakes, not even
+typos, except for the symbol I for a unit which is in italics on the
+first page and in Definition 3.3 - this should be rather I in \mathsf
+
+----------- Reviewer's confidence -----------
+SCORE: 3 ((medium))
+
+
+
+----------------------- REVIEW 3 ---------------------
+SUBMISSION: 26
+TITLE: Proof Theory of Skew Non-Commutative MILL
+AUTHORS: Tarmo Uustalu, Niccolò Veltri and Cheng-Syuan Wan
+
+----------- Overall evaluation -----------
+SCORE: 2 (accept)
+
+----- TEXT:
+
+The paper proposes sequent systems for logic called skew
+non-commuatative multiplicative intuitionistic linear logic. This
+logic is meant to be the logic of skew monoidal closed categories,
+i.e. monoidal closed categories where we drop an important assumption
+about three natural isomorphisms – now they are only natural
+transformations. In effect, the laws of unit and law of associativity
+are essentialy weaker. The logic usually connected with monoidal
+closed categories is Lambek calculus without one of the
+residuations. The paper focuses on its weaker, i.e. skew version.
+
+The paper consists of five sections. The first section is an
+Introduction. In the second section the authors propose a sequent
+system for Skew NMILL. The system is interesting, since the rules may
+be applied only to the left-most formula of the antecedent (stoup) and
+the formula in the succedent. The rest of the antecedent is called
+context. The main result of this section is cut-admissibility theorem
+for this system. The authors also introduce an equivalence relation to
+be used later.
+
+The third section describes the categorical models of the logic. The
+authors provide a definition of skew monoidal closed category and free
+skew monoidal closed category Free(At). The main result of this
+section shows how to obtain a functor from Free(At) to an arbitrary
+skew monoidal closed category C, given the functor from At to C. It is
+also proved that this functor is unique. The fourth section provides
+examples of focused sequent systems for Skew MILL. The authors proves
+that the sequent system given in this section is equivalent to the
+system from section 2. The last section contains conclusions and
+leaves open problems.
+
+The results of this paper are continuation of previous works in this
+matter. In particular one may compare this paper with [25] by two of
+the same authors. The results are similar, but essentialy stronger. In
+[25] there are no resiudations at all and here we have one. When we
+consider categorical models of Lambek calculus, it is really
+interesting question, what happens when we drop the assumption of
+isomorphism. This paper and the previous works try to answer this
+question and the results are surprisingly elegant. The open problems
+stated in the last section are natural questions and I hope the
+authors will find the answers.
+
+I recommend this paper for the conference.
+
+----------- Reviewer's confidence -----------
+SCORE: 4 ((high))
