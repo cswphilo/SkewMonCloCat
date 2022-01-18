@@ -1,0 +1,26 @@
+- What is new?
+
+Repeat that (skew) monoidal closed is complicated compared to just monoidal
+or just closed.
+
+- Why is this important?
+
+Do we have a motivation for this logic from logic point of view?
+
+- For things given without proof, let's mention they are all proved in
+  the formalization.
+
+- Sort out terminology around focusing: what do we use, is there a name,
+  Tarmo checks Pinto, Dyckhoff stuff
+
+- Explicitly show impossibility of the required derivations in the
+  para just before Sec 4.2
+
+- Revisit the same examples and show derivations in the para just
+  before Thm 4.1
+
+- Say something more informative about multifocusing.
+
+- Explain that contexts have an untagged part followed by a tagged
+  part, this is an invariant in our derivations.
+
