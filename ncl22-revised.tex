@@ -1383,6 +1383,145 @@ The employment of tag annotations eliminate the two types of non-determinism. Fo
 %  \end{displaymath}
 %\end{itemize}
 
+There are still two types of essential non-determinism in the tagged focused system.
+We say these non-determinism cases are essential because they capture the fact that it possibly exists multiple distinct derivations of a seqeunt in \SkNMILL:
+\begin{enumerate}[i.]
+  \item in phase $\Pass$, when the stoup is empty, whether to apply $\pass$ or $\F2\Pass$, e.g., the sequent $X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)$ has two distinct derivations in the tagged focused system as well as in \SkNMILL.
+  \begin{equation*}
+  \small
+    \begin{array}{cc}
+    \infer[\tr]{X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)}{
+    \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X}{
+      \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+    }
+      &
+      \infer[\mathsf{sw}]{{-} \mid \I \ot Y \vdash_{\RI} \I \ot Y}{
+        \infer[\pass]{{-} \mid \I \ot Y \vdash_{\Pass} \I \ot Y}{
+          \infer[\tl]{\I \ot Y \mid \quad \vdash_{\LI} \I \ot Y}{
+            \infer[\unitl]{\I \mid Y \vdash_{\LI} \I \ot Y}{
+              \infer[\mathsf{sw}]{{-} \mid Y \vdash_{\LI} \I \ot Y}{
+                \infer[\tr]{{-} \mid Y \vdash_{\F} \I \ot Y}{
+                  \infer[\mathsf{sw}]{{-} \mid \quad \vdash^{\bullet}_{\RI} \I}{
+                    \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+                  }
+                  &
+                  \infer[\mathsf{sw}]{{-} \mid Y \vdash_{\RI} Y}{
+                    \infer[\pass]{{-} \mid Y \vdash_{\Pass} Y}{
+                      \infer[\mathsf{sw}]{Y \mid \quad \vdash_{\LI} Y}{
+                        \infer[\ax]{Y \mid \quad \vdash_{F} Y}{}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &
+    \infer[\tr]{X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)}{
+      \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X}{
+        \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+      }
+      &
+      \infer[\mathsf{sw}]{{-} \mid \I \ot Y \vdash_{\RI} \I \ot Y}{
+        \infer[\tr]{{-} \mid \I \ot Y \vdash_{\F} \I \ot Y}{
+          \infer[\mathsf{sw}]{{-} \mid \quad \vdash^{\bullet}_{\RI} \I}{
+            \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+          }
+          &
+          \infer[\mathsf{sw}]{{-} \mid \I \ot Y \vdash_{\RI} Y}{
+            \infer[\pass]{{-} \mid \I \ot Y \vdash_{\Pass} Y}{
+              \infer[\mathsf{sw}]{\I \ot Y \mid \quad \vdash_{\LI} Y}{
+                \infer[\tl]{\I \ot \mid \quad \vdash_{\LI} Y}{
+                  \infer[\unitl]{\I \mid Y \vdash_{\LI}}{
+                    \infer[\mathsf{sw}]{{-} \mid Y \vdash_{\LI} Y}{
+                      \infer[\pass]{{-} \mid Y \vdash_{\Pass} Y}{
+                        \infer[\mathsf{sw}]{Y \mid \quad \vdash_{\LI} Y}{
+                          \infer[\ax]{Y \mid \quad \vdash_{\F} Y}{}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    \end{array}
+    \normalsize
+  \end{equation*}
+  \item in phase $\F$, when in the middle of the context there are closed formulae (i.e., formulae made of $\I$ and $\ot$ only), the succedent formula is $A \ot B$, and the rule $\tr$ is to be applied, we can split the context freely.
+  For example, the sequent $X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y$ has two distinct derivations.
+  \begin{equation*}
+  \small
+    \begin{array}{cc}
+      \infer[\tr]{X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y}{
+       \infer[\mathsf{sw}]{X \mid \I \vdash^{\bullet}_{\RI} X \ot \I}{
+         \infer[\tr]{X \mid \I \vdash_{\F} X \ot \I}{
+           \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X}{
+             \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+           }
+           &
+           \infer[\mathsf{sw}]{{-} \mid \I \vdash_{\RI} \I}{
+             \infer[\pass]{{-} \mid \I \vdash_{\Pass} \I}{
+               \infer[\unitl]{\I \mid \quad \vdash_{\LI} \I}{
+                 \infer[\mathsf{sw}]{{-} \mid \quad \vdash_{\LI} \I}{
+                   \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+                 }
+               }
+             }
+           }
+         }
+       }
+       &
+       \infer[\mathsf{sw}]{{-} \mid Y \vdash_{\RI} Y}{
+         \infer[\pass]{{-} \mid Y \vdash_{\Pass} Y}{
+           \infer[\mathsf{sw}]{Y \mid \quad \vdash_{\LI} Y}{
+             \infer[\ax]{Y \mid \quad \vdash_{\F} Y}{}
+           }
+         }
+       }
+      }
+      &
+      \infer[\tr]{X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y}{
+       \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X \ot \I}{
+         \infer[\tr]{X \mid \quad \vdash_{\F} X \ot \I}{
+           \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X}{
+             \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+           }
+           &
+           \infer[\mathsf{sw}]{{-} \mid \quad \vdash_{\RI} \I}{
+             \infer[\ax]{{-} \mid \quad \vdash_{\F} \I}{}
+           }
+         }
+       }
+       &
+       \infer[\mathsf{sw}]{{-} \mid \I , Y \vdash_{\RI} Y}{
+         \infer[\pass]{{-} \mid \I , Y \vdash_{\Pass} Y}{
+           \infer[\unitl]{\I \mid Y \vdash_{\LI} Y}{
+             \infer[\mathsf{sw}]{{-} \mid Y \vdash_{\LI} Y}{
+               \infer[\pass]{Y \mid \quad \vdash_{\Pass} Y}{
+                 \infer[\mathsf{sw}]{Y \mid \quad \vdash_{\LI} Y}{
+                   \infer[\ax]{Y \mid \quad \vdash_{\F} Y}{}
+                 }
+               }
+             }
+           }
+         }
+       }
+      }
+    \end{array}
+    \normalsize
+  \end{equation*}
+\end{enumerate}
+% In the latter case, only those choices where $\mid T \mid , \mid \Gamma \mid = \mid A \mid$ and $\mid \Delta \mid = \mid B \mid$ can possibly lead to a complete derivation;
+% we write $\mid \quad \mid$ for the frontier of atoms in a formula, an optional formula, and a list of formulae.
+% But there can be multiple such choices if in the middle of the context there are closed formulae (i.e., formulae made of $\I$ and $\ot$ only): those can be freely split between $\Gamma$ and $\Delta$.
+
 %This fact shows that in tagged focused system, we cannot permute $\tr$ and $\lleft$ applications arbitrarily.
 %In this sense, two equivalent proofs in \SkNMILL\ become identical in focused calculus.
  \begin{theorem}
