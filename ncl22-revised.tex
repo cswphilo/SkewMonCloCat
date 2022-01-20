@@ -1512,6 +1512,34 @@ nondeterminism, similar to type 2.
 \small
   \begin{array}{cc}
     \infer[\lleft]{\I \lolli (X \lolli Y) \mid \I , X \vdash_{\F} Y}{
+      \infer[\mathsf{sw}]{{-} \mid \I \vdash_{\RI} \I}{
+        \infer[\pass]{{-} \mid \I \vdash_{\Pass} \I}{
+          \infer[\unitl]{\I \mid \quad \vdash_{\LI} \I}{
+            \infer[\mathsf{sw}]{{-} \mid \quad \vdash_{\LI} \I}{
+              \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+            }
+          }
+        }
+      }
+      &
+      \infer[\mathsf{sw}]{X \lolli Y \mid X \vdash_{\LI} Y}{
+        \infer[\lleft]{X \lolli Y \mid X \vdash_{\F} Y}{
+          \infer[\mathsf{sw}]{{-} \mid X \vdash_{\RI} X}{
+            \infer[\pass]{{-} \mid X \vdash_{\Pass} X}{
+              \infer[\mathsf{sw}]{X \mid \quad \vdash_{\LI} X}{
+                \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+              }
+            }
+          }
+          &
+          \infer[\mathsf{sw}]{Y \mid \quad \vdash_{\LI} Y}{
+            \infer[\ax]{Y \mid \quad \vdash_{\F} Y}{}
+          }
+        }
+      }
+    }
+    &
+    \infer[\lleft]{\I \lolli (X \lolli Y) \mid \I , X \vdash_{\F} Y}{
       \infer[\mathsf{sw}]{{-} \mid \quad \vdash_{\RI} \I}{
         \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
       }
@@ -1538,30 +1566,74 @@ nondeterminism, similar to type 2.
             }
           }
         }
-    &
-    \infer[\lleft]{\I \lolli (X \lolli Y) \mid \I , X \vdash_{\F} Y}{
-      \infer[\mathsf{sw}]{{-} \mid \I \vdash_{\RI} \I}{
-        \infer[\pass]{{-} \mid \I \vdash_{\Pass} \I}{
-          \infer[\unitl]{\I \mid \quad \vdash_{\LI} \I}{
-            \infer[\mathsf{sw}]{{-} \mid \quad \vdash_{\LI} \I}{
-              \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+  \end{array}
+  \normalsize
+\end{equation*}
+\item (Type 4 non-determinism)
+\begin{equation*}
+\small
+  \begin{array}{cc}
+    \infer[\tr]{\I \lolli \I \mid Z \vdash_{\F} (\I \lolli \I) \ot Z}{
+      \infer[\lright]{\I \lolli \I \mid \quad \vdash^{\bullet}_{\RI} \I \lolli \I}{
+        \infer[\mathsf{sw}]{\I \lolli \I \mid \I^{\bullet} \vdash^{\bullet}_{\RI} \I}{
+          \infer[\lleft]{\I \lolli \I \mid \I^{\bullet} \vdash^{\bullet}_{\F} \I}{
+            \infer[\mathsf{sw}]{{-} \mid \I \vdash_{\RI} \I}{
+              \infer[\pass]{{-} \mid \I \vdash_{\Pass} \I}{
+                \infer[\unitl]{\I \mid \quad \vdash_{\LI} \I}{
+                  \infer[\mathsf{sw}]{{-} \mid \quad \vdash_{\LI} \I}{
+                    \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+                  }
+                }
+              }
+            }
+            &
+            \infer[\unitl]{\I \mid \quad \vdash_{\LI} \I}{
+              \infer[\mathsf{sw}]{{-} \mid \quad \vdash_{\LI} \I}{
+                \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+              }
             }
           }
         }
       }
       &
-      \infer[\mathsf{sw}]{X \lolli Y \mid X \vdash_{\LI} Y}{
-        \infer[\lleft]{X \lolli Y \mid X \vdash_{\F} Y}{
-          \infer[\mathsf{sw}]{{-} \mid X \vdash_{\RI} X}{
-            \infer[\pass]{{-} \mid X \vdash_{\Pass} X}{
-              \infer[\mathsf{sw}]{X \mid \quad \vdash_{\LI} X}{
-                \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+      \infer[\mathsf{sw}]{{-} \mid Z \vdash_{\LI} Z}{
+        \infer[\pass]{{-} \mid Z \vdash_{\Pass} Z}{
+          \infer[\mathsf{sw}]{Z \mid \quad \vdash_{\LI} Z}{
+            \infer[\ax]{Z \mid \quad \vdash_{\F} Z}{}
+          }
+        }
+      }
+    }
+    &
+    \infer[\lleft]{\I \lolli \I \mid Z \vdash_{\F} (\I \lolli \I) \ot Z}{
+      \infer[\mathsf{sw}]{{-} \mid \quad \vdash_{\RI} \I}{
+        \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+      }
+      &
+      \infer[\unitl]{\I \mid Z \vdash_{\LI} (\I \lolli \I) \ot Z}{
+        \infer[\mathsf{sw}]{{-} \mid Z \vdash_{\LI} (\I \lolli \I) \ot Z}{
+          \infer[\tr]{{-} \mid Z \vdash_{\F} (\I \lolli \I) \ot Z}{
+            \infer[\lright]{{-} \mid \quad \vdash^{\bullet}_{\RI} \I \lolli \I}{
+              \infer[\mathsf{sw}]{{-} \mid \I^{\bullet} \vdash^{\bullet}_{\RI} \I}{
+                \infer[\pass]{{-} \mid \I^{\bullet} \vdash^{\bullet}_{\Pass} \I}{
+                  \infer[\mathsf{sw}]{\I \mid \quad \vdash_{\LI} \I}{
+                    \infer[\unitl]{\I \mid \quad \vdash_{\LI} \I}{
+                      \infer[\mathsf{sw}]{{-} \mid \quad \vdash_{\LI}}{
+                        \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+                      }
+                    }
+                  }
+                }
               }
             }
-          }
-          &
-          \infer[\mathsf{sw}]{Y \mid \quad \vdash_{\LI} Y}{
-            \infer[\ax]{Y \mid \quad \vdash_{\F} Y}{}
+            &
+            \infer[\mathsf{sw}]{{-} \mid Z \vdash_{\LI} Z}{
+              \infer[\pass]{{-} \mid Z \vdash_{\Pass} Z}{
+                \infer[\mathsf{sw}]{Z \mid \quad \vdash_{\LI} Z}{
+                  \infer[\ax]{Z \mid \quad \vdash_{\F} Z}{}
+                }
+              }
+            }
           }
         }
       }
