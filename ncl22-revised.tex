@@ -857,9 +857,9 @@ We explain the rules of the focused sequent calculus from the perspective of bot
 \item[($\vdash_\F$)] We apply one of the four remaining rules $\ax$, $\unitr$, $\tr$ or $\lleft$. The premises of $\tr$ are both in phase $\RI$ since $A$ and $B$ are generic formulae, in particular they could be implications. The first premise of $\lleft$ is in phase $\RI$ for the same reason, while the second premise is in $\LI$ because the succedent formula $P$ is positive.
 \end{itemize}
 
-The focused sequent calculus in (\ref{eq:naive}) is sound and complete wrt.\ the sequent calculus in (\ref{eq:seqcalc}) in regards to derivability, but not \emph{equationally complete}, i.e., there exist $\circeq$-related sequent calculus derivations which have multiple distinct derivations using the rules in (\ref{eq:naive}). In other words, the rules in (\ref{eq:naive}) are too permissive. There are in fact two forms on non-determinism that can arise:
+The focused calculus in (\ref{eq:naive}) is sound and complete wrt.\ the sequent calculus in (\ref{eq:seqcalc}) in regards to derivability, but not \emph{equationally complete}, i.e., there exist $\circeq$-related sequent calculus derivations which have multiple distinct derivations using the rules in (\ref{eq:naive}). In other words, the rules in (\ref{eq:naive}) are too permissive. They facilitate two forms of non-determinism in root-first proof search that should not be there since they can lead to distinct derivations with $\circeq$-related corresponding sequent derivations in (\ref{eq:seqcalc}).
 \begin{enumerate}
-\item The first premise of the $\tr$ rule is in phase $\RI$, since $A$ is potentially an implication which the invertible right rule $\lright$ could act upon. Proof search for the first premise eventually hits phase $\Pass$, when we have the possibility of applying the $\pass$ rule if the stoup is empty. This implies the existence of situations where either of the rules $\tr$ and $\pass$ can be applied first, in both cases resulting in valid focused derivations.
+\item[(i)] The first premise of the $\tr$ rule is in phase $\RI$, since $A$ is potentially an implication which the invertible right rule $\lright$ could act upon. Proof search for the first premise eventually hits phase $\Pass$, when we have the possibility of applying the $\pass$ rule if the stoup is empty. This implies the existence of situations where either of the rules $\tr$ and $\pass$ can be applied first, in both cases resulting in valid focused derivations.
 %  The other occurs when we decompose $\ot$ in succedent, left premise goes back to phase $\RI$, so if the left premise of $\tr$ application is empty, then $\pass$ could be applied in phase $\Pass$.
   As an example, consider the two distinct derivations of ${-} \mid X , \Gamma , \Delta \vdash_{\Pass} P \ot C$ under assumptions $f : X \mid \Gamma \vdash_{\LI} P$ and $g : {-} \mid \Delta \vdash_{\RI} C$.
   \begin{equation}\label{eq:passtr}
@@ -902,7 +902,7 @@ The focused sequent calculus in (\ref{eq:naive}) is sound and complete wrt.\ the
   The rule $\mathsf{sw}$ above stands for a sequence of (appropriately typed) phase
   switching inferences by $\LI2\RI$, $\Pass2\LI$ and $\F2\Pass$.
   The congruence relation $\circeq$ eliminates this form of non-determinism through the 4th equation from (\ref{fig:circeq}), i.e., the permutative conversion involving $\tr$ and $\pass$.
-  \item Rules $\tr$ and $\lleft$ appear in the same phase $\F$, though there are situations where both rules can be applied first, which can lead to two valid but distinct focused derivations. More precisely, there are cases when $\tr$ and $\lleft$ can be interchangeably applied. As an example, consider the following two valid derivations of $A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\F} P \ot D$ under the assumption of $f : {-} \mid \Gamma \vdash_{\RI} A$, $g : X \mid \Delta \vdash_{\LI} P$ and $h : {-} \mid \Lambda \vdash_{\RI} D$.
+  \item[(ii)] Rules $\tr$ and $\lleft$ appear in the same phase $\F$, though there are situations where both rules can be applied first, which can lead to two valid but distinct focused derivations. More precisely, there are cases when $\tr$ and $\lleft$ can be interchangeably applied. As an example, consider the following two valid derivations of $A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\F} P \ot D$ under the assumption of $f : {-} \mid \Gamma \vdash_{\RI} A$, $g : X \mid \Delta \vdash_{\LI} P$ and $h : {-} \mid \Lambda \vdash_{\RI} D$.
 %  In this case $\tr$ and $\lleft$ rule applications are interchangeable.
 %  For convenience, we define an abbreviation of consecutive phase switching rule applications under suitable condition
 %  \begin{displaymath}
@@ -957,7 +957,7 @@ The focused sequent calculus in (\ref{eq:naive}) is sound and complete wrt.\ the
 \end{enumerate}
 
 %In summary, two counter-example above show that our naive focused sequent calculus contains too much non-determinacy.
-One might try a similar idea in the skew monoidal \emph{non-closed} case \cite{uustalu:sequent:2021} to solve the type 1 non-determinism, i.e., to prioritize $\pass$ over $\tr$ by requiring the first premise of the latter to be a sequent in phase $\F$.
+One might try a similar idea in the skew monoidal \emph{non-closed} case \cite{uustalu:sequent:2021} to solve the type (i) non-determinism, i.e., to prioritize $\pass$ over $\tr$ by requiring the first premise of the latter to be a sequent in phase $\F$.
 However, this does not work in the skew monoidal closed case, e.g., the sequent ${-} \mid Y \vdash_{\F} (X \lolli X) \ot Y$ would not be derivable, but its counterpart is derivable in (\ref{eq:seqcalc}).
 \begin{equation*}\label{eq:counterexample0}
   \infer[\tr]{{-} \mid Y \vdash_{\F} (X \lolli X) \ot Y}{
@@ -973,7 +973,7 @@ However, this does not work in the skew monoidal closed case, e.g., the sequent 
   }
 \end{equation*}
 
-An impulsive idea for solving the non-determinism of type 2 is to prioritize the application of $\lleft$ over $\tr$, e.g., by forcing the application of $\lleft$ in phase $\F$ whenever the stoup formula is an implication and restricting the application of $\tr$ to sequents where the stoup formula is atomic. This idea would lead to an unsound calculus, since the sequent $X \lolli Y \mid Z \vdash_{\F} (X \lolli Y) \ot Z$, which has a derivable correspondent in (\ref{eq:seqcalc}), would not be derivable by first applying the $\lleft$ rule.
+An impulsive idea for eliminating non-determinism of type (ii) is to prioritize the application of $\lleft$ over $\tr$, e.g., by forcing the application of $\lleft$ in phase $\F$ whenever the stoup formula is an implication and restricting the application of $\tr$ to sequents where the stoup formula is atomic. This leads to an unsound calculus, since the sequent $X \lolli Y \mid Z \vdash_{\F} (X \lolli Y) \ot Z$, which has a derivable correspondent in (\ref{eq:seqcalc}), would not be derivable by first applying the $\lleft$ rule.
 \begin{equation*}\label{eq:counterexample1}
    \infer[\lleft]{X \lolli Y \mid Z \vdash_{\F} (X \lolli Y) \ot Z}{
      \deduce{{-} \mid \quad \vdash_{\RI} X}{??}
@@ -1053,10 +1053,10 @@ Dually, prioritizing the application of $\tr$ over $\lleft$ leads to similar iss
 \subsection{A Focused System with Tag Annotations}\label{sec:tag}
 
 %However, solution for case 2 inspires us to come up with a uniform solution.
-In order to eliminate the non-determinism of type 1 between $\pass$ and $\tr$, we need to restrict applications of $\pass$ after an application of $\tr$.
+In order to eliminate the non-determinism of type (i) between $\pass$ and $\tr$, we need to restrict applications of $\pass$ after an application of $\tr$.
 One way to achieve this is by forcing such an application of $\pass$ to move the leftmost formula to the stoup only if such formula occurrence is \emph{new}, in the sense that it was not already present in the context before the $\tr$ application. For example, with this restriction in place, the application of $\pass$ in the 2nd derivation of (\ref{eq:passtr}) would be invalid, since the formula $X$ was already present in context before the application of $\tr$.
 
-Analogously, the non-determinism of type 2 between $\lleft$ and $\tr$ can be eliminated by restricting applications of $\lleft$ after an application of $\tr$. This can be achieved by forcing the subsequent application of $\lleft$ to split the context in two parts $\Gamma,\Delta$ in such a way that $\Gamma$, i.e. the context of the first premise, necessarily contains some \emph{new} formula not occurring in the context before the first $\tr$ application. Under this restriction, the application of $\lleft$ in the 2nd derivation of (\ref{eq:llefttr}) would become invalid, since all formulae in $\Gamma$ are already present in context before the application of $\tr$.
+Analogously, the non-determinism of type (ii) between $\lleft$ and $\tr$ can be eliminated by restricting applications of $\lleft$ after an application of $\tr$. This can be achieved by forcing the subsequent application of $\lleft$ to split the context in two parts $\Gamma,\Delta$ in such a way that $\Gamma$, i.e. the context of the first premise, necessarily contains some \emph{new} formula not occurring in the context before the first $\tr$ application. Under this restriction, the application of $\lleft$ in the 2nd derivation of (\ref{eq:llefttr}) would become invalid, since all formulae in $\Gamma$ are already present in context before the application of $\tr$.
 
 One way to distinguish between old and new formulae occurrences in the above cases is by marking with a \emph{tag} $\bullet$ each new formula appearing in context during the building of a focused derivation. We christen a formula occurrence ``new'' whenever it is moved from the succedent to the context via an application of the right implication rule $\lright$. In order to remember when we are building a derivation of a sequent arising as the first premise of $\tr$, in which the distinction between old and new formula is relevant, we mark such sequents with a tag $\bullet$ as well.
 %In other words, the first premise of  $\tr$ in (\ref{eq:naive}) would be replace by a sequent $T \mid \Gamma \vdash_\RI^\bullet A$
@@ -1154,11 +1154,11 @@ The search for a proof of a tagged sequent $T \mid \Gamma^\circ \vdash^\bullet_\
 \item[($\vdash^\bullet_\LI$)] Since $T$ is a negative stoup, we can only move to the tagged $\Pass$ phase via $\Pass2\LI$.
   %keeping the same tag $x$. Notice that  the formula $B$ in the premise of rule $\tl$ does not get marked with a tag.
   %In this phase we do not need to enforce the order between $\unitl$ and $\tl$ applicaitons because they are not exchangeable.
-\item[($\vdash^\bullet_\Pass$)] We have the possibility of applying the $\pass$ rule and move the leftmost formula $A$ in the context to the stoup, but only when this formula is marked by $\bullet$. This restriction makes it possible to remove non-determinism of type 1. Afterwards, we strip the context of all tags and jump to untagged $\LI$ phase. If we do not (or cannot) apply $\pass$, we move to phase $\F$  in two different ways, depending on the status of $T$. If $T$ is either empty or atomic, we strip the context of the tags and move to untagged $\F$ phase via $\F2\Pass$. If $T$ is an implication, we move to black $\F$ phase via $\F2\Pass_\lolli$. In the latter case, the tags are preserved for restricting the future possible applications of $\lleft$.
-\item[($\vdash^\bullet_\F$)] We can apply only $\tr$ or $\lleft$. If we apply $\tr$, we remove all tags from the context $\Gamma$ and move the first premise to the tagged $\RI$ phase again. The tags are removed from the contexts in order to not mix the tagged formulae that have appeared in context so far with the ``new'' formulae that may appear in the future. The most interesting case is $\lleft$, which can only be applied if $\Gamma$ contains at least one tagged formula. This side condition implements the restriction allowing the elimination of non-determinism of type 2. All the premises of $\lleft$ are stripped of their tags.
+\item[($\vdash^\bullet_\Pass$)] We have the possibility of applying the $\pass$ rule and move the leftmost formula $A$ in the context to the stoup, but only when this formula is marked by $\bullet$. This restriction makes it possible to remove non-determinism of type (i). Afterwards, we strip the context of all tags and jump to untagged $\LI$ phase. If we do not (or cannot) apply $\pass$, we move to phase $\F$  in two different ways, depending on the status of $T$. If $T$ is either empty or atomic, we strip the context of the tags and move to untagged $\F$ phase via $\F2\Pass$. If $T$ is an implication, we move to black $\F$ phase via $\F2\Pass_\lolli$. In the latter case, the tags are preserved for restricting the future possible applications of $\lleft$.
+\item[($\vdash^\bullet_\F$)] We can apply only $\tr$ or $\lleft$. If we apply $\tr$, we remove all tags from the context $\Gamma$ and move the first premise to the tagged $\RI$ phase again. The tags are removed from the contexts in order to not mix the tagged formulae that have appeared in context so far with the ``new'' formulae that may appear in the future. The most interesting case is $\lleft$, which can only be applied if $\Gamma$ contains at least one tagged formula. This side condition implements the restriction allowing the elimination of non-determinism of type (ii). All the premises of $\lleft$ are stripped of their tags.
 \end{itemize}
 
-The employment of tag annotations eliminate the two types of non-determinism. For example, only one of the two derivations in (\ref{eq:passtr}) is valid using the rules in (\ref{eq:focus}), and similarly for (\ref{eq:llefttr}).
+The employment of tag annotations eliminate the two types of inessential non-determinism. For example, only one of the two derivations in (\ref{eq:passtr}) is valid using the rules in (\ref{eq:focus}), and similarly for (\ref{eq:llefttr}).
 %is valid using the rules in (\ref{eq:focus}), removing non-determinism of type 2:
 %removing non-determinism of type 1:
 %given a sequent $A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\RI} C \ot D$ and supposed that $B$ is irreducible, $C = A' \lolli B'$,
@@ -1364,10 +1364,10 @@ The employment of tag annotations eliminate the two types of non-determinism. Fo
 %  \end{displaymath}
 %\end{itemize}
 
-We should point out that although the focused calculus is free of the inessential non-determinism that the na\"ive attempt (\ref{eq:naive}) suffered from, it is still non-deterministic and this has to be so. In particular, the focused calculus (\ref{eq:focus}) keeps the following two types of essential non-determinism of the focused calculus of \cite{uustalu:sequent:2021}.
-We say these non-determinism cases are essential because they capture the fact that there are sequents with multiple derivations in \SkNMILL\ that are not related by $\circeq$.
-\begin{enumerate}[i.]
-  \item In phase $\Pass$, when the stoup is empty, there is a choice of whether to apply $\pass$ or $\F2\Pass$ and both choices can lead to a derivation. For example, the sequent $X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)$ has two distinct derivations in the focused system and the corresponding derivations in \SkNMILL\ are $\circeq$-unrelated.
+We should point out that although the focused calculus is free of the inessential non-determinism that the na\"ive attempt (\ref{eq:naive}) suffered from, it is still non-deterministic and this has to be so. In particular, the focused calculus (\ref{eq:focus}) keeps the following two types of non-determinism of the focused calculus of \cite{uustalu:sequent:2021}.
+We call these non-determinism cases \emph{essential} because they capture the fact that there are sequents with multiple derivations in \SkNMILL\ that are not related by $\circeq$.
+\begin{enumerate}
+  \item[1.] In phase $\Pass$, when the stoup is empty, there is a choice of whether to apply $\pass$ or $\F2\Pass$ and both choices can lead to a derivation. For example, the sequent $X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)$ has two distinct derivations in the focused system and the corresponding derivations in \SkNMILL\ are $\circeq$-unrelated.
   \begin{equation*}
   \small
     \begin{array}{cc}
@@ -1435,7 +1435,7 @@ We say these non-determinism cases are essential because they capture the fact t
     \end{array}
     \normalsize
   \end{equation*}
-  \item In phase $\F$, when the succedent formula is $A \ot B$, and the rule $\tr$ is to be applied, the context can be split anywhere. If in the middle of the context there are closed formulae (i.e., formulae made of $\I$ and $\ot$ only), then several of these splits can lead to a derivation.
+  \item[2.] In phase $\F$, when the succedent formula is $A \ot B$, and the rule $\tr$ is to be applied, the context can be split anywhere. If in the middle of the context there are closed formulae (i.e., formulae made of $\I$ and $\ot$ only), then several of these splits can lead to a derivation.
   For example, the sequent $X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y$ has two distinct derivations.
   \begin{equation*}
   \small
@@ -1499,6 +1499,19 @@ We say these non-determinism cases are essential because they capture the fact t
     \normalsize
   \end{equation*}
 \end{enumerate}
+
+The presence of $\lolli$ adds a further type of essential
+nondeterminism, similar to type 2.
+
+\begin{enumerate}
+\item[3.] In phase $\F$, when the succedent formula is $A \lolli B$, and the rule $\lleft$ is to be applied, the context can be split anywhere. If in the middle of the context there are closed formulae, then again several of these splits can lead to a derivation.
+
+ For example, the sequent $\I \lolli (X \lolli Y) \mid \I , X \vdash_{\F} Y$ has two distinct derivations.
+
+(CHENG)
+\end{enumerate}
+
+
 % In the latter case, only those choices where $\mid T \mid , \mid \Gamma \mid = \mid A \mid$ and $\mid \Delta \mid = \mid B \mid$ can possibly lead to a complete derivation;
 % we write $\mid \quad \mid$ for the frontier of atoms in a formula, an optional formula, and a list of formulae.
 % But there can be multiple such choices if in the middle of the context there are closed formulae (i.e., formulae made of $\I$ and $\ot$ only): those can be freely split between $\Gamma$ and $\Delta$.
