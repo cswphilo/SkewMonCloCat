@@ -73,9 +73,9 @@
 
 \newcommand{\proofbox}[1]{\begin{tabular}{l} #1 \end{tabular}}
 
-\newcommand{\MILL}{\texttt{MILL}}
-\newcommand{\NMILL}{\texttt{NMILL}}
-\newcommand{\SkNMILL}{\NMILL\textsuperscript{\textit{s}}}
+\newcommand{\MILL}{$\mathtt{MILL}$}
+\newcommand{\NMILL}{$\mathtt{NMILL}$}
+\newcommand{\SkNMILL}{$\mathtt{SkNMILL}$}
 \newcommand{\FSkMCC}{\mathsf{Free}}
 
 %%\newcommand{\tarmo}[1]{}
@@ -114,7 +114,7 @@ Niccol{\`o} Veltri \qquad\qquad Cheng-Syuan Wan
 %%   Therefore we have an effective procedure to determine morphism existence and equivalence in skew monoidal closed categories.
 \end{abstract}
 \section{Introduction}
-It is a widely known fact from the late 80s/early 90s that symmetric monoidal closed categories are a categorical model of \MILL, multiplicative intuitionistic linear logic, whose logical connectives comprise of multiplicative unit $\I$ and conjunction $\ot$ and linear implication $\lolli$ \cite{mellies:categorical:09}. Probably lesser-known, though a quite straightforward variation of this observation (which actually predated the inception of linear logic altogether) is the fact that (not necessarily symmetric) monoidal biclosed categories are a categorical model of the non-commutative variant of \MILL\ (for which we use the abbreviation \NMILL) \cite{abrusci:noncommutative:1990}, where the structural rule of exchange is absent and there are two ordered implications $\lolli$ and $\illol$ \cite{lambek:deductive:68}. The sequent calculus of \NMILL\ is known as \emph{Lambek calculus}. Lambek refers to the implications $\lolli$ and $\illol$ as residuals, and monoidal biclosed categories are therefore also called residual categories. The Lambek calculus is often practically employed in formal investigations of natural languages \cite{lambek:mathematics:58}.
+It is a widely known fact from the late 80s/early 90s that symmetric monoidal closed categories are a categorical model of \MILL, multiplicative intuitionistic linear logic, whose logical connectives comprise multiplicative unit $\I$ and conjunction $\ot$ and linear implication $\lolli$ \cite{mellies:categorical:09}. Probably lesser-known, though a quite straightforward variation of this observation (which actually predated the inception of linear logic altogether) is the fact that (not necessarily symmetric) monoidal biclosed categories are a categorical model of the non-commutative variant of \MILL\ (for which we use the abbreviation \NMILL) \cite{abrusci:noncommutative:1990}, where the structural rule of exchange is absent and there are two ordered implications $\lolli$ and $\illol$ \cite{lambek:deductive:68}. The sequent calculus of \NMILL\ is known as \emph{Lambek calculus}. Lambek refers to the implications $\lolli$ and $\illol$ as residuals, and monoidal biclosed categories are therefore also called residual categories. The Lambek calculus is often practically employed in formal investigations of natural languages \cite{lambek:mathematics:58}.
 By dropping one of the ordered implications of \NMILL, one obtains a fragment of the Lambek calculus interpretable in every monoidal closed category.
 
 In recent years, Ross Street introduced the new notion of (left) skew monoidal closed categories \cite{street:skew-closed:2013}. These are a weakening of monoidal closed categories: their structure includes a unit $\I$, a tensor $\ot$, an internal hom $\lolli$ and an adjunction relating the latter two operations, as in usual non-skew monoidal closed categories. The difference lies in the three structural laws of left and right unitality, $\lambda_A : \I \ot A \to A$ and $\rho_A : A \to A \ot \I$, and associativity, $\alpha_{A,B,C} : (A \ot B) \ot C \to A \ot (B \ot C)$, which are usually required to be natural isomorphisms, but in the skew variant are merely natural transformations with the specified orientation. Street originally proposed this weaker notion to reach better understanding of and to fix a famous imbalance, first noticed by Eilenberg and Kelly \cite{eilenberg:closed:1966}, present in the adjunction relating monoidal and closed structures \cite{street:skew-closed:2013,uustalu:eilenberg-kelly:2020}. In the last decade, skew monoidal closed categories, together with their non-closed/non-monoidal variants, have been thoroughly studied, with applications ranging from algebra and homotopy theory to programming language semantics \cite{szlachanyi:skew-monoidal:2012,lack:skew:2012,lack:triangulations:2014,altenkirch:monads:2014,buckley:catalan:2015,bourke:skew:2017,bourke:skew:2018,tomita:realizability:21}.
@@ -1520,7 +1520,9 @@ We call these types of non-determinism \emph{essential} because they reflect the
     \end{array}
     \normalsize
   \end{equation*}
-  \item[2.] In phase $\F$, if the succedent formula is $A \ot B$, and the rule $\tr$ is to be applied, the context can be split anywhere. Sometimes, in particular when in the middle of the context there are closed formulae (i.e., formulae made of $\I$ and $\ot$ only), then several of these splits can lead to a derivation.
+  \item[2.] In phase $\F$, if the succedent formula is $A \ot B$, and the rule $\tr$ is to be applied, the context can be split anywhere. Sometimes
+%, in particular when in the middle of the context there are closed formulae (i.e., formulae made of $\I$ and $\ot$ only), then 
+several of these splits can lead to a derivation.
   For example, the sequent $X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y$ has two distinct derivations.
   \begin{equation*}
 \hspace*{-5mm}
