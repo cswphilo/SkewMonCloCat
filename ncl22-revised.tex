@@ -953,11 +953,11 @@ The focused calculus in (\ref{eq:naive}) is sound and complete wrt.\ the sequent
     }
 %    }
     \end{equation}
-    The corresponding sequent calculus derivations, at the same time, are $\circeq$-related because of the last equation from (\ref{fig:circeq}), the permutative conversion for $\tr$ and $\lleft$.
+    The corresponding sequent calculus derivations, at the same time, are $\circeq$-related because of the 7th equation from (\ref{fig:circeq}), the permutative conversion for $\tr$ and $\lleft$.
 \end{enumerate}
 
 %In summary, two counter-example above show that our naive focused sequent calculus contains too much non-determinacy.
-To get rid of type (i) undesired non-determinism, one might try an idea similar to the one that works in the skew monoidal non-closed case \cite{uustalu:sequent:2021} to get rid of type (i) undesired non-determinism, namely, to prioritize $\pass$ over $\tr$ by requiring the first premise of the latter to be a sequent in phase $\F$.
+To get rid of type (i) undesired non-determinism, one might try an idea similar to the one that works in the skew monoidal non-closed case \cite{uustalu:sequent:2021}, namely, to prioritize $\pass$ over $\tr$ by requiring the first premise of the latter to be a sequent in phase $\F$.
 But this does not do the right thing in the skew monoidal closed case. E.g., the sequent ${-} \mid Y \vdash_{\F} (X \lolli X) \ot Y$ becomes underivable while its counterpart is derivable in (\ref{eq:seqcalc}).
 \begin{equation*}\label{eq:counterexample0}
   \infer[\tr]{{-} \mid Y \vdash_{\F} (X \lolli X) \ot Y}{
@@ -1159,7 +1159,7 @@ The search for a proof of a tagged sequent $T \mid \Gamma^\circ \vdash^\bullet_\
 \item[($\vdash^\bullet_\F$)] We can apply only $\tr$ or $\lleft$. If we apply $\tr$, we remove all tags from the context $\Gamma, \Delta$ and move the first premise to the tagged $\RI$ phase again. The tags are removed from the context in order to not mix the tagged formulae that have appeared in context so far with the ``new'' formulae that may appear in the future. The most interesting case is $\lleft$, which can only be applied if the $\Gamma$ part of the context $\Gamma, \Delta$ contains at least one tagged formula. This side condition implements the restriction allowing the elimination of undesired non-determinism of type (ii). All the premises of $\lleft$ are stripped of their tags.
 \end{itemize}
 
-The employment of tag annotations eliminate the two types of inessential non-determinism. For example, only one of the two derivations in (\ref{eq:passtr}) is valid using the rules in (\ref{eq:focus}), and similarly for (\ref{eq:llefttr}).
+The employment of tag annotations eliminates the two types of undesired non-determinism. For example, only one of the two derivations in (\ref{eq:passtr}) is valid using the rules in (\ref{eq:focus}), and similarly for (\ref{eq:llefttr}).
 %is valid using the rules in (\ref{eq:focus}), removing non-determinism of type 2:
 %removing non-determinism of type 1:
 %given a sequent $A \lolli B \mid \Gamma , \Delta , \Lambda \vdash_{\RI} C \ot D$ and supposed that $B$ is irreducible, $C = A' \lolli B'$,
@@ -1759,7 +1759,7 @@ The paper describes a sequent calculus for \SkNMILL, a skew variant of non-commu
 We plan to investigate alternative presentations of \SkNMILL, such as natural deduction. Analogously to the case of the sequent calculus studied in this paper, we expect natural deduction derivation to be strongly normalizing wrt.\ an appropriately defined $\beta\eta$-conversion. We are interested in directly comparing the resulting $\beta\eta$-long normal forms with the focused derivations of Section \ref{sec:focus}.
 
 The system of tags in focused proofs, used for taming the non-deterministic choices arising in proof search to be able to canonically represent each equivalence class of $\circeq$, appears to be a new idea. %In the literature,
-There exist other techniques for drastically reduce non-determinism in proof search, such as multi-focusing \cite{chaudhuri:canonical:2008} and saturated focusing \cite{scherer:simple:2015}, and we wonder if our system of tags is in any way related to these. % other techniques.
+There exist other techniques for drastically reducing non-determinism in proof search, such as multi-focusing \cite{chaudhuri:canonical:2008} and saturated focusing \cite{scherer:simple:2015}, and we wonder if our system of tags is in any way related to these. % other techniques.
 
 This paper represents the latest installment of a large project aiming at the development of the proof theory of categories with skew structure. So far the project, promoted and advanced by Uustalu, Veltri and Zeilberger, has investigated proof systems for skew semigroup categories \cite{zeilberger:semiassociative:19}, (symmetric and non-symmetric) skew monoidal categories \cite{uustalu:sequent:2021,uustalu:proof:nodate,veltri:coherence:2021} and skew prounital closed categories \cite{uustalu:deductive:nodate}. From a purely proof-theoretic perspective, the main incentive gained from the study of these skew systems is a \emph{modular} understanding of Andreoli's focusing technique. This is particularly highlighted in Uustalu et al.'s study of \emph{partially normal} skew monoidal categories \cite{uustalu:proof:nodate}, where one or more structural laws among $\lambda$, $\rho$ and $\alpha$ can be required to be invertible. The focused sequent calculus of partially normal skew monoidal categories is obtained from the focused sequent calculus of skew monoidal categories by modularly adding new rules for each enforced normality condition.
 We expect a similar modular behaviour to show up in the case of partially normal skew monoidal closed categories.
