@@ -114,8 +114,8 @@ Niccol{\`o} Veltri \qquad\qquad Cheng-Syuan Wan
 %%   Therefore we have an effective procedure to determine morphism existence and equivalence in skew monoidal closed categories.
 \end{abstract}
 \section{Introduction}
-It is a well-known fact from the late 80s/early 90s that symmetric monoidal closed categories are standard categorical models of \MILL, multiplicative intuitionistic linear logic, whose logical connectives comprise of multiplicative unit $\I$ and conjunction $\ot$ and linear implication $\lolli$ \cite{mellies:categorical:09}. Probably lesser-known, though a quite straightforward generalization of the previous sentence (which actually predated the inception of linear logic altogether), is the fact that (not necessarily symmetric) monoidal biclosed categories are categorical models of the non-commutative variant of \MILL\ (for which we use the abbreviation \NMILL) \cite{abrusci:noncommutative:1990}, where the structural rule of exchange is absent and there are two ordered implications $\lolli$ and $\illol$ \cite{lambek:deductive:68}. The sequent calculus for \NMILL\ is known as \emph{Lambek calculus}. Lambek refers to the implications $\lolli$ and $\illol$ as residuals, and models of Lambek calculus are therefore also called residual categories. The Lambek calculus is often practically employed in formal investigations of natural languages \cite{lambek:mathematics:58}.
-By dropping one of the ordered implications of \NMILL\ one obtains a fragment of the Lambek calculus enjoying categorical semantics in every monoidal closed category.
+It is a widely known fact from the late 80s/early 90s that symmetric monoidal closed categories are a categorical model of \MILL, multiplicative intuitionistic linear logic, whose logical connectives comprise of multiplicative unit $\I$ and conjunction $\ot$ and linear implication $\lolli$ \cite{mellies:categorical:09}. Probably lesser-known, though a quite straightforward variation of this observation (which actually predated the inception of linear logic altogether) is the fact that (not necessarily symmetric) monoidal biclosed categories are a categorical model of the non-commutative variant of \MILL\ (for which we use the abbreviation \NMILL) \cite{abrusci:noncommutative:1990}, where the structural rule of exchange is absent and there are two ordered implications $\lolli$ and $\illol$ \cite{lambek:deductive:68}. The sequent calculus of \NMILL\ is known as \emph{Lambek calculus}. Lambek refers to the implications $\lolli$ and $\illol$ as residuals, and monoidal biclosed categories are therefore also called residual categories. The Lambek calculus is often practically employed in formal investigations of natural languages \cite{lambek:mathematics:58}.
+By dropping one of the ordered implications of \NMILL, one obtains a fragment of the Lambek calculus interpretable in every monoidal closed category.
 
 In recent years, Ross Street introduced the new notion of (left) skew monoidal closed categories \cite{street:skew-closed:2013}. These are a weakening of monoidal closed categories: their structure includes a unit $\I$, a tensor $\ot$, an internal hom $\lolli$ and an adjunction relating the latter two operations, as in usual non-skew monoidal closed categories. The difference lies in the three structural laws of left and right unitality, $\lambda_A : \I \ot A \to A$ and $\rho_A : A \to A \ot \I$, and associativity, $\alpha_{A,B,C} : (A \ot B) \ot C \to A \ot (B \ot C)$, which are usually required to be natural isomorphisms, but in the skew variant are merely natural transformations with the specified orientation. Street originally proposed this weaker notion to reach better understanding of and to fix a famous imbalance, first noticed by Eilenberg and Kelly \cite{eilenberg:closed:1966}, present in the adjunction relating monoidal and closed structures \cite{street:skew-closed:2013,uustalu:eilenberg-kelly:2020}. In the last decade, skew monoidal closed categories, together with their non-closed/non-monoidal variants, have been thoroughly studied, with applications ranging from algebra and homotopy theory to programming language semantics \cite{szlachanyi:skew-monoidal:2012,lack:skew:2012,lack:triangulations:2014,altenkirch:monads:2014,buckley:catalan:2015,bourke:skew:2017,bourke:skew:2018,tomita:realizability:21}.
 
@@ -899,10 +899,10 @@ The focused calculus in (\ref{eq:naive}) is sound and complete wrt.\ the sequent
 %    \quad
 %  }
   \end{equation}
-  The rule $\mathsf{sw}$ above stands for a sequence of (appropriately typed) phase
+  Here and in the rest of the paper the rule $\mathsf{sw}$ above stands for a sequence of (appropriately typed) phase
   switching inferences by $\LI2\RI$, $\Pass2\LI$ and $\F2\Pass$.
-  The congruence relation $\circeq$ eliminates this form of non-determinism through the 4th equation from (\ref{fig:circeq}), i.e., the permutative conversion involving $\tr$ and $\pass$.
-  \item[(ii)] Rules $\tr$ and $\lleft$ appear in the same phase $\F$, though there are situations where both rules can be applied first, which can lead to two valid but distinct focused derivations. More precisely, there are cases when $\tr$ and $\lleft$ can be interchangeably applied. As an example, consider the following two valid derivations of $A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\F} P \ot D$ under the assumption of $f : {-} \mid \Gamma \vdash_{\RI} A$, $g : X \mid \Delta \vdash_{\LI} P$ and $h : {-} \mid \Lambda \vdash_{\RI} D$.
+  The corresponding sequent calculus derivations are equated by congruence relation $\circeq$ because of the 4th equation from (\ref{fig:circeq}), i.e., the permutative conversion involving $\tr$ and $\pass$.
+  \item[(ii)] Rules $\tr$ and $\lleft$ appear in the same phase $\F$, though there are situations where both rules can be applied first, which can lead to two distinct focused derivations. More precisely, there are cases when $\tr$ and $\lleft$ can be interchangeably applied. As an example, consider the following two valid derivations of $A \lolli X \mid \Gamma , \Delta , \Lambda \vdash_{\F} P \ot D$ under the assumption of $f : {-} \mid \Gamma \vdash_{\RI} A$, $g : X \mid \Delta \vdash_{\LI} P$ and $h : {-} \mid \Lambda \vdash_{\RI} D$.
 %  In this case $\tr$ and $\lleft$ rule applications are interchangeable.
 %  For convenience, we define an abbreviation of consecutive phase switching rule applications under suitable condition
 %  \begin{displaymath}
@@ -953,12 +953,12 @@ The focused calculus in (\ref{eq:naive}) is sound and complete wrt.\ the sequent
     }
 %    }
     \end{equation}
-    This form of non-determinism is tamed in the congruence relation $\circeq$ by the last permutative conversion from (\ref{fig:circeq}), involving $\tr$ and $\lleft$.
+    The corresponding sequent calculus derivations, at the same time, are $\circeq$-related because of the last equation from (\ref{fig:circeq}), the permutative conversion for $\tr$ and $\lleft$.
 \end{enumerate}
 
 %In summary, two counter-example above show that our naive focused sequent calculus contains too much non-determinacy.
-One might try a similar idea in the skew monoidal \emph{non-closed} case \cite{uustalu:sequent:2021} to solve the type (i) non-determinism, i.e., to prioritize $\pass$ over $\tr$ by requiring the first premise of the latter to be a sequent in phase $\F$.
-However, this does not work in the skew monoidal closed case, e.g., the sequent ${-} \mid Y \vdash_{\F} (X \lolli X) \ot Y$ would not be derivable, but its counterpart is derivable in (\ref{eq:seqcalc}).
+To get rid of type (i) undesired non-determinism, one might try an idea similar to the one that works in the skew monoidal non-closed case \cite{uustalu:sequent:2021} to get rid of type (i) undesired non-determinism, namely, to prioritize $\pass$ over $\tr$ by requiring the first premise of the latter to be a sequent in phase $\F$.
+But this does not do the right thing in the skew monoidal closed case. E.g., the sequent ${-} \mid Y \vdash_{\F} (X \lolli X) \ot Y$ becomes underivable while its counterpart is derivable in (\ref{eq:seqcalc}).
 \begin{equation*}\label{eq:counterexample0}
   \infer[\tr]{{-} \mid Y \vdash_{\F} (X \lolli X) \ot Y}{
     \deduce{{-} \mid \quad \vdash_{\F} X \lolli X}{??}
@@ -973,7 +973,7 @@ However, this does not work in the skew monoidal closed case, e.g., the sequent 
   }
 \end{equation*}
 
-An impulsive idea for eliminating non-determinism of type (ii) is to prioritize the application of $\lleft$ over $\tr$, e.g., by forcing the application of $\lleft$ in phase $\F$ whenever the stoup formula is an implication and restricting the application of $\tr$ to sequents where the stoup formula is atomic. This leads to an unsound calculus, since the sequent $X \lolli Y \mid Z \vdash_{\F} (X \lolli Y) \ot Z$, which has a derivable correspondent in (\ref{eq:seqcalc}), would not be derivable by first applying the $\lleft$ rule.
+An impulsive idea for eliminating undesired non-determinism of type (ii) is to prioritize the application of $\lleft$ over $\tr$, e.g., by forcing the application of $\lleft$ in phase $\F$ whenever the stoup formula is an implication and restricting the application of $\tr$ to sequents where the stoup formula is atomic. This too leads to an unsound calculus, since the sequent $X \lolli Y \mid Z \vdash_{\F} (X \lolli Y) \ot Z$, which has a derivable correspondent in (\ref{eq:seqcalc}), would not be derivable by first applying the $\lleft$ rule.
 \begin{equation*}\label{eq:counterexample1}
    \infer[\lleft]{X \lolli Y \mid Z \vdash_{\F} (X \lolli Y) \ot Z}{
      \deduce{{-} \mid \quad \vdash_{\RI} X}{??}
@@ -1053,17 +1053,17 @@ Dually, prioritizing the application of $\tr$ over $\lleft$ leads to similar iss
 \subsection{A Focused System with Tag Annotations}\label{sec:tag}
 
 %However, solution for case 2 inspires us to come up with a uniform solution.
-In order to eliminate the non-determinism of type (i) between $\pass$ and $\tr$, we need to restrict applications of $\pass$ after an application of $\tr$.
+In order to eliminate undesired non-determinism of type (i) between $\pass$ and $\tr$, we need to restrict applications of $\pass$ after an application of $\tr$.
 One way to achieve this is by forcing such an application of $\pass$ to move the leftmost formula to the stoup only if such formula occurrence is \emph{new}, in the sense that it was not already present in the context before the $\tr$ application. For example, with this restriction in place, the application of $\pass$ in the 2nd derivation of (\ref{eq:passtr}) would be invalid, since the formula $X$ was already present in context before the application of $\tr$.
 
-Analogously, the non-determinism of type (ii) between $\lleft$ and $\tr$ can be eliminated by restricting applications of $\lleft$ after an application of $\tr$. This can be achieved by forcing the subsequent application of $\lleft$ to split the context in two parts $\Gamma,\Delta$ in such a way that $\Gamma$, i.e. the context of the first premise, necessarily contains some \emph{new} formula not occurring in the context before the first $\tr$ application. Under this restriction, the application of $\lleft$ in the 2nd derivation of (\ref{eq:llefttr}) would become invalid, since all formulae in $\Gamma$ are already present in context before the application of $\tr$.
+Analogously, undesired non-determinism of type (ii) between $\lleft$ and $\tr$ can be eliminated by restricting applications of $\lleft$ after an application of $\tr$. This can be achieved by forcing the subsequent application of $\lleft$ to split the context in two parts $\Gamma,\Delta$ in such a way that $\Gamma$, i.e. the context of the first premise, necessarily contains some \emph{new} formula not occurring in the context before the first $\tr$ application. Under this restriction, the application of $\lleft$ in the 2nd derivation of (\ref{eq:llefttr}) would become invalid, since all formulae in $\Gamma$ are already present in context before the application of $\tr$.
 
-One way to distinguish between old and new formulae occurrences in the above cases is by marking with a \emph{tag} $\bullet$ each new formula appearing in context during the building of a focused derivation. We christen a formula occurrence ``new'' whenever it is moved from the succedent to the context via an application of the right implication rule $\lright$. In order to remember when we are building a derivation of a sequent arising as the first premise of $\tr$, in which the distinction between old and new formula is relevant, we mark such sequents with a tag $\bullet$ as well.
+One way to distinguish between old and new formulae occurrences in the above cases is to mark with a \emph{tag} $\bullet$ each new formula appearing in context during the building of a focused derivation. We christen a formula occurrence ``new'' whenever it is moved from the succedent to the context via an application of the right implication rule $\lright$. In order to remember when we are building a derivation of a sequent arising as the first premise of $\tr$, in which the distinction between old and new formula is relevant, we mark such sequents with a tag $\bullet$ as well.
 %In other words, the first premise of  $\tr$ in (\ref{eq:naive}) would be replace by a sequent $T \mid \Gamma \vdash_\RI^\bullet A$
 %In the complicated focused system, sequents can also potentially be annotated with an extra superscript annotation $\bullet$, called a \emph{tag}. Tags are a technical mechanism for keeping track of new formulae appearing in the context after the application of the right implication rule. This, as we will thorougly discuss later, allows to control the reduction of non-deterministic choices during proof search, in particular resolving the possible choices arising from the permutative conversions from (\ref{fig:circeq}).
-More generally, we write $S \mid \Gamma \xvdash_{ph} C$ for a sequent that can potentially be tagged, i.e. the turnstile could be of the form $\vdash_{ph}^{\bullet}$ or $\vdash_{ph}$, for all $ph \in \{ \RI,\LI,\Pass,\F\}$. This implies that there are a total of 8 sequent phases, corresponding to the possible combinations of 4 subscript phases with the tagged/untagged state.
+More generally, we write $S \mid \Gamma \xvdash_{ph} C$ for a sequent that can be untagged or tagged, i.e., the turnstile can be of the form $\vdash_{ph}$ or $\vdash^\bullet_{ph}$, for $ph \in \{ \RI,\LI,\Pass,\F\}$. This implies that there are a total of 8 sequent phases, corresponding to the possible combinations of 4 subscript phases with the untagged/tagged state.
 %A tag can either be \emph{black} $\bullet$, with corresponding turnstile symbol $\vdash_{ph}^{\bullet}$, or \emph{white} $\circ$, in which case we write $\vdash_{ph}^\circ$ or simply $\vdash_{ph}$, where $ph \in \{ \RI,\LI,\Pass,\F\}$. This implies that there are a total of 8 sequent phases, corresponding to the possible combinations of 4 subscript phases with the 2 tags.
-In tagged sequents  $S \mid \Gamma \vdash_{ph}^{\bullet} C$, formulae in the context $\Gamma$ are also allowed to be tagged, i.e. they can be of the form $A^\bullet$ or $A$. Given a context $\Gamma$ that may contain tagged formulae, we write $\Gamma^{\circ}$ for the same context where all tags have been removed from the formulae in it. All formulae in an untagged sequent $S \mid \Gamma \vdash_{ph} C$ must be untagged.
+In tagged sequents  $S \mid \Gamma \vdash_{ph}^{\bullet} C$, the formulae in the context $\Gamma$ can be untagged or tagged, i.e., they can be of the form $A$ or $A^\bullet$; to be precise, all untagged formulae in $\Gamma$ must precede all untagged formulae (i.e., the context splits into two untagged and tagged parts and instead of optional tags on formulae, we could alternatively work with contexts with two compartments). Given a context $\Gamma$ that may contain tagged formulae, we write $\Gamma^{\circ}$ for the same context where all tags have been removed from the formulae in it. The formulae in the context of an untagged sequent $S \mid \Gamma \vdash_{ph} C$ must all be untagged (so the context consists of one compartment only).
 
 Derivations in the focused sequent calculus with tag annotations are generated by the rules
 %\begin{defn}
@@ -1139,7 +1139,8 @@ Derivations in the focused sequent calculus with tag annotations are generated b
   \end{array}
 \end{equation}
 %\end{defn}
-The side condition in rule $\lleft$ reads: if $x = \bullet$, there exists an occurrence of a tagged formula $D^\bullet$ in $\Gamma$.
+Remember that $P$ is a positive formula and $T$ is a negative stoup. The side condition in rule $\lleft$ reads: if $x = \bullet$, then some formula in $\Gamma$ must be tagged. For the rule $\pass$ notice that, if $x = \bullet$, it is actually forced that all formulae of $\Gamma$ are tagged since the preceding context formula $A^\bullet$ is tagged. For the rules $\tr$ and $\lleft$ similarly notice that, 
+if some formula of $\Gamma$ is tagged, then all formulae $\Delta$ must be tagged. 
 %The side condition in rule $\F 2\Pass$ reads: if the stoup $T$ is empty or an atomic formula, then $y$ is empty, i.e. the premise is sequent $T \mid \Gamma \vdash P$; if $T$ is an implication, then $y = x$.
 
 %We explain the rules of the focused sequent calculus from the perspective of bottom-up proof search. We start by analyizing the proof search of an untagged sequent $S \mid \Gamma \vdash_{\RI} C$, by pretending that the tag annotations are not present and forgetting about all the side conditions related to tags.
@@ -1148,14 +1149,14 @@ The side condition in rule $\lleft$ reads: if $x = \bullet$, there exists an occ
 The rules in (\ref{eq:focus}), when stripped of all the tags, are equivalent to the rules in the na{\"i}ve calculus (\ref{eq:naive}). When building a derivation of an untagged sequent $S \mid \Gamma \vdash_\RI A$, the only possible way to enter a tagged phase is via an application of the $\tr$ rule, so that sequents with turnstile marked $\vdash_{ph}^\bullet$ denote the fact that we are performing proof search for the first premise of an $\tr$ inference (and the stoup is negative).
 The search for a proof of a tagged sequent $T \mid \Gamma^\circ \vdash^\bullet_\RI A$ proceeds as follows:
 \begin{itemize}
-\item[($\vdash^\bullet_\RI$)] We eagerly apply the right invertible rule $\lright$ with the goal of reducing $A$ to a positive formula $P$. All the formulae moved to the right end of the context are ``new'', and therefore are marked with $\bullet$.
+\item[($\vdash^\bullet_\RI$)] We eagerly apply the right invertible rule $\lright$ with the goal of reducing $A$ to a positive formula $P$. All formulae that get moved to the right end of the context are ``new'', and are therefore marked with $\bullet$.
   When the succedent formula becomes positive, we move to the tagged $\LI$ phase via $\LI2\RI$.
   %keeping the same tag $x$.
 \item[($\vdash^\bullet_\LI$)] Since $T$ is a negative stoup, we can only move to the tagged $\Pass$ phase via $\Pass2\LI$.
   %keeping the same tag $x$. Notice that  the formula $B$ in the premise of rule $\tl$ does not get marked with a tag.
   %In this phase we do not need to enforce the order between $\unitl$ and $\tl$ applicaitons because they are not exchangeable.
-\item[($\vdash^\bullet_\Pass$)] We have the possibility of applying the $\pass$ rule and move the leftmost formula $A$ in the context to the stoup, but only when this formula is marked by $\bullet$. This restriction makes it possible to remove non-determinism of type (i). Afterwards, we strip the context of all tags and jump to untagged $\LI$ phase. If we do not (or cannot) apply $\pass$, we move to phase $\F$  in two different ways, depending on the status of $T$. If $T$ is either empty or atomic, we strip the context of the tags and move to untagged $\F$ phase via $\F2\Pass$. If $T$ is an implication, we move to black $\F$ phase via $\F2\Pass_\lolli$. In the latter case, the tags are preserved for restricting the future possible applications of $\lleft$.
-\item[($\vdash^\bullet_\F$)] We can apply only $\tr$ or $\lleft$. If we apply $\tr$, we remove all tags from the context $\Gamma$ and move the first premise to the tagged $\RI$ phase again. The tags are removed from the contexts in order to not mix the tagged formulae that have appeared in context so far with the ``new'' formulae that may appear in the future. The most interesting case is $\lleft$, which can only be applied if $\Gamma$ contains at least one tagged formula. This side condition implements the restriction allowing the elimination of non-determinism of type (ii). All the premises of $\lleft$ are stripped of their tags.
+\item[($\vdash^\bullet_\Pass$)] We have the possibility of applying the $\pass$ rule and move the leftmost formula $A$ in the context to the stoup, but only when this formula is marked by $\bullet$. This restriction makes it possible to remove undesired non-determinism of type (i). Afterwards, we strip the context of all tags and jump to untagged $\LI$ phase. If we do not (or cannot) apply $\pass$, we move to phase $\F$  in two different ways, depending on the status of $T$. If $T$ is either empty or atomic, we strip the context of the tags and move to the untagged $\F$ phase via $\F2\Pass$. If $T$ is an implication, we move to the tagged $\F$ phase via $\F2\Pass_\lolli$. In the latter case, the tags are preserved for restricting the future possible applications of $\lleft$.
+\item[($\vdash^\bullet_\F$)] We can apply only $\tr$ or $\lleft$. If we apply $\tr$, we remove all tags from the context $\Gamma, \Delta$ and move the first premise to the tagged $\RI$ phase again. The tags are removed from the context in order to not mix the tagged formulae that have appeared in context so far with the ``new'' formulae that may appear in the future. The most interesting case is $\lleft$, which can only be applied if the $\Gamma$ part of the context $\Gamma, \Delta$ contains at least one tagged formula. This side condition implements the restriction allowing the elimination of undesired non-determinism of type (ii). All the premises of $\lleft$ are stripped of their tags.
 \end{itemize}
 
 The employment of tag annotations eliminate the two types of inessential non-determinism. For example, only one of the two derivations in (\ref{eq:passtr}) is valid using the rules in (\ref{eq:focus}), and similarly for (\ref{eq:llefttr}).
@@ -1244,11 +1245,33 @@ The employment of tag annotations eliminate the two types of inessential non-det
 
  % The extra restriction on sequents and formulae imposed on the rules in (\ref{eq:focus}) do not reduce provability, e.g., the sequents $X \lolli Y \mid Z \vdash_{\RI} (X \lolli Y) \ot Z$, whose proof requires the application of $\tr$ before $\lleft$,
  % and $X \lolli (Y \ot Z) \mid X \vdash_\F Y \ot Z$, where $\lleft$ must appear below $\tr$ in the proof tree, are both derivable.
- The extra restriction on sequents and formulae imposed on the rules in (\ref{eq:focus}) do not reduce derivability, e.g., the sequents ${-} \mid Y \vdash_{\F} (X \lolli X) \ot Y$, $X \lolli Y \mid Z \vdash_{\RI} (X \lolli Y) \ot Z$, whose proof requires the application of $\tr$ before $\lleft$,
- and $X \lolli (Y \ot Z) \mid X \vdash_\F Y \ot Z$, where $\lleft$ must appear below $\tr$ in the proof tree, are all derivable.
+ The extra restrictions on sequents and formulae that the rules in (\ref{eq:focus}) impose in comparison to those in (\ref{eq:naive}) do not reduce derivability, e.g., the sequents ${-} \mid Y \vdash_{\F} (X \lolli X) \ot Y$, whose proof requires passivation of a new formula in the derivation of the first premise of a $\tr$ inference, $X \lolli Y \mid Z \vdash_{\RI} (X \lolli Y) \ot Z$, whose proof requires application of $\tr$ before $\lleft$,
+ and $X \lolli (Y \ot Z) \mid X \vdash_\F Y \ot Z$, where $\lleft$ must be invoked before $\tr$, are all derivable.
  \begin{displaymath}
  \small
-   \begin{array}{cc}
+   \begin{array}{c}
+    \proofbox{
+     \infer[\tr]{{-} \mid Y \vdash_{\F} (X \lolli X) \ot Y}{
+      \infer[\lright]{{-} \vdash \quad \vdash^{\bullet}_{\RI} X \lolli X}{
+        \infer[\mathsf{sw}]{{-} \mid X^{\bullet} \vdash^{\bullet}_{\RI} X}{
+          \infer[\pass]{{-} \mid X^{\bullet} \vdash^{\bullet}_{\Pass} X}{
+            \infer[\mathsf{sw}]{X \mid \quad \vdash_{\LI} X}{
+              \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+            }
+          }
+        }
+      }
+      &
+      \infer[\mathsf{sw}]{{-} \mid Y \vdash_{\RI} Y}{
+        \infer[\pass]{{-} \mid Y \vdash_{\Pass} Y}{
+          \infer[\mathsf{sw}]{Y \mid \quad \vdash_{\LI} Y}{
+            \infer[\ax]{Y \mid \quad \vdash_{\F} Y}{}
+          }
+        }
+      }
+     }
+     }
+ \\
    \proofbox{
      \infer[\tr]{X \lolli Y \mid Z \vdash_{\F} (X \lolli Y) \ot Z}{
       \infer[\lright]{X \lolli Y \mid \quad \vdash^{\bullet}_{\RI} X \lolli Y}{
@@ -1277,6 +1300,7 @@ The employment of tag annotations eliminate the two types of inessential non-det
         }
       }
      }
+%
      \quad
      \infer[\lleft]{X \lolli (Y \ot Z) \mid X \vdash_{\F} Y \ot Z}{
       \infer[\mathsf{sw}]{{-} \mid X \vdash_{\RI} X}{
@@ -1306,29 +1330,7 @@ The employment of tag annotations eliminate the two types of inessential non-det
       }
      }
      }
-     \\
-     \proofbox{
-     \infer[\tr]{{-} \mid Y \vdash_{\F} (X \lolli X) \ot Y}{
-      \infer[\lright]{{-} \vdash \quad \vdash^{\bullet}_{\RI} X \lolli X}{
-        \infer[\mathsf{sw}]{{-} \mid X^{\bullet} \vdash^{\bullet}_{\RI} X}{
-          \infer[\pass]{{-} \mid X^{\bullet} \vdash^{\bullet}_{\Pass} X}{
-            \infer[\mathsf{sw}]{X \mid \quad \vdash_{\LI} X}{
-              \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
-            }
-          }
-        }
-      }
-      &
-      \infer[\mathsf{sw}]{{-} \mid Y \vdash_{\RI} Y}{
-        \infer[\pass]{{-} \mid Y \vdash_{\Pass} Y}{
-          \infer[\mathsf{sw}]{Y \mid \quad \vdash_{\LI} Y}{
-            \infer[\ax]{Y \mid \quad \vdash_{\F} Y}{}
-          }
-        }
-      }
-     }
-     }
-   \end{array}
+    \end{array}
    \normalsize
  \end{displaymath}
 %  \begin{displaymath}
@@ -1364,12 +1366,14 @@ The employment of tag annotations eliminate the two types of inessential non-det
 %  \end{displaymath}
 %\end{itemize}
 
-We should point out that although the focused calculus is free of the inessential non-determinism that the na\"ive attempt (\ref{eq:naive}) suffered from, it is still non-deterministic and this has to be so. In particular, the focused calculus (\ref{eq:focus}) keeps the following two types of non-determinism of the focused calculus of \cite{uustalu:sequent:2021}.
-We call these non-determinism cases \emph{essential} because they capture the fact that there are sequents with multiple derivations in \SkNMILL\ that are not related by $\circeq$.
+We should point out that although the focused calculus is free of the undesired non-determinism that the na\"ive attempt (\ref{eq:naive}) suffered from, it is still non-deterministic and this has to be so. In particular, the focused calculus (\ref{eq:focus}) keeps the following two types of non-determinism of the focused calculus of \cite{uustalu:sequent:2021}.
+We call these types of non-determinism \emph{essential} because they reflect the fact that there are sequents with multiple derivations in \SkNMILL\ that are not related by $\circeq$.
+
 \begin{enumerate}
-  \item[1.] In phase $\Pass$, when the stoup is empty, there is a choice of whether to apply $\pass$ or $\F2\Pass$ and both choices can lead to a derivation. For example, the sequent $X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)$ has two distinct derivations in the focused system and the corresponding derivations in \SkNMILL\ are $\circeq$-unrelated.
+  \item[1.] In phase $\Pass$, when the stoup is empty, there is a choice of whether to apply $\pass$ or $\F2\Pass$ and sometimes both choices lead to a derivation. For example, the sequent $X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)$ has two distinct derivations in the focused system and the corresponding derivations in \SkNMILL\ are $\circeq$-unrelated.
   \begin{equation*}
   \small
+\hspace*{-5mm}
     \begin{array}{cc}
     \infer[\tr]{X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)}{
     \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X}{
@@ -1435,9 +1439,10 @@ We call these non-determinism cases \emph{essential} because they capture the fa
     \end{array}
     \normalsize
   \end{equation*}
-  \item[2.] In phase $\F$, when the succedent formula is $A \ot B$, and the rule $\tr$ is to be applied, the context can be split anywhere. If in the middle of the context there are closed formulae (i.e., formulae made of $\I$ and $\ot$ only), then several of these splits can lead to a derivation.
+  \item[2.] In phase $\F$, if the succedent formula is $A \ot B$, and the rule $\tr$ is to be applied, the context can be split anywhere. Sometimes, in particular when in the middle of the context there are closed formulae (i.e., formulae made of $\I$ and $\ot$ only), then several of these splits can lead to a derivation.
   For example, the sequent $X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y$ has two distinct derivations.
   \begin{equation*}
+\hspace*{-5mm}
   \small
     \begin{array}{cc}
       \infer[\tr]{X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y}{
@@ -1500,16 +1505,16 @@ We call these non-determinism cases \emph{essential} because they capture the fa
   \end{equation*}
 \end{enumerate}
 
-The presence of $\lolli$ adds a further type of essential
-nondeterminism, similar to type 2.
+The presence of $\lolli$ adds two further types of essential
+nondeterminism.
 
 \begin{enumerate}
-\item[3.] In phase $\F$, when the succedent formula is $A \lolli B$, and the rule $\lleft$ is to be applied, the context can be split anywhere. If in the middle of the context there are closed formulae, then again several of these splits can lead to a derivation.
+\item[3.] This type is similar to type 2. In phase $\F$, if the stoup formula is $A \lolli B$, and the rule $\lleft$ is to be applied, the context can be split anywhere. Again, sometimes several of these splits lead to a derivation.
 
  For example, the sequent $\I \lolli (X \lolli Y) \mid \I , X \vdash_{\F} Y$ has two distinct derivations.
-
 \begin{equation*}
 \small
+\hspace*{-5mm}
   \begin{array}{cc}
     \infer[\lleft]{\I \lolli (X \lolli Y) \mid \I , X \vdash_{\F} Y}{
       \infer[\mathsf{sw}]{{-} \mid \I \vdash_{\RI} \I}{
@@ -1569,8 +1574,10 @@ nondeterminism, similar to type 2.
   \end{array}
   \normalsize
 \end{equation*}
-\item (Type 4 non-determinism)
+\item[4.] Finally, in phase $\F$, if the succedent formula is $A \ot B$ and the stoup formula is $A' \lolli B'$, then both $\tr$ and $\lleft$ can be applied first and sometimes both options lead to a derivation. For example, the sequent 
+$\I \lolli \I \mid Z \vdash_{\F} (\I \lolli \I) \ot Z$ has two distinct derivations. 
 \begin{equation*}
+\hspace*{-5mm}
 \small
   \begin{array}{cc}
     \infer[\tr]{\I \lolli \I \mid Z \vdash_{\F} (\I \lolli \I) \ot Z}{
@@ -1641,6 +1648,7 @@ nondeterminism, similar to type 2.
   \end{array}
   \normalsize
 \end{equation*}
+Note that, in the second derivation, the rule $\pass$ applies to the sequent ${-} \mid \I^{\bullet} \vdash^{\bullet}_{\Pass} \I$ only because the context formula $\I^\bullet$ is tagged.
 \end{enumerate}
 
 
@@ -1658,13 +1666,12 @@ Soundness is immediate: there exist functions $\mathsf{emb}_{ph} : S \mid \Gamma
 %We can substantiate equivalence between \SkNMILL and tagged focused calculus by following results.
 %\begin{lemma}\label{AdmissibleInRI}
 %  Following rules are admissible in tagged focused system:
-\vspace{-.1cm}
 \begin{equation}\label{eq:admis}
+\hspace*{-4mm}
   \begin{array}{c}
-    \hspace{-3.9pt}
     \infer[\unitl^{\RI}]{\I \mid \Gamma \vdash_{\RI} C}{{-} \mid \Gamma \vdash_{\RI} C}
     \quad
-    \infer[\tl^{\RI}]{A \mid B, \Gamma \vdash_{\RI} C}{A \mid B, \Gamma \vdash_{\RI} C}
+    \infer[\tl^{\RI}]{A \ot B \mid \Gamma \vdash_{\RI} C}{A \mid B, \Gamma \vdash_{\RI} C}
     \quad
     \infer[\pass^{\RI}]{{-} \mid \Gamma \vdash_{\RI} C}{A \mid \Gamma \vdash_{\RI} C}
     \quad
