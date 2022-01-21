@@ -487,6 +487,87 @@ Another left implication rule, acting on a formula $A \lolli B$ in the context, 
 %%This fact allows us to tackle problems in skew monoidal closed categories by methods in proof theory.
 %%In particular, we will use Andreoli's focusing technique \cite{andreoli:logic:1992} to analyze and solve coherence problem of skew monoidal closed categories.
 
+\paragraph{\SkNMILL\ as a Logic of Resources.}
+
+Similarly to other substructural logics like \MILL and \NMILL, \SkNMILL\ can be understood
+as a theory of resources. Under this perspective, formulae of the
+sequent calculus introduce in (\ref{eq:seqcalc}) correspond to
+resources: atomic formulae are primitive resources; the formula $A \ot
+B$ is read as ``resource $A$ before resource $B$'', and a similar
+interpretation is reserved for the separators $\mid$ and comma in the
+antecedent; $\I$ is the disposable resource; the formula $A \lolli B$
+can be described as a method for turning the resource $A$ into the
+resource $B$. As in other substructural systems lacking the structural
+rules of weakening and contraction, all resources are one-time
+usable.
+
+The antecedent of a sequent contains the resources at hand, while the
+succedent contains the resource that needs to be produced. A
+derivation is then a particular procedure for turning the available
+resources into the goal resource. Under this interpretation,
+derivations are naturally read and built from the conclusion to the
+premises. Resources in the antecedent are ordered, meaning that they
+need to be utilized in the order they appear. If a resource $A$
+appears in the antecedent on the left of another resource $B$, then
+$A$ must be consumed before $B$. The stoup position, when it is
+non-empty, contains the resource at hand at the current time. The
+other existing resources in the context will become available only at
+future times, after the resource in the stoup is consumed. Time flows
+bottom-up in proof trees, from conclusion to premises, and the proof
+of a left premise always takes place before the proof of the right
+premise, in a way reminiscent of the preorder traversal of a tree.
+
+The context shares similarities with the queue and stack data
+structures of computer science. If at the current time there is no
+manipulable resource, meaning that the stoup is empty, then we the
+next available resource at the top (left-most position) of the context
+can be popped via the $\pass$ rule and consequently moved to the
+stoup. A new resource can be pushed to the bottom (right-most
+position) of the context using the $\lright$ rule. Using the $\tl$
+rule, the currently given resource can be split in two parts and the
+right part can be pushed to the top of the context.  The resource $\I$
+can be discarded, making it possible to pop the next available
+resource from the context. The resource $\I$ can always be produced
+free-of-charge via the rule $\unitr$.
+
+In the rule $\lleft$, we are currently given a resource of the form $A
+\lolli B$. Following the application of the rule, we are guaranteed
+access to a resource $B$, but only after the resource $A$ is shown to
+be obtainable by spending part of the resources that are present in
+the context. The production of $A$ is the first event that is required
+to happen, only subsequently $B$ will become available. This implies
+that we first split the context in two parts and use the left one
+right away for making $A$. Immediately afterwards, we are allowed to
+continue our derivation with $B$ available at the current time (which
+is a future time wrt. the time when $A$ is produced) and the
+remaining resources resulting from the context split.
+
+The succedent of the rule $\tr$ is of the form $A \ot B$, which
+implies that $A$ must be produced before $B$. This justifies the
+splitting of the context in two parts: the left one, consisting of
+more readily available resources, is used to produce $A$ in the left
+premise, while the right one is spent for the production of $B$ in the
+right premise. Crucially, and this is one the central ``skew'' aspect
+of \SkNMILL, if we have a resource at hand at the current time in the
+stoup, this must be spent for the construction of the first resource
+we are required to produce, namely $A$.
+
+The other main ``skew'' aspect of \SkNMILL\ is the fact that left
+rules only act on stoup formulae. This can be understood under the
+resource-as-formula correspondence by saying that we are allowed to
+inspect the shape of one resource at a time, namely the resource in
+the stoup. In particular, we are precluded from inspecting the
+resources in the context. The latterbecome visible to us only after
+being popped to the stoup. Since we are unable to observe the shape of
+resources in the context, we have no particular way of choosing a left
+rule to apply to them. This inability implies that, when performing
+goal-directed proof search, we blindly split resources in context
+(when applying rules $\tr$ and $\lleft$), hoping that they will
+suffice for the construction of a valid derivation. If this is not the
+case, we backtrack and try a different splitting.
+
+
+
 \section{Categorical Semantics via Skew Monoidal Closed Categories}
 \label{sec:catsem}
 
