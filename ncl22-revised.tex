@@ -102,7 +102,7 @@ Niccol{\`o} Veltri \qquad\qquad Cheng-Syuan Wan
 \begin{document}
 \maketitle
 \begin{abstract}
-  Monoidal closed categories are standard categorical  models of  \NMILL, non-commutative multiplicative intuitionistic linear logic: the monoidal unit and tensor model the multiplicative unit and conjunction; the internal hom models linear implication. In recent years, the weaker notion of (left) skew monoidal closed category has been proposed by Ross Street, where the three structural laws of left and right unitality and associativity are not required to be invertible, they are merely natural transformations with a specific orientation. A question arises naturally: is it possible to find deductive systems which are naturally modelled by skew monoidal closed categories? We answer positively by introducing a cut-free sequent calculus for a skew version of \NMILL\ that serves this purpose. We study the proof-theoretic semantics of the sequent calculus by identifying a calculus of derivations in normal form, obtained from an adaptation of Andreoli's focusing technique to the skew setting. The resulting focused sequent calculus peculiarly employs a system of tags for keeping track of new formulae appearing in the antecedent and appropriately reducing non-deterministic choices in proof search. Focusing solves the coherence problem for skew monoidal closed categories by exhibiting an effective procedure for deciding equality of canonical maps in all models.
+  Monoidal closed categories provide a model of  \NMILL, non-commutative multiplicative intuitionistic linear logic: the monoidal unit and tensor model the multiplicative unit and conjunction; the internal hom models linear implication. In recent years, the weaker notion of (left) skew monoidal closed category has been proposed by Ross Street, where the three structural laws of left and right unitality and associativity are not required to be invertible, they are merely natural transformations with a specific orientation. A question arises naturally: is it possible to find deductive systems which are naturally modelled by skew monoidal closed categories? We answer positively by introducing a cut-free sequent calculus for a skew version of \NMILL\ that serves this purpose. We study the proof-theoretic semantics of the sequent calculus by identifying a calculus of derivations in normal form, obtained from an adaptation of Andreoli's focusing technique to the skew setting. The resulting focused sequent calculus peculiarly employs a system of tags for keeping track of new formulae appearing in the antecedent and appropriately reducing non-deterministic choices in proof search. Focusing solves the coherence problem for skew monoidal closed categories by exhibiting an effective procedure for deciding equality of canonical maps in all models.
 
 %%   In previous works from Uustalu et al, proof theory of some variants of skew monoidal categories are developed.
 %%   We also know that given a skew monoidal category, there is a corresponding skew closed structure on the same category.
@@ -114,7 +114,7 @@ Niccol{\`o} Veltri \qquad\qquad Cheng-Syuan Wan
 %%   Therefore we have an effective procedure to determine morphism existence and equivalence in skew monoidal closed categories.
 \end{abstract}
 \section{Introduction}
-It is a widely known fact from the late 80s/early 90s that symmetric monoidal closed categories are a categorical model of \MILL, multiplicative intuitionistic linear logic, whose logical connectives comprise multiplicative unit $\I$ and conjunction $\ot$ and linear implication $\lolli$ \cite{mellies:categorical:09}. Probably lesser-known, though a quite straightforward variation of this observation (which actually predated the inception of linear logic altogether) is the fact that (not necessarily symmetric) monoidal biclosed categories are a categorical model of the non-commutative variant of \MILL\ (for which we use the abbreviation \NMILL) \cite{abrusci:noncommutative:1990}, where the structural rule of exchange is absent and there are two ordered implications $\lolli$ and $\illol$ \cite{lambek:deductive:68}. The sequent calculus of \NMILL\ is known as \emph{Lambek calculus}. Lambek refers to the implications $\lolli$ and $\illol$ as residuals, and monoidal biclosed categories are therefore also called residual categories. The Lambek calculus is often practically employed in formal investigations of natural languages \cite{lambek:mathematics:58}.
+It is a widely known fact from the late 80s/early 90s that symmetric monoidal closed categories are a categorical model of \MILL, multiplicative intuitionistic linear logic, whose logical connectives comprise multiplicative unit $\I$ and conjunction $\ot$ and linear implication $\lolli$ \cite{mellies:categorical:09}. Probably lesser-known, though a quite straightforward variation of this observation (which actually predated the inception of linear logic altogether) is the fact that (not necessarily symmetric) monoidal biclosed categories are a categorical model of the non-commutative variant of \MILL\ (for which we use the abbreviation \NMILL) \cite{abrusci:noncommutative:1990}, where the structural rule of exchange is absent and there are two ordered implications $\lolli$ and $\illol$ \cite{lambek:deductive:68}. The sequent calculus of \NMILL\ is known as the \emph{Lambek calculus}. Lambek refers to the implications $\lolli$ and $\illol$ as residuals, and monoidal biclosed categories are therefore also called residual categories. The Lambek calculus is often practically employed in formal investigations of natural languages \cite{lambek:mathematics:58}.
 By dropping one of the ordered implications of \NMILL, one obtains a fragment of the Lambek calculus interpretable in every monoidal closed category.
 
 In recent years, Ross Street introduced the new notion of (left) skew monoidal closed categories \cite{street:skew-closed:2013}. These are a weakening of monoidal closed categories: their structure includes a unit $\I$, a tensor $\ot$, an internal hom $\lolli$ and an adjunction relating the latter two operations, as in usual non-skew monoidal closed categories. The difference lies in the three structural laws of left and right unitality, $\lambda_A : \I \ot A \to A$ and $\rho_A : A \to A \ot \I$, and associativity, $\alpha_{A,B,C} : (A \ot B) \ot C \to A \ot (B \ot C)$, which are usually required to be natural isomorphisms, but in the skew variant are merely natural transformations with the specified orientation. Street originally proposed this weaker notion to reach better understanding of and to fix a famous imbalance, first noticed by Eilenberg and Kelly \cite{eilenberg:closed:1966}, present in the adjunction relating monoidal and closed structures \cite{street:skew-closed:2013,uustalu:eilenberg-kelly:2020}. In the last decade, skew monoidal closed categories, together with their non-closed/non-monoidal variants, have been thoroughly studied, with applications ranging from algebra and homotopy theory to programming language semantics \cite{szlachanyi:skew-monoidal:2012,lack:skew:2012,lack:triangulations:2014,altenkirch:monads:2014,buckley:catalan:2015,bourke:skew:2017,bourke:skew:2018,tomita:realizability:21}.
@@ -490,14 +490,12 @@ Another left implication rule, acting on a formula $A \lolli B$ in the context, 
 \paragraph{\SkNMILL\ as a Logic of Resources.}
 
 Similarly to other substructural logics like \MILL and \NMILL, \SkNMILL\ can be understood
-as a theory of resources. Under this perspective, formulae of the
-sequent calculus introduce in (\ref{eq:seqcalc}) correspond to
+as a logic of resources. Under this perspective, formulae of the
+sequent calculus in (\ref{eq:seqcalc}) correspond to
 resources: atomic formulae are primitive resources; the formula $A \ot
-B$ is read as ``resource $A$ before resource $B$'', and a similar
-interpretation is reserved for the separators $\mid$ and comma in the
-antecedent; $\I$ is the disposable resource; the formula $A \lolli B$
+B$ is read as ``resource $A$ before resource $B$''; $\I$ is ``nothing''; the formula $A \lolli B$
 can be described as a method for turning the resource $A$ into the
-resource $B$. As in other substructural systems lacking the structural
+resource $B$ (if $A \lolli B$ is provided before $A$). As in other substructural systems lacking the structural
 rules of weakening and contraction, all resources are one-time
 usable.
 
@@ -508,63 +506,51 @@ resources into the goal resource. Under this interpretation,
 derivations are naturally read and built from the conclusion to the
 premises. Resources in the antecedent are ordered, meaning that they
 need to be utilized in the order they appear. If a resource $A$
-appears in the antecedent on the left of another resource $B$, then
+precedes another resource $B$ in the antecedent, then
 $A$ must be consumed before $B$. The stoup position, when it is
-non-empty, contains the resource at hand at the current time. The
-other existing resources in the context will become available only at
-future times, after the resource in the stoup is consumed. Time flows
+non-empty, contains the resource that is immediately usable. The
+resources in the context can only be spent after the resource in the stoup has been used. Time flows
 bottom-up in proof trees, from conclusion to premises, and the proof
 of a left premise always takes place before the proof of the right
-premise, in a way reminiscent of the preorder traversal of a tree.
+premise.
 
-The context shares similarities with the queue and stack data
-structures of computer science. If at the current time there is no
-manipulable resource, meaning that the stoup is empty, then we the
-next available resource at the top (left-most position) of the context
-can be popped via the $\pass$ rule and consequently moved to the
-stoup. A new resource can be pushed to the bottom (right-most
+The context shares similarities with the stack (and also the queue) data
+structure. If at some moment there is no resource immediately consumable, as stoup is empty, then the
+next available resource can be promoted to this status: the top (left-most position) of the context
+can be popped and moved to the
+stoup by the $\pass$ rule. A new resource can be pushed to the bottom (right-most
 position) of the context using the $\lright$ rule. Using the $\tl$
-rule, the currently given resource can be split in two parts and the
-right part can be pushed to the top of the context.  The resource $\I$
-can be discarded, making it possible to pop the next available
+rule, the immediately usable resource $A \ot B$ can be decomposed into two parts $A$ and $B$; the resource $A$ becomes immediately usable (remains in the stoup) while $B$ will become usable next (is pushed to the top of the context).  The resource $\I$, if immediately usable, can be disposed by the rule $\unitl$, making it possible to pop the next available
 resource from the context. The resource $\I$ can always be produced
 free-of-charge via the rule $\unitr$.
 
-In the rule $\lleft$, we are currently given a resource of the form $A
-\lolli B$. Following the application of the rule, we are guaranteed
-access to a resource $B$, but only after the resource $A$ is shown to
-be obtainable by spending part of the resources that are present in
-the context. The production of $A$ is the first event that is required
-to happen, only subsequently $B$ will become available. This implies
-that we first split the context in two parts and use the left one
-right away for making $A$. Immediately afterwards, we are allowed to
-continue our derivation with $B$ available at the current time (which
-is a future time wrt. the time when $A$ is produced) and the
-remaining resources resulting from the context split.
+In the rule $\lleft$, we have a resource $A
+\lolli B$ immediately usable and need to produce $C$. This gives us
+access to the resource $B$, but only after we have produced $A$ by spending a part of the other resources available.  The context is split into two parts $\Gamma$ and $\Delta$. The first part $\Gamma$ is used to make $A$. Once this has been accomplished, production of $C$ can continue with $B$ immediately usable and $\Delta$ available thereafter.
 
 The succedent of the rule $\tr$ is of the form $A \ot B$, which
 implies that $A$ must be produced before $B$. This justifies the
-splitting of the context in two parts: the left one, consisting of
-more readily available resources, is used to produce $A$ in the left
-premise, while the right one is spent for the production of $B$ in the
-right premise. Crucially, and this is one the central ``skew'' aspect
-of \SkNMILL, if we have a resource at hand at the current time in the
+splitting of the context into two parts again: the first part $\Gamma$, consisting of
+resources that can be spent sooner, is used to produce $A$ in the left
+premise, while the second part $\Delta$ is spent for the production of $B$ in the
+right premise. Crucially, and this is one central ``skew'' aspect
+of \SkNMILL, if we have a resource immediately usable in the
 stoup, this must be spent for the construction of the first resource
-we are required to produce, namely $A$.
+we are required to produce, namely $A$; it cannot be saved for producing $B$ even if producing $A$ needs no resources at all.
 
-The other main ``skew'' aspect of \SkNMILL\ is the fact that left
+The other central ``skew'' aspect of \SkNMILL\ is that the left
 rules only act on stoup formulae. This can be understood under the
-resource-as-formula correspondence by saying that we are allowed to
-inspect the shape of one resource at a time, namely the resource in
-the stoup. In particular, we are precluded from inspecting the
-resources in the context. The latterbecome visible to us only after
-being popped to the stoup. Since we are unable to observe the shape of
-resources in the context, we have no particular way of choosing a left
-rule to apply to them. This inability implies that, when performing
-goal-directed proof search, we blindly split resources in context
-(when applying rules $\tr$ and $\lleft$), hoping that they will
-suffice for the construction of a valid derivation. If this is not the
-case, we backtrack and try a different splitting.
+resources-as-formulae correspondence by saying that we are only allowed to
+decompose an available resource when it has become immediately consumable (has entered the stoup). We are precluded from decomposing the
+resources in the context ahead of time, before they reach this status. 
+% The latterbecome visible to us only after
+% being popped to the stoup. Since we are unable to observe the shape of
+% resources in the context, we have no particular way of choosing a left
+% rule to apply to them. This inability implies that, when performing
+% goal-directed proof search, we blindly split resources in context
+% (when applying rules $\tr$ and $\lleft$), hoping that they will
+% suffice for the construction of a valid derivation. If this is not the
+% case, we backtrack and try a different splitting.
 
 
 
