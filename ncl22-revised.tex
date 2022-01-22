@@ -333,7 +333,7 @@ $\circeq$-equations, see e.g, \cite[Figures 5 and 6]{uustalu:sequent:2021} for t
 list of such equations not involving $\lolli$.
 In particular, the cut rules respect $\circeq$, in the sense that $\mathsf{scut}(f,g) \circeq \mathsf{scut}(f',g')$ whenever $f \circeq f'$ and $g \circeq g'$, and similarly for $\mathsf{ccut}$.
 
-Here are some other interesting admissible rules relevant for the metatheory of his calculus.
+Here are some other interesting admissible rules relevant for the metatheory of this calculus.
 \begin{itemize}
 \item The left rules for $\I$ and $\ot$ are invertible up to $\circeq$, and similarly the right rule for $\lolli$.
 %This in particular implies the admissibility of the following rules:
@@ -449,7 +449,7 @@ Another left implication rule, acting on a formula $A \lolli B$ in the context, 
 
 \paragraph{\SkNMILL\ as a Logic of Resources}
 
-Similarly to other substructural logics like \MILL and \NMILL, \linebreak \SkNMILL\ can be understood
+Similarly to other substructural logics like \MILL\ and \NMILL,\linebreak \SkNMILL\ can be understood
 as a logic of resources. Under this perspective, formulae of the
 sequent calculus in (\ref{eq:seqcalc}) correspond to
 resources: atomic formulae are primitive resources; the formula $A \ot
@@ -1781,7 +1781,7 @@ This is equivalent to deciding whether two derivations $f,g : S \mid \Gamma \vda
 \vspace{-.5cm}
 \section{Conclusion}
 
-The paper describes a sequent calculus for \SkNMILL, a skew variant of non-commutative multiplicative intuitionistic linear logic. The introduction of the logic \SkNMILL via this sequent calculus is motivated by the categorical notion of skew monoidal closed category, which yields the intended categorical models for the logic. Sequent calculus derivations admit unique normal forms wrt.\ a congruence relation $\circeq$ capturing the equational theory of skew monoidal closed categories at the level of derivations. Normal forms can be organized in a focused sequent calculus, where each focused derivation uniquely corresponds to (and so represents) a $\circeq$-equivalence class in the unfocused sequent calculus. In order to deal with all the permutative conversions in $\circeq$, and consequently eliminate the related sources of non-determinism in bottom-up proof search, the focused sequent calculus employs a system of tags for keeping track of the new formulae occurring in the context while building a derivation. The focused sequent calculus solves the coherence problem for skew monoidal closed category: deciding equality of focused derivations is equivalent to deciding the commutativity of canonical diagrams in any skew monoidal closed category.
+The paper describes a sequent calculus for \SkNMILL, a skew variant of non-commutative multiplicative intuitionistic linear logic. The introduction of the logic \SkNMILL\ via this sequent calculus is motivated by the categorical notion of skew monoidal closed category, which yields the intended categorical models for the logic. Sequent calculus derivations admit unique normal forms wrt.\ a congruence relation $\circeq$ capturing the equational theory of skew monoidal closed categories at the level of derivations. Normal forms can be organized in a focused sequent calculus, where each focused derivation uniquely corresponds to (and so represents) a $\circeq$-equivalence class in the unfocused sequent calculus. In order to deal with all the permutative conversions in $\circeq$, and consequently eliminate the related sources of non-determinism in bottom-up proof search, the focused sequent calculus employs a system of tags for keeping track of the new formulae occurring in the context while building a derivation. The focused sequent calculus solves the coherence problem for skew monoidal closed category: deciding equality of focused derivations is equivalent to deciding the commutativity of canonical diagrams in any skew monoidal closed category.
 
 We plan to investigate alternative presentations of \SkNMILL, such as natural deduction. Analogously to the case of the sequent calculus studied in this paper, we expect natural deduction derivation to be strongly normalizing wrt.\ an appropriately defined $\beta\eta$-conversion. We are interested in directly comparing the resulting $\beta\eta$-long normal forms with the focused derivations of Section \ref{sec:focus}.
 
