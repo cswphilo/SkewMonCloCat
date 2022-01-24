@@ -850,30 +850,22 @@ Derivations in the focused sequent calculus with tag annotations are generated b
     \qquad
     \infer[\Pass 2 \LI]{T \mid \Gamma \xvdash_{\LI} P}{T \mid \Gamma \xvdash_{\Pass} P}
     }
-    \\
-    \text{(passivation)} \\[8pt]
-   \multicolumn{2}{c}{
+    \\[10pt]
+    \text{(passivation)} &
+    \proofbox{
     \infer[\pass]{{-} \mid A^{x} , \Gamma \xvdash_{\Pass} P }{
       A\mid \Gamma^{\circ} \vdash_{\LI} P
     }
-    \quad
-%    \\[6pt]
-%
-    \infer[\F 2 \Pass]{T \mid \Gamma \xvdash_{\Pass} P}{
-      T \mid \Gamma^\circ \vdash_{\F} P &
-      T = {-} \vee T = X
-    }
-    \quad
-    \infer[\F 2 \Pass_{{\lolli}}]{T \mid \Gamma \xvdash_{\Pass} P}{
-      T \mid \Gamma \xvdash_{\F} P &
-      T = A \lolli B
-    }
-    }
-    \\[6pt]
-    \text{(focusing)} &    %\\[-4pt] &
-    \proofbox{\infer[\ax]{X \mid \quad \vdash_{\F} X}{}
     \qquad
-    \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+    \infer[\F 2 \Pass]{T \mid \Gamma \xvdash_{\Pass} P}{
+      T \mid \Gamma \xvdash_{\F} P 
+    }
+    }
+    \\[10pt]
+    \text{(focusing)} &    %\\[-4pt] &
+    \proofbox{\infer[\ax]{X \mid \quad \xvdash_{\F} X}{}
+    \qquad
+    \infer[\unitr]{{-} \mid \quad \xvdash_{\F} \I}{}
     }
     \\[6pt]
     \multicolumn{2}{c}{
@@ -902,8 +894,8 @@ The search for a proof of a tagged sequent $T \mid \Gamma^\circ \vdash^\bullet_\
 \item[($\vdash^\bullet_\RI$)] We eagerly apply the right invertible rule $\lright$ with the goal of reducing $A$ to a positive formula $P$. All formulae that get moved to the right end of the context are ``new'', and are therefore marked with $\bullet$.
   When the succedent formula becomes positive, we move to the tagged $\LI$ phase via $\LI2\RI$.
 \item[($\vdash^\bullet_\LI$)] Since $T$ is a negative stoup, we can only move to the tagged $\Pass$ phase via $\Pass2\LI$.
-\item[($\vdash^\bullet_\Pass$)] We have the possibility of applying the $\pass$ rule and move the leftmost formula $A$ in the context to the stoup, but only when this formula is marked by $\bullet$. This restriction makes it possible to remove undesired non-determinism of type (i). Afterwards, we strip the context of all tags and jump to the untagged $\LI$ phase. If we do not (or cannot) apply $\pass$, we move to phase $\F$  in two different ways, depending on the status of $T$. If $T$ is either empty or atomic, we strip the context of the tags and move to the untagged $\F$ phase via $\F2\Pass$. If $T$ is an implication, we move to the tagged $\F$ phase via $\F2\Pass_\lolli$. In the latter case, the tags are preserved for restricting the future possible applications of $\lleft$.
-\item[($\vdash^\bullet_\F$)] We can apply only $\tr$ or $\lleft$. If we apply $\tr$, we remove all tags from the context $\Gamma, \Delta$ and move the first premise to the tagged $\RI$ phase again. The tags are removed from the context in order to reset tracking of new formulae. The most interesting case is $\lleft$, which can only be applied if the $\Gamma$ part of the context $\Gamma, \Delta$ contains at least one tagged formula. This side condition implements the restriction allowing the elimination of undesired non-determinism of type (ii). All tags are removed from $\Gamma, \Delta$ and proof search continues in untagged phases.
+\item[($\vdash^\bullet_\Pass$)] If the stoup is empty, we have the possibility of applying the $\pass$ rule and move the leftmost formula $A$ in the context to the stoup, but only when this formula is marked by $\bullet$. This restriction makes it possible to remove undesired non-determinism of type (i). We then strip the context of all tags and jump to the untagged $\LI$ phase. If we do not (or cannot) apply $\pass$, we move to the tagged $\F$ phase via $\F2\Pass$.
+\item[($\vdash^\bullet_\F$)] The possible rules to apply (depending on the stoup and succedent formula) are $\ax$, $\unitr$, $\tr$ or $\lleft$. If we apply $\tr$, we remove all tags from the context $\Gamma, \Delta$ and move the first premise to the tagged $\RI$ phase again. The tags are removed from the context in order to reset tracking of new formulae. The most interesting case is $\lleft$, which can only be applied if the $\Gamma$ part of the context $\Gamma, \Delta$ contains at least one tagged formula. This side condition implements the restriction allowing the elimination of undesired non-determinism of type (ii). All tags are removed from $\Gamma, \Delta$ and proof search continues in the appropriate untagged phases.
 \end{itemize}
 
 The employment of tag annotations eliminates the two types of undesired non-determinism. For example, only one of the two derivations in (\ref{eq:passtr}) is valid using the rules in (\ref{eq:focus}), and similarly for (\ref{eq:llefttr}).
@@ -1047,7 +1039,7 @@ The employment of tag annotations eliminates the two types of undesired non-dete
         \infer[\mathsf{sw}]{Y \mid Z \vdash_{\LI} Y \ot Z}{
           \infer[\tr]{Y \mid Z \vdash_{\F} Y \ot Z}{
             \infer[\mathsf{sw}]{Y \mid \quad \vdash_{\RI}^{\bullet} Y}{
-              \infer[\ax]{Y \mid \quad \vdash_{\F} Y}{}
+              \infer[\ax]{Y \mid \quad \vdash_{\F}^\bullet Y}{}
             }
             &
             \infer[\mathsf{sw}]{{-} \mid Z \vdash_{\RI} Z}{
@@ -1077,7 +1069,7 @@ We call these types of non-determinism \emph{essential} because they reflect the
     \begin{array}{cc}
     \infer[\tr]{X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)}{
     \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X}{
-      \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+      \infer[\ax]{X \mid \quad \vdash_{\F}^\bullet X}{}
     }
       &
       \infer[\mathsf{sw}]{{-} \mid \I \ot Y \vdash_{\RI} \I \ot Y}{
@@ -1087,7 +1079,7 @@ We call these types of non-determinism \emph{essential} because they reflect the
               \infer[\mathsf{sw}]{{-} \mid Y \vdash_{\LI} \I \ot Y}{
                 \infer[\tr]{{-} \mid Y \vdash_{\F} \I \ot Y}{
                   \infer[\mathsf{sw}]{{-} \mid \quad \vdash^{\bullet}_{\RI} \I}{
-                    \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+                    \infer[\unitr]{{-} \mid \quad \vdash_{\F}^\bullet \I}{}
                   }
                   &
                   \infer[\mathsf{sw}]{{-} \mid Y \vdash_{\RI} Y}{
@@ -1107,13 +1099,13 @@ We call these types of non-determinism \emph{essential} because they reflect the
     &
     \infer[\tr]{X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)}{
       \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X}{
-        \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+        \infer[\ax]{X \mid \quad \vdash_{\F}^\bullet X}{}
       }
       &
       \infer[\mathsf{sw}]{{-} \mid \I \ot Y \vdash_{\RI} \I \ot Y}{
         \infer[\tr]{{-} \mid \I \ot Y \vdash_{\F} \I \ot Y}{
           \infer[\mathsf{sw}]{{-} \mid \quad \vdash^{\bullet}_{\RI} \I}{
-            \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+            \infer[\unitr]{{-} \mid \quad \vdash_{\F}^\bullet \I}{}
           }
           &
           \infer[\mathsf{sw}]{{-} \mid \I \ot Y \vdash_{\RI} Y}{
@@ -1149,9 +1141,9 @@ several of these splits can lead to a derivation.
     \begin{array}{cc}
       \infer[\tr]{X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y}{
        \infer[\mathsf{sw}]{X \mid \I \vdash^{\bullet}_{\RI} X \ot \I}{
-         \infer[\tr]{X \mid \I \vdash_{\F} X \ot \I}{
+         \infer[\tr]{X \mid \I \vdash_{\F}^\bullet X \ot \I}{
            \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X}{
-             \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+             \infer[\ax]{X \mid \quad \vdash_{\F}^\bullet X}{}
            }
            &
            \infer[\mathsf{sw}]{{-} \mid \I \vdash_{\RI} \I}{
@@ -1177,9 +1169,9 @@ several of these splits can lead to a derivation.
       &
       \infer[\tr]{X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y}{
        \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X \ot \I}{
-         \infer[\tr]{X \mid \quad \vdash_{\F} X \ot \I}{
+         \infer[\tr]{X \mid \quad \vdash_{\F}^\bullet X \ot \I}{
            \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X}{
-             \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+             \infer[\ax]{X \mid \quad \vdash_{\F}^\bullet X}{}
            }
            &
            \infer[\mathsf{sw}]{{-} \mid \quad \vdash_{\RI} \I}{
