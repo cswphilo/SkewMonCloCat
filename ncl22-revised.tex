@@ -69,7 +69,7 @@
 \newcommand{\MILL}{$\mathtt{MILL}$}
 \newcommand{\NMILL}{$\mathtt{NMILL}$}
 \newcommand{\SkNMILL}{$\mathtt{SkNMILL}$}
-\newcommand{\FSkMCC}{\mathsf{FskMCC}}
+\newcommand{\FSkMCC}{\mathsf{FSkMCl}}
 
 
 
@@ -104,7 +104,7 @@ This paper provides a positive answer to this question. We introduce a cut-free 
 
 The metatheory of \SkNMILL\ is developed in two different but related directions:
 \begin{enumerate}[($i$)]
-  \item We study the categorical semantics of \SkNMILL, by showing that the cut-free sequent calculus admits an interpretation of its formulae, derivations and equational theory $\circeq$ in every skew monoidal closed category. Moreover, the sequent calculus is the initial model in this semantics, it is a particular presentation of the free skew monoidal closed category. This can be shown directly or by introducing a Hilbert-style calculus which directly presents the free skew monoidal closed category and subsequently proving that derivations in the two calculi are in a bijective correspondence.
+  \item We study the categorical semantics of \SkNMILL, by showing that the cut-free sequent calculus admits an interpretation of its formulae, derivations and equational theory $\circeq$ in any skew monoidal closed category as soon as one fixes the intended interpretation of the atoms in it. Moreover, the sequent calculus is the initial model in this semantics; it is a particular presentation of the free skew monoidal closed category. This can be shown directly or by first introducing a Hilbert-style calculus which directly presents the free skew monoidal closed category and proving that derivations in the two calculi are in a bijective correspondence.
 % This shows that the categorical semantics of \SkNMILL\ is sound and
 % %, most importantly,
 % complete.
@@ -499,17 +499,18 @@ $(\mathbb{C},\I,\otd,\lollid)$  is a ``genuine'' skew monoidal closed category, 
 \begin{defn}
   A \emph{(strict) skew monoidal closed functor} $F : \mathbb{C} \rightarrow \mathbb{D}$ between skew monoidal closed categories $(\mathbb{C} , \I , \ot , \lolli)$ and $(\mathbb{D} , \I' , \ot' , \lolli')$ is a functor from $\mathbb{C}$ to $\mathbb{D}$ satisfying
     $F \I = \I'$, $F (A \ot B) = \linebreak F A \ot' F B$ and
-    $F(A \lolli B) = F A \lolli' F B$, also preserving  structural laws $\lambda$, $\rho$, and $\alpha$ on the nose.
+    $F(A \lolli B) = F A \lolli' F B$, also preserving the structural laws $\lambda$, $\rho$, and $\alpha$ on the nose.
 %  \end{align*}
 \end{defn}
 
 The formulae, derivations and the equivalence relation $\circeq$ of the sequent calculus for \SkNMILL\ determine a skew monoidal closed category $\FSkMCC(\mathsf{At}$).
 \begin{defn}\label{def:fskmcc}
   The skew monoidal closed category $\FSkMCC(\mathsf{At})$ has
-  as objects formulae, in particular the operations $\I$, $\ot$ and $\lolli$ are the logical connectives. The set of maps between formulae $A$ and $B$ is the set of derivations $A \mid ~ \vdash B$ quotiented by the equivalence relation $\circeq$. The identity map is the equivalence class of $\ax$, while composition is given by $\mathsf{scut}$. Derivations for the structural laws $\lambda$, $\rho$,$\alpha$ are given in (\ref{eq:lra}). All the equations of skew monoidal closed categories hold up to $\circeq$.
+  as objects formulae; the operations $\I$, $\ot$ and $\lolli$ are the logical connectives. The set of maps between objects $A$ and $B$ is the set of derivations $A \mid ~ \vdash B$ quotiented by the equivalence relation $\circeq$. The identity map on $A$ is the equivalence class of $\ax_A$, while composition is given by $\mathsf{scut}$. The structural laws $\lambda$, $\rho$, $\alpha$ are given by derivations in (\ref{eq:lra}). 
 \end{defn}
+ This is a good definition since all equations of a skew monoidal closed category turn out to hold.
 
-Skew monoidal closed categories constitute models of the sequent calculus of \SkNMILL, in the sense specified by the following theorem.
+Skew monoidal closed categories with given interpretations of atoms into them constitute models of the sequent calculus of \SkNMILL, in the sense specified by the following theorem.
 \begin{theorem}\label{thm:models}
   Let $\mathbb{D}$ be a skew monoidal closed category. Given $F_{\mathsf{At}} : \mathsf{At} \rightarrow |\mathbb{D}|$ providing evaluation of atomic formulae as objects of $\mathbb{D}$, there exists a skew monoidal closed functor $F : \FSkMCC(\mathsf{At}) \rightarrow \mathbb{D}$.
 \end{theorem}
@@ -544,7 +545,8 @@ models, or, equivalently, $\FSkMCC(\mathsf{At})$ is the \emph{free}
 such category on the set $\mathsf{At}$.
 
 \begin{theorem}\label{thm:unique}
-  The skew monoidal closed functor $F$ constructed in Theorem \ref{thm:models}, providing evaluation of all the syntactic constructs in any model $\mathbb{D}$, is the unique one for which $F_0 X = F_{\mathsf{At}} X$, for any atom $X$.
+  The skew monoidal closed functor $F$ constructed in Theorem \ref{thm:models} 
+  is the unique one for which $F_0 X = F_{\mathsf{At}} X$ for any atom $X$.
 \end{theorem}
 
 Alternatively, following the strategy of our previous papers \cite{uustalu:sequent:2021,uustalu:proof:nodate,uustalu:deductive:nodate,veltri:coherence:2021}, this result can be shown by introducing a Hilbert-style deductive system corresponding to a direct implementation of the free skew monoidal closed category on $\mathsf{At}$. Its formulae are the same of the sequent calculus, its sequents are pairs $A \Rightarrow B$, with $A$ and $B$ single formulae. Derivations are generated by the following rules, in which one can  recognize all the structure of Definition \ref{def:skewcat} (in particular $\pi$ and $\pi^{-1}$ are the adjunction data).
