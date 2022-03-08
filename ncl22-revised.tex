@@ -389,7 +389,7 @@ The other central ``skew'' aspect of \SkNMILL\ is that the left
 rules only act on stoup formulae. This can be understood under the
 resources-as-formulae correspondence to say that we are only allowed to
 decompose an available resource when it has become immediately consumable (has entered the stoup). We are precluded from decomposing the
-resources in the context ahead of their time. 
+resources in the context ahead of their time.
 % The latter become visible to us only after
 % being popped to the stoup. Since we are unable to observe the shape of
 % resources in the context, we have no particular way of choosing a left
@@ -506,7 +506,7 @@ $(\mathbb{C},\I,\otd,\lollid)$  is a ``genuine'' skew monoidal closed category, 
 The formulae, derivations and the equivalence relation $\circeq$ of the sequent calculus for \SkNMILL\ determine a skew monoidal closed category $\FSkMCC(\mathsf{At}$).
 \begin{defn}\label{def:fskmcc}
   The skew monoidal closed category $\FSkMCC(\mathsf{At})$ has
-  as objects formulae; the operations $\I$, $\ot$ and $\lolli$ are the logical connectives. The set of maps between objects $A$ and $B$ is the set of derivations $A \mid ~ \vdash B$ quotiented by the equivalence relation $\circeq$. The identity map on $A$ is the equivalence class of $\ax_A$, while composition is given by $\mathsf{scut}$. The structural laws $\lambda$, $\rho$, $\alpha$ are given by derivations in (\ref{eq:lra}). 
+  as objects formulae; the operations $\I$, $\ot$ and $\lolli$ are the logical connectives. The set of maps between objects $A$ and $B$ is the set of derivations $A \mid ~ \vdash B$ quotiented by the equivalence relation $\circeq$. The identity map on $A$ is the equivalence class of $\ax_A$, while composition is given by $\mathsf{scut}$. The structural laws $\lambda$, $\rho$, $\alpha$ are given by derivations in (\ref{eq:lra}).
 \end{defn}
  This is a good definition since all equations of a skew monoidal closed category turn out to hold.
 
@@ -545,7 +545,7 @@ models, or, equivalently, $\FSkMCC(\mathsf{At})$ is the \emph{free}
 such category on the set $\mathsf{At}$.
 
 \begin{theorem}\label{thm:unique}
-  The skew monoidal closed functor $F$ constructed in Theorem \ref{thm:models} 
+  The skew monoidal closed functor $F$ constructed in Theorem \ref{thm:models}
   is the unique one for which $F_0 X = F_{\mathsf{At}} X$ for any atom $X$.
 \end{theorem}
 
@@ -654,7 +654,7 @@ As a first attempt to focusing, we na{\"i}vely merge together the rules of the f
 \end{equation}
 In the rules above and the rest of the paper, the metavariable $P$ denotes a \emph{positive} formula, i.e. $P \not= A \lolli B$, while metavariable $T$ indicates a \emph{negative} stoup, i.e. $T \not= \I$ and $T\not= A \ot B$ ($T$ can also be empty).
 
-We explain the rules of the focused sequent calculus from the perspective of root-first proof search. The starting phase is `right invertible` $\RI$. 
+We explain the rules of the focused sequent calculus from the perspective of root-first proof search. The starting phase is `right invertible` $\RI$.
 \begin{itemize}
 \item[($\vdash_\RI$)] We repeatedly apply the right invertible rule $\lright$ with the goal of reducing the succedent to a positive formula $P$.
   When the succedent formula becomes positive, we move to phase $\LI$ via $\LI2\RI$.
@@ -858,7 +858,7 @@ Derivations in the focused sequent calculus with tag annotations are generated b
     }
     \qquad
     \infer[\F 2 \Pass]{T \mid \Gamma \xvdash_{\Pass} P}{
-      T \mid \Gamma \xvdash_{\F} P 
+      T \mid \Gamma \xvdash_{\F} P
     }
     }
     \\[10pt]
@@ -885,8 +885,8 @@ Derivations in the focused sequent calculus with tag annotations are generated b
     }
   \end{array}
 \end{equation}
-Remember that $P$ is a positive formula and $T$ is a negative stoup. The side condition in rule $\lleft$ reads: if $x = \bullet$, then some formula in $\Gamma$ must be tagged. For the rule $\pass$ notice that, if $x = \bullet$, it is actually forced that all formulae of $\Gamma$ are tagged since the preceding context formula $A^\bullet$ is tagged. For the rules $\tr$ and $\lleft$ similarly notice that, 
-if some formula of $\Gamma$ is tagged, then all formulae of $\Delta$ must be tagged. 
+Remember that $P$ is a positive formula and $T$ is a negative stoup. The side condition in rule $\lleft$ reads: if $x = \bullet$, then some formula in $\Gamma$ must be tagged. For the rule $\pass$ notice that, if $x = \bullet$, it is actually forced that all formulae of $\Gamma$ are tagged since the preceding context formula $A^\bullet$ is tagged. For the rules $\tr$ and $\lleft$ similarly notice that,
+if some formula of $\Gamma$ is tagged, then all formulae of $\Delta$ must be tagged.
 
 The rules in (\ref{eq:focus}), when stripped of all the tags, are equivalent to the rules in the na{\"i}ve calculus (\ref{eq:naive}). When building a derivation of an untagged sequent $S \mid \Gamma \vdash_\RI A$, the only possible way to enter a tagged phase is via an application of the $\tr$ rule, so that sequents with turnstile marked $\vdash_{ph}^\bullet$ denote the fact that we are performing proof search for the first premise of an $\tr$ inference (and the stoup is negative).
 The search for a proof of a tagged sequent $T \mid \Gamma^\circ \vdash^\bullet_\RI A$ proceeds as follows:
@@ -1132,7 +1132,7 @@ We call these types of non-determinism \emph{essential} because they reflect the
     \normalsize
   \end{equation*}
   \item[2.] In phase $\F$, if the succedent formula is $A \ot B$, and the rule $\tr$ is to be applied, the context can be split anywhere. Sometimes
-%, in particular when in the middle of the context there are closed formulae (i.e., formulae made of $\I$ and $\ot$ only), then 
+%, in particular when in the middle of the context there are closed formulae (i.e., formulae made of $\I$ and $\ot$ only), then
 several of these splits can lead to a derivation.
   For example, the sequent $X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y$ has two distinct derivations.
   \begin{equation*}
@@ -1267,8 +1267,8 @@ nondeterminism.
   \end{array}
   \normalsize
 \end{equation*}
-\item[4.] Finally, in phase $\F$, if the succedent formula is $A \ot B$ and the stoup formula is $A' \lolli B'$, then both $\tr$ and $\lleft$ can be applied first and sometimes both options lead to a derivation. For example, the sequent 
-$\I \lolli \I \mid Z \vdash_{\F} (\I \lolli \I) \ot Z$ has two derivations. 
+\item[4.] Finally, in phase $\F$, if the succedent formula is $A \ot B$ and the stoup formula is $A' \lolli B'$, then both $\tr$ and $\lleft$ can be applied first and sometimes both options lead to a derivation. For example, the sequent
+$\I \lolli \I \mid Z \vdash_{\F} (\I \lolli \I) \ot Z$ has two derivations.
 \begin{equation*}
 \hspace*{-5mm}
 \small
@@ -1401,7 +1401,7 @@ The admissibility of the rules in (\ref{eq:admis}) allows the construction of a 
 It is possible to prove that the function $\mathsf{focus}$ maps  $\circeq$-equivalent derivations in the sequent calculus for \SkNMILL\ to syntactically identical derivations in focused sequent calculus. One can also show that $\mathsf{focus}$ is the inverse of $\mathsf{emb}_\RI$, i.e. $\mathsf{focus}\;(\mathsf{emb}_\RI \;f) = f$ for all $f : S \mid \Gamma \vdash_\RI A$ and $\mathsf{emb}_\RI\;(\mathsf{focus}\;g) \circeq g$ for all $g : S \mid \Gamma \vdash A$. In other words, each $\circeq$-equivalence class in the sequent calculus corresponds uniquely to a single derivation in the focused sequent calculus.
 
 The focused sequent calculus solves the \emph{coherence problem} for skew monoidal closed categories.
-As proved in Theorems \ref{thm:models}, \ref{thm:unique}, the sequent calculus for \SkNMILL\ is a presentation of the free skew monoidal closed category $\FSkMCC(\mathsf{At})$ on the set $\mathsf{At}$. The coherence problem is the problem of deciding whether two parallel maps in $\FSkMCC(\mathsf{At})$ are equal. 
+As proved in Theorems \ref{thm:models}, \ref{thm:unique}, the sequent calculus for \SkNMILL\ is a presentation of the free skew monoidal closed category $\FSkMCC(\mathsf{At})$ on the set $\mathsf{At}$. The coherence problem is the problem of deciding whether two parallel maps in $\FSkMCC(\mathsf{At})$ are equal.
 This is equivalent to deciding whether two sequent calculus derivations $f,g : A \mid ~ \vdash B$ are in the same $\circeq$-equivalence class. But that in turn is the same as deciding whether $\mathsf{focus}\;f = \mathsf{focus}\;g$ in the focused sequent calculus, and deciding syntactic equality of focused derivations is straightforward. The Hilbert-style calculus is a direct presentation of $\FSkMCC(\mathsf{At})$, but thanks to the bijection (up to $\doteq$ resp.\ $\circeq$) between Hilbert-style and sequent calculus derivations, we can also decide if two Hilbert-style derivations $f, g : A \Rightarrow B$ are in the same $\doteq$-equivalence class.
 
 \section{Conclusion}
@@ -1421,7 +1421,7 @@ We are also planning to develop an extension of \SkNMILL\ with an exponential mo
 \paragraph{Acknowledgements} N.V.\ and T.U.\ were supported by the
 Estonian Research Council grants no. \linebreak PSG659, PSG749 and PRG1210, N.V.\ and
 C.-S.W.\ by the ESF funded Estonian IT Academy research measure
-(project 2014-2020.4.05.19-0001). T.U.\ was supported by the Icelandic
+(project 2014-2020.4.05.19-0001) and partially supported by  COST CA19135 - Connecting Education and Research Communities for an Innovative Resource Aware Society. T.U.\ was supported by the Icelandic
 Research Fund grant no.~196323-053.
 
   \bibliographystyle{eptcs}
