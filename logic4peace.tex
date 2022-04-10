@@ -1,0 +1,106 @@
+\documentclass{article}
+
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+
+\begin{document}
+
+\title{Logics of skew categorical structures}
+
+\author{Tarmo Uustalu \and Niccol\`o Veltri \and Cheng-Syuan Wan}
+
+\date{~}
+
+\maketitle
+
+\thispagestyle{empty}
+
+There is an important correspondence, first noticed and highlighted by
+Joachim Lambek \cite{Lam}, between logics on the one hand and structures on
+categories on the other hand, where the latter establish notions of
+proof and proof identity for the former. Intuitionistic logic is,
+famously, the logic corresponding to Cartesian monoidal closed
+categories, while multiplicative intuitionistic linear logic, for
+example, is the logic of symmetric monoidal closed categories and
+Lambek's syntactic calculus is the logic of nonsymmetric semimonoidal
+biclosed (``residuated'') categories.
+
+In 2012, Szachl\'anyi \cite{Szl} introduced skew monoidal categories
+as a weakening of monoidal categories. In skew monoidal categories,
+the laws of unitality and associativity are not natural isomorphisms
+as in monoidal categories, but merely natural transformations in a
+specific direction. Although considered in their own right only
+recently, skew monoidal categories arise naturally in many categorical
+contexts and have therefore quickly received quite some traction since
+their inception. Since Szachl\'anyi's seminal work, other types of
+skew categorical structure have been studied: skew closed and monoidal
+closed categories by Street \cite{Str}, braided skew monoidal
+categories by Bourke and Lack \cite{BL}. These works have not,
+however, addressed the logical aspects of these types of categorical
+structure.
+
+In a recent series of papers
+\cite{UVZ:lambek,UVZ:skpcl,UVZ:pn,Vel:ss,UVW}, we have investigated
+several types of skew structure---skew monoidal, partially normal skew
+monoidal, skew prounital closed, symmetric skew monoidal and skew
+monoidal closed categories---from the perspective of structural proof
+theory, specifically sequent calculi and normal forms of sequent
+derivations, so-called focused derivations. We have shown that these
+structures define meaningful logics of resources where the consumption
+and production of resources is more controlled than in linear
+logics. We have exploited proof-theoretic methods to formulate and
+prove coherence theorems for these structures.
+
+In the talk, we will explain these points on the examples of skew
+monoidal and skew monoidal closed categories.
+
+\small
+
+\begin{thebibliography}{99}
+
+\bibitem{Lam} J.~Lambek. Deductive systems and categories I: Syntactic
+  calculus and residuated categories. \emph{Math. Syst. Theor.} 2(4),
+  pp.~287--318, 1968.
+
+\bibitem{Szl} K.~Szlach\'anyi. Skew-monoidal categories and
+  bialgebroids. \emph{Adv. Math.} 231(3--4), pp.~1694--1730, 2012.
+
+\bibitem{Str} R.~Street. Skew-closed categories. \emph{J. Pure
+Appl. Algebra} 217(6), pp.~973--988, 2013.
+
+\bibitem{BL} J.~Bourke, S.~Lack. Braided skew monoidal categories.
+\emph{Theor. Appl. Categ.}, 35(2), pp.~19--63, 2020.
+
+\bibitem{UVZ:lambek} T.~Uustalu, N.~Veltri, N.~Zeilberger. The sequent
+  calculus of skew monoidal categories. In C.~Casadio, P.~J.~Scott,
+  eds., \emph{Joachim Lambek: The Interplay of Mathematics, Logic, and
+  Linguistics}, v.~20 of \emph{Outstanding Contributions to Logic},
+  pp.~377--406. Springer, 2021.
+
+\bibitem{UVZ:skpcl} T.~Uustalu, N.~Veltri, N.~Zeilberger. Deductive
+  systems and coherence for skew prounital closed categories. \linebreak In
+  C.~Sacerdoti Coen, A.~Tiu, eds., \emph{Proc. of 15th Int. Wksh. on
+    Logical Frameworks and Metalanguages: Theory and Practice, LFMTP
+    2020}, v.~332 of \emph{Electron. Proc. in Theor. Comput. Sci.},
+  pp. 35--53. Open Publishing Assoc., 2021.
+
+\bibitem{UVZ:pn} T.~Uustalu, N.~Veltri, N.~Zeilberger. Proof theory of
+  partially normal skew monoidal categories. In D. I.~Spivak,
+  J.~Vicary, eds., \emph{Proc. of 3rd Ann. Int. Applied Category
+    Theory Conf., ACT~2020}, v.~333 of \emph{Electron. Proc. in
+    Theor. Comput. Sci.}, pp.~230--246. Open Publishing Assoc., 2021.
+
+\bibitem{Vel:ss} N.~Veltri. Coherence via focusing for symmetric skew
+  monoidal categories. In A.~Silva, R.~Wassermann, R.~de Queiroz,
+  eds., \emph{Proc. of 27th Wksh. on Logic, Language, Information and
+    Computation, WoLLIC~2021}, v.~13038 of \emph{Lect. Notes in
+    Comput. Sci.}, pp.~184--200. Springer, 2021.
+
+\bibitem{UVW} T.~Uustalu, N.~Veltri, C.-S.~Wan. Proof theory of skew
+  non-commutative MILL. In A.~Indrzejczak, \linebreak M.~Zawidzki, eds.,
+  \emph{Proc. of 10th Int. Conf. on Non-classical Logics: Theory and
+    Applications, NCL~2022}, \emph{Electron. Proc. in
+    Theor. Comput. Sci.}, Open Publishing Assoc., to appear.
+
+\end{thebibliography}
+
+\end{document}
