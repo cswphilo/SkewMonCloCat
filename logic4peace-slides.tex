@@ -1,0 +1,1452 @@
+\documentclass[10pt,t]{beamer}
+
+\usepackage{etex}
+
+\mode<presentation>
+{
+%  \usetheme{Goettingen}
+  \useoutertheme{default}
+  \useinnertheme{rounded}
+  \setbeamercovered{transparent}
+  \usecolortheme{rose}
+}
+
+\usepackage{amssymb,amsmath}
+\usepackage{proof}
+\usepackage{stmaryrd}
+\usepackage[all]{xy}
+\renewcommand{\arraystretch}{1}
+%\usepackage{txfonts}
+
+%\usepackage{ulem}
+
+\usepackage{mathtools}
+
+\newcommand{\mathsout}[1]% will draw line through middle of #1
+{\bgroup\mathchoice
+  {\sbox0{$\displaystyle{#1}$}%
+    \usebox0\hspace{-\wd0}%
+    \rule[0.5\ht0-0.5\dp0-.5pt]{\wd0}{1pt}}%
+  {\sbox0{$\textstyle{#1}$}%
+    \usebox0\hspace{-\wd0}%
+    \rule[0.5\ht0-0.5\dp0-.5pt]{\wd0}{1pt}}%
+  {\sbox0{$\scriptstyle{#1}$}%
+    \usebox0\hspace{-\wd0}%
+    \rule[0.5\ht0-0.5\dp0-.5pt]{\wd0}{1pt}}%
+  {\sbox0{$\scriptscriptstyle{#1}$}%
+    \usebox0\hspace{-\wd0}%
+    \rule[0.5\ht0-0.5\dp0-.5pt]{\wd0}{1pt}}%
+\egroup}
+
+% ==========================================================================
+
+\newcommand{\gray}[1]{\textcolor{gray}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\colorlet{mygreen}{green!70!black}
+\newcommand{\green}[1]{\textcolor{mygreen}{#1}}
+
+\newcommand{\Set}{\mathbf{Set}}
+
+\newcommand{\eqdf}{\mathbin{=_{\mathrm{df}}}}
+
+\newcommand{\I}{\mathsf{I}}
+\newcommand{\ot}{\otimes}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Cop}{\mathbb{C}^\mathrm{op}}
+\newcommand{\J}{\mathbb{J}}
+\newcommand{\al}{\alpha}
+\newcommand{\lam}{\lambda}
+\newcommand{\n}{{-}}
+\newcommand{\Var}{\mathsf{At}}
+\renewcommand{\v}{`}
+\newcommand{\tto}{\Longrightarrow}
+\newcommand{\Tm}{\mathsf{Fma}}
+\newcommand{\id}{\mathsf{id}}
+\newcommand{\comp}{\circ}
+\newcommand{\dcomp}{\mathsf{comp}}
+
+\newcommand{\plug}{\circ_0}
+
+\newcommand{\ax}{\mathsf{ax}}
+\newcommand{\uf}{\mathsf{pass}}
+\newcommand{\IL}{\I\mathsf{L}}
+\newcommand{\otL}{\ot\mathsf{L}}
+\newcommand{\IR}{\I\mathsf{R}}
+\newcommand{\otR}{\ot\mathsf{R}}
+
+\newcommand{\loL}{{\lo}\mathsf{L}}
+\newcommand{\loC}{{\lo}\mathsf{C}}
+\newcommand{\loR}{{\lo}\mathsf{R}}
+
+%\newcommand{\act}{\mathsf{act}}
+%\newcommand{\IC}{\I\mathsf{Lc}}
+%\newcommand{\otC}{\ot\mathsf{Lc}}
+
+\newcommand{\ILinv}{\IL^{-1}}
+\newcommand{\otLinv}{\otL^{-1}}
+
+%\newcommand{\otLstar}{\otL^\star}
+\newcommand{\otLinvstar}{\mathsf{L}^{-1}}
+
+\newcommand{\cut}{\mathsf{cut}}
+\newcommand{\scut}{\mathsf{scut}}
+\newcommand{\ccut}{\mathsf{ccut}}
+
+\newcommand{\wk}{\mathsf{wk}}
+\newcommand{\ctr}{\mathsf{ctr}}
+\newcommand{\exch}{\mathsf{exch}}
+
+
+\newcommand{\sound}{\mathsf{sound}}
+\newcommand{\cmplt}{\mathsf{cmplt}}
+\newcommand{\strcmplt}{\mathsf{strcmplt}}
+
+\newcommand{\scomp}{\mathsf{ssubst}}
+\newcommand{\ccomp}{\mathsf{csubst}}
+
+\renewcommand{\vdash}{\longrightarrow}
+\newcommand{\vdashL}{\vdash_\mathsf{L}}
+\newcommand{\vdashR}{\vdash_\mathsf{R}}
+\newcommand{\msw}{\mathsf{switch}}
+\newcommand{\mswLC}{\msw_{\mathsf{LC}}}
+\newcommand{\mswRL}{\msw_{\mathsf{RL}}}
+\newcommand{\mswat}{\msw\mathsf{at}}
+\newcommand{\mswnot}{\msw\mathsf{not}}
+\newcommand{\mswatRL}{\msw\mathsf{at}_{\mathsf{RL}}}
+\newcommand{\mswnotRL}{\msw\mathsf{not}_{\mathsf{RL}}}
+\newcommand{\switch}{\mathsf{switch}}
+\newcommand{\focus}{\mathsf{focus}}
+\newcommand{\emb}{\mathsf{emb}}
+
+\newcommand{\focderivs}{\mathsf{focderivs}}
+
+\newcommand{\mcutj}{\mathsf{mcut}^\mathsf{j}}
+\newcommand{\mcutn}{\mathsf{mcut}^\mathsf{n}}
+
+\newcommand{\ufq}{\uf^?}
+
+
+%\newcommand{\proofbox}[1]{\begin{tabular}{c} #1 \end{tabular}}
+
+\newcommand{\List}{\mathsf{List}}
+
+\newcommand{\lb}{\langle\hspace*{-0.9mm}\langle}
+
+\newcommand{\asem}[1]{\llbracket #1 \rrbracket}
+\newcommand{\csem}[2]{#1\, \lb #2 \rrbracket}
+\newcommand{\ssem}[1]{\llbracket #1 \lb\, }
+
+\newcommand{\dotminus}{\stackrel{.}{-}}
+\newcommand{\Ptd}{\mathbf{Ptd}}
+
+\newcommand{\inl}{\mathsf{inl}}
+\newcommand{\inr}{\mathsf{inr}}
+
+\newcommand{\e}{\mathsf{e}}
+\newcommand{\m}{\mathsf{m}}
+\renewcommand{\c}{\mathsf{c}}
+\newcommand{\cst}{\mathsf{cst}}
+\newcommand{\cstR}{\mathsf{cstR}}
+\newcommand{\JJ}{\mathcal{J}}
+
+\newcommand{\Lan}{\mathrm{Lan}}
+
+\newcommand{\SC}{\mathbf{SC}}
+\newcommand{\SCn}{\mathbf{SC}^\mathsf{n}}
+
+\newcommand{\Fsk}{\mathbf{Fsk}}
+\newcommand{\con}[1]{[ #1 ]}
+
+\newcommand\stseq[3]{#1 \mid #2 \vdash #3}
+\newcommand\irr{{\mathrm{irr}}}
+
+%\renewcommand{\arraystretch}{2}
+
+\newcommand{\lo}{\multimap}
+\newcommand{\ol}{\multimapinv}
+
+
+\newcommand\stseqL[4][]{#2 \mid #3 \overset{#1}{\longrightarrow_{\mathsf{L}}} #4}
+\newcommand\stseqR[4][]{#2 \mid #3 \overset{#1}{\longrightarrow_{\mathsf{R}}} #4}
+\newcommand\stseqLR[4]{#1 \mid #2 \longrightarrow_{#4} #3}
+\newcommand{\dottedmid}{\raisebox{-1.5pt}[0.5\height]{\hspace*{1pt}\vdots\hspace*{1pt}}}
+\newcommand\stseqC[5][]{#2 \mid #3 \mathbin{\dottedmid} #4 \overset{#1}{\longrightarrow_{\mathsf{C}}} #5}
+
+\newcommand\stseqLN[2]{#1 \longrightarrow_{\mathsf{L}} #2}
+\newcommand\stseqRN[2]{#1 \longrightarrow_{\mathsf{R}} #2}
+
+
+\newcommand{\laminv}{\lam^{-1}}
+\newcommand{\alinv}{\al^{-1}}
+\newcommand{\rhoinv}{\rho^{-1}}
+\newcommand{\alinvc}{\al^{-1}_{\mathrm{c}}}
+
+\newcommand\otLcxt[1]{\ot\mathsf{C}_{#1}}
+\newcommand\IC[1]{\mathsf{IC}_{#1}}
+\newcommand\JJC[1]{\ot\mathsf{C}^\mathrm{c}_{#1}}
+\newcommand\otC[1]{\ot\mathsf{C}_{#1}}
+\newcommand\otRem{\otR_2}
+\newcommand\ILgeninv{\ILgen^{-1}}
+\newcommand\otLgeninv{\otLgen^{-1}}
+\newcommand\act{\mathsf{move}}
+
+\newcommand\ICn[1]{\mathsf{IC}^{\mathrm{c}}_{#1}}
+
+\newcommand{\iR}{{i^{\mathsf{R}}}}
+\newcommand{\jR}{{j^{\mathsf{R}}}}
+\newcommand{\LR}{{L^{\mathsf{R}}}}
+
+\newcommand{\jY}{\widehat{j}}
+%\newcommand{\jY}{\widehat{\jmath}}
+\newcommand{\iY}{\widehat{\imath}}
+\newcommand{\LY}{\widehat{L}}
+%\newcommand{\jY}{j\mathsf{Y}}
+%\newcommand{\LY}{L\mathsf{Y}}
+
+\newcommand{\lolli}{\lo}
+
+\newcommand{\proofbox}[1]{\begin{tabular}{l} #1 \end{tabular}}
+
+\newcommand{\LI}{\mathsf{LI}}
+\newcommand{\F}{\mathsf{F}}
+\newcommand{\Pass}{\mathsf{P}}
+\newcommand{\RI}{\mathsf{RI}}
+
+% ==========================================================================
+
+
+\begin{document}
+
+\title{Logics of skew categorical structures}
+
+\author{\underline{Tarmo Uustalu}, Reykjavik U. \\ Niccol\`o Veltri, Tallinn U. of Technology \\ Cheng-Syuan Wan, Tallinn U. of Technology}
+
+%\date{MFPS 2018, Halifax, NS, 6--9 June 2018}
+%\date{Kalle Kaarli 70, Tartu, 18--20 July 2018}
+%\date{Logic and Philos. of Math. Seminar, Univ. of Helsinki, 7 Sept. 2018}
+%\date{ICE-TCS seminar, Reykjavik U., 24 Feb.\ 2020}
+
+%\date{CS Colloquium, Augusta Univ., 26 Feb.\ 2021}
+%\date{CMAT Colloquium, Univ. do Minho, 25 March 2021}
+
+\date{Logic4Peace, 23 Apr.\ 2022}
+
+\begin{frame}
+
+\maketitle
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{Logics vs categorical structures}
+
+\begin{itemize}
+
+\item There is a correspondence between \emph{logics} and
+  \emph{categorical structures}, first noticed by Lambek, then further
+  developed by Lawvere, Mann, Szabo, Mints, Soloviev, Dosen and
+  Petri\'c et al.
+
+\bigskip
+
+\begin{center}
+\scriptsize
+\begin{tabular}{l|l}
+(conj-impl) intuit logic & Cartesian closed categories \\ \hline
+intuit logic & Cartesian closed categories \\ 
+  & \quad with finite coproducts \\ \hline
+intuit S4 & Cartesian closed categories \\ 
+& \quad with a lax monoidal comonad \\ \hline
+mult intuit linear logic & symm monoidal closed categories \\ \hline
+noncomm mult intuit linear logic & monoidal closed categories \\ \hline
+Lambek calculus & monoidal biclosed categories 
+\end{tabular}
+\end{center}
+
+\bigskip
+
+\item This is similar to the algebraic logic correspondence of logics
+  and \emph{algebraic structures} as in algebraic logic, but
+  proof-relevant.
+
+\bigskip
+
+\item Categorical logic equips a logic with notions of
+  \emph{derivation} (as a opposed to just \emph{consequence}) and
+  \emph{identity of derivations}.
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{Skew structured categories}
+
+\begin{itemize}
+
+\item Intuitionistic linear logic (for monoidal categories) drops the
+  structural rules of weakening and contraction of intuitionistic
+  logic:
+\[
+\scriptsize
+\begin{array}{c}
+\mathsout{w : A \tto \I}
+\\
+\mathsout{c : A \tto A \otimes A}
+\end{array}
+\]
+It is therefore called \emph{substructural} and can be thought of as a
+\emph{resource} logic rather than a truth logic.
+
+\bigskip
+
+\item Recent years have seen the discovery and study of \emph{skew}
+  monoidal, \emph{skew} closed and related kinds of structured
+  categories by Szlach\'anyi, Street, Bourke, Lack, others.
+
+\item These drop one half of unitality and associativity of
+  conjunction:
+\[
+\scriptsize
+\begin{array}{cc}
+\lam: \I \ot A \tto A 
+& 
+\mathsout{\lam^{-1} : A \tto \I \otimes A} \\
+\rho: A \tto A \ot \I 
+& 
+\mathsout{\rho^{-1} : A \ot \I \tto A} \\
+\qquad
+\al : (A \ot B) \ot C \tto A \ot (B \ot C) 
+& 
+\mathsout{\al^{-1} : A \ot (B \ot C) \tto (A \ot B) \ot C}
+\end{array}
+\]
+
+\item Skew structured categories define logics yet more substructural
+  than intuitionistic linear logic.
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{This talk: Skew categorical logic}
+
+\begin{itemize}
+
+\item We have been developing the proof theory of skew structured
+  categories.
+
+\bigskip
+
+\item This talk: 
+
+\begin{itemize} 
+\item skew monoidal categories (U., V., Zeilberger, MFPS 2018) 
+\item skew monoidal closed categories (U., V., W., NCL 2022)
+\end{itemize}
+
+\bigskip
+
+\item Other work:
+
+\begin{itemize}
+\item partially normal skew monoidal categories \\ (U., V., Zeilberger, ACT 2020)
+\item skew closed and skew prounital closed categories \\
+  (including natural deduction) \\ (U., V., Zeilberger,
+  LFMTP 2020)
+\item symmetric skew monoidal categories (V., WoLLIC 2021)
+\end{itemize}
+
+\item In progress or stuck:
+
+\begin{itemize}
+\item Cartesian skew monoidal categories
+\item skew biclosed categories
+\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{Monoidal categories}
+
+\begin{itemize}
+
+\item A \emph{monoidal category} (B\'enabou, Mac Lane) is a category $\C$
+  together with an object $\I$, a functor $\ot : \C \times \C \to \C$
+  and \red{nat.\ isomorphisms} $\lam$, $\rho$, $\al$ with components
+\[
+\scriptsize
+\begin{array}{c}
+\lam_{A} : \I \ot A \to A \\
+\rho_{A} : A \to A \ot \I\\
+\al_{A,B,C} : (A \ot B) \ot C \to A \ot (B \ot C)
+\end{array}
+\]
+such that
+\[
+\scriptsize
+\begin{array}{c}
+\mathrm{(m1)}
+\xymatrix@R=1.2pc@C=0.2pc{
+    & \I \ot \I \ar[dr]^-{\lambda_\I} & \\
+    \I \ar[ur]^-{\rho_\I} \ar@{=}[rr] & & \I
+    }
+\quad
+\mathrm{(m2)}
+\xymatrix@R=1.1pc{
+      (A\ot \I) \ot B \ar[r]^{\alpha_{A,\I,B}}
+      & A \ot (\I\ot B) \ar[d]^{A\ot \lambda_{B}}\\
+      A \ot B \ar@{=}[r] \ar[u]^{\rho_{A}\ot B}&  A \ot B 
+    }
+\\
+\mathrm{(m3)}
+\xymatrix@C=0.2pc@R=1.2pc{
+  (\I \ot A) \ot B \ar[dr]_{\lambda_A \ot B} \ar[rr]^{\alpha_{\I,A,B}} 
+           & &  \I \ot (A \ot B) \ar[dl]^{\lambda_{A \ot B}}\\
+  & A \ot B & 
+    }
+\quad
+\mathrm{(m4)}
+\xymatrix@C=0.2pc@R=1.3pc{
+  (A \ot B) \ot \I \ar[rr]^{\alpha_{A,B,\I}} 
+           & &  A \ot (B \ot \I) \\
+  & A \ot B \ar[ul]^{\rho_{A \ot B}} \ar[ur]_{A \ot \rho_B} & 
+    }
+\\
+\mathrm{(m5)}
+\xymatrix@R=1.3pc@C=2.5pc{
+(A\ot (B \ot C)) \ot D \ar[rr]^{\alpha_{A,B \ot C,D}}
+  & & A\ot ((B \ot C)\ot D) \ar[d]^{A\ot \alpha_{B,C,D}}
+  \\
+((A\ot B) \ot C) \ot D \ar[u]^{\alpha_{A,B,C} \ot D}
+      \ar[r]^{\alpha_{A\ot B,C,D}}
+  & (A\ot B) \ot (C \ot D) \ar[r]^{\alpha_{A,B,C\ot D}}
+    & A\ot (B \ot (C \ot D))
+}
+\end{array}
+\]
+
+\item Kelly found that (m1), (m3), (m4) \red{follow} from (m2), (m5).
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Examples}
+
+
+\begin{itemize}
+
+\item $(\Set, 1, \times)$ is a monoidal category. 
+
+\item $(\Set, 0, +)$ is also a monoidal category.
+
+\bigskip
+
+\item A preorder is the same as a thin category  (at
+  most one map between any two objects).
+
+\item A monoid is the same as a discrete monoidal category. 
+
+\item A preordered monoid is the same as a thin monoidal category.
+
+
+\bigskip
+
+\item A category is a ``proof-relevant''  generalization of a preordered set.
+
+\item A monoidal category is a ``proof-relevant'' generalization of a
+  preordered monoid.
+
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Coherence}
+
+\begin{itemize}
+
+\item (Mac Lane) The free monoidal category on a set of objects enjoys
+  a very simple form of (effective) coherence.
+
+\begin{itemize}
+\item It is (very easily) decidable if there is a map between two
+  objects $A$, $B$, and to exhibit one in this case.
+
+\item Moreover, if there is a map, it is unique.
+\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\frametitle{Skew monoidal categories}
+
+\begin{itemize}
+
+\item A \emph{skew monoidal category} (Szlach{\'a}nyi) is a category $\C$
+  together with an object $\I$, a functor $\ot : \C \times \C \to \C$
+  and \red{nat.\ transfs.} $\lam$, $\rho$, $\al$ with components
+\[
+\scriptsize
+\begin{array}{c}
+\lam_{A} : \I \ot A \to A \\
+\rho_{A} : A \to A \ot \I\\
+\al_{A,B,C} : (A \ot B) \ot C \to A \ot (B \ot C)
+\end{array}
+\]
+such that
+\[
+\scriptsize
+\begin{array}{c}
+\mathrm{(m1)}
+\xymatrix@R=1.2pc@C=0.2pc{
+    & \I \ot \I \ar[dr]^-{\lambda_\I} & \\
+    \I \ar[ur]^-{\rho_\I} \ar@{=}[rr] & & \I
+    }
+\quad
+\mathrm{(m2)}
+\xymatrix@R=1.1pc{
+      (A\ot \I) \ot B \ar[r]^{\alpha_{A,\I,B}}
+      & A \ot (\I\ot B) \ar[d]^{A\ot \lambda_{B}}\\
+      A \ot B \ar@{=}[r] \ar[u]^{\rho_{A}\ot B}&  A \ot B 
+    }
+\\
+\mathrm{(m3)}
+\xymatrix@C=0.2pc@R=1.2pc{
+  (\I \ot A) \ot B \ar[dr]_{\lambda_A \ot B} \ar[rr]^{\alpha_{\I,A,B}} 
+           & &  \I \ot (A \ot B) \ar[dl]^{\lambda_{A \ot B}}\\
+  & A \ot B & 
+    }
+\quad
+\mathrm{(m4)}
+\xymatrix@C=0.2pc@R=1.3pc{
+  (A \ot B) \ot \I \ar[rr]^{\alpha_{A,B,\I}} 
+           & &  A \ot (B \ot \I) \\
+  & A \ot B \ar[ul]^{\rho_{A \ot B}} \ar[ur]_{A \ot \rho_B} & 
+    }
+\\
+\mathrm{(m5)}
+\xymatrix@R=1.3pc@C=2.5pc{
+(A\ot (B \ot C)) \ot D \ar[rr]^{\alpha_{A,B \ot C,D}}
+  & & A\ot ((B \ot C)\ot D) \ar[d]^{A\ot \alpha_{B,C,D}}
+  \\
+((A\ot B) \ot C) \ot D \ar[u]^{\alpha_{A,B,C} \ot D}
+      \ar[r]^{\alpha_{A\ot B,C,D}}
+  & (A\ot B) \ot (C \ot D) \ar[r]^{\alpha_{A,B,C\ot D}}
+    & A\ot (B \ot (C \ot D))
+}
+\end{array}
+\]
+
+\item (m1), (m3), (m4) \red{do not follow} from (m2), (m5) in this
+  situation.
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Examples}
+
+\begin{itemize}
+
+\item $(\mathbf{Ptd}, 0', +')$ where \\
+$\mathbf{Ptd}$ is the class of pointed sets \\
+$0' = (1, \ast)$ \\
+$(X, p) +' (Y, q) = (X + Y, \mathsf{inl}\, p)$ \\
+is a skew monoidal category.
+
+\bigskip
+
+\item Given a category $\C$ and a functor $J : \J \to \C$
+  such that $\Lan_J\, F : \C \to \C$ exists for any $F : \J \to \C$.
+
+  Let $F \cdot^J G = \Lan_J\, F \cdot G$. 
+
+  Then $([\J,\C], J, \cdot^J)$ is a skew monoidal category. \\[6pt]
+
+  Relative monads on $J$ are the same as monoids in this skew monoidal
+  category.
+
+
+\end{itemize}
+
+\end{frame}
+
+% \begin{frame}
+
+% \frametitle{Examples ctd.}
+
+% \begin{itemize}
+
+% \item Given a (skew) monoidal category $(\C, \I, \ot)$. 
+
+%   Given also a lax monoidal comonad $(D, \e, \m)$ on $\C$.
+
+%   Let $A \ot^D B = A \ot D B$.  
+
+%   Then $(\C, \I, \ot^D)$ is a skew monoidal category.
+
+% \medskip
+
+% \item A similar skew monoidal structure on $\C$ is obtained with an
+%   oplax monoidal monad $(T, \e, \m)$ taking
+%   $A \mathbin{{}^T\ot} B = T A \ot B$.
+
+% \bigskip
+
+% \item Given a (skew) monoidal category $(\C, \I, \ot)$.
+
+%   Given a lax monoidal monad $(T, \m)$ ($\e = \eta_\I)$ on $\C$.
+
+%   Let
+%   $A \ot^T B = A \ot B$ and \\ $f \ot^T g = \m \comp f \ot g$ 
+%   for
+%   $f : A \to T A'$, $g : B \to T B'$. 
+ 
+%   Then $(\mathbf{Kl}(T), \I, \ot^T)$ is a skew monoidal category.
+
+
+
+% \end{itemize}
+
+% \end{frame}
+
+\begin{frame}
+
+  \frametitle{Categorical calculus}
+
+\begin{itemize}
+
+\item Essentially by definition, the free skew monoidal category on a
+  set $\Var$ can be described as a deductive system, a ``categorical''
+  or Hilbert-style calculus.
+
+\medskip
+
+\item Objects are formulae. 
+
+\item \emph{Formulae} are atoms $X \in \Var$, $\I$ and $A \ot B$ where
+  $A$, $B$ are formulae.
+
+\medskip
+
+\item Maps are equivalence classes of derivations of sequents
+  $A \tto C$ where $A$, $C$ are (single) formulae.
+
+\item \emph{Derivations} are constructed with these inference rules:
+\[
+\scriptsize
+\begin{array}{c}
+\infer[\id]{A \tto A}{}
+\qquad
+\infer[\dcomp]{A \tto C}{A \tto B & B \tto C}
+\\[12pt]
+\infer[\ot]{A \ot B \tto C \ot D}{A \tto C & B \tto D}
+\\[12pt]
+\infer[\lam]{\I \ot A \tto A}{}
+\qquad
+\infer[\rho]{A \tto A \ot \I}{}
+\qquad
+\infer[\al]{(A \ot B) \ot C \tto A \ot (B \ot C)}{}
+\end{array}
+\]
+
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{Categorical calculus ctd.}
+
+\begin{itemize}
+
+\item \emph{Equivalence of derivations} is the congruence $\doteq$
+  induced by the equations
+\[
+\begin{array}{c}
+\id \comp f \doteq f
+\qquad
+f \doteq f \comp \id
+\qquad
+(f \comp g) \comp h \doteq f \comp (g \comp h)
+\\[6pt]
+\id \ot \id \doteq \id
+\qquad 
+(h \comp f) \ot (k \comp g) \doteq h \ot k \comp f \ot g
+\\[6pt]
+\lam \comp \id \ot f \doteq f \comp \lam
+\\
+\rho \comp f \doteq f \ot \id \comp \rho
+\\
+\al \comp (f \ot g) \ot h \doteq f \ot (g \ot h) \comp \al
+\\[6pt]
+\lam \comp \rho \doteq \id
+\qquad
+\id \doteq \id \ot \lam \comp \al \comp \rho \ot \id
+\\
+\lam \comp \al \doteq \lam \ot \id
+\qquad
+\al \comp \rho \doteq \id \ot \rho
+\\
+\al \comp \al \doteq \id \ot \al \comp \al \comp \al \ot \id 
+\end{array}
+\]
+
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\frametitle{Coherence?}
+
+\begin{itemize}
+
+\item It is not obvious at all when we have zero, one or more maps
+  between two given objects in the free skew monoidal category or when
+  two given maps between two given objects are the same.
+
+\bigskip
+
+\item There are no derivations (no maps) \\[6pt]
+
+ $X \tto \I \ot X$, \\ 
+
+ $X \ot \I \tto X$, \\
+
+ $X \ot (Y \ot Z) \tto (X \ot Y) \ot Z$.
+
+\medskip
+
+\item We have inequivalent derivations (distinct maps) \\[6pt]
+
+ $\rho \comp \lam \not\doteq \id : \I \ot \I \tto \I \ot \I$, \\
+
+ $\id \not\doteq \al \comp  \rho \ot \lam : 
+ X \ot (\I \ot Y) \tto X \ot (\I \ot Y) $, \\
+
+ $\id \not\doteq \rho \ot \lam \comp \al :
+ (X \ot \I) \ot Y \tto (X \ot \I) \ot Y$.
+
+\bigskip
+
+
+\item This means that the logic of skew monoidal categories is more
+  interesting in comparison linear logic with mult conj only---the
+  same consequence can have multiple distinct derivations.
+
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\frametitle{Sequent calculus}
+
+\begin{itemize}
+
+\item Here is a different deductive description of the free skew
+  monoidal category, a (cut-free) ``sequent calculus''.
+
+\item \emph{Sequents} now take the form $S \mid \Gamma \vdash C$
+  where
+\begin{itemize}
+\item $S$ (stoup) is an optional formula,
+\item $\Gamma$ (context) is a list of formulae,
+\item $C$ is a single formula.
+\end{itemize}
+
+\item \emph{Derivations} are constructed with these inference rules:
+\[
+\scriptsize
+\begin{array}{c@{\quad \quad}c}
+\infer[\uf]{\n \mid A, \Gamma \vdash C}{
+  A \mid \Gamma \vdash C
+}
+&
+\infer[\ax]{A \mid ~\vdash A}{
+}
+\\[6pt]
+\infer[\IL]{\I \mid \Gamma \vdash C}{
+  \n \mid \Gamma \vdash C
+}
+&
+\infer[\IR]{\n \mid ~ \vdash \I}{
+}
+\\[6pt]
+\infer[\otL]{A \ot B \mid \Gamma \vdash C}{
+  A \mid B, \Gamma \vdash C
+}
+&
+\infer[\otR]{S \mid \Gamma, \Delta \vdash A \otimes B}{
+  S \mid \Gamma \vdash A
+  &
+  \n \mid \Delta \vdash B
+}
+\end{array}
+\]
+
+\item $\IL$, $\otL$ only apply in the stoup. \\ 
+ $\otR$ sends the stoup formula, if present, to the
+  1st premise.
+
+\item Two forms of cut are now admissible:
+\[
+\scriptsize
+\infer[\scut]{S \mid \Gamma, \Delta \vdash C}{
+  S \mid \Gamma \vdash A
+  &
+  A \mid \Delta \vdash C
+}
+\qquad
+\infer[\ccut]{S \mid \Delta_0, \Gamma, \Delta_1 \vdash C}{
+  \n \mid \Gamma \vdash A
+  &
+  S \mid \Delta_0, A, \Delta_1 \vdash C
+}
+\]
+\end{itemize}
+
+
+\end{frame}
+
+%\end{document}
+
+\begin{frame}
+
+\frametitle{Sequent calculus ctd.}
+
+\begin{itemize}
+
+\item \emph{Equivalence of derivations} is the congruence $\circeq$
+  induced by
+\[
+\scriptsize
+\begin{array}{c@{\quad \circeq\quad}c}
+\proofbox{
+\infer[\ax]{\I \mid ~ \vdash \I}{
+}
+}
+&
+\proofbox{
+\infer[\IL]{\I \mid ~ \vdash \I}{
+  \infer[\IR]{\n \mid ~ \I}{
+  }
+}
+}
+\\[12pt]
+\proofbox{
+\infer[\ax]{A \ot B \mid ~ \vdash A \ot B}{
+}
+}
+&
+\proofbox{
+\infer[\otL]{A \ot B \mid ~ \vdash A \ot B}{
+  \infer[\otR]{A \mid B \vdash A \ot B}{
+   \infer[\ax]{A \mid ~ \vdash A}{
+   }
+   &
+   \infer[\uf]{\n \mid B \vdash B}{
+     \infer[\ax]{B \mid ~ \vdash B}{
+     }
+   }
+ }
+} 
+}
+\\[36pt]
+\proofbox{
+\infer[\otR]{\n \mid A', \Gamma, \Delta \vdash A \otimes B}{
+  \infer[\uf]{\n \mid A', \Gamma \vdash A}{
+    A' \mid \Gamma \vdash A
+  }
+  &
+  \n \mid \Delta \vdash B
+}
+}
+&
+\proofbox{
+\infer[\uf]{\n \mid A', \Gamma, \Delta \vdash A \otimes B}{
+  \infer[\otR]{A' \mid \Gamma, \Delta \vdash A \otimes B}{
+    A' \mid \Gamma \vdash A
+    &
+    \n \mid \Delta \vdash B
+  }
+}
+}
+\\[18pt]
+\proofbox{
+\infer[\otR]{\I \mid \Gamma, \Delta \vdash A \otimes B}{
+  \infer[\IL]{\I \mid \Gamma \vdash A}{
+    \n \mid \Gamma \vdash A
+  }
+  &
+  \n \mid \Delta \vdash B
+}
+}
+&
+\proofbox{
+\infer[\IL]{\I \mid \Gamma, \Delta \vdash A \otimes B}{
+  \infer[\otR]{\n \mid \Gamma, \Delta \vdash A \otimes B}{
+    \n \mid \Gamma \vdash A
+    &
+    \n \mid \Delta \vdash B
+  }
+}
+}
+\\[18pt]
+\proofbox{
+\infer[\otR]{A' \ot B' \mid \Gamma, \Delta \vdash A \otimes B}{
+  \infer[\otL]{A' \ot B' \mid \Gamma \vdash A}{
+    A' \mid B', \Gamma \vdash A
+  }
+  &
+  \n \mid \Delta \vdash B
+}
+}
+&
+\proofbox{
+\infer[\otL]{A' \ot B' \mid \Gamma, \Delta \vdash A \otimes B}{
+  \infer[\otR]{A' \mid B', \Gamma, \Delta \vdash A \otimes B}{
+    A' \mid B', \Gamma \vdash A
+    &
+    \n \mid \Delta \vdash B
+  }
+}
+}
+\end{array}
+\]
+
+\end{itemize}
+
+\end{frame}
+
+%\end{document}
+
+\begin{frame}
+
+\frametitle{Sequent calculus ctd.}
+
+\begin{itemize}
+
+\item Define
+\[
+\begin{array}{c}
+\ssem{\n} = \I \\ 
+\ssem{A} = A
+\end{array}
+\]
+and
+\[
+\begin{array}{c}
+\csem{A}{~} = A \\
+\csem{A}{B, \Gamma} = \csem{(A \otimes B)}{\Gamma}  
+\end{array}
+\]
+so $\csem{A}{A_1, A_2 \ldots, A_n} = (\ldots (A \otimes A_1)
+  \otimes A_2) \ldots) \otimes A_n$.
+
+\bigskip
+
+\item There is a bijection between
+\begin{itemize}
+\item derivations of
+  $\csem{\ssem{S}}{\Gamma} \tto C$ in the categorical calculus (up to
+  $\doteq$) and
+\item derivations of  $S \mid \Gamma \vdash C$
+  in the sequent calculus (up to $\circeq$) 
+\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{What makes this work?}
+
+\begin{itemize}
+
+\item We can easily construct derivations to correspond to $\lam_A$,
+  $\rho_A$, $\al_{A,B,C}$:
+
+\[
+\scriptsize
+\infer[\otL]{\I \ot A \mid ~ \vdash A}{
+  \infer[\IL]{\I \mid A \vdash A}{
+    \infer[\uf]{\n \mid A \vdash A}{
+      \infer[\ax]{A \mid ~ \vdash A}{
+      }
+    }
+  }
+}
+\]
+\[
+\scriptsize
+\infer[\otR]{A \mid ~ \vdash A \ot \I}{
+  \infer[\ax]{A \mid ~ \vdash A}{
+  }
+  &
+  \infer[\IR]{\n \mid ~ \vdash \I}{
+  }
+}
+\qquad
+\infer[\otL]{(A \ot B) \ot C \mid ~ \vdash A \ot (B \ot C)}{
+  \infer[\otL]{A \ot B \mid C \vdash A \ot (B \ot C)}{
+    \infer[\otR]{A \mid B, C \vdash A \ot (B \ot C)}{
+      \infer[\ax]{A \mid ~ \vdash A}{
+      }
+      &
+      \infer[\uf]{\n \mid B, C \vdash B \ot C}{
+        \infer[\otR]{B \mid C \vdash B \ot C}{
+          \infer[\ax]{B \mid ~ \vdash B}{
+          }
+          &
+          \infer[\uf]{\n \mid C \vdash C}{
+            \infer[\ax]{C \mid ~ \vdash C}{
+            }
+          }
+        }
+      }
+    }
+  }
+}
+\]
+
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{What makes this work? ctd.}
+
+\begin{itemize}
+
+\item But we cannot construct derivations for converse sequents for
+  $A = X$, $B = B$, $C = Z$:
+
+\[
+\scriptsize
+\infer[\otL]{X \ot \I \mid \vdash X}{
+  \deduce{X \mid \red{\I} \vdash X}{
+    \red{??}
+  }
+}
+\]
+(we cannot apply $\IL$ in the context),
+
+\medskip
+
+\[
+\scriptsize
+\infer[\red{\otR}]{\red{X} \mid ~\vdash \I \ot X}{
+  \deduce[\red{??}]{\red{X} \mid ~ \vdash \I}{
+  }
+  &
+  \deduce[\red{??}]{\n \mid ~ \vdash X}{
+  }
+}
+\]
+(we cannot split the antecedent suitably at $\otR$),
+
+\medskip
+
+\[
+\scriptsize
+\infer[\otL]{X \ot (Y \ot Z) \mid ~\vdash (X \ot Y) \ot Z}{
+  \infer[\red{\otR}]{X \mid \red{Y \ot Z} \vdash (X \ot Y) \ot Z}{
+   \deduce[\red{??}]{X \mid \red{Y \ot Z} \vdash X \ot Y}{
+   }
+   &
+   \deduce[\red{??}]{\n \mid ~ \vdash  Z}{
+   }
+ }
+}
+\qquad
+\infer[\otL]{X \ot (Y \ot Z) \mid ~ \vdash (X \ot Y) \ot Z}{
+  \infer[\red{\otR}]{X \mid \red{Y \ot Z} \vdash (X \ot Y) \ot Z}{
+   \deduce[\red{??}]{X \mid ~ \vdash X \ot Y}{
+   }
+   &
+   \deduce[\red{??}]{\n \mid \red{Y \ot Z} \vdash Z}{
+   }
+ }
+}
+\]
+(we cannot apply $\otL$ in the context, must therefore apply $\otR$
+first but cannot split the antecedent suitably).
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{Focused fragment}
+
+\begin{itemize}
+
+\item The equational theory on sequent calculus derivations is locally
+  confluent and strongly normalizing.
+
+\item Normal-form derivations can be described as derivations in a
+  focused fragment.
+
+\item The focused calculus has two sequent forms. 
+
+  $\mathsf{L}$-\emph{sequents} are $S \mid \Gamma \vdashL C$ where $S$
+  is a general stoup.
+
+  $\mathsf{R}$-\emph{sequents} are $T \mid \Gamma \vdashR C$ where $T$
+  is an optional atom.
+
+\item \emph{Derivations} are constructed with these inference rules:
+\[
+\scriptsize
+\begin{array}{c@{\quad \quad}c@{\quad \quad}c}
+\infer[\uf]{\n \mid A, \Gamma \vdashL C}{
+  A \mid \Gamma \vdashL C
+}
+&
+\infer[\msw]{T \mid \Gamma \vdashL C}{
+  T \mid \Gamma \vdashR C
+}
+\hspace*{-12mm}
+&
+\infer[\ax]{X \mid ~\vdashR X}{
+}
+\\[6pt]
+\infer[\IL]{\I \mid \Gamma \vdashL C}{
+  \n \mid \Gamma \vdashL C
+}
+& &
+\infer[\IR]{\n \mid ~ \vdashR \I}{
+}
+\\[6pt]
+\infer[\otL]{A \ot B \mid \Gamma \vdashL C}{
+  A \mid B, \Gamma \vdashL C
+}
+& &
+\hspace*{5mm}
+\infer[\otR]{T \mid \Gamma, \Delta \vdashR A \otimes B}{
+  T \mid \Gamma \vdashR A
+  &
+  \n \mid \Delta \vdashL B
+} 
+\end{array}
+\]
+
+\item The focused rules define a sound and complete root-first proof
+  search strategy.
+
+\item Multiple derivations of an $\mathsf{L}$-sequent result from \\
+  (i) choices between $\uf$ and $\msw$ and \\ (ii) choices between
+  different splits of the context in $\otR$.
+
+\end{itemize}
+
+\end{frame}
+
+
+%\end{document}
+
+\begin{frame}
+
+\frametitle{Focused fragment}
+
+\begin{itemize}
+
+\item There is a bijection between
+\begin{itemize}
+\item derivations of $S \mid \Gamma \vdash C$
+  in the sequent calculus (up to $\circeq$) and 
+\item derivations of $S \mid \Gamma \vdashL C$ in the focused calculus.
+\end{itemize}
+
+\bigskip
+
+\item This gives an (effective) coherence result:
+
+\begin{itemize}
+\item To enumerate, without duplicates, all maps $A \tto C$ (presented as categorical calculus derivations): \\[9pt]
+
+find all focused derivations of
+  $A \mid ~ \vdashL C$ and translate those to the categorical calculus.
+
+%  (There can be multiple different focused derivations. They
+%  translate to different maps.)
+\medskip
+
+\item To compare two maps $A \tto C$ (presented as categorical calculus
+  derivations) for equality: \\[9pt] translate them to focused derivations of
+  $A \mid ~ \vdashL C$ and compare the results.
+
+%  (Not all such maps are equal.)
+
+\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Skew monoidal closed categories}
+
+\begin{itemize}
+\item A \emph{skew monoidal closed category} is a skew monoidal closed
+  category $(\C, \I, \otimes, \lam, \rho, \al)$ together with a
+  functor $\lolli : \C^{\mathrm{op}} \times \C \to \C$ such that
+\[
+(-) \to B \vdash B \lolli (-)
+\]
+for any object $B$.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{Categorical calculus}
+
+\begin{itemize}
+
+\item Add formulas $A \lolli B$.
+
+\bigskip
+
+\item Add inference rules 
+
+\[
+\scriptsize
+\infer[\pi]{A \tto B \lolli C}{
+  A \ot B \tto C
+}
+\qquad
+\infer[\pi^{-1}]{A \ot B \tto C}{
+  A \tto B \lolli C
+}
+\]
+
+and some equations for $\doteq$.
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{Sequent calculus}
+
+\begin{itemize}
+
+\item Add formulae $A \lolli B$.
+
+\bigskip
+
+\item Add inference rules 
+
+\[
+\scriptsize
+    \infer[\loL]{A \lolli B \mid \Gamma , \Delta \vdash C}{
+      {-} \mid \Gamma \vdash A
+      &
+      B \mid \Delta \vdash C
+    }
+    \qquad
+    \infer[\loR]{S \mid \Gamma \vdash A \lolli B}{S \mid \Gamma , A \vdash B}
+\]
+
+and some equations for $\circeq$.
+
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+
+\frametitle{Focused fragment (first attempt)}
+
+\begin{itemize}
+
+\item We need four sequent forms for four phases of proof search:
+\[
+\scriptsize
+\begin{array}{c}
+S \mid \Gamma \vdash_\RI C
+\qquad S \mid \Gamma \vdash_\LI P
+\qquad T \mid \Gamma \vdash_\Pass P
+\qquad T \mid \Gamma \vdash_F P
+\end{array}
+\]
+where $S$ is an unrestricted stoup and $C$ and unrestriced formula,
+but 
+\begin{itemize}
+\item $T$ is a negative stoup (neither $\I$ nor $A \ot B$) and
+\item $P$ is a positive formula (not $A \lo B$).
+\end{itemize}
+
+\item The inference rules are:
+\[
+\scriptsize
+  \begin{array}{l@{}c}
+    \text{(right invertible)} & %\\ &
+    \proofbox{
+    \infer[\loR]{S \mid \Gamma \vdash_{\RI} A \lolli B}{S \mid \Gamma , A \vdash_{\RI} B}
+    \qquad
+    \infer[\LI 2 \RI]{S \mid \Gamma \vdash_{\RI} P}{S \mid \Gamma \vdash_{\LI} P}
+    }
+    \\[9pt]
+    \text{(left invertible)} & %\\ &
+    \proofbox{
+    \infer[\IL]{\I \mid \Gamma \vdash_{\LI} P}{{-} \mid \Gamma \vdash_{\LI} P}
+    \qquad
+    \infer[\otL]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B , \Gamma \vdash_{\LI} P}
+    \qquad
+    \infer[\Pass 2 \LI]{T \mid \Gamma \vdash_{\LI} P}{T \mid \Gamma \vdash_{\Pass} P}
+    }
+    \\[9pt]
+    \text{(passivation)} & %\\ &
+    \proofbox{
+      \infer[\uf]{{-} \mid A , \Gamma \vdash_{\Pass} P }{
+      A\mid \Gamma \vdash_{\LI} P
+    }
+    \qquad
+    \infer[\F 2 \Pass]{T \mid \Gamma \vdash_{\Pass} P}{
+      T \mid \Gamma \vdash_{\F} P
+    }
+    }
+    \\[9pt]
+    \text{(focusing)} &    %\\ %&
+    \hspace*{3mm}
+    \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+    \quad
+    \infer[\IR]{{-} \mid \quad \vdash_{\F} \I}{} 
+    \quad 
+    \infer[\otR]{T \mid \Gamma , \Delta \vdash_{\F} A \ot B}{
+      T \mid \Gamma \vdash_{\RI} A
+      &
+      {-} \mid \Delta \vdash_{\RI} B
+    }
+\\[9pt]
+&
+    \infer[\loL]{A \lolli B \mid \Gamma , \Delta \vdash_{\F} P}{
+      {-} \mid \Gamma \vdash_{\RI} A
+      &
+      B \mid \Delta \vdash_{\LI} P
+    }
+   \end{array}
+\]
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Focused fragment (good version)}
+
+\begin{itemize}
+
+\item There is too much nondeterminism between $\otR$ and $\loL$ as
+  compared to what $\circeq$ allows.
+
+\bigskip
+
+\item Could try to order $\otR$ and $\loL$ in separate phases,
+  but this does not work. Sometimes $\otR$ needs to be used first,
+  sometimes $\loL$.
+
+\bigskip
+
+\item Need to keep them in the same phase.
+
+\item But allow $\loL$ to be applied after $\otR$ only if the same
+  application cannot be simulated with applying $\loL$ first.
+
+\item Ie, apply $\loL$ before $\otR$ except when it is justified to do
+  it after.
+
+\item This requires some \emph{bookkeeping} added to the inference
+  rules.
+
+\bigskip 
+
+\item There is also too much nondeterminism between $\otR$ and $\uf$.
+
+\item This can be eliminated by similar prioritization of $\uf$ over
+  $\otR$ with the same bookkeeping mechanism.
+
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{Takeaway}
+
+\begin{itemize}
+
+\item Logic and category theories are mutually enriching, especially at the
+  intersection of categorical proof theory.
+
+\begin{itemize}
+\item category theory supplies well-motivated notions of derivation
+  and identity of derivations
+\item proof theory helps in stating and proving coherence theorems
+\end{itemize}
+
+\bigskip
+
+\item Skew logics are very interesting both logically
+  and category-theoretically. 
+
+\item In particular, they cast light on the ``anatomy'' of stronger
+  logics.
+
+\end{itemize}
+
+\end{frame}
+
+
+
+\end{document}
