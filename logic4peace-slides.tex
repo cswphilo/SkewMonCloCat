@@ -819,21 +819,22 @@ f \doteq f \comp \id
  $\otR$ sends the stoup formula, if present, to the
   1st premise.
 
-\item Two forms of cut are now admissible:
-\[
-\scriptsize
-\infer[\scut]{S \mid \Gamma, \Delta \vdash C}{
-  S \mid \Gamma \vdash A
-  &
-  A \mid \Delta \vdash C
-}
-\qquad
-\infer[\ccut]{S \mid \Delta_0, \Gamma, \Delta_1 \vdash C}{
-  \n \mid \Gamma \vdash A
-  &
-  S \mid \Delta_0, A, \Delta_1 \vdash C
-}
-\]
+% \item Two forms of cut are now admissible:
+% \[
+% \scriptsize
+% \infer[\scut]{S \mid \Gamma, \Delta \vdash C}{
+%   S \mid \Gamma \vdash A
+%   &
+%   A \mid \Delta \vdash C
+% }
+% \qquad
+% \infer[\ccut]{S \mid \Delta_0, \Gamma, \Delta_1 \vdash C}{
+%   \n \mid \Gamma \vdash A
+%   &
+%   S \mid \Delta_0, A, \Delta_1 \vdash C
+% }
+% \]
+
 \end{itemize}
 
 
@@ -1303,7 +1304,7 @@ and some equations for $\circeq$.
 \begin{frame}
 
 
-\frametitle{Focused fragment (first attempt)}
+\frametitle{Focused fragment (a first attempt)}
 
 \begin{itemize}
 
@@ -1314,10 +1315,10 @@ and some equations for $\circeq$.
 S \mid \Gamma \vdash_\RI C
 \qquad S \mid \Gamma \vdash_\LI P
 \qquad T \mid \Gamma \vdash_\Pass P
-\qquad T \mid \Gamma \vdash_F P
+\qquad T \mid \Gamma \vdash_\F P
 \end{array}
 \]
-where $S$ is an unrestricted stoup and $C$ and unrestriced formula,
+where $S$ is an unrestricted stoup and $C$ and unrestricted formula,
 but 
 \begin{itemize}
 \item $T$ is a negative stoup (neither $\I$ nor $A \ot B$) and
@@ -1396,10 +1397,10 @@ but
 
 \bigskip
 
-\item Need to keep them in the same phase.
+\item We need to keep them in the same phase.
 
-\item But allow $\loL$ to be applied after $\otR$ only if the same
-  application cannot be simulated with applying $\loL$ first.
+\item But we can allow $\loL$ to be applied after $\otR$ only if the
+  same application cannot be simulated with applying $\loL$ first.
 
 \item Ie, apply $\loL$ before $\otR$ except when it is justified to do
   it after.
@@ -1426,8 +1427,8 @@ but
 
 \begin{itemize}
 
-\item Logic and category theories are mutually enriching, especially at the
-  intersection of categorical proof theory.
+\item Logic and category theory are mutually enriching, especially
+  at their intersection, in categorical proof theory.
 
 \begin{itemize}
 \item category theory supplies well-motivated notions of derivation
