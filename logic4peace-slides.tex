@@ -596,7 +596,7 @@ is a skew monoidal category.
 
 % \begin{frame}
 
-% \frametitle{Examples ctd.}
+% \frametitle{Examples ctd}
 
 % \begin{itemize}
 
@@ -633,6 +633,55 @@ is a skew monoidal category.
 
 % \end{frame}
 
+
+
+
+\begin{frame}
+
+\frametitle{Coherence?}
+
+\begin{itemize}
+
+\item It is not obvious at all when we have zero, one or more maps
+  between two given objects in the free skew monoidal category on a
+  set of objects $\Var$ or when two given maps between two given
+  objects are the same.
+
+\bigskip
+
+\item There are no maps \\[6pt]
+
+ $X \to \I \ot X$, \\ 
+
+ $X \ot \I \to X$, \\
+
+ $X \ot (Y \ot Z) \to (X \ot Y) \ot Z$ \\[6pt]
+
+for $X$, $Y$, $Z$ from $\Var$.
+
+\medskip
+
+\item We have distinct maps \\[6pt]
+
+ $\rho \comp \lam \not\doteq \id : \I \ot \I \to \I \ot \I$, \\
+
+ $\id \not\doteq \al \comp  \rho \ot \lam : 
+ X \ot (\I \ot Y) \to X \ot (\I \ot Y) $, \\
+
+ $\id \not\doteq \rho \ot \lam \comp \al :
+ (X \ot \I) \ot Y \to (X \ot \I) \ot Y$.
+
+\bigskip
+
+
+\item This means that the logic of skew monoidal categories is more
+  interesting in comparison to posit mult linear logic---the same
+  consequence can have multiple distinct derivations.
+
+\end{itemize}
+
+\end{frame}
+
 \begin{frame}
 
   \frametitle{Categorical calculus}
@@ -640,7 +689,7 @@ is a skew monoidal category.
 \begin{itemize}
 
 \item Essentially by definition, the free skew monoidal category on a
-  set $\Var$ can be presented as a deductive system, a ``categorical''
+  set $\Var$ can be \emph{presented} as a deductive system, a ``categorical''
   or Hilbert-style calculus.
 
 \medskip
@@ -681,7 +730,7 @@ is a skew monoidal category.
 
 \begin{frame}
 
-\frametitle{Categorical calculus ctd.}
+\frametitle{Categorical calculus ctd}
 
 \begin{itemize}
 
@@ -721,63 +770,17 @@ f \doteq f \comp \id
 
 \end{frame}
 
-
-
-\begin{frame}
-
-\frametitle{Coherence?}
-
-\begin{itemize}
-
-\item It is not obvious at all when we have zero, one or more maps
-  between two given objects in the free skew monoidal category or when
-  two given maps between two given objects are the same.
-
-\bigskip
-
-\item There are no derivations (no maps) \\[6pt]
-
- $X \tto \I \ot X$, \\ 
-
- $X \ot \I \tto X$, \\
-
- $X \ot (Y \ot Z) \tto (X \ot Y) \ot Z$.
-
-\medskip
-
-\item We have inequivalent derivations (distinct maps) \\[6pt]
-
- $\rho \comp \lam \not\doteq \id : \I \ot \I \tto \I \ot \I$, \\
-
- $\id \not\doteq \al \comp  \rho \ot \lam : 
- X \ot (\I \ot Y) \tto X \ot (\I \ot Y) $, \\
-
- $\id \not\doteq \rho \ot \lam \comp \al :
- (X \ot \I) \ot Y \tto (X \ot \I) \ot Y$.
-
-\bigskip
-
-
-\item This means that the logic of skew monoidal categories is more
-  interesting in comparison to posit mult linear logic---the same
-  consequence can have multiple distinct derivations.
-
-\end{itemize}
-
-\end{frame}
-
-
-
 \begin{frame}
 
 \frametitle{Sequent calculus}
 
 \begin{itemize}
 
-\item Here is a cut-free sequent calculus that turns out to precisely
-  correspond to the categorical calculus. (In fact, it is, by
-  definition, a presentation of the free left-representable skew
-  multicategory.)
+\item Here is a cut-free sequent calculus that turns out to correspond
+  to the categorical calculus. (In fact, it is, by definition, a
+  presentation of the free left-representable skew multicategory.)
+
+\medskip
 
 \item \emph{Sequents} now take the form $S \mid \Gamma \vdash C$
   where
@@ -817,8 +820,8 @@ f \doteq f \comp \id
 \end{array}
 \]
 
-\item $\IL$, $\otL$ only apply in the stoup. \\ 
- $\otR$ sends the stoup formula, if present, to the
+\item $\IL$, $\otL$ only apply in the stoup.
+\item $\otR$ sends the stoup formula, if present, to the
   1st premise.
 
 % \item Two forms of cut are now admissible:
@@ -846,7 +849,7 @@ f \doteq f \comp \id
 
 \begin{frame}
 
-\frametitle{Sequent calculus ctd.}
+\frametitle{Sequent calculus ctd}
 
 \begin{itemize}
 
@@ -956,7 +959,7 @@ f \doteq f \comp \id
 
 \begin{frame}
 
-\frametitle{categorical calculus vs sequent calculus}
+\frametitle{Categorical calculus vs sequent calculus}
 
 \begin{itemize}
 
@@ -1053,7 +1056,7 @@ so $\csem{A}{A_1, A_2 \ldots, A_n} = (\ldots (A \otimes A_1)
 
 \begin{frame}
 
-\frametitle{What makes this work? ctd.}
+\frametitle{What makes this work? ctd}
 
 \begin{itemize}
 
@@ -1204,7 +1207,7 @@ first but cannot split the antecedent suitably).
 \item This gives an (effective) coherence result:
 
 \begin{itemize}
-\item To enumerate, without duplicates, all maps $A \tto C$ (presented as categorical calculus derivations): \\[9pt]
+\item To enumerate, without duplicates, all maps $A \to C$ of the free skew monoidal category on $\Var$ (presented as categorical calculus derivations): \\[9pt]
 
 find all focused derivations of
   $A \mid ~ \vdashL C$ and translate those to the categorical calculus.
@@ -1213,7 +1216,7 @@ find all focused derivations of
 %  translate to different maps.)
 \medskip
 
-\item To compare two maps $A \tto C$ (presented as categorical calculus
+\item To compare two maps $A \to C$ (presented as categorical calculus
   derivations) for equality: \\[9pt] translate them to focused derivations of
   $A \mid ~ \vdashL C$ and compare the results.
 
@@ -1230,11 +1233,11 @@ find all focused derivations of
 \frametitle{Skew monoidal closed categories}
 
 \begin{itemize}
-\item A \emph{skew monoidal closed category} is a skew monoidal closed
+\item A \emph{skew monoidal closed category} is a skew monoidal
   category $(\C, \I, \otimes, \lam, \rho, \al)$ together with a
   functor $\lolli : \C^{\mathrm{op}} \times \C \to \C$ such that
 \[
-(-) \to B \vdash B \lolli (-)
+{-} \otimes B \, \dashv \, B \lolli {-}
 \]
 for any object $B$.
 \end{itemize}
@@ -1248,7 +1251,7 @@ for any object $B$.
 
 \begin{itemize}
 
-\item Add formulas $A \lolli B$.
+\item Add formulae $A \lolli B$.
 
 \bigskip
 
@@ -1393,8 +1396,8 @@ but
 
 \bigskip
 
-\item Could try to order $\otR$ and $\loL$ in separate phases,
-  but this does not work. Sometimes $\otR$ needs to be used first,
+\item We could try to order $\otR$ and $\loL$ in separate phases,
+  but this does not work: sometimes $\otR$ needs to be used first,
   sometimes $\loL$.
 
 \bigskip
