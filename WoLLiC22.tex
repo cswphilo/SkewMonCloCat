@@ -1,0 +1,236 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{proof}
+\usepackage{quiver}
+\usepackage[all,cmtip]{xy}
+\newtheorem{definition}{Definition}
+\newcommand{\ot}{\otimes}
+\newcommand{\sk}{\mathtt{SkIL}}
+\newcommand{\fsk}{\mathtt{SkIL^{F}}}
+\newcommand{\isk}{\mathtt{SKIL^{I}}}
+\newcommand{\I}{\mathsf{I}}
+\newcommand{\tl}{\otimes \mathsf{L}}
+\newcommand{\tr}{\otimes \mathsf{R}}
+\newcommand{\pass}{\mathsf{pass}}
+\newcommand{\unitl}{\mathsf{IL}}
+\newcommand{\unitr}{\mathsf{IR}}
+\newcommand{\ax}{\mathsf{ax}}
+\newcommand{\weak}{\mathsf{weak}}
+\newcommand{\contra}{\mathsf{contra}}
+\newcommand{\ex}{\mathsf{ex}}
+\newcommand{\lright}{\multimap \mathsf{R}}
+\newcommand{\lleft}{\multimap \mathsf{L}}
+\newcommand{\lolli}{\multimap}
+\newcommand{\RI}{\mathsf{RI}}
+\newcommand{\LI}{\mathsf{LI}}
+\newcommand{\Pass}{\mathsf{P}}
+\newcommand{\F}{\mathsf{F}}
+\newcommand{\proofbox}[1]{\begin{tabular}{l} #1 \end{tabular}}
+\begin{document}
+  \section{Skew Cartesian closed categories}
+  \begin{definition}
+    A skew Cartesian closed category is a skew monoidal closed category $\mathcal{C}$ equipped with two natural transformations $w_{A,B} : A \ot B \longrightarrow A$ and $c_{A,B} : A \ot B \longrightarrow (A \ot B)\ot B$, satisfying following diagrams.
+    \begin{displaymath}
+      \begin{array}{cc}
+        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBXFxvdGltZXMgQiJdLFsyLDAsIihBXFxvdGltZXMgQilcXG90aW1lcyBCIl0sWzAsMiwiKEFcXG90aW1lcyBCKVxcb3RpbWVzIEIiXSxbMiwyLCJBXFxvdGltZXMgQiJdLFswLDEsImNfe0EsQn0iXSxbMCwyLCJjX3tBLEJ9IiwyXSxbMSwzLCJ3X3tBXFxvdGltZXMgQn0gXFxvdGltZXMgQiJdLFsyLDMsIndfe0FcXG90aW1lcyBCLEJ9IiwyXSxbMCwzLCIiLDEseyJzaG9ydGVuIjp7InNvdXJjZSI6MzAsInRhcmdldCI6MzB9LCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMywiIiwxLHsib2Zmc2V0IjoyLCJzaG9ydGVuIjp7InNvdXJjZSI6MzAsInRhcmdldCI6MzB9LCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d
+        \begin{tikzcd}
+        	{A\otimes B} && {(A\otimes B)\otimes B} \\
+        	\\
+        	{(A\otimes B)\otimes B} && {A\otimes B}
+        	\arrow["{c_{A,B}}", from=1-1, to=1-3]
+        	\arrow["{c_{A,B}}"', from=1-1, to=3-1]
+        	\arrow["{w_{A\otimes B} \otimes B}", from=1-3, to=3-3]
+        	\arrow["{w_{A\otimes B,B}}"', from=3-1, to=3-3]
+        	\arrow[shorten <=22pt, shorten >=22pt, no head, from=1-1, to=3-3]
+        	\arrow[shift right=2, shorten <=22pt, shorten >=22pt, no head, from=1-1, to=3-3]
+        \end{tikzcd}
+        \qquad
+        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBXFxvdGltZXMgQiJdLFsyLDAsIihBXFxvdGltZXMgQilcXG90aW1lcyBCIl0sWzAsMiwiKEFcXG90aW1lcyBCKVxcb3RpbWVzIEIiXSxbMiwyLCIoKEFcXG90aW1lcyBCKVxcb3RpbWVzIEIpXFxvdGltZXMgQiJdLFswLDEsImNfe0EsQn0iXSxbMCwyLCJjX3tBLEJ9IiwyXSxbMiwzLCJjX3tBLEJ9IFxcb3RpbWVzIEIiLDJdLFsxLDMsImNfe0FcXG90aW1lcyBCLCBCfSJdXQ==
+        \begin{tikzcd}
+        	{A\otimes B} && {(A\otimes B)\otimes B} \\
+        	\\
+        	{(A\otimes B)\otimes B} && {((A\otimes B)\otimes B)\otimes B}
+        	\arrow["{c_{A,B}}", from=1-1, to=1-3]
+        	\arrow["{c_{A,B}}"', from=1-1, to=3-1]
+        	\arrow["{c_{A,B} \otimes B}"', from=3-1, to=3-3]
+        	\arrow["{c_{A\otimes B, B}}", from=1-3, to=3-3]
+        \end{tikzcd}
+      \end{array}
+    \end{displaymath}
+    \end{definition}
+  Typically, Cartesian products are implicit associative and commutative, in skew case, however, the Cartesian-like structure here is not itself associative and commutative.
+  There is always a fixed object at the leftmost position of a series of products which is not manipulatable by weakening and contraction.
+  Moreover, the isomorphism $(A \times B) \times C \cong A \times (B \times C)$ fails in a skew Cartesian category where $(A\ot B)\ot C \longrightarrow A\ot (B\ot C)$ is merely a natural transformation.
+
+  On the other hand, we can recover commutativity of skew Cartesian products in skew symmetric monoidal categories.
+  \begin{definition}
+  A skew symmetric Cartesian closed category is a skew symmetric monoidal closed category $\mathcal{C}$ equipped with two natural transformations $w_{A,B} : A \ot B \longrightarrow A$ and $c_{A,B} : A \ot B \longrightarrow (A \ot B)\ot B$, satisfying following diagrams.
+  \begin{displaymath}
+  \begin{array}{cc}
+% https://q.uiver.app/?q=WzAsNCxbMCwwLCJBXFxvdGltZXMgQiJdLFsyLDAsIihBXFxvdGltZXMgQilcXG90aW1lcyBCIl0sWzAsMiwiKEFcXG90aW1lcyBCKVxcb3RpbWVzIEIiXSxbMiwyLCJBXFxvdGltZXMgQiJdLFswLDEsImNfe0EsQn0iXSxbMCwyLCJjX3tBLEJ9IiwyXSxbMSwzLCJ3X3tBXFxvdGltZXMgQn0gXFxvdGltZXMgQiJdLFsyLDMsIndfe0FcXG90aW1lcyBCLEJ9IiwyXSxbMCwzLCIiLDEseyJzaG9ydGVuIjp7InNvdXJjZSI6MzAsInRhcmdldCI6MzB9LCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMywiIiwxLHsib2Zmc2V0IjoyLCJzaG9ydGVuIjp7InNvdXJjZSI6MzAsInRhcmdldCI6MzB9LCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d
+\begin{tikzcd}
+	{A\otimes B} && {(A\otimes B)\otimes B} \\
+	\\
+	{(A\otimes B)\otimes B} && {A\otimes B}
+	\arrow["{c_{A,B}}", from=1-1, to=1-3]
+	\arrow["{c_{A,B}}"', from=1-1, to=3-1]
+	\arrow["{w_{A\otimes B} \otimes B}", from=1-3, to=3-3]
+	\arrow["{w_{A\otimes B,B}}"', from=3-1, to=3-3]
+	\arrow[shorten <=22pt, shorten >=22pt, no head, from=1-1, to=3-3]
+	\arrow[shift right=2, shorten <=22pt, shorten >=22pt, no head, from=1-1, to=3-3]
+\end{tikzcd}
+\qquad
+% https://q.uiver.app/?q=WzAsNCxbMCwwLCJBXFxvdGltZXMgQiJdLFsyLDAsIihBXFxvdGltZXMgQilcXG90aW1lcyBCIl0sWzAsMiwiKEFcXG90aW1lcyBCKVxcb3RpbWVzIEIiXSxbMiwyLCIoKEFcXG90aW1lcyBCKVxcb3RpbWVzIEIpXFxvdGltZXMgQiJdLFswLDEsImNfe0EsQn0iXSxbMCwyLCJjX3tBLEJ9IiwyXSxbMiwzLCJjX3tBLEJ9IFxcb3RpbWVzIEIiLDJdLFsxLDMsImNfe0FcXG90aW1lcyBCLCBCfSJdXQ==
+\begin{tikzcd}
+	{A\otimes B} && {(A\otimes B)\otimes B} \\
+	\\
+	{(A\otimes B)\otimes B} && {((A\otimes B)\otimes B)\otimes B}
+	\arrow["{c_{A,B}}", from=1-1, to=1-3]
+	\arrow["{c_{A,B}}"', from=1-1, to=3-1]
+	\arrow["{c_{A,B} \otimes B}"', from=3-1, to=3-3]
+	\arrow["{c_{A\otimes B, B}}", from=1-3, to=3-3]
+\end{tikzcd}
+\\
+% https://q.uiver.app/?q=WzAsMyxbMCwwLCIoQVxcb3RpbWVzIEIpXFxvdGltZXMgQyJdLFsyLDAsIihBXFxvdGltZXMgQylcXG90aW1lcyBCIl0sWzIsMiwiQVxcb3RpbWVzIEMiXSxbMCwxLCJzX3tBLEIsQ30iXSxbMSwyLCJ3X3tBXFxvdGltZXMgQyAsIEJ9Il0sWzAsMiwid197QSwgQn1cXG90aW1lcyBDIiwyXV0=
+\begin{tikzcd}
+	{(A\otimes B)\otimes C} && {(A\otimes C)\otimes B} \\
+	\\
+	&& {A\otimes C}
+	\arrow["{s_{A,B,C}}", from=1-1, to=1-3]
+	\arrow["{w_{A\otimes C , B}}", from=1-3, to=3-3]
+	\arrow["{w_{A, B}\otimes C}"', from=1-1, to=3-3]
+\end{tikzcd}
+  \end{array}
+  \end{displaymath}
+  \end{definition}
+  \subsection{Universal properties}
+  Examples, monoidal comonad over skew cartesian category.
+  \section{Sequent Calculus of Skew symmetric Cartesian closed categories}
+  The sequent calculus of skew Cartesian categories (with explicit structural rules) is a variant of  intuitionistic logic ($\sk$).
+
+  Formulae in $\sk$ are generated inductively over a set $\mathsf{At}$ (elements are propositional variables) following the grammar: $X \mid \I \mid A \ot B$.
+  Sequents in $\sk$ are tuples $S \mid \Gamma \vdash C$ where $S$ is an optional formula, $\Gamma$ is a list of formulae, and $C$ is a single formula.
+  Derivations in $\sk$ are constructed by following rules.
+  \begin{displaymath}
+    \begin{array}{cc}
+    \infer[\ax]{A \mid \quad \vdash A}{}
+    \qquad
+    \infer[\unitr]{- \mid \quad \vdash \I}{}
+    \qquad
+    \infer[\unitl]{\I \mid \Gamma \vdash C}{- \mid \Gamma \vdash C}
+    \\
+    \infer[\pass]{- \mid A , \Gamma \vdash C}{A \mid \Gamma \vdash C}
+    \qquad
+    \infer[\tl]{A \ot B \mid \Gamma \vdash C}{A \mid B , \Gamma \vdash C}
+    \qquad
+    \infer[\tr]{S \mid \Gamma , \Delta \vdash A \ot B}{
+      \deduce{S \mid \Gamma \vdash A}{}
+      &
+      \deduce{- \mid \Delta \vdash B}{}
+    }
+    \\
+    \infer[\lright]{S \mid \Gamma \vdash A \lolli B}{S \mid \Gamma , A \vdash B}
+    \qquad
+    \infer[\lleft]{A \lolli B \mid \Gamma , \Delta \vdash C}{
+      \deduce{- \mid \Gamma \vdash A}{}
+      &
+      \deduce{B \mid \Delta \vdash C}{}
+    }
+    \\
+    \infer[\weak]{S \mid \Gamma , A , \Delta \vdash C}{S \mid \Gamma , \Delta \vdash C}
+    \qquad
+    \infer[\contra]{S \mid \Gamma , A , \Delta \vdash C}{S \mid \Gamma , A, A, \Delta \vdash C}
+    \qquad
+    \infer[\ex]{S \mid \Gamma , B ,A ,\Delta \vdash C}{S \mid \Gamma , A ,B , \Delta \vdash C}
+    \end{array}
+    \end{displaymath}
+    Beside sequent calculus with explicit structural rules, we can have an equivalent proof system of $\sk$ whose structural rules are implicit.
+    \begin{displaymath}
+        \begin{array}{cc}
+        \infer[\ax]{A \mid \Gamma \vdash A}{}
+        \qquad
+        \infer[\unitr]{- \mid \quad \vdash \I}{}
+        \qquad
+        \infer[\unitl]{\I \mid \Gamma \vdash C}{- \mid \Gamma \vdash C}
+        \\
+        \infer[\pass]{- \mid A , \Gamma \vdash C}{A \mid \Gamma \vdash C}
+        \qquad
+        \infer[\tl]{A \ot B \mid \Gamma \vdash C}{A \mid B , \Gamma \vdash C}
+        \qquad
+        \infer[\tr]{S \mid \Gamma \vdash A \ot B}{
+          \deduce{S \mid \Gamma \vdash A}{}
+          &
+          \deduce{- \mid \Gamma \vdash B}{}
+        }
+        \\
+        \infer[\lright]{S \mid \Gamma \vdash A \lolli B}{S \mid \Gamma , A \vdash B}
+        \qquad
+        \infer[\lleft]{A \lolli B \mid \Gamma \vdash C}{
+          \deduce{- \mid \Gamma \vdash A}{}
+          &
+          \deduce{B \mid \Gamma \vdash C}{}
+        }
+        \end{array}
+    \end{displaymath}
+    \subsection{Equations}
+
+    \section{Focusing of $\sk$}
+    Based on the implicit version of $\sk$, according to a similar tag annotation setting, we construct a focused sequent calculus system $\fsk$ whose derivations are constructed with following rules.
+    \begin{displaymath}
+      \begin{array}{lc}
+      \text{(right invertible)} &
+      \proofbox{
+      \infer[\lright]{S \mid \Gamma \vdash^{x}_{\RI} A \lolli B}{S \mid \Gamma , A^{x} \vdash^{x}_{\RI} B}
+      \qquad
+      \infer[\unitr]{- \mid \Gamma \vdash^{x}_{\RI} \I}{}
+      \qquad
+      \infer[\LI 2\RI]{S \mid \Gamma \vdash_{\RI} P}{S \mid \Gamma \vdash_{\LI} P}
+      \qquad
+      \infer[\Pass 2 \RI]{T \mid \Gamma \vdash^{\bullet}_{\RI} P}{T \mid \Gamma \vdash^{\bullet}_{\Pass} P}
+      }
+        \\[10pt]
+        \text{(left invertible)} &
+        \proofbox{
+        \infer[\unitl]{\I \mid \Gamma \vdash_{\LI} P}{- \mid \Gamma \vdash_{\LI} P}
+        \qquad
+        \infer[\tl]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B, \Gamma \vdash_{\LI} P}
+        \qquad
+        \infer[\Pass 2 \LI]{T \mid \Gamma \vdash_{\LI} P}{T \mid \Gamma \vdash_{\Pass} P}
+        }
+        \\[10pt]
+        \text{(passivation)} &
+        \proofbox{
+          \infer[\pass]{- \mid A^{x} , \Gamma \vdash_{\LI} P}{A \mid \Gamma^{\circ} \vdash^{x}_{\Pass} P}
+          \qquad
+          \infer[\F 2 \Pass]{T \mid \Gamma \vdash^{x}_{\Pass} P}{T \mid \Gamma \vdash^{x}_{\F} P}
+        }
+        \\
+        \text{(focusing)} &
+        \proofbox{
+          \infer[\ax]{X \mid \Gamma \vdash^{x}_{\F} X}{}
+          \qquad
+          \infer[\tr]{T \mid \Gamma \vdash^{x}_{\F} A \ot B}{
+            \deduce{T \mid \Gamma^{\circ} \vdash^{\bullet}_{\RI} A}{}
+            &
+            \deduce{- \mid \Gamma^{\circ} \vdash_{\RI} B}{}
+          }
+        }
+        \\[10pt]
+        \text{ } &
+          \infer[\lleft]{A \lolli B \mid \Gamma \vdash^{x}_{\F} P}{
+            \deduce{- \mid \Gamma^{\circ} \vdash_{\RI} A}{}
+            &
+            \deduce{B \mid \Gamma^{\circ} \vdash_{\LI} P}{}
+            &
+            \deduce{x=\bullet \supset \bullet \in \Gamma }{}
+          }
+      \end{array}
+    \end{displaymath}
+
+
+\end{document}
