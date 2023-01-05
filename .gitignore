@@ -266,3 +266,14 @@ TSWLatexianTemp*
 
 *.sh
 proof.sty
+WoLLiC22.tex
+WLD23.tex
+WoLLiC22.tex
+WoLLiC22.tex
+agda/SkSymMonClo/Utilities.agda
+agda/SkSymMonClo/SeqCalc.agda
+agda/SkSymMonClo/formulae.agda
+agda/SkSymMonClo/Focusing.agda
+agda/SkMonClo/Utilities.agda
+agda/SkMonClo/formulae.agda
+agda/.DS_Store
