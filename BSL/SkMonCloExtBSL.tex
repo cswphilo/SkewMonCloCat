@@ -231,8 +231,9 @@
 	Examples of valid derivations in the sequent calculus, corresponding to the structural laws $\lambda$, $\rho$ and $\alpha$ of skew monoidal closed categories (see Definition \ref{def:skewcat}) are given below.
 	\begin{equation}\label{eq:lra}
 	\footnotesize
-	  \begin{array}{ccc}
-	  (\lambda) &  (\rho) &
+	  \begin{array}{c}
+        \begin{array}{cc}
+        (\lambda) &  (\rho) 
 	\\
 	  \infer[\tl]{\I \ot A \mid \quad \vdash A}{
 		\infer[\unitl]{\I \mid A \vdash A}{
@@ -247,11 +248,11 @@
 		&
 		\infer[\unitr]{{-} \mid \quad \vdash \I}{}
 	  }
-	  &
+        \end{array}
 	  \\[10pt]
-	 & (\alpha) &
+      \begin{array}{c}
+        	  (\alpha)
 	  \\
-	 &
 	  \infer[\tl]{(A \ot B) \ot C \mid \quad \vdash A \ot (B \ot C)}{
 		\infer[\tl]{A \ot B \mid C \vdash A \ot (B \ot C)}{
 		  \infer[\tr]{A \mid B , C \vdash A \ot (B \ot C)}{
@@ -269,7 +270,7 @@
 		  }
 		}
 	  }
-	  &
+      \end{array}
 	  \end{array}
 	\end{equation}
 	Examples of non-derivable sequents include the ``inverses'' of the conclusions in (\ref{eq:lra}), obtained by swapping the stoup formula with the succedent formula.
@@ -405,7 +406,7 @@
 	
 	\paragraph{\SkNMILL\ as a Logic of Resources}
 	
-	Similarly to other substructural logics like \MILL\ and \NMILL,\linebreak \SkNMILL\ can be understood
+	Similarly to other substructural logics like \MILL\ and \NMILL, \SkNMILL\ can be understood
 	as a logic of resources. Under this perspective, formulae of the
 	sequent calculus in (\ref{eq:seqcalc}) correspond to
 	resources: atomic formulae are primitive resources; the formula $A \ot
@@ -1724,7 +1725,7 @@
 	This is equivalent to deciding whether two sequent calculus derivations $f,g : A \mid ~ \vdash B$ are in the same $\circeq$-equivalence class. But that in turn is the same as deciding whether $\mathsf{focus}\;f = \mathsf{focus}\;g$ in the focused sequent calculus, and deciding syntactic equality of focused derivations is straightforward. The Hilbert-style calculus is a direct presentation of $\FSkMCC(\mathsf{At})$, but thanks to the bijection (up to $\doteq$ resp.\ $\circeq$) between Hilbert-style and sequent calculus derivations, we can also decide if two Hilbert-style derivations $f, g : A \Rightarrow B$ are in the same $\doteq$-equivalence class.
 	\section{A symmetric extension}
 	In \cite{veltri:coherence:2021}, proof theory of skew symmetric monoidal categories is investigated.
-	Following the idea in the study, we consider a symmetric extension (\SkMILL) of \SkNMILL \text{ }\ref{eq:seqcalc} by adding an exchange rule where only formulae in context are exchangeable.
+	Following the idea in the study, we consider a symmetric extension (\SkMILL) of \SkNMILL \text{ }\ref{eq:seqcalc} by adding an exchange rule only swapping formulae in context.
 	\subsection{Sequent calculus}
 	Derivations in \SkMILL \text{ }are inductively generated according to the rules below.
 	\begin{equation}\label{eq:seqcalc:sym}
@@ -1759,7 +1760,45 @@
 	\end{array}
 	\end{equation}
 
-	(logic as resources interpretation of ex)
+In \SkMILL, only formulae in context can be swapped, so it naturally captures the skew exchange natural isomorphism ($s_{A , B , C} : (A \ot B) \to C \ot (A \ot C) \ot B$) in symmetric skew monoidal closed category and in the meantime, stays away from proving normal exchange isomorphism ($s_{A , B} : A \ot B \to B \ot A$).
+\begin{displaymath}
+    \footnotesize
+\begin{array}{cc}
+    (s_{A , B ,C}) & (s_{X , Y})
+    \\[10pt]
+    \proofbox{
+        \infer[\tl]{(A \ot B) \ot C \mid \quad \vdash (A \ot C) \ot B}{
+            \infer[\tl]{A \ot B \mid C \vdash (A \ot C) \ot B}{
+                \infer[\ex_{C , B}]{A \mid B , C \vdash (A \ot C) \ot B}{
+                    \infer[\tr]{A \mid C , B \vdash (A \ot C) \ot B}{
+                        \infer[\tr]{A \mid C \vdash A \ot C}{
+                            \infer[\ax]{A \mid \quad \vdash A}{}
+                            &
+                            \infer[\pass]{{-} \mid C \vdash C}{
+                                \infer[\ax]{C \mid \quad \vdash C}{}
+                            }
+                        }
+                        &
+                        \infer[\pass]{{-} \mid B \vdash B}{
+                            \infer[\ax]{B \mid \quad \vdash B}{}
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &
+    \proofbox{
+        \infer[\tl]{X \ot Y \mid \quad \vdash Y \ot X}{
+            \infer[\tr]{X \mid Y \vdash Y \ot X}{
+                \deduce{X \mid Y \vdash Y}{??}
+                &
+                \deduce{{-} \mid \quad \vdash X}{??}
+            }
+        }
+    }
+\end{array}
+\end{displaymath}
 
 Due to the new $\ex$ rule, \ref{fig:circeq} is extended with following equations related with $\ex$.
 \begin{equation}\label{fig:circeq:sym}
@@ -1802,16 +1841,22 @@ Exchange rules in general form, swapping a formula with a list of formulae are a
   If $\Lambda = \Lambda' , B$, from bottom-up perspective, we exchange $A$ and $B$ first, then inductive hypothesis can be applied.
   \begin{displaymath}
     \begin{array}{c}
+        \proofbox{
       \infer[\mathsf{exs_{A , (\Lambda' , B)}}]{S \mid \Gamma , \Lambda' , B , A , \Delta \vdash C}{
         \deduce{S \mid \Gamma , A , \Lambda' , B , \Delta \vdash C}{f}
       }
+        }
       \qquad
-      {\defeq}
+      \begin{array}{c}
+        \defeq
+      \end{array}
       \qquad
+      \proofbox{
       \infer[\ex_{A , B}]{S \mid \Gamma , \Lambda' , B , A , \Delta \vdash C}{
         \infer[\mathsf{exs_{A , \Lambda'}}]{S \mid \Gamma , \Lambda' , A , B , \Delta \vdash C}{
           \deduce{S \mid \Gamma , A , \Lambda' , B , \Delta \vdash C}{f}
         }
+      }
       }
     \end{array}
   \end{displaymath}
@@ -1840,8 +1885,8 @@ is reduced to
 \end{displaymath}
 The other case is similar where the cut formula is $B$.
 \subsection{Categorical semantics}
-Categorical correspondent to symmetric extension of \SkNMILL \text{ }is symmetric skew monoidal closed category, where skew symmetric isomorphism $s_{A , B , C} : (A \ot B) \ot C \to (A \ot C) \ot B$ and equations below are added to the definition \ref{def:skewcat}.
-\begin{equation*}
+\begin{figure}
+    \begin{equation*}
 	\footnotesize
 	\def\arraystretch{2.5}
 	\begin{array}{lc}
@@ -1905,6 +1950,12 @@ Categorical correspondent to symmetric extension of \SkNMILL \text{ }is symmetri
 		\end{tikzcd}
 	\end{array}
 \end{equation*}
+\caption{Equations related to $s_{A , B , C}$}
+\label{fig:sym:skew:mon:clo}
+\end{figure}
+
+Categorical correspondent to symmetric extension of \SkNMILL \text{ }is symmetric skew monoidal closed category, where skew symmetric isomorphism $s_{A , B , C} : (A \ot B) \ot C \to (A \ot C) \ot B$ and equations in figure \ref{fig:sym:skew:mon:clo} are added to the definition \ref{def:skewcat}.
+
 The structural law of symmetry is usually in the form $B \ot C \to C \ot B$, in the skew case, however, the leftmost object is fixed.
 Therefore, given two objects $(\dots ((A \ot B_1) \ot B_2) \dots)$ and $(\dots ((A \ot B_{i_1}) \ot B_{i_2}) \dots)$, there is always a map between them in the symmetric skew monoidal closed category when $A$ staying in the leftmost position, where $i_1 , \dots , i_n$ is a permutation of $1 , \dots , n$.
 
@@ -1912,7 +1963,6 @@ Mac Lane's coherence condition for normal symmetric
 
 1. permutation of skew exchange
 2. normal coherence conditions fail here
-3. exchange rule captures the skew structure
 \subsection{Focused system with tag annotations}
 \SkMILL \text{ }also enjoys focusing property, a sub-proof system in which derivations are in normal form corresponding to the equivalence relation $\circeq$.
 \begin{equation}\label{eq:focus:sym}
