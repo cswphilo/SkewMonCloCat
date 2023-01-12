@@ -1177,8 +1177,7 @@
 	  \item[1.] In phase $\Pass$, when the stoup is empty, there is a choice of whether to apply $\pass$ or $\F2\Pass$ and sometimes both options lead to a derivation. For example, the sequent $X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)$ has two distinct derivations in the focused system and the corresponding derivations in \SkNMILL\ are not $\circeq$-equivalent.
 	  \begin{equation*}
 	  \footnotesize
-	\hspace*{-5mm}
-		\begin{array}{cc}
+		\begin{array}{c}
 		\infer[\tr]{X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)}{
 		\infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X}{
 		  \infer[\ax]{X \mid \quad \vdash_{\F}^\bullet X}{}
@@ -1208,7 +1207,7 @@
 			}
 		  }
 		}
-		&
+\\[9pt]
 		\infer[\tr]{X \mid \I \ot Y \vdash_{\F} X \ot (\I \ot Y)}{
 		  \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X}{
 			\infer[\ax]{X \mid \quad \vdash_{\F}^\bullet X}{}
@@ -1248,9 +1247,8 @@
 	several of these splits can lead to a derivation.
 	  For example, the sequent $X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y$ has two distinct derivations.
 	  \begin{equation*}
-	\hspace*{-5mm}
 	  \footnotesize
-		\begin{array}{cc}
+		\begin{array}{c}
 		  \infer[\tr]{X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y}{
 		   \infer[\mathsf{sw}]{X \mid \I \vdash^{\bullet}_{\RI} X \ot \I}{
 			 \infer[\tr]{X \mid \I \vdash_{\F}^\bullet X \ot \I}{
@@ -1278,7 +1276,7 @@
 			 }
 		   }
 		  }
-		  &
+		  \\[9pt]
 		  \infer[\tr]{X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y}{
 		   \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X \ot \I}{
 			 \infer[\tr]{X \mid \quad \vdash_{\F}^\bullet X \ot \I}{
@@ -1319,8 +1317,7 @@
 	 For example, the sequent $\I \lolli (X \lolli Y) \mid \I , X \vdash_{\F} Y$ has two derivations.
 	\begin{equation*}
 	\footnotesize
-	\hspace*{-5mm}
-	  \begin{array}{cc}
+	  \begin{array}{c}
 		\infer[\lleft]{\I \lolli (X \lolli Y) \mid \I , X \vdash_{\F} Y}{
 		  \infer[\mathsf{sw}]{{-} \mid \I \vdash_{\RI} \I}{
 			\infer[\pass]{{-} \mid \I \vdash_{\Pass} \I}{
@@ -1348,7 +1345,11 @@
 			}
 		  }
 		}
-		&
+	  \end{array}
+        \end{equation*}
+	\begin{equation*}
+	  \footnotesize
+          \begin{array}{c}
 		\infer[\lleft]{\I \lolli (X \lolli Y) \mid \I , X \vdash_{\F} Y}{
 		  \infer[\mathsf{sw}]{{-} \mid \quad \vdash_{\RI} \I}{
 			\infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
@@ -1382,9 +1383,8 @@
 	\item[4.] Finally, in phase $\F$, if the succedent formula is $A \ot B$ and the stoup formula is $A' \lolli B'$, then both $\tr$ and $\lleft$ can be applied first and sometimes both options lead to a derivation. For example, the sequent
 	$\I \lolli \I \mid Z \vdash_{\F} (\I \lolli \I) \ot Z$ has two derivations.
 	\begin{equation*}
-	\hspace*{-5mm}
 	\footnotesize
-	  \begin{array}{cc}
+	  \begin{array}{c}
 		\infer[\tr]{\I \lolli \I \mid Z \vdash_{\F} (\I \lolli \I) \ot Z}{
 		  \infer[\lright]{\I \lolli \I \mid \quad \vdash^{\bullet}_{\RI} \I \lolli \I}{
 			\infer[\mathsf{sw}]{\I \lolli \I \mid \I^{\bullet} \vdash^{\bullet}_{\RI} \I}{
@@ -1416,7 +1416,7 @@
 			}
 		  }
 		}
-		&
+		\\[9pt]
 		\infer[\lleft]{\I \lolli \I \mid Z \vdash_{\F} (\I \lolli \I) \ot Z}{
 		  \infer[\mathsf{sw}]{{-} \mid \quad \vdash_{\RI} \I}{
 			\infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
@@ -1468,24 +1468,21 @@
 	 \end{theorem}
 		Soundness is immediate: there exist functions $\mathsf{emb}_{ph} : S \mid \Gamma \vdash^x_{ph} A \to S \mid \Gamma \vdash A$, for all $ph \in \{\RI,\LI,\Pass, \F \}$, which simply erase all phase annotations and tags. Completeness follows from the fact that the following rules are all admissible:
 		\begin{equation}\label{eq:admis}
-		\hspace*{-4mm}
 		  \footnotesize
-		  \begin{array}{c}
-			\infer[\unitl^{\RI}]{\I \mid \Gamma \vdash_{\RI} C}{{-} \mid \Gamma \vdash_{\RI} C}
-			\quad
-			\infer[\tl^{\RI}]{A \ot B \mid \Gamma \vdash_{\RI} C}{A \mid B, \Gamma \vdash_{\RI} C}
-			\quad
-			\infer[\pass^{\RI}]{{-} \mid \Gamma \vdash_{\RI} C}{A \mid \Gamma \vdash_{\RI} C}
-			\quad
+		  \begin{array}{c}                    
 			\infer[\ax^{\RI}]{A \mid \quad \vdash_{\RI} A}{}
-			\quad
-			\infer[\unitr^{\RI}]{{-} \mid \quad \vdash_{\RI} \I}{}
-		\\[6pt]
+			\qquad
+			\infer[\pass^{\RI}]{{-} \mid \Gamma \vdash_{\RI} C}{A \mid \Gamma \vdash_{\RI} C} \\[6pt]
 			\infer[\lleft^{\RI}]{A \lolli B \mid \Gamma , \Delta \vdash_{\RI} C}{
 			{-} \mid \Gamma \vdash_{\RI} A
 			&
 			B \mid \Delta \vdash_{\RI} C
-			}
+			} \quad
+			\infer[\unitl^{\RI}]{\I \mid \Gamma \vdash_{\RI} C}{{-} \mid \Gamma \vdash_{\RI} C}
+			\quad
+			\infer[\tl^{\RI}]{A \ot B \mid \Gamma \vdash_{\RI} C}{A \mid B, \Gamma \vdash_{\RI} C}
+\\[6pt]
+			\infer[\unitr^{\RI}]{{-} \mid \quad \vdash_{\RI} \I}{}
 			\qquad
 			\infer[\tr_{\Gamma'}^{\RI}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A \rdbc_{\lolli} \ot B}{
 			  S \mid \Gamma , \Gamma' \vdash_{\RI} A
