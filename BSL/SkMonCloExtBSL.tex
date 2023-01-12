@@ -71,7 +71,7 @@
 \newcommand{\illol}{\rotatebox[origin=c]{180}{$\multimap$}}
 \newcommand{\I}{\mathsf{I}}
 \newcommand{\msfL}{\mathsf{L}}
-\newcommand{\defeq}{=_{\mathsf{df}}}
+\newcommand{\defeq}{=} %_{\mathsf{df}}}
 \newcommand{\comp}{\mathsf{comp}}
 \newcommand{\C}{\mathsf{C}}
 \newcommand{\RI}{\mathsf{RI}}
@@ -190,25 +190,25 @@
 	\begin{equation}\label{eq:seqcalc}
 	  \def\arraystretch{2.5}
 	  \footnotesize
-	  \begin{array}{c}
-		\infer[\ax]{A \mid \quad \vdash A}{}
+	  \begin{array}{ccc}
+		\multicolumn{3}{c}{\infer[\ax]{A \mid \quad \vdash A}{}
 		\qquad
-		\infer[\pass]{{-} \mid A , \Gamma \vdash C}{A \mid \Gamma \vdash C}
-		\qquad
+		\infer[\pass]{{-} \mid A , \Gamma \vdash C}{A \mid \Gamma \vdash C}}
+		\\
 		\infer[\lleft]{A \lolli B \mid \Gamma , \Delta \vdash C}{
 		  {-} \mid \Gamma \vdash A
 		  &
 		  B \mid \Delta \vdash C
 		}
-		\qquad
-		\infer[\lright]{S \mid \Gamma \vdash A \lolli B}{S \mid \Gamma , A \vdash B}
-		\\
+		&
 		\infer[\unitl]{\I \mid \Gamma \vdash C}{{-} \mid \Gamma \vdash C}
-		\qquad
+		&
 		\infer[\tl]{A \ot B \mid \Gamma \vdash C}{A \mid B , \Gamma \vdash C}
-		\qquad
+		\\
+		\infer[\lright]{S \mid \Gamma \vdash A \lolli B}{S \mid \Gamma , A \vdash B}
+		&
 		\infer[\unitr]{{-} \mid \quad \vdash \I}{}
-		\qquad
+		&
 		\infer[\tr]{S \mid \Gamma , \Delta \vdash A \ot B}{
 		  S \mid \Gamma \vdash A
 		  &
@@ -275,9 +275,10 @@
 	Examples of non-derivable sequents include the ``inverses'' of the conclusions in (\ref{eq:lra}), obtained by swapping the stoup formula with the succedent formula.
 	More precisely, the three sequents $X \mid ~ \vdash \I \ot X$, $X \ot \I \mid ~ \vdash X$ and $X \ot (Y \ot Z) \mid ~ \vdash (X \ot Y) \ot Z$ do not have any derivation. All possible attempts of constructing a valid derivation for each of them end in failure.
 	\begin{displaymath}
-	\footnotesize
-	  \begin{array}{ccc}
-	  (\lambda^{-1}) & (\rho^{-1}) & (\alpha^{-1}) 
+	  \footnotesize
+          \arraycolsep=15pt
+	  \begin{array}{cc}
+	  (\lambda^{-1}) & (\rho^{-1}) 
 	  \\[6pt]
 		\infer[\tr]{X \mid ~\vdash \I \ot X}{
 		  \deduce[??]{X \mid ~ \vdash \I}{
@@ -290,14 +291,21 @@
 		\infer[\tl]{X \ot \I \mid \quad \vdash X}{
 		  \deduce{X \mid \I \vdash X}{??}
 		}
-		&
+		 \\
+		\text{($\tr$ sends $X$ to 1st premise)} &
+		\text{($\unitl$ does not act on $\I$ in context)} 
+		\end{array}
+	\end{displaymath}
+	\begin{displaymath}
+	  \footnotesize
+	  \begin{array}{c}
+	  (\alpha^{-1}) 
+	  \\[6pt]
 		\infer[\tl]{X \ot (Y \ot Z) \mid ~\vdash (X \ot Y) \ot Z}{
 		  \deduce{X \mid Y \ot Z \vdash (X \ot Y) \ot Z}{??}
 		} \\
-		(\text{$\tr$ sends $X$ to 1st premise}) &
-		(\text{$\unitl$ does not act on $\I$ in context}) &
-		(\text{$\tl$ does not act on $\ot$ in context})
-	  \end{array}
+		\text{($\tl$ does not act on $\ot$ in context)}
+		\end{array}
 	\end{displaymath}
 	Analogously, the sequents $\I \lolli A \mid ~ \vdash A$ and $(A \ot B) \lolli C \mid ~ \vdash A \lolli (B \lolli C)$ are derivable, while generally their ``inverses'' are not. Also, a derivation of $A \mid ~ \vdash B$ always yields a derivation of $\I \mid ~ \vdash A \lolli B$, but there are $A$, $B$ such that $\I \mid ~ \vdash A \lolli B$ is derivable while  $A \mid ~ \vdash B$ is not (take, e.g., $A = X$, $B = \I \ot X$).
 	
@@ -305,28 +313,31 @@
 	\begin{equation}
 	\label{fig:circeq}
     \footnotesize
-	\begin{array}{rlll}
-	  \ax_{\I} &\circeq \unitl \text{ } (\unitr)
+    \arraycolsep=2pt
+    \def\arraystretch{1.1}
+    \hspace{-8.9pt}
+	\begin{array}{rclll}
+	  \ax_{\I} &\circeq & \unitl \text{ } (\unitr)
 	  \\
-	  \ax_{A \ot B} &\circeq \tl \text{ } (\tr \text{ } (\ax_{A} , \pass \text{ } \ax_{B}))
+	  \ax_{A \ot B} &\circeq & \tl \text{ } (\tr \text{ } (\ax_{A} , \pass \text{ } \ax_{B}))
 	  \\
-	  \ax_{A \lolli B} &\circeq \lright \text{ } (\lleft \text{ } (\pass \text{ } \ax_{A}, \ax_{B} ))
+	  \ax_{A \lolli B} &\circeq & \lright \text{ } (\lleft \text{ } (\pass \text{ } \ax_{A}, \ax_{B} ))
 	  \\
-	  \tr \text{ } (\pass \text{ } f, g) &\circeq \pass \text{ } (\tr \text{ } (f, g)) &&f : A' \mid \Gamma \vdash A, g : {-} \mid \Delta \vdash B
+	  \tr \text{ } (\pass \text{ } f, g) &\circeq & \pass \text{ } (\tr \text{ } (f, g)) &\hspace{-30pt}f : A' \mid \Gamma \vdash A, g : {-} \mid \Delta \vdash B
 	  \\
-	  \tr \text{ } (\unitl \text{ } f, g) &\circeq \unitl \text{ } (\tr \text{ } (f , g)) &&f : {-} \mid \Gamma \vdash A , g : {-} \mid \Delta \vdash B
+	  \tr \text{ } (\unitl \text{ } f, g) &\circeq & \unitl \text{ } (\tr \text{ } (f , g)) &\hspace{-30pt}f : {-} \mid \Gamma \vdash A , g : {-} \mid \Delta \vdash B
 	  \\
-	  \tr \text{ } (\tl \text{ } f, g) &\circeq \tl \text{ } (\tr \text{ } (f , g)) &&f : A' \mid B' , \Gamma \vdash A , g : {-} \mid \Delta \vdash B
+	  \tr \text{ } (\tl \text{ } f, g) &\circeq & \tl \text{ } (\tr \text{ } (f , g)) &\hspace{-30pt}f : A' \mid B' , \Gamma \vdash A , g : {-} \mid \Delta \vdash B
 	  \\
-	  \tr \text{ } (\lleft \text{ } (f , g), h) & \circeq \lleft \text{ } (f, \tr \text{ } (g, h)) &&f: {-} \mid \Gamma \vdash A, g : B \mid \Delta \vdash C, h : {-} \mid \Lambda \vdash D
+	  \tr \text{ } (\lleft \text{ } (f , g), h) & \circeq & \lleft \text{ } (f, \tr \text{ } (g, h)) &\hspace{-30pt}f: {-} \mid \Gamma \vdash A, g : B \mid \Delta \vdash C, h : {-} \mid \Lambda \vdash D
 	  \\
-	  \pass \text{ } (\lright \text{ } f) &\circeq \lright \text{ } (\pass \text{ } f) &&f : A' \mid \Gamma , A \vdash B
+	  \pass \text{ } (\lright \text{ } f) &\circeq & \lright \text{ } (\pass \text{ } f) &\hspace{-30pt}f : A' \mid \Gamma , A \vdash B
 	  \\
-	  \unitl \text{ } (\lright \text{ } f) &\circeq \lright \text{ } (\unitl \text{ } f) &&f : {-} \mid \Gamma , A \vdash B
+	  \unitl \text{ } (\lright \text{ } f) &\circeq & \lright \text{ } (\unitl \text{ } f) &\hspace{-30pt}f : {-} \mid \Gamma , A \vdash B
 	  \\
-	  \tl \text{ } (\lright \text{ } f) &\circeq \lright \text{ } (\tl \text{ } f) &&f : A \mid B , \Gamma , C \vdash D
+	  \tl \text{ } (\lright \text{ } f) &\circeq & \lright \text{ } (\tl \text{ } f) &\hspace{-30pt}f : A \mid B , \Gamma , C \vdash D
 	  \\
-	  \lleft \text{ } (f, \lright \text{ } g) &\circeq \lright \text{ } (\lleft \text{ } (f, g)) &&f : {-} \mid \Gamma \vdash A', g : B' \mid \Delta , A \vdash B
+	  \lleft \text{ } (f, \lright \text{ } g) &\circeq & \lright \text{ } (\lleft \text{ } (f, g)) &\hspace{-30pt}f : {-} \mid \Gamma \vdash A', g : B' \mid \Delta , A \vdash B
 	\end{array}
 	\end{equation}
 	The first three equations above are $\eta$-conversions, completely characterizing the $\ax$ rule on non-atomic formulae. The remaining equations are permutative conversions. The congruence $\circeq$ has been carefully chosen to serve as the proof-theoretic counterpart of the equational theory of skew monoidal closed categories, introduced in Definition \ref{def:skewcat}. The subsystem of equations involving only $(\I,\ot)$ originated in \cite{uustalu:sequent:2021} while the subsystem involving only $\lolli$ is from \cite{uustalu:deductive:nodate}.
@@ -352,7 +363,7 @@
 	list of such equations not involving $\lolli$.
 	In particular, the cut rules respect $\circeq$, in the sense that $\mathsf{scut}(f,g) \circeq \mathsf{scut}(f',g')$ whenever $f \circeq f'$ and $g \circeq g'$, and similarly for $\mathsf{ccut}$.
 	
-	Here are some other interesting admissible rules relevant for the metatheory of this calculus.
+	Here are some other admissible rules relevant for the metatheory of this calculus.
 	\begin{itemize}
 	\item The left rules for $\I$ and $\ot$ are invertible up to $\circeq$, and similarly the right rule for $\lolli$.
 	No other rule is invertible; in particular, the
@@ -376,8 +387,10 @@
 	\item
 	Another left implication rule, acting on a formula $A \lolli B$ in the context, is derivable using cut:
 	\begin{equation}\label{eq:lleft:gen}
-	\footnotesize
-		\!\!\!
+	  \footnotesize
+              \def\arraystretch{2}
+	  \begin{array}{l}
+            \hspace{-30pt}
 	  \proofbox{
 		\infer[\lleft_{\mathsf{C}}]{S \mid \Delta_0, A \lolli B, \Gamma , \Delta_1 \vdash C}{
 		  \deduce{{-} \mid \Gamma \vdash A}{f}
@@ -385,6 +398,8 @@
 		  \deduce{S \mid \Delta_0, B , \Delta_1 \vdash C}{g}
 		}
 	  }
+          \\
+            \hspace{51pt}
 	  {=}
 	  \proofbox{
 		\infer[\mathsf{ccut}]{S \mid \Delta_0, A \lolli B, \Gamma , \Delta_1 \vdash C}{
@@ -399,13 +414,14 @@
 		  \deduce{S \mid \Delta_0, B , \Delta_1 \vdash C}{g}
 		}
 	  }
+          \end{array}
 	\end{equation}
 	\end{itemize}
 	
 	
 	\paragraph{\SkNMILL\ as a Logic of Resources}
 	
-	Similarly to other substructural logics like \MILL\ and \NMILL,\linebreak \SkNMILL\ can be understood
+	Similarly to other substructural logics like \MILL\ and \NMILL, \SkNMILL\ can be understood
 	as a logic of resources. Under this perspective, formulae of the
 	sequent calculus in (\ref{eq:seqcalc}) correspond to
 	resources: atomic formulae are primitive resources; the formula $A \ot
@@ -1047,9 +1063,7 @@
 	 The extra restrictions on sequents and formulae that the rules in (\ref{eq:focus}) impose in comparison to those in (\ref{eq:naive}) do not reduce derivability, e.g., the sequents ${-} \mid Y \vdash_{\F} (X \lolli X) \ot Y$, whose proof requires passivation of a new formula in the derivation of the first premise of a $\tr$ application, $X \lolli Y \mid Z \vdash_{\RI} (X \lolli Y) \ot Z$, whose proof requires application of $\tr$ before $\lleft$,
 	 and $X \lolli (Y \ot Z) \mid X \vdash_\F Y \ot Z$, which needs $\lleft$ invoked before $\tr$, are all derivable.
 	 \begin{displaymath}
-		\footnotesize
-	   \begin{array}{c}
-		\proofbox{
+	   \footnotesize
 		 \infer[\tr]{{-} \mid Y \vdash_{\F} (X \lolli X) \ot Y}{
 		  \infer[\lright]{{-} \vdash \quad \vdash^{\bullet}_{\RI} X \lolli X}{
 			\infer[\mathsf{sw}]{{-} \mid X^{\bullet} \vdash^{\bullet}_{\RI} X}{
@@ -1069,9 +1083,9 @@
 			}
 		  }
 		 }
-		 }
-	 \\
-	   \proofbox{
+         \end{displaymath}
+	 \begin{displaymath}
+	   \footnotesize
 		 \infer[\tr]{X \lolli Y \mid Z \vdash_{\F} (X \lolli Y) \ot Z}{
 		  \infer[\lright]{X \lolli Y \mid \quad \vdash^{\bullet}_{\RI} X \lolli Y}{
 			\infer[\mathsf{sw}]{X \lolli Y \mid X^{\bullet} \vdash^{\bullet}_{\RI} Y}{
@@ -1099,8 +1113,9 @@
 			}
 		  }
 		 }
-	%
-		 \quad
+         \end{displaymath}
+         \begin{displaymath}
+	   \footnotesize
 		 \infer[\lleft]{X \lolli (Y \ot Z) \mid X \vdash_{\F} Y \ot Z}{
 		  \infer[\mathsf{sw}]{{-} \mid X \vdash_{\RI} X}{
 			\infer[\pass]{{-} \mid X \vdash_{\Pass} X}{
@@ -1128,8 +1143,6 @@
 			}
 		  }
 		 }
-		 }
-		\end{array}
 	   \normalsize
 	 \end{displaymath}
 	
@@ -1475,31 +1488,25 @@
 	 The inductive hypothesis applied to $f$ and $g$ would produce a derivation of the wrong sequent. The use of $\Gamma'$ in the generalized rule $\tr_{\Gamma'}^{\RI}$ is there to fix precisely this issue.
 
 	 To prove the admissibility of $\tr_{\Gamma'}^{\RI}$, a focused variant of $\lright^{*}$ is essential.
-	 \begin{proposition}
+	 \begin{proposition} The following rule is admissible:
 		\begin{displaymath}
 			\infer[\lright^{*}]{S \mid \Gamma \vdash^{x}_{\RI} \ldbc \Delta \mid C\rdbc_{\lolli} }{
-				\deduce{S \mid \Gamma , \Delta \vdash^{x}_{\RI} C}{f}
+				\deduce{S \mid \Gamma , \Delta^x \vdash^{x}_{\RI} C}{f}
 			}
 		\end{displaymath}
-		is admissible.
 	 \end{proposition}
 	 \begin{proof}
-		Proof is done by induction on $\Delta$, if 
+		By structural induction on $\Delta$:
 		\begin{itemize}
-			\item $\Delta = [ \text{ } ]$, then $\lright^{*} \text{ } f \defeq f$;
-			\item $\Delta = A , \Delta'$, then $\lright^{*} \text{ } f \defeq \lright \text{ } (\lright^{*} \text{ } f)$, i.e.
+			\item if $\Delta = [ \text{ } ]$, then $\lright^{*} \text{ } f \defeq f$;
+			\item if $\Delta = A , \Delta'$, then $\lright^{*} \text{ } f \defeq \lright \text{ } (\lright^{*} \text{ } f)$, i.e.
 			\begin{displaymath}
-                \begin{array}{ccc}
                 \proofbox{
                 \infer[\lright^{*}]{S \mid \Gamma \vdash^{x}_{\RI} \ldbc A , \Delta \mid C \rdbc_{\lolli}}{
 					\deduce{S \mid \Gamma , A^{x} , \Delta^{x} \vdash^{x}_{\RI} C}{f}
 				}
                 }
-				&
-				\begin{array}{c}
-                    \defeq
-                \end{array}
-				&
+				=
                 \proofbox{
 				\infer[\lright]{S \mid \Gamma \vdash^{x}_{\RI} A \lolli \ldbc \Delta \mid C \rdbc_{\lolli}}{
 					\infer[\lright^{*}]{S \mid \Gamma , A^{x} \vdash^{x}_{\RI} \ldbc \Delta \mid C \rdbc_{\lolli}}{
@@ -1507,12 +1514,12 @@
 					}
 				}
                 }
-                \end{array}
 			\end{displaymath}
 			where by definition $A \lolli \ldbc \Delta \mid C \rdbc_{\lolli} = \ldbc A , \Delta \mid C \rdbc_{\lolli}$.
 		\end{itemize}
 	 \end{proof}
 	 \begin{proposition}\label{prop:admiss:gen-otR}
+           The following rule is admissible:
 		\begin{displaymath}
 			\infer[\tr_{\Gamma'}^{\RI}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A \rdbc_{\lolli} \ot B}{
 				\deduce{S \mid \Gamma , \Gamma' \vdash_{\RI} A}{f}
@@ -1520,7 +1527,6 @@
 				\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
 			}
 		\end{displaymath}
-		is admissible.
 	 \end{proposition}
 	 \begin{proof}
 		Proof is done by mutual induction on left premises of following rules.
