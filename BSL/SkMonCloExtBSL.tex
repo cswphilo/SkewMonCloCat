@@ -1831,27 +1831,27 @@ Due to the new $\ex$ rule, \ref{fig:circeq} is extended with following equations
 \begin{equation}\label{fig:circeq:sym}
 	\footnotesize
   \begin{array}{rlll}
-    \unitl \text{ } (\ex_{A , B} \text{ } f) &\circeq \text{ } \ex_{A , B} \text{ } (\unitl \text{ } f) &&f: {-} \mid \Gamma , A , B , \Delta \vdash C
+    \unitl \text{ } (\ex_{A , B} \text{ } f) &\circeq \text{ } \ex_{A , B} \text{ } (\unitl \text{ } f) &\hspace{-30pt}f: {-} \mid \Gamma , A , B , \Delta \vdash C
     \\
-    \pass \text{ } (\ex_{A , B} \text{ } f) &\circeq \text{ } \ex_{A , B} \text{ } (\pass \text{ } f) &&f : A' \mid \Gamma , A , B , \Delta \vdash C
+    \pass \text{ } (\ex_{A , B} \text{ } f) &\circeq \text{ } \ex_{A , B} \text{ } (\pass \text{ } f) &\hspace{-30pt}f : A' \mid \Gamma , A , B , \Delta \vdash C
     \\
-    \tl \text{ } (\ex_{A , B} \text{ } f) &\circeq \text{ } \ex_{A , B} \text{ } (\tl \text{ } f) &&f : A' \mid B' , \Gamma , A , B , \Delta \vdash C
+    \tl \text{ } (\ex_{A , B} \text{ } f) &\circeq \text{ } \ex_{A , B} \text{ } (\tl \text{ } f) &\hspace{-30pt}f : A' \mid B' , \Gamma , A , B , \Delta \vdash C
     \\
-    \tr \text{ }(\ex_{A , B} \text{ } f , g) &\circeq \text{ } \ex_{A , B} \text{ } (\tr \text{ } (f , g)) &&f : S \mid \Gamma_0 , A , B , \Gamma_1 \vdash A' , g : {-} \mid \Delta \vdash B'
+    \tr \text{ }(\ex_{A , B} \text{ } f , g) &\circeq \text{ } \ex_{A , B} \text{ } (\tr \text{ } (f , g)) &\hspace{-30pt}f : S \mid \Gamma_0 , A , B , \Gamma_1 \vdash A' , g : {-} \mid \Delta \vdash B'
     \\
-    \tr \text{ } (f , \ex_{A , B} \text{ } g) &\circeq \text{ } \ex_{A , B} \text{ } (\tr \text{ } (f , g)) &&f : S \mid \Gamma \vdash A' , g : {-} \mid \Delta_0 , A , B , \Delta_1 \vdash B'
+    \tr \text{ } (f , \ex_{A , B} \text{ } g) &\circeq \text{ } \ex_{A , B} \text{ } (\tr \text{ } (f , g)) &\hspace{-30pt}f : S \mid \Gamma \vdash A' , g : {-} \mid \Delta_0 , A , B , \Delta_1 \vdash B'
     \\
-    \lleft \text{ } (\ex_{A , B} \text{ } f , g) &\circeq \text{ } \ex_{A , B} \text{ } (\lleft \text{ } (f , g)) &&f : {-} \mid \Gamma_0 , A , B , \Gamma_1 \vdash A' , g : B' \mid \Delta \vdash C
+    \lleft \text{ } (\ex_{A , B} \text{ } f , g) &\circeq \text{ } \ex_{A , B} \text{ } (\lleft \text{ } (f , g)) &\hspace{-30pt}f : {-} \mid \Gamma_0 , A , B , \Gamma_1 \vdash A' , g : B' \mid \Delta \vdash C
     \\
-    \lleft \text{ } (f , \ex_{A , B} \text{ } g) &\circeq \text{ } \ex_{A , B} \text{ } (\lleft \text{ } (f , g)) &&f : {-} \mid \Gamma \vdash A' , g : B' \mid \Delta_0 , A , B , \Delta_1 \vdash C
+    \lleft \text{ } (f , \ex_{A , B} \text{ } g) &\circeq \text{ } \ex_{A , B} \text{ } (\lleft \text{ } (f , g)) &\hspace{-30pt}f : {-} \mid \Gamma \vdash A' , g : B' \mid \Delta_0 , A , B , \Delta_1 \vdash C
     \\
-    \lright \text{ } (\ex_{A , B} \text{ } f) &\circeq \text{ } \ex_{A , B} \text{ } (\lright \text{ } f) &&f : S \mid \Gamma , A , B , \Delta , A' \vdash B'
+    \lright \text{ } (\ex_{A , B} \text{ } f) &\circeq \text{ } \ex_{A , B} \text{ } (\lright \text{ } f) &\hspace{-30pt}f : S \mid \Gamma , A , B , \Delta , A' \vdash B'
 	\\
-	\ex_{A , B} \text{ } (\ex_{A' , B'} \text{ } f) &\circeq \text{ } \ex_{A' , B'} \text{ } (\ex_{A , B} \text{ } f) &&f: S \mid \Gamma , A , B , \Delta , A' , B' , \Lambda \vdash C
+	\ex_{A , B} \text{ } (\ex_{A' , B'} \text{ } f) &\circeq \text{ } \ex_{A' , B'} \text{ } (\ex_{A , B} \text{ } f) &\hspace{-30pt}f: S \mid \Gamma , A , B , \Delta , A' , B' , \Lambda \vdash C
 	\\
-	\ex_{B , A} \text{ } (\ex_{A , B} \text{ } f) &\circeq \text{ } f &&f: S \mid \Gamma , A , B , \Delta \vdash C
+	\ex_{B , A} \text{ } (\ex_{A , B} \text{ } f) &\circeq \text{ } f &\hspace{-30pt}f: S \mid \Gamma , A , B , \Delta \vdash C
 	\\
-	\ex_{A , B} \text{ } (\ex_{A , D} \text{ } (\ex_{B , D} \text{ } f)) &\circeq \text{ } \ex_{B , D} \text{ } (\ex_{A , D} \text{ } (\ex_{A , B} \text{ } f)) &&f : S \mid \Gamma , A , B , D , \Delta \vdash C
+	\ex_{A , B} \text{ } (\ex_{A , D} \text{ } (\ex_{B , D} \text{ } f)) &\circeq \text{ } \ex_{B , D} \text{ } (\ex_{A , D} \text{ } (\ex_{A , B} \text{ } f)) &f : S \mid \Gamma , A , B , D , \Delta \vdash C
   \end{array}
 \end{equation}
 A more general form of exchange rules is admissible, where a formula is swapped with a list of formulae.
