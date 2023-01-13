@@ -1667,8 +1667,8 @@
             \proofbox{
 			\infer[\tr]{T \mid \Gamma , \Lambda \vdash_{\F} \ldbc \Gamma' , \Delta \mid A \ot B \rdbc_{\lolli} \ot C}{
 				\infer[\lright^{*}]{T \mid \Gamma \vdash^{\bullet}_{\RI} \ldbc \Gamma' , \Delta \mid A \ot B \rdbc_{\lolli}}{
-					\infer[\mathsf{sw}]{T \mid \Gamma , \Gamma' , \Delta \vdash^{\bullet}_{\RI} A \ot B}{
-						\infer[\tr]{T \mid \Gamma , \Gamma' , \Delta \vdash^{\bullet}_{\F} A \ot B}{
+					\infer[\mathsf{sw}]{T \mid \Gamma , \Gamma'^{\bullet} , \Delta^{\bullet} \vdash^{\bullet}_{\RI} A \ot B}{
+						\infer[\tr]{T \mid \Gamma , \Gamma'^{\bullet} , \Delta^{\bullet} \vdash^{\bullet}_{\F} A \ot B}{
 							\deduce{T \mid \Gamma , \Gamma' \vdash^{\bullet}_{\RI} A}{f}
 							&
 							\deduce{{-} \mid \Delta \vdash_{\RI} B}{f'}
@@ -1977,7 +1977,7 @@ Mac Lane's coherence condition for normal symmetric
     \text{(context)} &
     \proofbox{
       \infer[\ex]{S \mid \Gamma , A^{x} \spl \Delta , \Lambda \vdash^{x}_{\C} C}{
-        S \mid \Gamma \spl \Delta , A^{x} , \Lambda \vdash_{\C} C
+        S \mid \Gamma \spl \Delta , A^{x} , \Lambda \vdash^{x}_{\C} C
       }
     \qquad
       \infer[\RI 2 \C]{S \mid \text{ } \spl \Gamma \vdash^{x}_{\C} C}{
@@ -2191,7 +2191,7 @@ We show how to adopt $\lright^{*}$ and $\tr_{\Gamma'}^{\RI}$ in the new focused 
             \proofbox{
             \infer[\lright]{S \mid \Gamma_{00} , \Gamma_{01} \vdash^{x}_{\RI} \ldbc A , \Gamma'_1 \mid C \rdbc_{\lolli}}{
                 \infer[\ex]{S \mid A^{x} \spl \Gamma_{00} , \Gamma_{01} \vdash^{x}_{\C} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
-                    \infer[\RI 2 \C]{S \mid \Gamma_{00} , A^{x} , \Gamma_{01} \vdash^{x}_{\C} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
+                    \infer[\RI 2 \C]{S \mid \quad \spl \Gamma_{00} , A^{x} , \Gamma_{01} \vdash^{x}_{\C} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
                         \infer[\lright^{*}]{S \mid \Gamma_{00} , A^{x} , \Gamma_{01} \vdash^{x}_{\RI} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
                             \deduce{S \mid \Gamma'^{x} , A^{x} , \Gamma''^{x} \vdash^{x}_{\RI} C}{f}
                             &
