@@ -1277,7 +1277,11 @@
 			 }
 		   }
 		  }
-		  \\[9pt]
+                \end{array}
+          \end{equation*}
+          \begin{equation*}
+	  \footnotesize
+		\begin{array}{c}
 		  \infer[\tr]{X \mid \I , Y \vdash_{\F} (X \ot \I) \ot Y}{
 		   \infer[\mathsf{sw}]{X \mid \quad \vdash^{\bullet}_{\RI} X \ot \I}{
 			 \infer[\tr]{X \mid \quad \vdash_{\F}^\bullet X \ot \I}{
@@ -1509,18 +1513,18 @@
 	 \end{displaymath}
 	 The inductive hypothesis applied to $f$ and $g$ would produce a derivation of the wrong sequent. The use of $\Gamma'$ in the generalized rule $\tr_{\Gamma'}^{\RI}$ is there to fix precisely this issue.
 
-	 To prove the admissibility of $\tr_{\Gamma'}^{\RI}$, a focused variant of $\lright^{*}$ is essential.
+	 To prove the admissibility of $\tr_{\Gamma'}^{\RI}$, it is essential to build a focused variant of the rule $\lright^{*}$ from (\ref{eq:inter:ante}). We detail its contruction in the upcoming proposition.
 	 \begin{proposition} The following rule is admissible:
 		\begin{displaymath}
 			\infer[\lright^{*}]{S \mid \Gamma \vdash^{x}_{\RI} \ldbc \Delta \mid C\rdbc_{\lolli} }{
-				\deduce{S \mid \Gamma , \Delta^x \vdash^{x}_{\RI} C}{f}
+				S \mid \Gamma , \Delta^x \vdash^{x}_{\RI} C
 			}
 		\end{displaymath}
 	 \end{proposition}
 	 \begin{proof}
 		By structural induction on $\Delta$:
 		\begin{itemize}
-			\item if $\Delta = [ \text{ } ]$, then $\lright^{*} \text{ } f \defeq f$;
+			\item if $\Delta$ is empty, then $\lright^{*} \text{ } f \defeq f$;
 			\item if $\Delta = A , \Delta'$, then $\lright^{*} \text{ } f \defeq \lright \text{ } (\lright^{*} \text{ } f)$, i.e.
 			\begin{displaymath}
                 \proofbox{
@@ -1541,48 +1545,50 @@
 		\end{itemize}
 	 \end{proof}
 	 \begin{proposition}\label{prop:admiss:gen-otR}
-           The following rule is admissible:
-		\begin{displaymath}
-			\infer[\tr_{\Gamma'}^{\RI}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A \rdbc_{\lolli} \ot B}{
-				\deduce{S \mid \Gamma , \Gamma' \vdash_{\RI} A}{f}
-				&
-				\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
-			}
-		\end{displaymath}
-	 \end{proposition}
-	 \begin{proof}
-		Proof is done by mutual induction on left premises of following rules.
+           The following 4 rules are admissible:
+%% 		\begin{displaymath}
+%% 			\infer[\tr_{\Gamma'}^{\RI}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A \rdbc_{\lolli} \ot B}{
+%% 				\deduce{S \mid \Gamma , \Gamma' \vdash_{\RI} A}{f}
+%% 				&
+%% 				\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+%% 			}
+%% 		\end{displaymath}
 		\begin{equation}\label{eq:mutual:induction:gen-otR}
 			\footnotesize
 			\begin{array}{c}
 				\infer[\tr_{\Gamma'}^{\RI}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A \rdbc_{\lolli} \ot B}{
-					\deduce{S \mid \Gamma , \Gamma' \vdash_{\RI} A}{f}
+					S \mid \Gamma , \Gamma' \vdash_{\RI} A
 					&
-					\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+					{-} \mid \Delta \vdash_{\RI} B
 				}
 				\qquad
 				\infer[\tr_{\Gamma'}^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} \ldbc \Gamma' \mid P \rdbc_{\lolli} \ot B}{
-					\deduce{S \mid \Gamma , \Gamma' \vdash_{\LI} P}{f}
+					S \mid \Gamma , \Gamma' \vdash_{\LI} P
 					&
-					\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+					{-} \mid \Delta \vdash_{\RI} B
 				}
 			\\[6pt]
 				\infer[\tr_{\Gamma'}^{\Pass}]{T \mid \Gamma , \Delta \vdash_{\Pass} \ldbc \Gamma' \mid P \rdbc_{\lolli} \ot B}{
-					\deduce{T \mid \Gamma , \Gamma' \vdash_{\Pass} P}{f}
+					T \mid \Gamma , \Gamma' \vdash_{\Pass} P
 					&
-					\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+					{-} \mid \Delta \vdash_{\RI} B
 				}
 				\qquad
 				\infer[\tr_{\Gamma'}^{\F}]{T \mid \Gamma , \Delta \vdash_{\F} \ldbc \Gamma' \mid P \rdbc_{\lolli} \ot B}{
-					\deduce{T \mid \Gamma , \Gamma' \vdash_{\F} P}{f}
+					T \mid \Gamma , \Gamma' \vdash_{\F} P
 					&
-					\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+					{-} \mid \Delta \vdash_{\RI} B
 				}
 			\end{array}
 		\end{equation}
-		There are two cases for $\tr_{\Gamma'}^{\RI}$:
-		\begin{enumerate}
-			\item $\tr_{\Gamma'}^{\RI} \text{ } (\lright \text{ } f , g)$
+	 \end{proposition}
+	 \begin{proof}
+	   The proof proceeds by mutual induction on the left premise of each rule, which we always name $f$. Second premises are all named $g$.
+           
+		Proof of $\tr_{\Gamma'}^{\RI}$:
+		\begin{itemize}
+		\item If $f = \lright \text{ } f'$, then
+                  %$\tr_{\Gamma'}^{\RI} \text{ } (\lright \text{ } f' , g)$ is defined as
 			% \defeq \tr_{\Gamma' , A}^{\RI} \text{ } (f , g)
 			\begin{align*}
 				\footnotesize
@@ -1596,32 +1602,46 @@
 				% 	}
                 % \end{array}
 				% 	\\[10pt]
-                \begin{array}{cc}
-					\begin{array}{c}
-                        \defeq
-                    \end{array}
-                    &
-                    \proofbox{
-					\infer[\tr^{\RI}_{\Gamma' , A}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid (A \lolli B) \rdbc_{\lolli} \ot C}{
-						\deduce{S \mid \Gamma , \Gamma' , A \vdash_{\RI} B}{f}
+                \begin{array}{c}
+%					\begin{array}{c}
+%                        \defeq
+%                    \end{array}
+%                    &
+                  %                    \proofbox{
+                  \hspace*{-4cm}
+					\infer[\tr^{\RI}_{\Gamma'}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A' \lolli B' \rdbc_{\lolli} \ot B}{
+					  \infer[\lright]{S \mid \Gamma , \Gamma' \vdash_{\RI} A' \lolli B'}{
+                                            \deduce{S \mid \Gamma,\Gamma',A' \vdash_{\RI} B'}{f'}}
 						&
-						\deduce{{-} \mid \Delta \vdash_{\RI} C}{g}
+						\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
 					}
-                    }
+                                        \\
+                  \hspace*{4cm}
+                                        =
+                                        \proofbox{
+					\infer[\tr^{\RI}_{\Gamma' , A'}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma',A' \mid B' \rdbc_{\lolli} \ot B}{
+						\deduce{S \mid \Gamma , \Gamma' , A' \vdash_{\RI} B'}{f'}
+						&
+						\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+					}
+                   }
 				\end{array}
 			\end{align*}
-			where by definition $\ldbc \Gamma' \mid (A \lolli B) \rdbc_{\lolli} = \ldbc \Gamma' , A \mid B \rdbc_{\lolli} $.
-			\item $\tr_{\Gamma'}^{\RI} \text{ } (\LI 2 \RI \text{ } f , g) \defeq \LI 2 \RI \text{ } (\tr_{\Gamma'}^{\LI} \text{ } (f , g))$.
-		\end{enumerate}
-		Three cases for $\tr_{\Gamma'}^{\LI}$:
-		\begin{enumerate}
-			\item $\tr_{\Gamma'}^{\LI} \text{ } (\unitl \text{ } f , g) \defeq \unitl \text{ } (\tr_{\Gamma'}^{LI} \text{ } (f , g))$, 
-			\item $\tr_{\Gamma'}^{\LI} \text{ } (\tl \text{ } f , g) \defeq \tl \text{ } (\tr_{\Gamma'}^{LI} \text{ } (f , g))$, and
-			\item $\tr_{\Gamma'}^{\LI} \text{ } (\Pass 2 \LI \text{ } f , g) \defeq \Pass 2 \LI \text{ } (\tr_{\Gamma'}^{LI} \text{ } (f , g))$.
-		\end{enumerate}
-		$\tr_{\Gamma'}^{\Pass}$ is a bit more complicated since the passivated formula could appear in $\Gamma'$:
-		\begin{enumerate}
-			\item When passivated formula is in $\Gamma'$, $\tr_{A , \Gamma'}^{\Pass} \text{ } (\pass \text{ } f , g)$,
+			and $\ldbc \Gamma' \mid A \lolli B \rdbc_{\lolli} = \ldbc \Gamma' , A \mid B \rdbc_{\lolli} $.
+			\item If $f = \LI 2 \RI \text{ } f'$ then $\tr_{\Gamma'}^{\RI} \text{ } (\LI 2 \RI \text{ } f' , g) \defeq \LI 2 \RI \text{ } (\tr_{\Gamma'}^{\LI} \text{ } (f' , g))$. \newline (We do not explicitly show derivations tree in cases like this one, when rules are simply permuted.) 
+                \end{itemize}
+		Proof of $\tr_{\Gamma'}^{\LI}$:
+		\begin{itemize}
+			\item If $f = \unitl \text{ } f'$, then $\tr_{\Gamma'}^{\LI} \text{ } (\unitl \text{ } f' , g) \defeq \unitl \text{ } (\tr_{\Gamma'}^{\LI} \text{ } (f' , g))$.
+			\item If $f = \tl \text{ } f'$, then $\tr_{\Gamma'}^{\LI} \text{ } (\tl \text{ } f' , g) \defeq \tl \text{ } (\tr_{\Gamma'}^{\LI} \text{ } (f' , g))$.
+			\item If $f = \Pass 2 \LI \text{ } f'$, then $\tr_{\Gamma'}^{\LI} \text{ } (\Pass 2 \LI \text{ } f' , g) \defeq \Pass 2 \LI \text{ } (\tr_{\Gamma'}^{\Pass} \text{ } (f' , g))$.
+                \end{itemize}
+		Proof of $\tr_{\Gamma'}^{\Pass}$:
+                %is a bit more complicated since the passivated formula could appear in $\Gamma'$:
+		\begin{itemize}
+		\item If $f = \pass \text{ } f'$, the passivated formula (i.e. the formula that is moved to the context from the stoup) can either belong to $\Gamma$ or belong to $\Gamma'$. In the first case, $\tr^{\Pass}_{\Gamma'}$ is permuted with $\pass$, i.e. $\tr_{\Gamma'}^{\Pass} \text{ } (\pass \text{ } f , g) \defeq \pass \text{ } (\tr_{\Gamma'}^{\Pass} \text{ } (f , g))$.
+                  In the second case, $\Gamma$ is empty, $\Gamma' = A',\Gamma''$ and we define:
+%                  \beginWhen passivated formula is in $\Gamma'$, $\tr_{A , \Gamma'}^{\Pass} \text{ } (\pass \text{ } f , g)$,
 			% \defeq \F 2 \Pass \text{ } (\tr \text ( \lright^{*} \text{ } (\LI 2 \RI \text{ } (\Pass 2 \LI \text{ } (\pass \text{ } f))), g))
 			\begin{displaymath}
 				\footnotesize
@@ -1636,17 +1656,26 @@
 				% \\[10pt]
 				% \defeq
 				% \\[10pt]
-                \begin{array}{c}
+%                \begin{array}{c}
+                  \hspace*{-5cm}
+					\infer[\tr^{\Pass}_{A', \Gamma''}]{{-} \mid \Delta \vdash_{\Pass} \ldbc A',\Gamma'' \mid P \rdbc_{\lolli} \ot B}{
+					  \infer[\pass]{{-} \mid A', \Gamma'' \vdash_{\Pass} P}{
+                                            \deduce{A' \mid \Gamma'' \vdash_{\LI} P}{f'}}
+						&
+						\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+					}
+                                        \\
+                  \hspace*{3cm}
                     \defeq
-                \end{array}
-                &
+%                \end{array}
+%                &
                 \proofbox{
-				\infer[\F 2 \Pass]{{-} \mid \Delta \vdash_{\Pass} \ldbc A' , \Gamma' \mid P \rdbc_{\lolli} \ot B}{
-					\infer[\tr]{{-} \mid \Delta \vdash_{\F} \ldbc A' , \Gamma' \mid P \rdbc_{\lolli} \ot B}{
-						\infer[\lright^{*}]{{-} \mid \quad \vdash^{\bullet}_{\RI} \ldbc A' , \Gamma' \mid P \rdbc_{\lolli}}{
-							\infer[\mathsf{sw}]{{-} \mid A'^{\bullet} , \Gamma'^{\bullet} \vdash^{\bullet}_{\RI} P}{
-								\infer[\pass]{{-} \mid A'^{\bullet} , \Gamma'^{\bullet} \vdash^{\bullet}_{\Pass} P}{
-									\deduce{A' \mid \Gamma' \vdash_{\LI} P}{f}
+				\infer[\F 2 \Pass]{{-} \mid \Delta \vdash_{\Pass} \ldbc A' , \Gamma'' \mid P \rdbc_{\lolli} \ot B}{
+					\infer[\tr]{{-} \mid \Delta \vdash_{\F} \ldbc A' , \Gamma'' \mid P \rdbc_{\lolli} \ot B}{
+						\infer[\lright^{*}]{{-} \mid \quad \vdash^{\bullet}_{\RI} \ldbc A' , \Gamma'' \mid P \rdbc_{\lolli}}{
+							\infer[\mathsf{sw}]{{-} \mid A'^{\bullet} , \Gamma''^{\bullet} \vdash^{\bullet}_{\RI} P}{
+								\infer[\pass]{{-} \mid A'^{\bullet} , \Gamma''^{\bullet} \vdash^{\bullet}_{\Pass} P}{
+									\deduce{A' \mid \Gamma'' \vdash_{\LI} P}{f'}
 								}
 							}
 						}
@@ -1657,91 +1686,95 @@
                 }
 			  \end{array}
 			\end{displaymath}
-			\item $\tr_{\Gamma'}^{\Pass} \text{ } (\pass \text{ } f , g) \defeq \pass \text{ } (\tr_{\Gamma'}^{\Pass} \text{ } (f , g))$, and
-			\item $\tr_{\Gamma'}^{\Pass} \text{ } (\F 2 \Pass \text{ } f , g) \defeq \F 2 \Pass \text{ } (\tr_{\Gamma'}^{\F} \text{ } (f , g)) $.
-		\end{enumerate}
-		Finally, there are five cases for $\tr_{\Gamma'}^{\F}$:
-		\begin{enumerate}
-		  \item $\tr_{\Gamma'}^{\F} \text{ } (\ax , g) \defeq \tr \text{ } (\ax , g)$ where $\Gamma'$ is empty.
-		  \item $\tr_{\Gamma'}^{\F} \text{ } (\unitr , g) \defeq \tr \text{ } (\unitr , g)$ where $\Gamma'$ is empty.
-		  \item $\tr_{\Gamma'}^{\F} \text{ } (\tr \text{ } (f , f') , g)$
+			\item If $f = \F 2 \Pass \text{ } f$, then $\tr_{\Gamma'}^{\Pass} \text{ } (\F 2 \Pass \text{ } f' , g) \defeq \F 2 \Pass \text{ } (\tr_{\Gamma'}^{\F} \text{ } (f' , g))$.
+                \end{itemize}
+		Proof of $\tr_{\Gamma'}^{\F}$:
+		\begin{itemize}
+		  \item If $f = \ax$, then $\Gamma'$ is empty and $\tr_{\text{( )}}^{\F} \text{ } (\ax , g) \defeq \tr \text{ } (\ax , g)$.
+		  \item If $f = \unitr$, then $\Gamma'$ is empty and $\tr_{\text{( )}}^{\F} \text{ } (\unitr , g) \defeq \tr \text{ } (\unitr , g)$.
+		  \item If $f = \tr \text{ } (f_1 , f_2)$, there are two possibilities, depending on whether the $\tr$ rule splits the context in $\Gamma$ or $\Gamma'$.
+                    The two cases are analogous. We only show the second one, where $\Gamma' = \Gamma_0', \Gamma_1'$ and 
+                    %$\tr_{\Gamma'}^{\F} \text{ } (\tr \text{ } (f , f') , g)$
 		  % \defeq \tr \text{ } (\lright^{*} \text{ } (\LI 2 \RI \text{ } (\Pass 2 \LI \text{} (\F 2 \Pass \text{ } (\tr \text{ } (f , f'))))) , g)
 		  \begin{displaymath}
 			\footnotesize
-			\begin{array}{cc}
-			% \infer[\tr_{\Gamma' , \Delta}^{\F}]{T \mid \Gamma , \Lambda \vdash_{\F} \ldbc \Gamma' , \Delta \mid A \ot B \rdbc_{\lolli} \ot C}{
-			% 	\infer[\tr]{T \mid \Gamma , \Gamma' , \Delta \vdash_{\F} A \ot B}{
-			% 		\deduce{T \mid \Gamma , \Gamma' \vdash^{\bullet}_{\RI} A}{f}
-			% 		&
-			% 		\deduce{{-} \mid \Delta \vdash_{\RI} B}{f'}
-			% 	}
-			% 	&
-			% 	\deduce{{-} \mid \Lambda \vdash_{\RI} C}{g}
-			% }
-			% \\[10pt]
-			% \defeq
-			% \\[10pt]
-            \begin{array}{c}
-                \defeq
-            \end{array}
-            &
+			\begin{array}{c}
+                          \hspace*{-3.2cm}
+ \infer[\tr_{\Gamma_0' ,\Gamma_1'}^{\F}]{T \mid \Gamma , \Delta \vdash_{\F} \ldbc \Gamma_0' , \Gamma_1' \mid A' \ot B' \rdbc_{\lolli} \ot B}{
+ 	\infer[\tr]{T \mid \Gamma , \Gamma_0' , \Gamma_1' \vdash_{\F} A' \ot B'}{
+ 		\deduce{T \mid \Gamma , \Gamma_0' \vdash^{\bullet}_{\RI} A'}{f_1}
+ 		&
+ 		\deduce{{-} \mid \Gamma_1' \vdash_{\RI} B'}{f_2}
+ 	}
+ 	&
+ 	\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+ }
+\\
+                          \hspace*{2.5cm}
+            =
             \proofbox{
-			\infer[\tr]{T \mid \Gamma , \Lambda \vdash_{\F} \ldbc \Gamma' , \Delta \mid A \ot B \rdbc_{\lolli} \ot C}{
-				\infer[\lright^{*}]{T \mid \Gamma \vdash^{\bullet}_{\RI} \ldbc \Gamma' , \Delta \mid A \ot B \rdbc_{\lolli}}{
-					\infer[\mathsf{sw}]{T \mid \Gamma , \Gamma'^{\bullet} , \Delta^{\bullet} \vdash^{\bullet}_{\RI} A \ot B}{
-						\infer[\tr]{T \mid \Gamma , \Gamma'^{\bullet} , \Delta^{\bullet} \vdash^{\bullet}_{\F} A \ot B}{
-							\deduce{T \mid \Gamma , \Gamma' \vdash^{\bullet}_{\RI} A}{f}
+			\infer[\tr]{T \mid \Gamma , \Delta \vdash_{\F} \ldbc \Gamma_0' , \Gamma_1' \mid A' \ot B' \rdbc_{\lolli} \ot B}{
+				\infer[\lright^{*}]{T \mid \Gamma \vdash^{\bullet}_{\RI} \ldbc \Gamma_0' , \Gamma_1' \mid A' \ot B' \rdbc_{\lolli}}{
+					\infer[\mathsf{sw}]{T \mid \Gamma , \Gamma_0'^{\bullet} , \Gamma_1'^{\bullet} \vdash^{\bullet}_{\RI} A' \ot B'}{
+						\infer[\tr]{T \mid \Gamma , \Gamma_0'^{\bullet} , \Gamma_1'^{\bullet} \vdash^{\bullet}_{\F} A' \ot B'}{
+							\deduce{T \mid \Gamma , \Gamma_0' \vdash^{\bullet}_{\RI} A'}{f_1}
 							&
-							\deduce{{-} \mid \Delta \vdash_{\RI} B}{f'}
+							\deduce{{-} \mid \Gamma_1' \vdash_{\RI} B'}{f_2}
 						}
 					}
 				}
 				&
-				\deduce{{-} \mid \Lambda \vdash_{\RI} C}{g}
+				\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
 			}
             }
 		    \end{array}
-		  \end{displaymath}
-		  \item $\tr_{\Gamma'}^{\F} \text{ } (\lleft \text{ } (f , f') , g) \defeq \lleft \text{ } (f , \tr_{\Gamma'}^{\LI} \text{ } (f' , g))$ when there is no formula in $\Gamma'$ comes from $f$.
-		  \item  When there is at least one formula in $\Gamma'$ appears in $f$, $\tr_{\Gamma'}^{\F} \text{ } (\lleft \text{ } (f , f') , g)$
+		  \end{displaymath}                  
+		\item If $f = \lleft \text{ } (f_1 , f_2)$, there are two possibilities, depending on whether the $\lleft$ rule splits the context in $\Gamma$ or $\Gamma'$, i.e. whether at least one formula from $\Gamma'$ is moved to the left premise $f_1$.                  
+                  In the first case $\tr^{\F}_{\Gamma'}$ is permuted with $\lleft$, i.e. $\tr_{\Gamma'}^{\F} \text{ } (\lleft \text{ } (f_1 , f_2) , g) \defeq \lleft \text{ } (f_1 , \tr_{\Gamma'}^{\LI} \text{ } (f_2 , g))$. % when there is no formula in $\Gamma'$ comes from $f$.
+                  In the second case $\Gamma' = \Gamma'_0,\Gamma'_1$, with non-empty $\Gamma'_0$, and 
+%		  \item  When there is at least one formula in $\Gamma'$ appears in $f$, $\tr_{\Gamma'}^{\F} \text{ } (\lleft \text{ } (f , f') , g)$
 		  % \defeq \tr \text{ } (\lright^{*} \text{ } (\LI 2 \RI \text{ } (\Pass 2 \LI \text{ } (\F 2 \Pass \text{ } (\lleft \text{ } (f , f'))))) , g)
 		  \begin{displaymath}
 			\footnotesize
-		  \begin{array}{cc}
-			% \infer[\tr_{\Gamma'_{0} , D , \Gamma'_1 , \Delta}^{\F}]{A' \lolli B' \mid \Gamma , \Lambda \vdash_{\F} \ldbc \Gamma'_{0} , D , \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
-			% 	\infer[\lleft]{A' \lolli B' \mid \Gamma , \Gamma'_0 , D , \Gamma'_1 , \Delta \vdash_{\F} P}{
-			% 		\deduce{{-} \mid \Gamma , \Gamma'_0 , D , \Gamma'_1  \vdash_{\RI} P}{f}
-			% 		&
-			% 		\deduce{B' \mid \Delta \vdash_{\LI} B}{f'}
-			% 	}
-			% 	&
-			% 	\deduce{{-} \mid \Lambda \vdash_{\RI} B}{g}
-			% }
-			% \\[10pt]
-			% \defeq
-			% \\[10pt]
-            \begin{array}{c}
+		        \begin{array}{c}
+                          \hspace*{-3.5cm}
+ \infer[\tr_{\Gamma'_{0} , \Gamma'_1}^{\F}]{A' \lolli B' \mid \Gamma , \Delta \vdash_{\F} \ldbc \Gamma'_{0} , \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
+ 	\infer[\lleft]{A' \lolli B' \mid \Gamma , \Gamma'_0 , \Gamma'_1 \vdash_{\F} P}{
+ 		\deduce{{-} \mid \Gamma , \Gamma'_0  \vdash_{\RI} A'}{f_1}
+ 		&
+ 		\deduce{B' \mid \Gamma'_1 \vdash_{\LI} P}{f_2}
+ 	}
+ 	&
+ 	\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+ }
+ \\
+%			% \\[10pt]
+%			% \defeq
+%			% \\[10pt]
+%            \begin{array}{c}
+                          \hspace*{2.5cm}
                 \defeq
-            \end{array}
-            &
+%            \end{array}
+%            &
             \proofbox{
-			\infer[\tr]{A' \lolli B' \mid \Gamma , \Lambda \vdash_{\F} \ldbc \Gamma'_{0} , D , \Gamma'_1 , \Delta \mid P \rdbc_{\lolli} \ot B}{
-				\infer[\lright^{*}]{A' \lolli B' \mid \Gamma \vdash^{\bullet}_{\RI} \ldbc \Gamma'_{0} , D , \Gamma'_1 , \Delta \mid P \rdbc_{\lolli}}{
-					\infer[\mathsf{sw}]{A' \lolli B' \mid \Gamma , \Gamma'^{\bullet}_{0} , D^{\bullet} , \Gamma'^{\bullet}_{1} , \Delta^{\bullet} \vdash^{\bullet}_{\RI} P}{
-						\infer[\lleft]{A' \lolli B' \mid \Gamma , \Gamma'^{\bullet}_{0} , D^{\bullet} , \Gamma'^{\bullet}_{1} , \Delta^{\bullet} \vdash^{\bullet}_{\F} P}{
-							\deduce{{-} \mid \Gamma , \Gamma'_0 , D , \Gamma'_1  \vdash_{\RI} P}{f}
+			\infer[\tr]{A' \lolli B' \mid \Gamma , \Delta \vdash_{\F} \ldbc \Gamma'_{0} ,\Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
+				\infer[\lright^{*}]{A' \lolli B' \mid \Gamma \vdash^{\bullet}_{\RI} \ldbc \Gamma'_{0} , \Gamma'_1 \mid P \rdbc_{\lolli}}{
+					\infer[\mathsf{sw}]{A' \lolli B' \mid \Gamma , \Gamma'^{\bullet}_{0} , \Gamma'^{\bullet}_{1} \vdash^{\bullet}_{\RI} P}{
+						\infer[\lleft]{A' \lolli B' \mid \Gamma , \Gamma'^{\bullet}_{0} , \Gamma'^{\bullet}_{1} \vdash^{\bullet}_{\F} P}{
+							\deduce{{-} \mid \Gamma , \Gamma'_0 \vdash_{\RI} A'}{f_1}
 							&
-							\deduce{B' \mid \Delta \vdash_{\LI} B}{f'}
+							\deduce{B' \mid \Gamma'_1 \vdash_{\LI} P}{f_2}
 						}
 					}
 				}
 				&
-				\deduce{{-} \mid \Lambda \vdash_{\RI} B}{g}
+				\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
 			}
             }
 		  \end{array}
  		  \end{displaymath}
-		\end{enumerate}
+                  The last application of $\lleft$ is justified since $\Gamma_0'$ is non-empty.
+                \end{itemize}
 	 \end{proof}
 
 	The admissibility of the rules in (\ref{eq:admis}) allows the construction of a function $\mathsf{focus} : S \mid \Gamma \vdash A \to  S \mid \Gamma \vdash_\RI A$, replacing applications of each rule in (\ref{eq:seqcalc}) with inferences by the corresponding admissible focused rule in phase $\RI$.
