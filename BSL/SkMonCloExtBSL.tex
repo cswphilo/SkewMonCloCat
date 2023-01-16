@@ -231,8 +231,9 @@
 	Examples of valid derivations in the sequent calculus, corresponding to the structural laws $\lambda$, $\rho$ and $\alpha$ of skew monoidal closed categories (see Definition \ref{def:skewcat}) are given below.
 	\begin{equation}\label{eq:lra}
 	\footnotesize
-	  \begin{array}{ccc}
-	  (\lambda) &  (\rho) &
+	  \begin{array}{c}
+        \begin{array}{cc}
+        (\lambda) &  (\rho) 
 	\\
 	  \infer[\tl]{\I \ot A \mid \quad \vdash A}{
 		\infer[\unitl]{\I \mid A \vdash A}{
@@ -247,11 +248,11 @@
 		&
 		\infer[\unitr]{{-} \mid \quad \vdash \I}{}
 	  }
-	  &
+        \end{array}
 	  \\[10pt]
-	 & (\alpha) &
+      \begin{array}{c}
+        	  (\alpha)
 	  \\
-	 &
 	  \infer[\tl]{(A \ot B) \ot C \mid \quad \vdash A \ot (B \ot C)}{
 		\infer[\tl]{A \ot B \mid C \vdash A \ot (B \ot C)}{
 		  \infer[\tr]{A \mid B , C \vdash A \ot (B \ot C)}{
@@ -269,7 +270,7 @@
 		  }
 		}
 	  }
-	  &
+      \end{array}
 	  \end{array}
 	\end{equation}
 	Examples of non-derivable sequents include the ``inverses'' of the conclusions in (\ref{eq:lra}), obtained by swapping the stoup formula with the succedent formula.
@@ -1864,7 +1865,6 @@
 %    \]
     \end{equation}
 
-
 The presence of the new $\ex$ rule requires the extension of the congruence relation $\circeq$ in (\ref{fig:circeq}) with new generating equations: %is extended with the following equations involving $\ex$:
 \begin{equation*}\label{fig:circeq:sym}
   \footnotesize
@@ -1988,6 +1988,8 @@ The categorical semantics of \SkMILL\ is given in terms of a symmetric extension
 \begin{definition}\label{def:symm-skewcat}
 A \emph{symmetric skew monoidal closed category} \cite{bourke:lack:braided:2020} is a skew monoidal closed category (in the sense of Definition~\ref{def:skewcat}) with a natural isomorphism $s$ typed $s_{A , B , C} : (A \ot B) \ot C \to (A \ot C) \ot B$ satisfying the following equations:
 \begin{equation*}
+%\begin{figure}
+%    \begin{equation*}
 	\footnotesize
 	\def\arraystretch{2.5}
 	\begin{array}{c}
@@ -2051,6 +2053,9 @@ A \emph{symmetric skew monoidal closed category} \cite{bourke:lack:braided:2020}
 		\end{tikzcd}
 	\end{array}
 \end{equation*}
+%\caption{Equations related to the structural law $s$}
+%\label{fig:sym:skew:mon:clo}
+%\end{figure}
 
 	A \emph{(strict) symmetric skew monoidal closed functor} is a (strict) skew monoidal closed functor $F : \mathbb{C} \rightarrow \mathbb{D}$ between symmetric skew monoidal closed categories that preserves the structural law $s$ on the nose.
 \end{definition}
@@ -2128,7 +2133,8 @@ Notice the difference with the usual structural law $\sigma$ of symmetry of Mac 
 %% 
 %% 1. permutation of skew exchange
 %% 2. normal coherence conditions fail here
-%% 3. exchange rule captures the skew structure
+        %% 3. exchange rule captures the skew structure
+        
 \subsection{Focused system with tag annotations}\label{seq:sym-focus}
 \SkMILL \text{ }also enjoys focusing property, a sub-proof system in which derivations are in normal form corresponding to the equivalence relation $\circeq$.
 \begin{equation}\label{eq:focus:sym}
@@ -2137,7 +2143,7 @@ Notice the difference with the usual structural law $\sigma$ of symmetry of Mac 
     \text{(context)} &
     \proofbox{
       \infer[\ex]{S \mid \Gamma , A^{x} \spl \Delta , \Lambda \vdash^{x}_{\C} C}{
-        S \mid \Gamma \spl \Delta , A^{x} , \Lambda \vdash_{\C} C
+        S \mid \Gamma \spl \Delta , A^{x} , \Lambda \vdash^{x}_{\C} C
       }
     \qquad
       \infer[\RI 2 \C]{S \mid \text{ } \spl \Gamma \vdash^{x}_{\C} C}{
@@ -2351,7 +2357,7 @@ We show how to adopt $\lright^{*}$ and $\tr_{\Gamma'}^{\RI}$ in the new focused 
             \proofbox{
             \infer[\lright]{S \mid \Gamma_{00} , \Gamma_{01} \vdash^{x}_{\RI} \ldbc A , \Gamma'_1 \mid C \rdbc_{\lolli}}{
                 \infer[\ex]{S \mid A^{x} \spl \Gamma_{00} , \Gamma_{01} \vdash^{x}_{\C} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
-                    \infer[\RI 2 \C]{S \mid \Gamma_{00} , A^{x} , \Gamma_{01} \vdash^{x}_{\C} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
+                    \infer[\RI 2 \C]{S \mid \quad \spl \Gamma_{00} , A^{x} , \Gamma_{01} \vdash^{x}_{\C} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
                         \infer[\lright^{*}]{S \mid \Gamma_{00} , A^{x} , \Gamma_{01} \vdash^{x}_{\RI} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
                             \deduce{S \mid \Gamma'^{x} , A^{x} , \Gamma''^{x} \vdash^{x}_{\RI} C}{f}
                             &
