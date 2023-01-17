@@ -2214,7 +2214,7 @@ There are two main differences with the non-commutative focused calculus in (\re
   The focused sequent calculus in (\ref{eq:focus:sym}) is sound and complete wrt. the sequent calculus of Section \ref{sec:skmill}: there is a one-to-one correspondence between the set of derivations of $S \mid \Gamma \vdash A$ quotiented by $\circeq$ and the set of derivations of $S \mid \Gamma \spl \quad \vdash_{\C} A$.
 \end{theorem}
 %\begin{proof}
-  Soundness is obrained by defining embedding functions $\mathsf{emb}_{\C} : S \mid \Gamma \spl \Delta \vdash^{x}_{\C} \vdash C \to S \mid \Gamma , \Delta \vdash A$ and $\mathsf{emb}_{ph} : S \mid \Gamma \vdash^{x}_{ph} A \to S \mid \Gamma \vdash A$, for all $ph \in \{ \RI , \LI , \Pass , \F \}$, which erase all phase and tag annotations.  Completeness is justified by proving the following rules are admissible in phase $\C$:
+  Soundness is obtained by defining embedding functions $\mathsf{emb}_{\C} : S \mid \Gamma \spl \Delta \vdash^{x}_{\C} \vdash C \to S \mid \Gamma , \Delta \vdash A$ and $\mathsf{emb}_{ph} : S \mid \Gamma \vdash^{x}_{ph} A \to S \mid \Gamma \vdash A$, for all $ph \in \{ \RI , \LI , \Pass , \F \}$, which erase all phase and tag annotations.  Completeness is justified by proving the following rules are admissible in phase $\C$:
   \begin{equation*}\label{eq:admis:sym}
     \hspace*{-4mm}
 	\footnotesize
@@ -2250,7 +2250,8 @@ There are two main differences with the non-commutative focused calculus in (\re
         }
       \end{array}
     \end{equation*}
-  From the admissibility of these rules, we can define a focusing function $\mathsf{focus} : S \mid \Gamma \vdash A \to S \mid \Gamma \spl \quad \vdash_{\C} A$ by induction on the input derivation. % in \ref{eq:seqcalc:sym}.
+  From the admissibility of these rules, we can define a focusing function $\mathsf{focus} : S \mid \Gamma \vdash A \to S \mid \Gamma \spl ~ \vdash_{\C} A$ by induction on the input derivation. For example, $\mathsf{focus} \text{ } (\lright \text{ } f) = \lright^{\C} \text{ } (\mathsf{focus} \text{ } f)$, which are both focused derivations of the sequent $S \mid \Gamma \spl ~ \vdash_\C A \lolli B$ (notice that the rule $\lright^{\C}$ moves $A$ to the end of $\Gamma$, not to the end of $\Delta$, a difference that would make the rule inadmissible).
+  % in \ref{eq:seqcalc:sym}.
 %   \begin{align*}
 % 	\ax &\defeq \ax^{\C}
 % 	\\
