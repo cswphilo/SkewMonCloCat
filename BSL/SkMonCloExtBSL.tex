@@ -2262,18 +2262,8 @@ We show how to adopt $\lright^{*}$ and $\tr_{\Gamma'}^{\RI}$ in the new focused 
     \end{itemize}
 \end{proof}
 \begin{proposition}
-    \begin{displaymath}
-        \infer[\tr^{\C}]{S \mid \Gamma , \Delta  \spl \Lambda \vdash_{\C} A \ot B}{
-            S \mid \Gamma \spl \quad  \vdash_{\C} A
-            &
-            {-} \mid \Delta \spl \Lambda \vdash_{\C} B
-        }
-    \end{displaymath}
-    is admissible.
-\end{proposition}
-\begin{proof}
-    We modify rules in \ref{eq:mutual:induction:gen-otR} to fit the new $\lright^{*}$ in current focused caclculus.
-    \begin{equation}
+	The following 4 rules are admissible:
+	\begin{equation}
         \footnotesize
         \begin{array}{c}
             \\[6pt]
@@ -2318,206 +2308,229 @@ We show how to adopt $\lright^{*}$ and $\tr_{\Gamma'}^{\RI}$ in the new focused 
             }
         \end{array}
     \end{equation}
-    Proof is done by mutual induction on left premises. Notice that we use $\Gamma^{x}$ indicating some formulae in $\Gamma$ are tagged.
+\end{proposition}
+\begin{proof}
+	Proof is done by mutual induction on left premises. Notice that we use $\Gamma^{x}$ indicating some formulae in $\Gamma$ are tagged.
 
-There are two cases for $\tr_{\Gamma'}^{\RI}$:
-\begin{enumerate}
-    \item $\tr_{\Gamma'}^{\RI} \text{ } (\lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } f)) , g)$
-    % \defeq \tr_{\Gamma' , A}^{\RI} \text{ } (f , g)
+	There are two cases for $\tr_{\Gamma'}^{\RI}$:
+	\begin{enumerate}
+		\item $\tr_{\Gamma'}^{\RI} \text{ } (\lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } f)) , g)$
+		% \defeq \tr_{\Gamma' , A}^{\RI} \text{ } (f , g)
+		\begin{displaymath}
+			\footnotesize
+			\begin{array}{cc}
+			%     \proofbox{
+			%     \infer[\tr^{\RI}_{\Gamma'_1}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 \mid (A \lolli B) \rdbc_{\lolli} \ot C}{
+			%         \infer[\lright]{S \mid \Gamma' , \Gamma'' \vdash_{\RI} A \lolli B}{
+			%             \infer[\ex]{S \mid A \spl \Gamma' , \Gamma'' \vdc B}{
+			%                 \infer[\RI 2 \C]{S \mid \quad \spl \Gamma' , A , \Gamma'' \vdash_{\C} B}{
+			%                     \deduce{S \mid \Gamma' , A , \Gamma'' \vdash_{\RI} B}{f}
+			%                 }
+			%             }
+			%         }
+			%         &
+			%         \deduce{{-} \mid \Delta \vdash_{\RI} C}{g}
+			%     }
+			%     }
+			% &
+			\begin{array}{c}
+				\defeq
+			\end{array}
+			&
+			\proofbox{
+				\infer[\tr^{\RI}_{\Gamma'_1 , A}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 \mid (A \lolli B) \rdbc_{\lolli} \ot C}{
+					\deduce{S \mid \Gamma' , A , \Gamma'' \vdash_{\RI} B}{f}
+					&
+					\deduce{{-} \mid \Delta \vdash_{\RI} C}{g}
+				}
+			}
+			\end{array}
+		\end{displaymath}
+		$\Gamma_0 ; \Gamma_1 \bowtie (\Gamma' , \Gamma'')$ and $\Gamma_1 \lrwavy \Gamma'_1$ are side conditions of the left hand side and $\Gamma_0 ; (\Gamma_{10} , A , \Gamma_{11}) \bowtie (\Gamma' , A , \Gamma'')$ and
+		$(\Gamma_{10} , A , \Gamma_{11}) \lrwavy (\Gamma'_1 , A)$ are of the right hand side, where $(\Gamma_{10} , \Gamma_{11}) = \Gamma_1$.
+		\item $\tr_{\Gamma'_1}^{\RI} \text{ } (\LI 2 \RI \text{ } f , g) \defeq \LI 2 \RI \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f , g))$.
+	\end{enumerate}
+	Three cases for $\tr_{\Gamma'_1}^{\LI}$:
+	\begin{enumerate}
+		\item $\tr_{\Gamma'_1}^{\LI} \text{ } (\unitl \text{ } f , g) \defeq \unitl \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f , g))$, 
+		\item $\tr_{\Gamma'_1}^{\LI} \text{ } (\tl \text{ } f , g) \defeq \tl \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f , g))$, and
+		\item $\tr_{\Gamma'_1}^{\LI} \text{ } (\Pass 2 \LI \text{ } f , g) \defeq \Pass 2 \LI \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f , g))$.
+	\end{enumerate}
+	$\tr_{\Gamma'_1}^{\Pass}$ is a bit more complicated since the passivated formula could appear in $\Gamma'_1$:
+	\begin{enumerate}
+		\item When passivated formula is in $\Gamma'_1$, then $\tr_{\Gamma'_1}^{\Pass} \text{ } (\pass \text{ } f , g) $ 
+		% \defeq \F 2 \Pass \text{ } (\tr \text ( \lright^{*} \text{ } (\LI 2 \RI \text{ } (\Pass 2 \LI \text{ } (\pass \text{ } f))), g))
+		\begin{displaymath}
+			\footnotesize
+			\begin{array}{ll}
+			% \infer[\tr_{\Gamma'_1}^{\Pass}]{{-} \mid \Gamma_0 , \Delta \vdash_{\Pass} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
+			%     \infer[\pass]{{-} \mid A' , \Gamma \vdash_{\Pass} A}{
+			%         \deduce{A' \mid \Gamma \vdash_{\LI} P}{f}
+			%     }
+			%     &
+			%     \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+			% }
+			% \\[10pt]
+			% \defeq
+			\begin{array}{c}
+				\defeq
+			\end{array}
+			&
+			\proofbox{
+			\infer[\F 2 \Pass]{{-} \mid \Gamma_0 , \Delta \vdash_{\Pass} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
+				\infer[\tr]{{-} \mid \Gamma_0 , \Delta \vdash_{\F} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
+					\infer[\lright^{*}]{{-} \mid \Gamma_0 \vdash^{\bullet}_{\RI} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli}}{
+						\infer[\mathsf{sw}]{{-} \mid A'^{\bullet} , \Gamma^{x} \vdash^{\bullet}_{\RI} P}{
+							\infer[\pass]{{-} \mid A'^{\bullet} , \Gamma^{x} \vdash^{\bullet}_{\Pass} P}{
+								\deduce{A' \mid \Gamma \vdash_{\LI} P}{f}
+							}
+						}
+					}
+					&
+					\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+				}
+			}
+			}
+		  \end{array}
+		\end{displaymath}
+		where $\Gamma_0 ; (A' , \Gamma_1) \bowtie (A' , \Gamma)$ and $(A' , \Gamma_1 \lrwavy \Gamma'_1)$.
+		\item $\tr_{\Gamma'}^{\Pass} \text{ } (\pass \text{ } f , g) \defeq \pass \text{ } (\tr_{\Gamma'}^{\Pass} \text{ } (f , g))$, and
+		\item $\tr_{\Gamma'}^{\Pass} \text{ } (\F 2 \Pass \text{ } f , g) \defeq \F 2 \Pass \text{ } (\tr_{\Gamma'}^{\F} \text{ } (f , g)) $.
+	\end{enumerate}
+	Finally, there are five cases for $\tr_{\Gamma'}^{\F}$:
+	\begin{enumerate}
+	  \item $\tr_{\Gamma'_1}^{\F} \text{ } (\ax , g) \defeq \tr \text{ } (\ax , g)$ where $\Gamma'_1$ is empty.
+	  \item $\tr_{\Gamma'_1}^{\F} \text{ } (\unitr , g) \defeq \tr \text{ } (\unitr , g)$ where $\Gamma'_1$ is empty.
+	  \item $\tr_{\Gamma'_1}^{\F} \text{ } (\tr \text{ } (f , f') , g) $
+	  %\defeq \tr \text{ } (\lright^{*} \text{ } (\LI 2 \RI \text{ } (\Pass 2 \LI \text{} (\F 2 \Pass \text{ } (\tr \text{ } (f , f'))))) , g)
+	  \begin{displaymath}
+		\footnotesize
+		\begin{array}{ll}
+		% \infer[\tr_{\Gamma' , \Delta}^{\F}]{T \mid \Gamma , \Lambda \vdash_{\F} \ldbc \Gamma' , \Delta \mid A \ot B \rdbc_{\lolli} \ot C}{
+		%     \infer[\tr]{T \mid \Gamma , \Gamma' , \Delta \vdash_{\F} A \ot B}{
+		%         \deduce{T \mid \Gamma , \Gamma' \vdash^{\bullet}_{\RI} A}{f}
+		%         &
+		%         \deduce{{-} \mid \Delta \vdash_{\RI} B}{f'}
+		%     }
+		%     &
+		%     \deduce{{-} \mid \Lambda \vdash_{\RI} C}{g}
+		% }
+		% \\[10pt]
+		\begin{array}{c}
+			\defeq
+		\end{array}
+		&
+		\proofbox{
+		\infer[\tr]{T \mid \Gamma_0 , \Lambda \vdash_{\F} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli} \ot C}{
+			\infer[\lright^{*}]{T \mid \Gamma_0 \vdash^{\bullet}_{\RI} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli}}{
+				\infer[\mathsf{sw}]{T \mid \Gamma^{x} , \Delta^{x} \vdash^{\bullet}_{\RI} A \ot B}{
+					\infer[\tr]{T \mid \Gamma^{x} , \Delta^{x} \vdash^{\bullet}_{\F} A \ot B}{
+						\deduce{T \mid \Gamma \vdash^{\bullet}_{\RI} A}{f}
+						&
+						\deduce{{-} \mid \Delta \vdash_{\RI} B}{f'}
+					}
+				}
+			}
+			&
+			\deduce{{-} \mid \Lambda \vdash_{\RI} C}{g}
+		}
+		}
+		\end{array}
+	  \end{displaymath}
+	  where $\Gamma_0 ; \Gamma_1 \bowtie (\Gamma , \Delta)$ and $\Gamma_1 \lrwavy \Gamma'_1$.
+	  \item $\tr_{\Gamma'_1}^{\F} \text{ } (\lleft \text{ } (f , f') , g) \defeq \lleft \text{ } (f , \tr_{\Gamma'_1}^{\LI} \text{ } (f' , g))$ when there is no formula in $\Gamma'_1$ comes from $f$.
+	  \item When there is at least one formula in $\Gamma'_1$ appears in $f$, then $\tr_{\Gamma'}^{\F} \text{ } (\lleft \text{ } (f , f') , g)$
+	  %\defeq \tr \text{ } (\lright^{*} \text{ } (\LI 2 \RI \text{ } (\Pass 2 \LI \text{ } (\F 2 \Pass \text{ } (\lleft \text{ } (f , f'))))) , g)
+	  \begin{displaymath}
+		\footnotesize
+	  \begin{array}{ll}
+		% \infer[\tr_{\Gamma'_{0} , D , \Gamma'_1 , \Delta}^{\F}]{A' \lolli B' \mid \Gamma , \Lambda \vdash_{\F} \ldbc \Gamma'_{0} , D , \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
+		%     \infer[\lleft]{A' \lolli B' \mid \Gamma , \Gamma'_0 , D , \Gamma'_1 , \Delta \vdash_{\F} P}{
+		%         \deduce{{-} \mid \Gamma , \Gamma'_0 , D , \Gamma'_1  \vdash_{\RI} P}{f}
+		%         &
+		%         \deduce{B' \mid \Delta \vdash_{\LI} B}{f'}
+		%     }
+		%     &
+		%     \deduce{{-} \mid \Lambda \vdash_{\RI} B}{g}
+		% }
+		% \\[10pt]
+		% \defeq
+		% \\[10pt]
+		\begin{array}{c}
+			\defeq
+		\end{array}
+		&
+		\proofbox{
+		\infer[\tr]{A' \lolli B' \mid \Gamma_0 , \Lambda \vdash_{\F} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
+			\infer[\lright^{*}]{A' \lolli B' \mid \Gamma_0 \vdash^{\bullet}_{\RI} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli}}{
+				\infer[\mathsf{sw}]{A' \lolli B' \mid \Gamma^{x}_{00} , D^{\bullet} , \Gamma^{x}_{01} , \Delta^{x} \vdash^{\bullet}_{\RI} P}{
+					\infer[\lleft]{A' \lolli B' \mid \Gamma^{x}_{00} , D^{\bullet} , \Gamma^{x}_{01} , \Delta^{x} \vdash^{\bullet}_{\F} P}{
+						\deduce{{-} \mid \Gamma_{00} , D , \Gamma_{01}  \vdash_{\RI} P}{f}
+						&
+						\deduce{B' \mid \Delta \vdash_{\LI} B}{f'}
+					}
+				}
+			}
+			&
+			\deduce{{-} \mid \Lambda \vdash_{\RI} B}{g}
+		}
+		}
+	  \end{array}
+	   \end{displaymath}
+	\end{enumerate}
+	Admissibility of $\tr^{\RI}_{\Gamma'_1}$ is proved, now we show how to connect $\tr^{\C}$ and $\tr^{\RI}_{\Gamma'_1}$.
+\end{proof}
+\begin{proposition}
+	The following 2 rules are admissible:
     \begin{displaymath}
-        \footnotesize
-        \begin{array}{cc}
-        %     \proofbox{
-        %     \infer[\tr^{\RI}_{\Gamma'_1}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 \mid (A \lolli B) \rdbc_{\lolli} \ot C}{
-        %         \infer[\lright]{S \mid \Gamma' , \Gamma'' \vdash_{\RI} A \lolli B}{
-        %             \infer[\ex]{S \mid A \spl \Gamma' , \Gamma'' \vdc B}{
-        %                 \infer[\RI 2 \C]{S \mid \quad \spl \Gamma' , A , \Gamma'' \vdash_{\C} B}{
-        %                     \deduce{S \mid \Gamma' , A , \Gamma'' \vdash_{\RI} B}{f}
-        %                 }
-        %             }
-        %         }
-        %         &
-        %         \deduce{{-} \mid \Delta \vdash_{\RI} C}{g}
-        %     }
-        %     }
-        % &
-        \begin{array}{c}
-            \defeq
-        \end{array}
-        &
-        \proofbox{
-            \infer[\tr^{\RI}_{\Gamma'_1 , A}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 \mid (A \lolli B) \rdbc_{\lolli} \ot C}{
-                \deduce{S \mid \Gamma' , A , \Gamma'' \vdash_{\RI} B}{f}
-                &
-                \deduce{{-} \mid \Delta \vdash_{\RI} C}{g}
-            }
+		\footnotesize
+        \infer[\tr^{\C}]{S \mid \Gamma , \Delta  \spl \Lambda \vdash_{\C} A \ot B}{
+            \deduce{S \mid \Gamma \spl \quad  \vdash_{\C} A}{f}
+            &
+            \deduce{{-} \mid \Delta \spl \Lambda \vdash_{\C} B}{g}
         }
-        \end{array}
+		\qquad
+		\infer[\tr^{\C {-} \RI}]{S \mid \Gamma \spl \Delta , \Lambda \vdc A \ot B}{
+			\deduce{S \mid \Gamma \spl \Delta \vdc A}{f}
+			&
+			\deduce{{-} \mid \Lambda \vdash_{\RI} B}{g}
+		}
     \end{displaymath}
-    $\Gamma_0 ; \Gamma_1 \bowtie (\Gamma' , \Gamma'')$ and $\Gamma_1 \lrwavy \Gamma'_1$ are side conditions of the left hand side and $\Gamma_0 ; (\Gamma_{10} , A , \Gamma_{11}) \bowtie (\Gamma' , A , \Gamma'')$ and
-    $(\Gamma_{10} , A , \Gamma_{11}) \lrwavy (\Gamma'_1 , A)$ are of the right hand side, where $(\Gamma_{10} , \Gamma_{11}) = \Gamma_1$.
-    \item $\tr_{\Gamma'_1}^{\RI} \text{ } (\LI 2 \RI \text{ } f , g) \defeq \LI 2 \RI \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f , g))$.
-\end{enumerate}
-Three cases for $\tr_{\Gamma'_1}^{\LI}$:
-\begin{enumerate}
-    \item $\tr_{\Gamma'_1}^{\LI} \text{ } (\unitl \text{ } f , g) \defeq \unitl \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f , g))$, 
-    \item $\tr_{\Gamma'_1}^{\LI} \text{ } (\tl \text{ } f , g) \defeq \tl \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f , g))$, and
-    \item $\tr_{\Gamma'_1}^{\LI} \text{ } (\Pass 2 \LI \text{ } f , g) \defeq \Pass 2 \LI \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f , g))$.
-\end{enumerate}
-$\tr_{\Gamma'_1}^{\Pass}$ is a bit more complicated since the passivated formula could appear in $\Gamma'_1$:
-\begin{enumerate}
-    \item When passivated formula is in $\Gamma'_1$, then $\tr_{\Gamma'_1}^{\Pass} \text{ } (\pass \text{ } f , g) $ 
-    % \defeq \F 2 \Pass \text{ } (\tr \text ( \lright^{*} \text{ } (\LI 2 \RI \text{ } (\Pass 2 \LI \text{ } (\pass \text{ } f))), g))
-    \begin{displaymath}
+\end{proposition}
+\begin{proof}
+For $\tr^{\C}$, we do induction on right premise $g$. 
+\begin{itemize}
+	\item If $g = \ex \text{ } g'$, then $\tr^{\C} \text{ } (f , \ex \text{ } g') \defeq \ex \text{ } (\tr^{\C} \text{ } (f , g'))$.
+	\item If $g = \RI 2 \C \text{ } g'$, then $\tr^{\C} \text{ } (f , \RI 2 \C \text{ } g') \defeq \tr^{\C \text{-} \RI} \text{ } (f , g')$.
+\end{itemize}
+$\tr^{\C \text{-} \RI}$ is proved by induction on left premise $f$:
+\begin{itemize}
+	\item If $f = \ex \text{ } f'$, then $\tr^{\C \text{-} \RI} \text{ } (\ex \text{ } f' , g) \defeq \ex \text{ } (\tr^{\C \text{-} \RI} \text{ } (f' , g))$.
+	\item If $f = \RI 2 \C \text{ } f' $, then 
+	% $\tr^{\C \text{-} \RI} \text{ } (\RI 2 \C \text{ } f' , g)$
+	%\defeq \RI 2 \C \text{ } (\tr_{[\text{ }]}^{\RI} \text{ } (f' , g))
+	\begin{displaymath}
         \footnotesize
-        \begin{array}{ll}
-        % \infer[\tr_{\Gamma'_1}^{\Pass}]{{-} \mid \Gamma_0 , \Delta \vdash_{\Pass} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
-        %     \infer[\pass]{{-} \mid A' , \Gamma \vdash_{\Pass} A}{
-        %         \deduce{A' \mid \Gamma \vdash_{\LI} P}{f}
-        %     }
-        %     &
-        %     \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
-        % }
-        % \\[10pt]
-        % \defeq
         \begin{array}{c}
-            \defeq
-        \end{array}
-        &
-        \proofbox{
-        \infer[\F 2 \Pass]{{-} \mid \Gamma_0 , \Delta \vdash_{\Pass} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
-            \infer[\tr]{{-} \mid \Gamma_0 , \Delta \vdash_{\F} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
-                \infer[\lright^{*}]{{-} \mid \Gamma_0 \vdash^{\bullet}_{\RI} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli}}{
-                    \infer[\mathsf{sw}]{{-} \mid A'^{\bullet} , \Gamma^{x} \vdash^{\bullet}_{\RI} P}{
-                        \infer[\pass]{{-} \mid A'^{\bullet} , \Gamma^{x} \vdash^{\bullet}_{\Pass} P}{
-                            \deduce{A' \mid \Gamma \vdash_{\LI} P}{f}
-                        }
-                    }
+			\hspace*{-4.5cm}
+			\proofbox{
+            \infer[\tr^{\C - \RI}]{S \mid \quad \spl \Gamma , \Delta \vdc A \ot B}{
+                \infer[\RI 2 \C]{S \mid \quad \spl \Gamma \vdc A}{
+                    \deduce{S \mid \Gamma \vdash_{\RI} A}{f'}
                 }
                 &
                 \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
             }
-        }
-        }
-      \end{array}
-    \end{displaymath}
-    where $\Gamma_0 ; (A' , \Gamma_1) \bowtie (A' , \Gamma)$ and $(A' , \Gamma_1 \lrwavy \Gamma'_1)$.
-    \item $\tr_{\Gamma'}^{\Pass} \text{ } (\pass \text{ } f , g) \defeq \pass \text{ } (\tr_{\Gamma'}^{\Pass} \text{ } (f , g))$, and
-    \item $\tr_{\Gamma'}^{\Pass} \text{ } (\F 2 \Pass \text{ } f , g) \defeq \F 2 \Pass \text{ } (\tr_{\Gamma'}^{\F} \text{ } (f , g)) $.
-\end{enumerate}
-Finally, there are five cases for $\tr_{\Gamma'}^{\F}$:
-\begin{enumerate}
-  \item $\tr_{\Gamma'_1}^{\F} \text{ } (\ax , g) \defeq \tr \text{ } (\ax , g)$ where $\Gamma'_1$ is empty.
-  \item $\tr_{\Gamma'_1}^{\F} \text{ } (\unitr , g) \defeq \tr \text{ } (\unitr , g)$ where $\Gamma'_1$ is empty.
-  \item $\tr_{\Gamma'_1}^{\F} \text{ } (\tr \text{ } (f , f') , g) $
-  %\defeq \tr \text{ } (\lright^{*} \text{ } (\LI 2 \RI \text{ } (\Pass 2 \LI \text{} (\F 2 \Pass \text{ } (\tr \text{ } (f , f'))))) , g)
-  \begin{displaymath}
-    \footnotesize
-    \begin{array}{ll}
-    % \infer[\tr_{\Gamma' , \Delta}^{\F}]{T \mid \Gamma , \Lambda \vdash_{\F} \ldbc \Gamma' , \Delta \mid A \ot B \rdbc_{\lolli} \ot C}{
-    %     \infer[\tr]{T \mid \Gamma , \Gamma' , \Delta \vdash_{\F} A \ot B}{
-    %         \deduce{T \mid \Gamma , \Gamma' \vdash^{\bullet}_{\RI} A}{f}
-    %         &
-    %         \deduce{{-} \mid \Delta \vdash_{\RI} B}{f'}
-    %     }
-    %     &
-    %     \deduce{{-} \mid \Lambda \vdash_{\RI} C}{g}
-    % }
-    % \\[10pt]
-    \begin{array}{c}
-        \defeq
-    \end{array}
-    &
-    \proofbox{
-    \infer[\tr]{T \mid \Gamma_0 , \Lambda \vdash_{\F} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli} \ot C}{
-        \infer[\lright^{*}]{T \mid \Gamma_0 \vdash^{\bullet}_{\RI} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli}}{
-            \infer[\mathsf{sw}]{T \mid \Gamma^{x} , \Delta^{x} \vdash^{\bullet}_{\RI} A \ot B}{
-                \infer[\tr]{T \mid \Gamma^{x} , \Delta^{x} \vdash^{\bullet}_{\F} A \ot B}{
-                    \deduce{T \mid \Gamma \vdash^{\bullet}_{\RI} A}{f}
-                    &
-                    \deduce{{-} \mid \Delta \vdash_{\RI} B}{f'}
-                }
-            }
-        }
-        &
-        \deduce{{-} \mid \Lambda \vdash_{\RI} C}{g}
-    }
-    }
-    \end{array}
-  \end{displaymath}
-  where $\Gamma_0 ; \Gamma_1 \bowtie (\Gamma , \Delta)$ and $\Gamma_1 \lrwavy \Gamma'_1$.
-  \item $\tr_{\Gamma'_1}^{\F} \text{ } (\lleft \text{ } (f , f') , g) \defeq \lleft \text{ } (f , \tr_{\Gamma'_1}^{\LI} \text{ } (f' , g))$ when there is no formula in $\Gamma'_1$ comes from $f$.
-  \item When there is at least one formula in $\Gamma'_1$ appears in $f$, then $\tr_{\Gamma'}^{\F} \text{ } (\lleft \text{ } (f , f') , g)$
-  %\defeq \tr \text{ } (\lright^{*} \text{ } (\LI 2 \RI \text{ } (\Pass 2 \LI \text{ } (\F 2 \Pass \text{ } (\lleft \text{ } (f , f'))))) , g)
-  \begin{displaymath}
-    \footnotesize
-  \begin{array}{ll}
-    % \infer[\tr_{\Gamma'_{0} , D , \Gamma'_1 , \Delta}^{\F}]{A' \lolli B' \mid \Gamma , \Lambda \vdash_{\F} \ldbc \Gamma'_{0} , D , \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
-    %     \infer[\lleft]{A' \lolli B' \mid \Gamma , \Gamma'_0 , D , \Gamma'_1 , \Delta \vdash_{\F} P}{
-    %         \deduce{{-} \mid \Gamma , \Gamma'_0 , D , \Gamma'_1  \vdash_{\RI} P}{f}
-    %         &
-    %         \deduce{B' \mid \Delta \vdash_{\LI} B}{f'}
-    %     }
-    %     &
-    %     \deduce{{-} \mid \Lambda \vdash_{\RI} B}{g}
-    % }
-    % \\[10pt]
-    % \defeq
-    % \\[10pt]
-    \begin{array}{c}
-        \defeq
-    \end{array}
-    &
-    \proofbox{
-    \infer[\tr]{A' \lolli B' \mid \Gamma_0 , \Lambda \vdash_{\F} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
-        \infer[\lright^{*}]{A' \lolli B' \mid \Gamma_0 \vdash^{\bullet}_{\RI} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli}}{
-            \infer[\mathsf{sw}]{A' \lolli B' \mid \Gamma^{x}_{00} , D^{\bullet} , \Gamma^{x}_{01} , \Delta^{x} \vdash^{\bullet}_{\RI} P}{
-                \infer[\lleft]{A' \lolli B' \mid \Gamma^{x}_{00} , D^{\bullet} , \Gamma^{x}_{01} , \Delta^{x} \vdash^{\bullet}_{\F} P}{
-                    \deduce{{-} \mid \Gamma_{00} , D , \Gamma_{01}  \vdash_{\RI} P}{f}
-                    &
-                    \deduce{B' \mid \Delta \vdash_{\LI} B}{f'}
-                }
-            }
-        }
-        &
-        \deduce{{-} \mid \Lambda \vdash_{\RI} B}{g}
-    }
-    }
-  \end{array}
-   \end{displaymath}
-\end{enumerate}
-Admissibility of $\tr^{\RI}_{\Gamma'_1}$ is proved, now we show how to connect $\tr^{\C}$ and $\tr^{\RI}_{\Gamma'_1}$.
-For $\tr^{\C}$, we do induction on right premise $g$:
-\begin{enumerate}
-	\item $\tr^{\C} \text{ } (f , \ex \text{ } g) \defeq \ex \text{ } (\tr^{\C} \text{ } (f , g))$, and
-	\item $\tr^{\C} \text{ } (f , \RI 2 \C \text{ } g) \defeq \tr^{\C \text{-} \RI} \text{ } (f , g)$.
-\end{enumerate}
-We prove  $\tr^{\C \text{-} \RI}$ by induction on left premise $f$ :
-\begin{enumerate}
-	\item $\tr^{\C \text{-} \RI} \text{ } (\ex \text{ } f , g) \defeq \ex \text{ } (\tr^{\C \text{-} \RI} \text{ } (f , g))$, and 
-	\item $\tr^{\C \text{-} \RI} \text{ } (\RI 2 \C \text{ } f , g)$
-	%\defeq \RI 2 \C \text{ } (\tr_{[\text{ }]}^{\RI} \text{ } (f , g))
-	\begin{displaymath}
-        \footnotesize
-        \begin{array}{cc}
-            % \infer[\tr^{\C - \RI}]{S \mid \quad \spl \Gamma , \Delta \vdc A \ot B}{
-            %     \infer[\RI 2 \C]{S \mid \quad \spl \Gamma \vdc A}{
-            %         \deduce{S \mid \Gamma \vdash_{\RI} A}{f}
-            %     }
-            %     &
-            %     \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
-            % }
-            % \\[6pt]
-            % \defeq 
-            % \qquad
-            \begin{array}{c}
+			}
+			\\
+            % \begin{array}{c}
                 \defeq
-            \end{array}
-            &
+            % \end{array}
+            
             \proofbox{
             \infer[\RI 2 \C]{S \mid \quad \spl \Gamma , \Delta \vdc A \ot B}{
                 \infer[\tr^{\RI}_{[\text{ }]}]{S \mid \Gamma , \Delta \vdash_{\RI} A \ot B}{
-                    \deduce{S \mid \Gamma \vdash_{\RI} A}{f}
+                    \deduce{S \mid \Gamma \vdash_{\RI} A}{f'}
                     &
                     \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
                     &
@@ -2529,7 +2542,7 @@ We prove  $\tr^{\C \text{-} \RI}$ by induction on left premise $f$ :
             }   
         \end{array}
     \end{displaymath}
-\end{enumerate}
+\end{itemize}
 \end{proof}
 
 	\section{Conclusion}
