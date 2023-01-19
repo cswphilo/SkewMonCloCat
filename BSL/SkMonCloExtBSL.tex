@@ -1514,7 +1514,8 @@
 	 The inductive hypothesis applied to $f$ and $g$ would produce a derivation of the wrong sequent. The use of $\Gamma'$ in the generalized rule $\tr_{\Gamma'}^{\RI}$ is there to fix precisely this issue.
 
 	 To prove the admissibility of $\tr_{\Gamma'}^{\RI}$, it is essential to build a focused variant of the rule $\lright^{*}$ from (\ref{eq:inter:ante}). We detail its contruction in the upcoming proposition.
-	 \begin{proposition} The following rule is admissible:
+	 \begin{proposition}\label{prop:iter-lright}
+           The following rule, corresponding to an iterated \linebreak $\lolli$-right rule, is admissible:
 		\begin{displaymath}
 			\infer[\lright^{*}]{S \mid \Gamma \vdash^{x}_{\RI} \ldbc \Delta \mid C\rdbc_{\lolli} }{
 				S \mid \Gamma , \Delta^x \vdash^{x}_{\RI} C
@@ -1545,7 +1546,7 @@
 		\end{itemize}
 	 \end{proof}
 	 \begin{proposition}\label{prop:admiss:gen-otR}
-           The following 4 rules are admissible:
+           The following rules, corresponding to different generalizations of the $\ot$-right rule, are admissible:
 %% 		\begin{displaymath}
 %% 			\infer[\tr_{\Gamma'}^{\RI}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A \rdbc_{\lolli} \ot B}{
 %% 				\deduce{S \mid \Gamma , \Gamma' \vdash_{\RI} A}{f}
@@ -1553,15 +1554,15 @@
 %% 				\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
 %% 			}
 %% 		\end{displaymath}
-		\begin{equation}\label{eq:mutual:induction:gen-otR}
+		\begin{equation*}\label{eq:mutual:induction:gen-otR}
 			\footnotesize
-			\begin{array}{c}
+			\begin{array}{cc}
 				\infer[\tr_{\Gamma'}^{\RI}]{S \mid \Gamma , \Delta \vdash_{\RI} \ldbc \Gamma' \mid A \rdbc_{\lolli} \ot B}{
 					S \mid \Gamma , \Gamma' \vdash_{\RI} A
 					&
 					{-} \mid \Delta \vdash_{\RI} B
 				}
-				\qquad
+				&
 				\infer[\tr_{\Gamma'}^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} \ldbc \Gamma' \mid P \rdbc_{\lolli} \ot B}{
 					S \mid \Gamma , \Gamma' \vdash_{\LI} P
 					&
@@ -1573,14 +1574,14 @@
 					&
 					{-} \mid \Delta \vdash_{\RI} B
 				}
-				\qquad
+				&
 				\infer[\tr_{\Gamma'}^{\F}]{T \mid \Gamma , \Delta \vdash_{\F} \ldbc \Gamma' \mid P \rdbc_{\lolli} \ot B}{
 					T \mid \Gamma , \Gamma' \vdash_{\F} P
 					&
 					{-} \mid \Delta \vdash_{\RI} B
 				}
 			\end{array}
-		\end{equation}
+		\end{equation*}
 	 \end{proposition}
 	 \begin{proof}
 	   The proof proceeds by mutual induction on the left premise of each rule, which we always name $f$. Second premises are all named $g$.
@@ -2060,7 +2061,7 @@ A \emph{symmetric skew monoidal closed category} \cite{bourke:lack:braided:2020}
 	A \emph{(strict) symmetric skew monoidal closed functor} is a (strict) skew monoidal closed functor $F : \mathbb{C} \rightarrow \mathbb{D}$ between symmetric skew monoidal closed categories that preserves the structural law $s$ on the nose.
 \end{definition}
 
-The natural isomorphism $s$ acts on three objects $A,B,C$: it fixes $A$ and swaps $B$ and $C$. Therefore, there is a map between objects $(\dots ((A \ot B_1) \ot B_2 \dots)) \ot B_n$ and $(\dots ((A \ot B_{i_1}) \ot B_{i_2} \dots) B_{i_n}$ for each permutation of indices $i$.
+The natural isomorphism $s$ acts on three objects $A,B,C$: it fixes $A$ and swaps $B$ and $C$. Therefore, there is a map between objects $(\dots ((A \ot B_1) \ot B_2 \dots)) \ot B_n$ and $(\dots ((A \ot B_{i_1}) \ot B_{i_2} \dots)) B_{i_n}$ for each permutation of indices $i$.
 Notice the difference with the usual structural law $\sigma$ of symmetry of Mac Lane, which is typed $\sigma_{B,C} : B \ot C \to C \ot B$. In a symmetric skew monoidal closed category there is generally no map with such type. Clearly every symmetric monoidal closed category is also skew symmetric:
 \begin{equation}\label{eq:der-skew-symm}
   \begin{array}{c}
@@ -2211,7 +2212,7 @@ There are two main differences with the non-commutative focused calculus in (\re
   \item The other difference is in rules $\lright$ and $\tl$, which, under the bottom-up reading of the rules, are the only two rules where new formulae are added to the context. The premises of these rules now have to go back to phase $\C$ in order to move the new formulae $A$ to its correct position in the context via an application of the rule $\ex$.
 \end{itemize}
 \begin{theorem}\label{thm:focus:sym}
-  The focused sequent calculus in (\ref{eq:focus:sym}) is sound and complete wrt. the sequent calculus of Section \ref{sec:skmill}: there is a one-to-one correspondence between the set of derivations of $S \mid \Gamma \vdash A$ quotiented by $\circeq$ and the set of derivations of $S \mid \Gamma \spl \quad \vdash_{\C} A$.
+  The focused sequent calculus in (\ref{eq:focus:sym}) is sound and complete wrt. the sequent calculus of Section \ref{sec:skmill}: there is a one-to-one correspondence between the set of derivations of $S \mid \Gamma \vdash A$ quotiented by $\circeq$ and the set of derivations of $S \mid \Gamma \spl ~ \vdash_{\C} A$.
 \end{theorem}
 %\begin{proof}
   Soundness is obtained by defining embedding functions $\mathsf{emb}_{\C} : S \mid \Gamma \spl \Delta \vdash^{x}_{\C} \vdash C \to S \mid \Gamma , \Delta \vdash A$ and $\mathsf{emb}_{ph} : S \mid \Gamma \vdash^{x}_{ph} A \to S \mid \Gamma \vdash A$, for all $ph \in \{ \RI , \LI , \Pass , \F \}$, which erase all phase and tag annotations.  Completeness is justified by proving the following rules are admissible in phase $\C$:
@@ -2272,32 +2273,48 @@ There are two main differences with the non-commutative focused calculus in (\re
 % 	\tr \text{ } (f , g) &\defeq \tr^{\C} \text{ } (\mathsf{focus} \text{ } f , \mathsf{focus} \text{ } g)
 %   \end{align*}
   Theorem \ref{thm:focus:sym} is then proved by showing the following three properties, proving that the set of derivations of $S \mid \Gamma \vdash A$ quotiented by $\circeq$ is in bijection with with the set of derivations of $S \mid \Gamma \spl \quad \vdc A$:
-  \begin{enumerate}
+  \begin{itemize}
     \item For all $f, g : S \mid \Gamma \vdash A$, if $f \circeq g$ then $\mathsf{focus} \text{ } f = \mathsf{focus} \text{ } g$.
     \item Given any $f : S \mid \Gamma \vdash A$, $\mathsf{emb}_{\C} \text{ } (\mathsf{focus} \text{ } f) \circeq f$.
     \item Given any $f : S \mid \Gamma \spl \Delta \vdc A$, $\mathsf{focus} \text{ } (\mathsf{emb}_{\C} \text{ } f) = f$.
-  \end{enumerate}
+  \end{itemize}
 %  The first states that normal form of derivations in the same equivalence class is unique.
 %  The second and the last entail that $\mathsf{focus}$ and $\mathsf{emb}_{\C}$ are inverses of each other.
-%\end{proof}
-  Similarly to the non-commutative case, the main challenge for the construction of $\mathsf{focus}$ lies in proving the admissibility of $\tr^{\C}$, the right $\ot$-rule in phase $\C$. 
-  We show how to adopt $\lright^{*}$ and $\tr_{\Gamma'}^{\RI}$ in the new focused calculus and build a bridge between $\tr^{\C}$ and $\tr_{\Gamma'}^{\RI}$.
+  %\end{proof}
 
-\begin{definition}
-    (Interleaving context)
-    A context $\Gamma$ constructed by two interleaving contexts $\Gamma_0$ and $\Gamma_1$ is denoted as $\Gamma_0 ; \Gamma_1 \bowtie \Gamma$ and defined recursively:
+  The focused sequent calculus can be used to decide whether two morphisms in the free symmetric skew monoidal closed category are ``equal'', in the sense of being related by the equivalence relation generated by the equational theory of symmetric skew monoidal closed categories. In the non-closed case, Veltri~\cite{veltri:coherence:2021} showed that the coherence problem has a more interesting solution than the one for (non-skew, normal) symmetric monoidal categories. In fact, there exist pair of non-equal morphisms which have the same underlying permutation of atomic formulae, a phenomenon that is peculiar to the skew case. Veltri illustrates this by showing two distinct focused derivations of the sequent ${-} \mid X,\I \ot Y \vdash_{\C} X \ot Y$. Clearly, these derivations can also be replicated in the focused sequent calculus (\ref{eq:focus:sym}) of \SkMILL.
+  
+  Similarly to the non-commutative case, the main challenge in the construction of the $\mathsf{focus}$ function lies in proving the admissibility of $\tr^{\C}$, the right $\ot$-rule in phase $\C$. 
+  We show how to adopt the admissibility of rule $\lright^{*}$ from Proposition~\ref{prop:iter-lright} and the $\ot$-right rules from Proposition \ref{prop:admiss:gen-otR} in the commutative focused calculus and then show how this leads to the admissibility of $\tr^{\C}$.
+
+  To this end, we introduce some notation. We write $\Gamma \lrwavy \Gamma'$ when $\Gamma$ is a permutation of $\Gamma'$. We write $\Gamma_0 ; \Gamma_1 \bowtie \Gamma$ if the context $\Gamma$ is equal to an interleaving of $\Gamma_0$ and $\Gamma_1$, which can be formally described as the following inductive relation:
     \begin{displaymath}
-        \begin{array}{cc}
+%        \begin{array}{cc}
             \infer{\Gamma_0 ; [\text{ }] \bowtie \Gamma_0}{}
-            &
+            \quad
             \infer{[\text{ }] ; \Gamma_1 \bowtie \Gamma_1}{}
-            \\[10pt]
+            %            \\[10pt]
+            \quad
             \infer{(A , \Gamma_0) ; \Gamma_1 \bowtie (A , \Gamma)}{\Gamma_0 ; \Gamma_1 \bowtie \Gamma}
-            &
+            \quad
             \infer{\Gamma_0 ; (A , \Gamma_1) \bowtie (A , \Gamma)}{\Gamma_0 ; \Gamma_1 \bowtie \Gamma}
-        \end{array}
+%        \end{array}
     \end{displaymath}
-\end{definition}
+%% \begin{definition}
+%%     (Interleaving context)
+%%     A context $\Gamma$ constructed by two interleaving contexts $\Gamma_0$ and $\Gamma_1$ is denoted as $\Gamma_0 ; \Gamma_1 \bowtie \Gamma$ and defined recursively:
+%%     \begin{displaymath}
+%%         \begin{array}{cc}
+%%             \infer{\Gamma_0 ; [\text{ }] \bowtie \Gamma_0}{}
+%%             &
+%%             \infer{[\text{ }] ; \Gamma_1 \bowtie \Gamma_1}{}
+%%             \\[10pt]
+%%             \infer{(A , \Gamma_0) ; \Gamma_1 \bowtie (A , \Gamma)}{\Gamma_0 ; \Gamma_1 \bowtie \Gamma}
+%%             &
+%%             \infer{\Gamma_0 ; (A , \Gamma_1) \bowtie (A , \Gamma)}{\Gamma_0 ; \Gamma_1 \bowtie \Gamma}
+%%         \end{array}
+%%     \end{displaymath}
+%% \end{definition}
 % \begin{lemma}
 %     Given $(\Gamma_{00} , \Gamma_{01}) ; (\Gamma_{10} , A , \Gamma_{11}) \bowtie (\Gamma' , A , \Gamma'')$, there exists $\Gamma_{00} ; \Gamma_{10} \bowtie \Gamma'$ and $\Gamma_{01} ; \Gamma_{11} \bowtie \Gamma''$.
 % \end{lemma}
@@ -2316,51 +2333,59 @@ There are two main differences with the non-commutative focused calculus in (\re
 %         \infer{(\Gamma_{00} , \Gamma_{01}) ; (\Gamma_{10} , \Gamma_{11}) \bowtie (\Gamma' , \Gamma'')}{(\Gamma_{00} , \Gamma_{01}) ; (\Gamma_{10} , A , \Gamma_{11}) \bowtie (\Gamma' , A , \Gamma'')}
 %     \end{displaymath}
 % \end{lemma}
-\begin{definition}
-    (Permutation of context)
-    \begin{displaymath}
-        \infer{[\text{ }] \lrwavy [\text{ }]}{}
-        \qquad
-        \infer{\Gamma_0 , A , \Gamma_1 \lrwavy A , \Gamma}{\Gamma_0 , \Gamma_1 \lrwavy \Gamma}
-    \end{displaymath}
-\end{definition}
-\begin{proposition}
+    Assuming $\Gamma_0 ; \Gamma_1 \bowtie \Gamma$, if $\Gamma$ is empty then both $\Gamma_0$ and $\Gamma_1$ are forced to be empty. If $\Gamma = A,\Gamma'$ then $A$ is either the leftmost formula of $\Gamma_0$ or the leftmost formula of $\Gamma_1$. Crucially, the relative position of formulae in $\Gamma_0$ is preserved in $\Gamma$, and similarly for $\Gamma_1$. 
+
+%%     \begin{definition}
+%%     (Permutation of context)
+%%     \begin{displaymath}
+%%         \infer{[\text{ }] \lrwavy [\text{ }]}{}
+%%         \qquad
+%%         \infer{\Gamma_0 , A , \Gamma_1 \lrwavy A , \Gamma}{\Gamma_0 , \Gamma_1 \lrwavy \Gamma}
+%%     \end{displaymath}
+%% \end{definition}
+    \begin{proposition}
+      The following rule, corresponding to an iterated  \linebreak
+      $\lolli$-right rule, is admissible:
     \begin{displaymath}
         \infer[\lright^{*}]{S \mid \Gamma_0 \vdash^{x}_{\RI} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
-            \deduce{S \mid \Gamma \vdash^{x}_{\RI} C}{f}
+            S \mid \Gamma \vdash^{x}_{\RI} C
             &
             \Gamma_0 ; \Gamma_1 \bowtie \Gamma
             &
             \Gamma_1 \lrwavy \Gamma'_1
         }
     \end{displaymath}
-    is admissible.
 \end{proposition}
 \begin{proof}
-    We prove by induction on $\Gamma'_1$,
+    By structural induction on $\Gamma'_1$:
     \begin{itemize}
-        \item $\Gamma'_1 = [\text{ }]$, then $\lright^{*} \text{ } f \defeq f$;
-        \item $\Gamma'_1 = A , \Gamma'_1$, then $\lright^{*} \text{ } f$
-        % \defeq \lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } (\lright^{*} f)))
-        \begin{align*}
-            % \footnotesize
-            % \begin{array}{l}
-            % \infer[\lright^{*}]{S \mid \Gamma_{00} , \Gamma_{01} \vdash^{x}_{\RI} \ldbc A , \Gamma'_1 \mid C \rdbc_{\lolli}}{
-            %     \deduce{S \mid \Gamma'^{x} , A^{x} , \Gamma''^{x} \vdash^{x}_{\RI} C}{f}
-            %     &
-            % }
+        \item If $\Gamma'_1$ is empty, then $\Gamma_1$ is also empty and $\Gamma = \Gamma_0$. Therefore we can take $\lright^{*} \text{ } f \defeq f$;
+        \item If $\Gamma'_1 = A , \Gamma''_1$, then $\Gamma_1$ is forced to be of the form $\Gamma_{10},A,\Gamma_{11}$ such that $\Gamma_{10},\Gamma_{11} \lrwavy \Gamma''_1$. Since $\Gamma_0;\Gamma_1 \bowtie \Gamma$, then $\Gamma_0 = \Gamma_{00},\Gamma_{01}$ and $\Gamma = \Gamma',A,\Gamma''$ such that $\Gamma_{00};\Gamma_{10} \bowtie \Gamma'$ and $\Gamma_{01};\Gamma_{11} \bowtie \Gamma''$. %This implies $\Gamma_{00},\Gamma_{01};\Gamma_{10},\Gamma_{11} \bowtie \Gamma',\Gamma''$.
+          Define $\lright^{*} \text{ } f  \defeq \lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } (\lright^{*} f)))$, i.e.
+    \end{itemize}
+    %
+    \[
+            \footnotesize
+             \begin{array}{c}
+\proofbox{ \infer[\lright^{*}]{S \mid \Gamma_{00} , \Gamma_{01} \vdash^{x}_{\RI} \ldbc A , \Gamma''_1 \mid C \rdbc_{\lolli}}{
+     \deduce{S \mid \Gamma'^{x} , A^{x} , \Gamma''^{x} \vdash^{x}_{\RI} C}{f}
+     &
+ }
+ }
+%\\
             % \end{array}
             % \\[10pt]
-            \begin{array}{ll}
-            \footnotesize
-            \begin{array}{c}
+%            \begin{array}{ll}
+%            \footnotesize
+%            \begin{array}{c}
+%\hspace{-.3cm}
                 \defeq
-            \end{array}
+%            \end{array}
             \proofbox{
-            \infer[\lright]{S \mid \Gamma_{00} , \Gamma_{01} \vdash^{x}_{\RI} \ldbc A , \Gamma'_1 \mid C \rdbc_{\lolli}}{
-                \infer[\ex]{S \mid A^{x} \spl \Gamma_{00} , \Gamma_{01} \vdash^{x}_{\C} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
-                    \infer[\RI 2 \C]{S \mid \quad \spl \Gamma_{00} , A^{x} , \Gamma_{01} \vdash^{x}_{\C} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
-                        \infer[\lright^{*}]{S \mid \Gamma_{00} , A^{x} , \Gamma_{01} \vdash^{x}_{\RI} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
+            \infer[\lright]{S \mid \Gamma_{00} , \Gamma_{01} \vdash^{x}_{\RI} \ldbc A , \Gamma''_1 \mid C \rdbc_{\lolli}}{
+                \infer[\ex]{S \mid A^{x} \spl \Gamma_{00} , \Gamma_{01} \vdash^{x}_{\C} \ldbc \Gamma''_1 \mid C \rdbc_{\lolli}}{
+                    \infer[\RI 2 \C]{S \mid ~ \spl \Gamma_{00} , A^{x} , \Gamma_{01} \vdash^{x}_{\C} \ldbc \Gamma''_1 \mid C \rdbc_{\lolli}}{
+                        \infer[\lright^{*}]{S \mid \Gamma_{00} , A^{x} , \Gamma_{01} \vdash^{x}_{\RI} \ldbc \Gamma''_1 \mid C \rdbc_{\lolli}}{
                             \deduce{S \mid \Gamma'^{x} , A^{x} , \Gamma''^{x} \vdash^{x}_{\RI} C}{f}
                             &
                         }
@@ -2369,75 +2394,79 @@ There are two main differences with the non-commutative focused calculus in (\re
             }
             }
             \end{array}
-        \end{align*}
-        where $(\Gamma_{00} , \Gamma_{01}) ; (\Gamma_{10} , A , \Gamma_{11}) \bowtie (\Gamma' , A , \Gamma'')$ and $(\Gamma_{10} , A , \Gamma_{11}) \lrwavy (A , \Gamma'_1)$ are side conditions of the left hand side and $(\Gamma_{00} , \Gamma_{01}) ; (\Gamma_{10} , \Gamma_{11}) \bowtie (\Gamma' , \Gamma'')$ and 
- $(\Gamma_{10} , \Gamma_{11}) \lrwavy \Gamma'_1$ are of the right hand side.
-    \end{itemize}
+\]
+   %     where $(\Gamma_{00} , \Gamma_{01}) ; (\Gamma_{10} , A , \Gamma_{11}) \bowtie (\Gamma' , A , \Gamma'')$ and $(\Gamma_{10} , A , \Gamma_{11}) \lrwavy (A , \Gamma'_1)$ are side conditions of the left hand side and $(\Gamma_{00} , \Gamma_{01}) ; (\Gamma_{10} , \Gamma_{11}) \bowtie (\Gamma' , \Gamma'')$ and  $(\Gamma_{10} , \Gamma_{11}) \lrwavy \Gamma'_1$ are of the right hand side.
 \end{proof}
-\begin{proposition}
-	The following 4 rules are admissible:
-	\begin{equation}
+\begin{proposition}\label{prop:admit:gen:tr:sym}
+	The following rules, corresponding to different generalizations of the $\ot$-right rule, are admissible:
+	\begin{equation*}
         \footnotesize
-        \begin{array}{c}
-            \\[6pt]
+        \begin{array}{cc}
+%            \\[6pt]
             \infer[\tr_{\Gamma'_1}^{\RI}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 \mid A \rdbc_{\lolli} \ot B}{
-                \deduce{S \mid \Gamma \vdash_{\RI} A}{f}
+                S \mid \Gamma \vdash_{\RI} A
                 &
-                \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
-                &
-                \deduce{\Gamma_0 ; \Gamma_1 \bowtie \Gamma}{\iota}
-                &
-                \Gamma_1 \lrwavy \Gamma'_1
+                {-} \mid \Delta \vdash_{\RI} B
+%%                 &
+%%                 \deduce{}{\iota}
+%%                 &
+%%                 \Gamma_1 \lrwavy \Gamma'_1
             }
-            \\[6pt]
+            & %\\[6pt]
             \infer[\tr_{\Gamma'_1}^{\LI}]{S \mid \Gamma_0 , \Delta \vdash_{\LI} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
-                \deduce{S \mid \Gamma \vdash_{\LI} P}{f}
+                S \mid \Gamma \vdash_{\LI} P
                 &
-                \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
-                &
-                \deduce{\Gamma_0 ; \Gamma_1 \bowtie \Gamma}{\iota}
-                &
-                \Gamma_1 \lrwavy \Gamma'_1
+                {-} \mid \Delta \vdash_{\RI} B
+%%                 &
+%%                 \deduce{\Gamma_0 ; \Gamma_1 \bowtie \Gamma}{\iota}
+%%                 &
+%%                 \Gamma_1 \lrwavy \Gamma'_1
             }
         \\[6pt]
             \infer[\tr_{\Gamma'_1}^{\Pass}]{T \mid \Gamma_0 , \Delta \vdash_{\Pass} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
-                \deduce{T \mid \Gamma \vdash_{\Pass} P}{f}
+                T \mid \Gamma \vdash_{\Pass} P
                 &
-                \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
-                &
-                \deduce{\Gamma_0 ; \Gamma_1 \bowtie \Gamma}{\iota}
-                &
-                \Gamma_1 \lrwavy \Gamma'_1
+                {-} \mid \Delta \vdash_{\RI} B
+%%                 &
+%%                 \deduce{\Gamma_0 ; \Gamma_1 \bowtie \Gamma}{\iota}
+%%                 &
+%%                 \Gamma_1 \lrwavy \Gamma'_1
             }
-            \\[6pt]
+            & %\\[6pt]
             \infer[\tr_{\Gamma'_1}^{\F}]{T \mid \Gamma_0 , \Delta \vdash_{\F} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
-                \deduce{T \mid \Gamma \vdash_{\F} P}{f}
+                T \mid \Gamma \vdash_{\F} P
                 &
-                \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
-                &
-                \deduce{\Gamma_0 ; \Gamma_1 \bowtie \Gamma}{\iota}
-                &
-                \Gamma_1 \lrwavy \Gamma'_1
+                {-} \mid \Delta \vdash_{\RI} B
+%                &
+%                \deduce{\Gamma_0 ; \Gamma_1 \bowtie \Gamma}{\iota}
+%                &
+%                \Gamma_1 \lrwavy \Gamma'_1
             }
         \end{array}
-    \end{equation}
+        \end{equation*}
+        where all rules include side conditions $\Gamma_0 ; \Gamma_1 \bowtie \Gamma$ and $\Gamma_1 \lrwavy \Gamma'_1$.
 \end{proposition}
 \begin{proof}
-	We prove admissibility by mutual induction on the left premise of each rules. Notice that we use $\Gamma^{\Gamma^{\bullet}_1}$ to indicate some formulae in $\Gamma$ is tagged and the list of tagged formulae is $\Gamma_1$.
-	\newline
+	   The proof proceeds by mutual induction on the left premise of each rule, which we always name $f$. Second premises are all named $g$.
+	   %We prove admissibility by mutual induction on the left premise of each rules.
+           When $\Gamma_0;\Gamma_1 \bowtie \Gamma$, we write $\Gamma^{\Gamma^{\bullet}_1}$ to indicate the context $\Gamma$ in which all formulae in $\Gamma_1$ have been assigned black tag and all formulae in $\Gamma_0$ are kept untagged.
+           %some formulae in $\Gamma$ is tagged and the list of tagged formulae is $\Gamma_1$.
+           %	\newline
+           
 	Proof of $\tr_{\Gamma'}^{\RI}$:
 	\begin{itemize}
-		\item If $f = \lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } f'))$, we extend $\iota : \Gamma_0 ; (\Gamma_{10} , \Gamma_{11}) \bowtie (\Gamma' , \Gamma'')$ and $(\Gamma_{10} , \Gamma_{11}) \lrwavy \Gamma'_1$ with $A$, the active formula in $\lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } f'))$, then we have $\iota' : \Gamma_0 ; (\Gamma_{10} , A , \Gamma_{11}) \bowtie (\Gamma' , A , \Gamma'')$, $(\Gamma_{10} , A , \Gamma_{11}) \lrwavy (\Gamma'_1 , A)$ and
+	\item If $f = \lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } f'))$, then $\Gamma = \Gamma',\Gamma''$ and
+%          we extend $\iota : \Gamma_0 ; (\Gamma_{10} , \Gamma_{11}) \bowtie (\Gamma' , \Gamma'')$ and $(\Gamma_{10} , \Gamma_{11}) \lrwavy \Gamma'_1$ with $A$, the active formula in $\lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } f'))$, then we have $\iota' : \Gamma_0 ; (\Gamma_{10} , A , \Gamma_{11}) \bowtie (\Gamma' , A , \Gamma'')$, $(\Gamma_{10} , A , \Gamma_{11}) \lrwavy (\Gamma'_1 , A)$ and
 			% \defeq \tr_{\Gamma' , A}^{\RI} \text{ } (f , g)
 			\begin{displaymath}
 				\footnotesize
 				\begin{array}{c}
 					\hspace*{-3cm}
 				    \proofbox{
-				    \infer[\tr^{\RI}_{\Gamma'_1}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 \mid (A \lolli B) \rdbc_{\lolli} \ot C}{
+				    \infer[\tr^{\RI}_{\Gamma'_1}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 \mid A \lolli B \rdbc_{\lolli} \ot C}{
 				        \infer[\lright]{S \mid \Gamma' , \Gamma'' \vdash_{\RI} A \lolli B}{
 				            \infer[\ex]{S \mid A \spl \Gamma' , \Gamma'' \vdc B}{
-				                \infer[\RI 2 \C]{S \mid \quad \spl \Gamma' , A , \Gamma'' \vdash_{\C} B}{
+				                \infer[\RI 2 \C]{S \mid ~ \spl \Gamma' , A , \Gamma'' \vdash_{\C} B}{
 				                    \deduce{S \mid \Gamma' , A , \Gamma'' \vdash_{\RI} B}{f'}
 				                }
 				            }
@@ -2449,7 +2478,7 @@ There are two main differences with the non-commutative focused calculus in (\re
 				\\
 					\defeq
 				\proofbox{
-					\infer[\tr^{\RI}_{\Gamma'_1 , A}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 \mid (A \lolli B) \rdbc_{\lolli} \ot C}{
+					\infer[\tr^{\RI}_{\Gamma'_1 , A}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 ,A \mid B \rdbc_{\lolli} \ot C}{
 						\deduce{S \mid \Gamma' , A , \Gamma'' \vdash_{\RI} B}{f'}
 						&
 						\deduce{{-} \mid \Delta \vdash_{\RI} C}{g}
@@ -2457,20 +2486,25 @@ There are two main differences with the non-commutative focused calculus in (\re
 				}
 				\end{array}
 			\end{displaymath}
-			\item If $f = \LI 2 \RI \text{ } f'$, then $\tr_{\Gamma'_1}^{\RI} \text{ } (\LI 2 \RI \text{ } f' , g) \defeq \LI 2 \RI \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f' , g))$.
+                        The application of $\tr^{\RI}_{\Gamma'_1,A}$ can be justified as follows. Since $\Gamma$ is an interleaving of $\Gamma_0$ and $\Gamma_1$, this implies that $\Gamma_0 = \Gamma_{00},\Gamma_{01}$ and $\Gamma_1 = \Gamma_{10},\Gamma_{11}$ so that $\Gamma_{00};\Gamma_{10} \bowtie \Gamma'$ and $\Gamma_{01};\Gamma_{11} \bowtie \Gamma''$. Then also $\Gamma_{00},\Gamma_{01} ; \Gamma_{10} , A , \Gamma_{11} \bowtie \Gamma' , A , \Gamma''$. Moreover, since $\Gamma_{10},\Gamma_{11} \lrwavy \Gamma_1'$, then also $\Gamma_{10},A,\Gamma_{11} \lrwavy \Gamma_1',A$. %                       since           we extend $\iota : \Gamma_0 ; (\Gamma_{10} , \Gamma_{11}) \bowtie (\Gamma' , \Gamma'')$ and $(\Gamma_{10} , \Gamma_{11}) \lrwavy \Gamma'_1$ with $A$, the active formula in $\lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } f'))$, then we have $\iota' : \Gamma_0 ; (\Gamma_{10} , A , \Gamma_{11}) \bowtie (\Gamma' , A , \Gamma'')$, $(\Gamma_{10} , A , \Gamma_{11}) \lrwavy (\Gamma'_1 , A)$ and
+
+		      \item If $f = \LI 2 \RI \text{ } f'$, then $\tr_{\Gamma'_1}^{\RI} \text{ } (\LI 2 \RI \text{ } f' , g) \defeq \LI 2 \RI \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f' , g))$.
+                        \newline (We omit derivations tree in cases where rules are simply permuted.) 
 	\end{itemize}
 	Proof of  $\tr_{\Gamma'_1}^{\LI}$:
 	\begin{itemize}
 		\item If $f = \unitl \text{ } f'$, then $\tr_{\Gamma'_1}^{\LI} \text{ } (\unitl \text{ } f' , g) \defeq \unitl \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f' , g))$.
 		\item If $f = \tl \text{ } f'$, then $\tr_{\Gamma'_1}^{\LI} \text{ } (\tl \text{ } f' , g) \defeq \tl \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f' , g))$.
-		\item If $f = \Pass 2 \LI \text{ } f'$, then $\tr_{\Gamma'_1}^{\LI} \text{ } (\Pass 2 \LI \text{ } f' , g) \defeq \Pass 2 \LI \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f' , g))$.
+		\item If $f = \Pass 2 \LI \text{ } f'$, then $\tr_{\Gamma'_1}^{\LI} \text{ } (\Pass 2 \LI \text{ } f' , g) \defeq \Pass 2 \LI \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f' , g))$.                  
 	\end{itemize}
 	Proof of $\tr_{\Gamma'_1}^{\Pass}$:
 	\begin{itemize}
-		\item If $f = \pass \text{ } f'$, the passivated formula $A'$ can either belong to $\Gamma_0$ or $\Gamma_1$ in $\iota : \Gamma_0 ; \Gamma_1 \bowtie (A' , \Gamma)$, then we do case analysis on $\iota$:
-		\begin{itemize}
-			\item If $\iota = \text{left cons } \iota'$ or right empty, then $\tr_{\Gamma'}^{\Pass} \text{ } (\pass \text{ } f' , g) \defeq \pass \text{ } (\tr_{\Gamma'}^{\Pass} \text{ } (f' , g))$.
-			\item If $\iota = \text{right cons } \iota'$ or left empty, then
+	\item If $f = \pass \text{ } f'$, the passivated formula $A'$ can either belong to $\Gamma_0$ or to $\Gamma_1$, which follows from the assumption $\Gamma_0 ; \Gamma_1 \bowtie A' , \Gamma$. In the first case $\Gamma_0 = A',\Gamma_0'$ and $\tr_{\Gamma'_1}^{\Pass}$ is permuted with $\pass$, i.e.
+          %then we do case analysis on $\iota$:
+	%	\begin{itemize}
+	  %		\item If $\iota = \text{left cons } \iota'$ or right empty, then
+          $\tr_{\Gamma'_1}^{\Pass} \text{ } (\pass \text{ } f' , g) \defeq \pass \text{ } (\tr_{\Gamma'_1}^{\Pass} \text{ } (f' , g))$. In the second case $A'$ is the leftmost formula of $\Gamma_1$ and consequently it belongs to $\Gamma_1'$ as well. Then
+%			\item If $\iota = \text{right cons } \iota'$ or left empty, then
 			\begin{displaymath}
 				\footnotesize
 				\begin{array}{c}
@@ -2505,154 +2539,158 @@ There are two main differences with the non-commutative focused calculus in (\re
 				\hspace*{-2cm}
 			  \end{array}
 			\end{displaymath}
-		\end{itemize}
+%		\end{itemize}
 		\item If $f = \F 2 \Pass \text{ } f'$, then $\tr_{\Gamma'_1}^{\Pass} \text{ } (\F 2 \Pass \text{ } f' , g) \defeq \F 2 \Pass \text{ } (\tr_{\Gamma'_1}^{\F} \text{ } (f' , g)) $.
 	\end{itemize}
 	Proof of $\tr_{\Gamma'}^{\F}$:
 	\begin{itemize}
 	  \item If $f = \ax$, then $\Gamma'_1$ is empty and $\tr_{(\text{ })}^{\F} \text{ } (\ax , g) \defeq \tr \text{ } (\ax , g)$.
 	  \item If $f = \unitr$, then $\Gamma'_1$ is empty and $\tr_{(\text{ })}^{\F} \text{ } (\unitr , g) \defeq \tr \text{ } (\unitr , g)$.
-	  \item If $f = \tr \text{ } (f' , f'')$, then we have $\Gamma_0 = (\Gamma_{00} , \Delta_{00})$, $\Gamma_1 = (\Gamma_{10} , \Delta_{10})$, and $\iota : (\Gamma_{00} , \Delta_{00}) ; (\Gamma_{10} , \Delta_{10}) \bowtie (\Gamma , \Delta)$ 
+	  \item If $f = \tr \text{ } (f' , f'')$, then $\Gamma = \Gamma',\Gamma''$. This implies that $\Gamma_0 = \Gamma_{00} , \Gamma_{01}$ and $\Gamma_1 = \Gamma_{10} , \Gamma_{11}$ so that $\Gamma_{00} ; \Gamma_{10} \bowtie \Gamma'$ and $\Gamma_{01};\Gamma_{11} \bowtie \Gamma''$. Then
 	  \begin{displaymath}
 		\footnotesize
 		\begin{array}{c}
 	    \hspace*{-3cm}
 		\proofbox{
-		\infer[\tr_{\Gamma'_1}^{\F}]{T \mid \Gamma_{00} , \Delta_{00} , \Lambda \vdash_{\F} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli} \ot C}{
-		    \infer[\tr]{T \mid \Gamma , \Delta \vdash_{\F} A \ot B}{
-		        \deduce{T \mid \Gamma \vdash^{\bullet}_{\RI} A}{f'}
+		\infer[\tr_{\Gamma'_1}^{\F}]{T \mid \Gamma_{00} , \Gamma_{01} , \Delta \vdash_{\F} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli} \ot C}{
+		    \infer[\tr]{T \mid \Gamma' , \Gamma'' \vdash_{\F} A \ot B}{
+		        \deduce{T \mid \Gamma' \vdash^{\bullet}_{\RI} A}{f'}
 		        &
-		        \deduce{{-} \mid \Delta \vdash_{\RI} B}{f''}
+		        \deduce{{-} \mid \Gamma'' \vdash_{\RI} B}{f''}
 		    }
 		    &
-		    \deduce{{-} \mid \Lambda \vdash_{\RI} C}{g}
+		    \deduce{{-} \mid \Delta \vdash_{\RI} C}{g}
 		}
 		}
 		\\
 			\defeq
 		\proofbox{
-		\infer[\tr]{T \mid \Gamma_{00} , \Delta_{00} , \Lambda \vdash_{\F} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli} \ot C}{
-			\infer[\lright^{*}]{T \mid \Gamma_{00} , \Delta_{00} \vdash^{\bullet}_{\RI} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli}}{
-				\infer[\mathsf{sw}]{T \mid \Gamma^{\Gamma^{\bullet}_{10}} , \Delta^{\Delta^{\bullet}_{10}} \vdash^{\bullet}_{\RI} A \ot B}{
-					\infer[\tr]{T \mid \Gamma^{\Gamma^{\bullet}_{10}} , \Delta^{\Delta^{\bullet}_{10}} \vdash^{\bullet}_{\F} A \ot B}{
-						\deduce{T \mid \Gamma \vdash^{\bullet}_{\RI} A}{f'}
+		\infer[\tr]{T \mid \Gamma_{00} , \Gamma_{01} , \Delta \vdash_{\F} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli} \ot C}{
+			\infer[\lright^{*}]{T \mid \Gamma_{00} , \Gamma_{01} \vdash^{\bullet}_{\RI} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli}}{
+				\infer[\mathsf{sw}]{T \mid (\Gamma')^{\Gamma^{\bullet}_{10}} , (\Gamma'')^{\Gamma^{\bullet}_{11}} \vdash^{\bullet}_{\RI} A \ot B}{
+					\infer[\tr]{T \mid (\Gamma')^{\Gamma^{\bullet}_{10}} , (\Gamma'')^{\Gamma^{\bullet}_{11}} \vdash^{\bullet}_{\F} A \ot B}{
+						\deduce{T \mid \Gamma' \vdash^{\bullet}_{\RI} A}{f'}
 						&
-						\deduce{{-} \mid \Delta \vdash_{\RI} B}{f''}
+						\deduce{{-} \mid \Gamma'' \vdash_{\RI} B}{f''}
 					}
 				}
 			}
 			&
-			\deduce{{-} \mid \Lambda \vdash_{\RI} C}{g}
+			\deduce{{-} \mid \Delta \vdash_{\RI} C}{g}
 		}
 		}
 		\hspace*{-3cm}
 		\end{array}
 	  \end{displaymath}
-	  \item If $f = \lleft \text{ } (f' , f'')$, then we have $\Gamma_0 = (\Gamma_{00} , \Delta_{00})$, $\Gamma_1 = (\Gamma_{10} , \Delta_{10})$, and $\iota : (\Gamma_{00} , \Delta_{00}) ; (\Gamma_{10} , \Delta_{10}) \bowtie (\Gamma , \Delta)$.
+	\item If $f = \lleft \text{ } (f' , f'')$, then $\Gamma = \Gamma',\Gamma''$. This implies that $\Gamma_0 = \Gamma_{00} , \Gamma_{01}$ and $\Gamma_1 = \Gamma_{10} , \Gamma_{11}$ so that $\Gamma_{00} ; \Gamma_{10} \bowtie \Gamma'$ and $\Gamma_{01};\Gamma_{11} \bowtie \Gamma''$.
+          %then we have $\Gamma_0 = (\Gamma_{00} , \Delta_{00})$, $\Gamma_1 = (\Gamma_{10} , \Delta_{10})$, and $\iota : (\Gamma_{00} , \Delta_{00}) ; (\Gamma_{10} , \Delta_{10}) \bowtie (\Gamma , \Delta)$.
 	  We do further induction on $\Gamma_{10}$ to check if there is any formula in $\Gamma'_1$ coming from the left premise $f'$.
-	  \begin{itemize}
-		\item If $\Gamma_{10}$ is empty, then $\tr_{\Gamma'_1}^{\F} \text{ } (\lleft \text{ } (f' , f'') , g) \defeq \lleft \text{ } (f' , \tr_{\Gamma'_1}^{\LI} \text{ } (f'' , g))$.
-		\item If $\Gamma_{10} = \Gamma'_{10} , D , \Gamma''_{10}$, then 
+%	  \begin{itemize}
+	  If $\Gamma_{10}$ is empty, then the rules can be permuted, i.e. $\tr_{\Gamma'_1}^{\F} \text{ } (\lleft \text{ } (f' , f'') , g) \defeq \lleft \text{ } (f' , \tr_{\Gamma'_1}^{\LI} \text{ } (f'' , g))$.
+%          
+	  If $\Gamma_{10}$ is non-empty, then $\tr$ must be applied before $\lleft$, i.e.
+          %= \Gamma'_{10} , D , \Gamma''_{10}$, then 
 		\begin{displaymath}
 			\footnotesize
 		  \begin{array}{c}
 			\hspace*{-3cm}
 			\proofbox{
-			\infer[\tr_{\Gamma'_1}^{\F}]{A' \lolli B' \mid \Gamma_{00} , \Delta_{00} , \Lambda \vdash_{\F} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
-			    \infer[\lleft]{A' \lolli B' \mid \Gamma , \Delta \vdash_{\F} P}{
-			        \deduce{{-} \mid \Gamma  \vdash_{\RI} A'}{f'}
+			\infer[\tr_{\Gamma'_1}^{\F}]{A' \lolli B' \mid \Gamma_{00} , \Gamma_{01} , \Delta \vdash_{\F} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
+			    \infer[\lleft]{A' \lolli B' \mid \Gamma' , \Gamma'' \vdash_{\F} P}{
+			        \deduce{{-} \mid \Gamma'  \vdash_{\RI} A'}{f'}
 			        &
-			        \deduce{B' \mid \Delta \vdash_{\LI} P}{f''}
+			        \deduce{B' \mid \Gamma'' \vdash_{\LI} P}{f''}
 			    }
 			    &
-			    \deduce{{-} \mid \Lambda \vdash_{\RI} B}{g}
+			    \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
 			}
 			}
 			\\
 			\defeq
 			\proofbox{
-			\infer[\tr]{A' \lolli B' \mid \Gamma_{00} , \Delta_{00} , \Lambda \vdash_{\F} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
-				\infer[\lright^{*}]{A' \lolli B' \mid \Gamma_{00} , \Delta_{00} \vdash^{\bullet}_{\RI} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli}}{
-					\infer[\mathsf{sw}]{A' \lolli B' \mid \Gamma^{(\Gamma'_{10} , D , \Gamma''_{10})^{\bullet}} , \Delta^{\Delta^{\bullet}_{10}} \vdash^{\bullet}_{\RI} P}{
-						\infer[\lleft]{A' \lolli B' \mid \Gamma^{(\Gamma'_{10} , D , \Gamma''_{10})^{\bullet}} , \Delta^{\Delta^{\bullet}_{10}} \vdash^{\bullet}_{\F} P}{
-							\deduce{{-} \mid \Gamma \vdash_{\RI} A'}{f'}
+			\infer[\tr]{A' \lolli B' \mid \Gamma_{00} , \Gamma_{01} , \Delta \vdash_{\F} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
+				\infer[\lright^{*}]{A' \lolli B' \mid \Gamma_{00} , \Gamma_{01} \vdash^{\bullet}_{\RI} \ldbc \Gamma'_1 \mid P \rdbc_{\lolli}}{
+					\infer[\mathsf{sw}]{A' \lolli B' \mid (\Gamma')^{\Gamma_{10}^{\bullet}} , (\Gamma'')^{\Gamma^{\bullet}_{11}} \vdash^{\bullet}_{\RI} P}{
+					  \infer[\lleft]{A' \lolli B' \mid
+(\Gamma')^{\Gamma_{10}^{\bullet}} , (\Gamma'')^{\Gamma^{\bullet}_{11}} \vdash^{\bullet}_{\F} P}{
+							\deduce{{-} \mid \Gamma' \vdash_{\RI} A'}{f'}
 							&
-							\deduce{B' \mid \Delta \vdash_{\LI} P}{f''}
+							\deduce{B' \mid \Gamma'' \vdash_{\LI} P}{f''}
 						}
 					}
 				}
 				&
-				\deduce{{-} \mid \Lambda \vdash_{\RI} B}{g}
+				\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
 			}
 			}
 			\hspace*{-1cm}
 		  \end{array}
 		   \end{displaymath}
-	  \end{itemize}
+%	  \end{itemize}
 	\end{itemize}
 \end{proof}
 \begin{proposition}
-	The following 2 rules are admissible:
+	The following rules are admissible:
     \begin{displaymath}
 		\footnotesize
         \infer[\tr^{\C}]{S \mid \Gamma , \Delta  \spl \Lambda \vdash_{\C} A \ot B}{
-            \deduce{S \mid \Gamma \spl \quad  \vdash_{\C} A}{f}
+            S \mid \Gamma \spl ~  \vdash_{\C} A
             &
-            \deduce{{-} \mid \Delta \spl \Lambda \vdash_{\C} B}{g}
+            {-} \mid \Delta \spl \Lambda \vdash_{\C} B
         }
 		\qquad
-		\infer[\tr^{\C {-} \RI}]{S \mid \Gamma \spl \Delta , \Lambda \vdc A \ot B}{
-			\deduce{S \mid \Gamma \spl \Delta \vdc A}{f}
+		\infer[\tr^{\C\text{-}\RI}]{S \mid \Gamma \spl \Delta , \Lambda \vdc A \ot B}{
+			S \mid \Gamma \spl \Delta \vdc A
 			&
-			\deduce{{-} \mid \Lambda \vdash_{\RI} B}{g}
+			{-} \mid \Lambda \vdash_{\RI} B
 		}
     \end{displaymath}
 \end{proposition}
 \begin{proof}
-For $\tr^{\C}$, we do induction on right premise $g$. 
+The admissibility of $\tr^{\C}$ is proved by on the right premise. 
 \begin{itemize}
 	\item If $g = \ex \text{ } g'$, then $\tr^{\C} \text{ } (f , \ex \text{ } g') \defeq \ex \text{ } (\tr^{\C} \text{ } (f , g'))$.
 	\item If $g = \RI 2 \C \text{ } g'$, then $\tr^{\C} \text{ } (f , \RI 2 \C \text{ } g') \defeq \tr^{\C \text{-} \RI} \text{ } (f , g')$.
 \end{itemize}
-$\tr^{\C \text{-} \RI}$ is proved by induction on left premise $f$:
+The admissibility of $\tr^{\C \text{-} \RI}$ is proved by induction on the left premise.
 \begin{itemize}
-	\item If $f = \ex \text{ } f'$, then $\tr^{\C \text{-} \RI} \text{ } (\ex \text{ } f' , g) \defeq \ex \text{ } (\tr^{\C \text{-} \RI} \text{ } (f' , g))$.
+	\item If $f = \ex \text{ } f'$, then $\tr^{\C\text{-}\RI} \text{ } (\ex \text{ } f' , g) \defeq \ex \text{ } (\tr^{\C \text{-} \RI} \text{ } (f' , g))$.
 	\item If $f = \RI 2 \C \text{ } f' $, then 
-	% $\tr^{\C \text{-} \RI} \text{ } (\RI 2 \C \text{ } f' , g)$
-	%\defeq \RI 2 \C \text{ } (\tr_{[\text{ }]}^{\RI} \text{ } (f' , g))
-	\begin{displaymath}
-        \footnotesize
-        \begin{array}{c}
-			\hspace*{-4.5cm}
-			\proofbox{
-            \infer[\tr^{\C - \RI}]{S \mid \quad \spl \Gamma , \Delta \vdc A \ot B}{
-                \infer[\RI 2 \C]{S \mid \quad \spl \Gamma \vdc A}{
-                    \deduce{S \mid \Gamma \vdash_{\RI} A}{f'}
-                }
-                &
-                \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
-            }
-			}
-			\\
-            % \begin{array}{c}
-                \defeq
-            % \end{array}
-            
-            \proofbox{
-            \infer[\RI 2 \C]{S \mid \quad \spl \Gamma , \Delta \vdc A \ot B}{
-                \infer[\tr^{\RI}_{(\text{ })}]{S \mid \Gamma , \Delta \vdash_{\RI} A \ot B}{
-                    \deduce{S \mid \Gamma \vdash_{\RI} A}{f'}
-                    &
-                    \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
-                    &
-                    (\text{ }) ; (\text{ }) \bowtie (\text{ })
-                    &
-                    (\text{ }) \lrwavy (\text{ })
-                }
-            }
-            }   
-        \end{array}
-    \end{displaymath}
+	$\tr^{\C \text{-} \RI} \text{ } (\RI 2 \C \text{ } f' , g)\defeq \RI 2 \C \text{ } (\tr_{(\text{ })}^{\RI} \text{ } (f' , g))$, 
+%% 	\begin{displaymath}
+%%         \footnotesize
+%%         \begin{array}{c}
+%% %			\hspace*{-4.5cm}
+%% 			\proofbox{
+%%             \infer[\tr^{\C \text{-} \RI}]{S \mid ~ \spl \Gamma , \Delta \vdc A \ot B}{
+%%                 \infer[\RI 2 \C]{S \mid ~ \spl \Gamma \vdc A}{
+%%                     \deduce{S \mid \Gamma \vdash_{\RI} A}{f'}
+%%                 }
+%%                 &
+%%                 \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+%%             }
+%% 			}
+%% 	%		\\
+%%             % \begin{array}{c}
+%%                 \defeq
+%%             % \end{array}
+%%             
+%%             \proofbox{
+%%             \infer[\RI 2 \C]{S \mid ~ \spl \Gamma , \Delta \vdc A \ot B}{
+%%                 \infer[\tr^{\RI}_{(\text{ })}]{S \mid \Gamma , \Delta \vdash_{\RI} A \ot B}{
+%%                     \deduce{S \mid \Gamma \vdash_{\RI} A}{f'}
+%%                     &
+%%                     \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
+%% %                    &
+%% %                    (\text{ }) ; (\text{ }) \bowtie (\text{ })
+%% %                    &
+%% %                    (\text{ }) \lrwavy (\text{ })
+%%                 }
+%%             }
+%%             }   
+%%         \end{array}
+%%         \end{displaymath}
+        where $\tr^{\RI}_{(\text{ })}$ is the first admissible rule $\tr^{\RI}_{\Gamma_1'}$ of Proposition~\ref{prop:admit:gen:tr:sym} instantiated with empty $\Gamma_1'$. The side conditions of this rule are automatically satisfied since  $\Gamma_1'$ is empty.
 \end{itemize}
 \end{proof}
 
