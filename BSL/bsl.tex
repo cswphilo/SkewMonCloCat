@@ -145,11 +145,11 @@
 We also perform an analogous proof-theoretic analysis of a skew variant of \MILL, which has models in symmetric skew monoidal closed categories.
 	\end{abstract}
 	\begin{keywords}
-		Skew monoidal closed categories, Substructural logic, Focusing, Agda
+		skew monoidal closed categories, substructural logic, focusing, Agda
 	\end{keywords}
-% 	\begin{msc}[2020]
-% 		03B47, 03F52, 03G30, 68V15
-% 	\end{msc}
+	% \begin{msc}[2020]
+	% 	03B47, 03F52, 03G30, 68V15
+	% \end{msc}
 
 
 
@@ -1709,7 +1709,7 @@ $B$ and $C$, leaving the first object $A$ in place.
 		\begin{itemize}
 		  \item If $f = \ax$, then $\Gamma'$ is empty and $\tr_{\text{( )}}^{\F} \text{ } (\ax , g) \defeq \tr \text{ } (\ax , g)$.
 		  \item If $f = \unitr$, then $\Gamma'$ is empty and $\tr_{\text{( )}}^{\F} \text{ } (\unitr , g) \defeq \tr \text{ } (\unitr , g)$.
-		  \item If $f = \tr \text{ } (f_1 , f_2)$, there are two possibilities, depending on whether the $\tr$ rule splits the context in $\Gamma$ or $\Gamma'$.
+		  \item If $f = \tr \text{ } (f' , f'')$, there are two possibilities, depending on whether the $\tr$ rule splits the context in $\Gamma$ or $\Gamma'$.
                     The two cases are analogous. We only show the second one, where $\Gamma' = \Gamma_0', \Gamma_1'$ and 
                     %$\tr_{\Gamma'}^{\F} \text{ } (\tr \text{ } (f , f') , g)$
 		  % \defeq \tr \text{ } (\lright^{*} \text{ } (\LI 2 \RI \text{ } (\Pass 2 \LI \text{} (\F 2 \Pass \text{ } (\tr \text{ } (f , f'))))) , g)
@@ -1719,9 +1719,9 @@ $B$ and $C$, leaving the first object $A$ in place.
                           \hspace*{-3.2cm}
  \infer[\tr_{\Gamma_0' ,\Gamma_1'}^{\F}]{T \mid \Gamma , \Delta \vdash_{\F} \ldbc \Gamma_0' , \Gamma_1' \mid A' \ot B' \rdbc_{\lolli} \ot B}{
  	\infer[\tr]{T \mid \Gamma , \Gamma_0' , \Gamma_1' \vdash_{\F} A' \ot B'}{
- 		\deduce{T \mid \Gamma , \Gamma_0' \vdash^{\bullet}_{\RI} A'}{f_1}
+ 		\deduce{T \mid \Gamma , \Gamma_0' \vdash^{\bullet}_{\RI} A'}{f'}
  		&
- 		\deduce{{-} \mid \Gamma_1' \vdash_{\RI} B'}{f_2}
+ 		\deduce{{-} \mid \Gamma_1' \vdash_{\RI} B'}{f''}
  	}
  	&
  	\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
@@ -1734,9 +1734,9 @@ $B$ and $C$, leaving the first object $A$ in place.
 				\infer[\lright^{*}]{T \mid \Gamma \vdash^{\bullet}_{\RI} \ldbc \Gamma_0' , \Gamma_1' \mid A' \ot B' \rdbc_{\lolli}}{
 					\infer[\mathsf{sw}]{T \mid \Gamma , \Gamma_0'^{\bullet} , \Gamma_1'^{\bullet} \vdash^{\bullet}_{\RI} A' \ot B'}{
 						\infer[\tr]{T \mid \Gamma , \Gamma_0'^{\bullet} , \Gamma_1'^{\bullet} \vdash^{\bullet}_{\F} A' \ot B'}{
-							\deduce{T \mid \Gamma , \Gamma_0' \vdash^{\bullet}_{\RI} A'}{f_1}
+							\deduce{T \mid \Gamma , \Gamma_0' \vdash^{\bullet}_{\RI} A'}{f'}
 							&
-							\deduce{{-} \mid \Gamma_1' \vdash_{\RI} B'}{f_2}
+							\deduce{{-} \mid \Gamma_1' \vdash_{\RI} B'}{f''}
 						}
 					}
 				}
@@ -1746,8 +1746,8 @@ $B$ and $C$, leaving the first object $A$ in place.
             }
 		    \end{array}
 		  \end{displaymath}                  
-		\item If $f = \lleft \text{ } (f_1 , f_2)$, there are two possibilities, depending on whether the $\lleft$ rule splits the context in $\Gamma$ or $\Gamma'$, i.e. whether at least one formula from $\Gamma'$ is moved to the left premise $f_1$.                  
-                  In the first case, $\lleft$ can be applied first, i.e. $\tr_{\Gamma'}^{\F} \text{ } (\lleft \text{ } (f_1 , f_2) , g) \defeq \lleft \text{ } (f_1 , \tr_{\Gamma'}^{\LI} \text{ } (f_2 , g))$. % when there is no formula in $\Gamma'$ comes from $f$.
+		\item If $f = \lleft \text{ } (f' , f'')$, there are two possibilities, depending on whether the $\lleft$ rule splits the context in $\Gamma$ or $\Gamma'$, i.e. whether at least one formula from $\Gamma'$ is moved to the left premise $f'$.                  
+                  In the first case, $\lleft$ can be applied first, i.e. $\tr_{\Gamma'}^{\F} \text{ } (\lleft \text{ } (f' , f'') , g) \defeq \lleft \text{ } (f' , \tr_{\Gamma'}^{\LI} \text{ } (f'' , g))$. % when there is no formula in $\Gamma'$ comes from $f$.
                   In the second case, $\Gamma' = \Gamma'_0,\Gamma'_1$ with non-empty $\Gamma'_0$ and 
 %		  \item  When there is at least one formula in $\Gamma'$ appears in $f$, $\tr_{\Gamma'}^{\F} \text{ } (\lleft \text{ } (f , f') , g)$
 		  % \defeq \tr \text{ } (\lright^{*} \text{ } (\LI 2 \RI \text{ } (\Pass 2 \LI \text{ } (\F 2 \Pass \text{ } (\lleft \text{ } (f , f'))))) , g)
@@ -1757,9 +1757,9 @@ $B$ and $C$, leaving the first object $A$ in place.
                           \hspace*{-3.5cm}
  \infer[\tr_{\Gamma'_{0} , \Gamma'_1}^{\F}]{A' \lolli B' \mid \Gamma , \Delta \vdash_{\F} \ldbc \Gamma'_{0} , \Gamma'_1 \mid P \rdbc_{\lolli} \ot B}{
  	\infer[\lleft]{A' \lolli B' \mid \Gamma , \Gamma'_0 , \Gamma'_1 \vdash_{\F} P}{
- 		\deduce{{-} \mid \Gamma , \Gamma'_0  \vdash_{\RI} A'}{f_1}
+ 		\deduce{{-} \mid \Gamma , \Gamma'_0  \vdash_{\RI} A'}{f'}
  		&
- 		\deduce{B' \mid \Gamma'_1 \vdash_{\LI} P}{f_2}
+ 		\deduce{B' \mid \Gamma'_1 \vdash_{\LI} P}{f''}
  	}
  	&
  	\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
@@ -1778,9 +1778,9 @@ $B$ and $C$, leaving the first object $A$ in place.
 				\infer[\lright^{*}]{A' \lolli B' \mid \Gamma \vdash^{\bullet}_{\RI} \ldbc \Gamma'_{0} , \Gamma'_1 \mid P \rdbc_{\lolli}}{
 					\infer[\mathsf{sw}]{A' \lolli B' \mid \Gamma , \Gamma'^{\bullet}_{0} , \Gamma'^{\bullet}_{1} \vdash^{\bullet}_{\RI} P}{
 						\infer[\lleft]{A' \lolli B' \mid \Gamma , \Gamma'^{\bullet}_{0} , \Gamma'^{\bullet}_{1} \vdash^{\bullet}_{\F} P}{
-							\deduce{{-} \mid \Gamma , \Gamma'_0 \vdash_{\RI} A'}{f_1}
+							\deduce{{-} \mid \Gamma , \Gamma'_0 \vdash_{\RI} A'}{f'}
 							&
-							\deduce{B' \mid \Gamma'_1 \vdash_{\LI} P}{f_2}
+							\deduce{B' \mid \Gamma'_1 \vdash_{\LI} P}{f''}
 						}
 					}
 				}
@@ -2231,7 +2231,7 @@ There are two main differences with the non-commutative focused calculus in (\re
   The focused sequent calculus in (\ref{eq:focus:sym}) is sound and complete wrt. the sequent calculus of Section \ref{sec:skmill}: there is a one-to-one correspondence between the set of derivations of $S \mid \Gamma \vdash A$ quotiented by $\circeq$ and the set of derivations of $S \mid \Gamma \spl ~ \vdash_{\C} A$.
 \end{theorem}
 %\begin{proof}
-  Soundness is obtained by defining embedding functions $\mathsf{emb}_{\C} : S \mid \Gamma \spl \Delta \vdash^{x}_{\C} \vdash C \to S \mid \Gamma , \Delta \vdash A$ and $\mathsf{emb}_{ph} : S \mid \Gamma \vdash^{x}_{ph} A \to S \mid \Gamma \vdash A$, for all $ph \in \{ \RI , \LI , \Pass , \F \}$, which erase all phase and tag annotations.  Completeness is justified by proving the following rules are admissible in phase $\C$:
+  Soundness is obtained by defining embedding functions $\mathsf{emb}_{\C} : S \mid \Gamma \spl \Delta \vdash^{x}_{\C} C \to S \mid \Gamma , \Delta \vdash A$ and $\mathsf{emb}_{ph} : S \mid \Gamma \vdash^{x}_{ph} A \to S \mid \Gamma \vdash A$, for all $ph \in \{ \RI , \LI , \Pass , \F \}$, which erase all phase and tag annotations.  Completeness is justified by proving the following rules are admissible in phase $\C$:
   \begin{equation*}\label{eq:admis:sym}
     \hspace*{-4mm}
 	\footnotesize
@@ -2364,13 +2364,14 @@ There are two main differences with the non-commutative focused calculus in (\re
       $\lolli$-right rule, is admissible:
     \begin{displaymath}
         \infer[\lright^{*}]{S \mid \Gamma_0 \vdash^{x}_{\RI} \ldbc \Gamma'_1 \mid C \rdbc_{\lolli}}{
-            S \mid \Gamma \vdash^{x}_{\RI} C
+            S \mid \Gamma^{\Gamma^{x}_{1}} \vdash^{x}_{\RI} C
             &
             \Gamma_0 ; \Gamma_1 \bowtie \Gamma
             &
             \Gamma_1 \lrwavy \Gamma'_1
         }
     \end{displaymath}
+	$\Gamma^{\Gamma^{x}_{1}}$ indicates the context $\Gamma$ in which all formulae $\Gamma_{1}$ are possibly tagged and all formulae in $\Gamma_{0}$ are kept untagged.
 \end{proposition}
 \begin{proof}
     By structural induction on $\Gamma'_1$:
