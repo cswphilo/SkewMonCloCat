@@ -2221,7 +2221,7 @@ Notice the difference with the usual structural law $\sigma$ of symmetry of Mac 
 \end{equation}
 There are two main differences with the non-commutative focused calculus in (\ref{eq:focus}):
 \begin{itemize}
-\item Bottom-up proof search now starts in a new phase $\C$, where formulae in context are permuted. The search in phase $\C$ starts from a sequent $S \mid \Gamma \spl ~ \vdash_{\C} C$ and ends in a sequent $S \mid ~ \spl \Gamma' \vdash_{\C} C$, where $\Gamma'$ is a permutation of $\Gamma$.
+\item Root-first proof search now starts in a new phase $\C$, where formulae in context are permuted. The search in phase $\C$ starts from a sequent $S \mid \Gamma \spl ~ \vdash_{\C} C$ and ends in a sequent $S \mid ~ \spl \Gamma' \vdash_{\C} C$, where $\Gamma'$ is a permutation of $\Gamma$.
   %Given any sequent $S \mid \Gamma \spl \Delta \vdash_{\C} C$, we start proof search from phase $\C$ by moving formulae in context.
   During this process, the context is split into two parts $\Gamma \spl \Delta$, where formulae in $\Gamma$ are ready to be moved and formulae in $\Delta$ have been already moved to their correct position.
   The rule $\ex$ moves one formula at a time (the rightmost one in the left side of the context $\Gamma$) until every formula is moved somewhere to the right of the separator $\spl$. When this happens, proof search continues in phase $\RI$. Notice that the sequent and formulae in context may also be tagged and tags are preserved during the permutation phase. An important difference with the  non-commutative focused calculus is the fact that now tagged and untagged formulae in context are mixed, while in (\ref{eq:focus}) all tagged formulae necessarily appear at the right end of the context.
@@ -2254,10 +2254,10 @@ There are two main differences with the non-commutative focused calculus in (\re
     \quad
     \infer[\tl^{\C}]{A \ot B \mid \Gamma \spl \Delta \vdash_{\C} C}{A \mid B, \Gamma \spl \Delta \vdash_{\C} C}
     \\[6pt]
-        \infer[\tr^{\C}]{S \mid \Gamma , \Delta  \spl \Lambda \vdash_{\C} A \ot B}{
+        \infer[\tr^{\C}]{S \mid \Gamma , \Gamma'  \spl \Delta \vdash_{\C} A \ot B}{
           S \mid \Gamma \spl ~  \vdash_{\C} A
           &
-          {-} \mid \Delta \spl \Lambda \vdash_{\C} B
+          {-} \mid \Gamma' \spl \Delta \vdash_{\C} B
         }
         \quad
         \infer[\unitr^{\C}]{{-} \mid ~ \spl ~ \vdash_{\C} \I}{}
@@ -2470,7 +2470,7 @@ When $\Gamma_0;\Gamma_1 \bowtie \Gamma$, we write $\Gamma^{\Gamma^{x}_1}$ to ind
            %some formulae in $\Gamma$ is tagged and the list of tagged formulae is $\Gamma_1$.
            %	\newline
            
-	Proof of $\tr_{\Gamma'}^{\RI}$:
+	Proof of $\tr_{\Gamma_1'}^{\RI}$:
 	\begin{itemize}
 	\item If $f = \lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } f'))$, then $\Gamma = \Gamma',\Gamma''$ and
 %          we extend $\iota : \Gamma_0 ; (\Gamma_{10} , \Gamma_{11}) \bowtie (\Gamma' , \Gamma'')$ and $(\Gamma_{10} , \Gamma_{11}) \lrwavy \Gamma'_1$ with $A$, the active formula in $\lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } f'))$, then we have $\iota' : \Gamma_0 ; (\Gamma_{10} , A , \Gamma_{11}) \bowtie (\Gamma' , A , \Gamma'')$, $(\Gamma_{10} , A , \Gamma_{11}) \lrwavy (\Gamma'_1 , A)$ and
@@ -2480,30 +2480,30 @@ When $\Gamma_0;\Gamma_1 \bowtie \Gamma$, we write $\Gamma^{\Gamma^{x}_1}$ to ind
 				\begin{array}{c}
 					\hspace*{-3cm}
 				    \proofbox{
-				    \infer[\tr^{\RI}_{\Gamma'_1}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 \mid A \lolli B \rdbc_{\lolli} \ot C}{
-				        \infer[\lright]{S \mid \Gamma' , \Gamma'' \vdash_{\RI} A \lolli B}{
-				            \infer[\ex]{S \mid A \spl \Gamma' , \Gamma'' \vdc B}{
-				                \infer[\RI 2 \C]{S \mid ~ \spl \Gamma' , A , \Gamma'' \vdash_{\C} B}{
-				                    \deduce{S \mid \Gamma' , A , \Gamma'' \vdash_{\RI} B}{f'}
+				    \infer[\tr^{\RI}_{\Gamma'_1}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 \mid A' \lolli B' \rdbc_{\lolli} \ot B}{
+				        \infer[\lright]{S \mid \Gamma' , \Gamma'' \vdash_{\RI} A' \lolli B'}{
+				            \infer[\ex]{S \mid A' \spl \Gamma' , \Gamma'' \vdc B'}{
+				                \infer[\RI 2 \C]{S \mid ~ \spl \Gamma' , A' , \Gamma'' \vdash_{\C} B'}{
+				                    \deduce{S \mid \Gamma' , A' , \Gamma'' \vdash_{\RI} B'}{f'}
 				                }
 				            }
 				        }
 				        &
-				        \deduce{{-} \mid \Delta \vdash_{\RI} C}{g}
+				        \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
 				    }
 				    }
 				\\
 					\defeq
 				\proofbox{
-					\infer[\tr^{\RI}_{\Gamma'_1 , A}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 ,A \mid B \rdbc_{\lolli} \ot C}{
-						\deduce{S \mid \Gamma' , A , \Gamma'' \vdash_{\RI} B}{f'}
+					\infer[\tr^{\RI}_{\Gamma'_1 , A'}]{S \mid \Gamma_0 , \Delta \vdash_{\RI} \ldbc \Gamma'_1 ,A' \mid B' \rdbc_{\lolli} \ot B}{
+						\deduce{S \mid \Gamma' , A' , \Gamma'' \vdash_{\RI} B'}{f'}
 						&
-						\deduce{{-} \mid \Delta \vdash_{\RI} C}{g}
+						\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
 					}
 				}
 				\end{array}
 			\end{displaymath}
-                        The application of $\tr^{\RI}_{\Gamma'_1,A}$ can be justified as follows. Since $\Gamma$ is an interleaving of $\Gamma_0$ and $\Gamma_1$, this implies that $\Gamma_0 = \Gamma_{00},\Gamma_{01}$ and $\Gamma_1 = \Gamma_{10},\Gamma_{11}$ so that $\Gamma_{00};\Gamma_{10} \bowtie \Gamma'$ and $\Gamma_{01};\Gamma_{11} \bowtie \Gamma''$. Then also $\Gamma_{00},\Gamma_{01} ; \Gamma_{10} , A , \Gamma_{11} \bowtie \Gamma' , A , \Gamma''$. Moreover, since $\Gamma_{10},\Gamma_{11} \lrwavy \Gamma_1'$, then also $\Gamma_{10},A,\Gamma_{11} \lrwavy \Gamma_1',A$. %                       since           we extend $\iota : \Gamma_0 ; (\Gamma_{10} , \Gamma_{11}) \bowtie (\Gamma' , \Gamma'')$ and $(\Gamma_{10} , \Gamma_{11}) \lrwavy \Gamma'_1$ with $A$, the active formula in $\lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } f'))$, then we have $\iota' : \Gamma_0 ; (\Gamma_{10} , A , \Gamma_{11}) \bowtie (\Gamma' , A , \Gamma'')$, $(\Gamma_{10} , A , \Gamma_{11}) \lrwavy (\Gamma'_1 , A)$ and
+                        The application of $\tr^{\RI}_{\Gamma'_1,A'}$ can be justified as follows. Since $\Gamma$ is an interleaving of $\Gamma_0$ and $\Gamma_1$, this implies that $\Gamma_0 = \Gamma_{00},\Gamma_{01}$ and $\Gamma_1 = \Gamma_{10},\Gamma_{11}$ so that $\Gamma_{00};\Gamma_{10} \bowtie \Gamma'$ and $\Gamma_{01};\Gamma_{11} \bowtie \Gamma''$. Then also $\Gamma_{00},\Gamma_{01} ; \Gamma_{10} , A' , \Gamma_{11} \bowtie \Gamma' , A' , \Gamma''$. Moreover, since $\Gamma_{10},\Gamma_{11} \lrwavy \Gamma_1'$, then also $\Gamma_{10},A',\Gamma_{11} \lrwavy \Gamma_1',A'$. %                       since           we extend $\iota : \Gamma_0 ; (\Gamma_{10} , \Gamma_{11}) \bowtie (\Gamma' , \Gamma'')$ and $(\Gamma_{10} , \Gamma_{11}) \lrwavy \Gamma'_1$ with $A$, the active formula in $\lright \text{ } (\ex \text{ } (\RI 2 \C \text{ } f'))$, then we have $\iota' : \Gamma_0 ; (\Gamma_{10} , A , \Gamma_{11}) \bowtie (\Gamma' , A , \Gamma'')$, $(\Gamma_{10} , A , \Gamma_{11}) \lrwavy (\Gamma'_1 , A)$ and
 
 		      \item If $f = \LI 2 \RI \text{ } f'$, then $\tr_{\Gamma'_1}^{\RI} \text{ } (\LI 2 \RI \text{ } f' , g) \defeq \LI 2 \RI \text{ } (\tr_{\Gamma'_1}^{\LI} \text{ } (f' , g))$.
                         \newline (We omit derivations tree in cases where rules are simply permuted.) 
@@ -2516,7 +2516,7 @@ When $\Gamma_0;\Gamma_1 \bowtie \Gamma$, we write $\Gamma^{\Gamma^{x}_1}$ to ind
 	\end{itemize}
 	Proof of $\tr_{\Gamma'_1}^{\Pass}$:
 	\begin{itemize}
-	\item If $f = \pass \text{ } f'$, the passivated formula $A'$ can either belong to $\Gamma_0$ or to $\Gamma_1$, which follows from the assumption $\Gamma_0 ; \Gamma_1 \bowtie A' , \Gamma$. In the first case $\Gamma_0 = A',\Gamma_0'$ and $\tr_{\Gamma'_1}^{\Pass}$ is permuted with $\pass$, i.e.
+	\item If $f = \pass \text{ } f'$, the passivated formula $A'$ can either belong to $\Gamma_0$ or to $\Gamma_1$, which follows from the assumption $\Gamma_0 ; \Gamma_1 \bowtie A' , \Gamma$. In the first case $\Gamma_0 = A',\Gamma_0'$ and $\pass$ can be applied first, i.e.
           %then we do case analysis on $\iota$:
 	%	\begin{itemize}
 	  %		\item If $\iota = \text{left cons } \iota'$ or right empty, then
@@ -2559,7 +2559,7 @@ When $\Gamma_0;\Gamma_1 \bowtie \Gamma$, we write $\Gamma^{\Gamma^{x}_1}$ to ind
 %		\end{itemize}
 		\item If $f = \F 2 \Pass \text{ } f'$, then $\tr_{\Gamma'_1}^{\Pass} \text{ } (\F 2 \Pass \text{ } f' , g) \defeq \F 2 \Pass \text{ } (\tr_{\Gamma'_1}^{\F} \text{ } (f' , g)) $.
 	\end{itemize}
-	Proof of $\tr_{\Gamma'}^{\F}$:
+	Proof of $\tr_{\Gamma_1'}^{\F}$:
 	\begin{itemize}
 	  \item If $f = \ax$, then $\Gamma'_1$ is empty and $\tr_{(\text{ })}^{\F} \text{ } (\ax , g) \defeq \tr \text{ } (\ax , g)$.
 	  \item If $f = \unitr$, then $\Gamma'_1$ is empty and $\tr_{(\text{ })}^{\F} \text{ } (\unitr , g) \defeq \tr \text{ } (\unitr , g)$.
@@ -2569,41 +2569,41 @@ When $\Gamma_0;\Gamma_1 \bowtie \Gamma$, we write $\Gamma^{\Gamma^{x}_1}$ to ind
 		\begin{array}{c}
 	    \hspace*{-3cm}
 		\proofbox{
-		\infer[\tr_{\Gamma'_1}^{\F}]{T \mid \Gamma_{00} , \Gamma_{01} , \Delta \vdash_{\F} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli} \ot C}{
-		    \infer[\tr]{T \mid \Gamma' , \Gamma'' \vdash_{\F} A \ot B}{
-		        \deduce{T \mid \Gamma' \vdash^{\bullet}_{\RI} A}{f'}
+		\infer[\tr_{\Gamma'_1}^{\F}]{T \mid \Gamma_{00} , \Gamma_{01} , \Delta \vdash_{\F} \ldbc \Gamma'_1 \mid A' \ot B' \rdbc_{\lolli} \ot B}{
+		    \infer[\tr]{T \mid \Gamma' , \Gamma'' \vdash_{\F} A' \ot B'}{
+		        \deduce{T \mid \Gamma' \vdash^{\bullet}_{\RI} A'}{f'}
 		        &
-		        \deduce{{-} \mid \Gamma'' \vdash_{\RI} B}{f''}
+		        \deduce{{-} \mid \Gamma'' \vdash_{\RI} B'}{f''}
 		    }
 		    &
-		    \deduce{{-} \mid \Delta \vdash_{\RI} C}{g}
+		    \deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
 		}
 		}
 		\\
 			\defeq
 		\proofbox{
-		\infer[\tr]{T \mid \Gamma_{00} , \Gamma_{01} , \Delta \vdash_{\F} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli} \ot C}{
-			\infer[\lright^{*}]{T \mid \Gamma_{00} , \Gamma_{01} \vdash^{\bullet}_{\RI} \ldbc \Gamma'_1 \mid A \ot B \rdbc_{\lolli}}{
-				\infer[\mathsf{sw}]{T \mid (\Gamma')^{\Gamma^{\bullet}_{10}} , (\Gamma'')^{\Gamma^{\bullet}_{11}} \vdash^{\bullet}_{\RI} A \ot B}{
-					\infer[\tr]{T \mid (\Gamma')^{\Gamma^{\bullet}_{10}} , (\Gamma'')^{\Gamma^{\bullet}_{11}} \vdash^{\bullet}_{\F} A \ot B}{
-						\deduce{T \mid \Gamma' \vdash^{\bullet}_{\RI} A}{f'}
+		\infer[\tr]{T \mid \Gamma_{00} , \Gamma_{01} , \Delta \vdash_{\F} \ldbc \Gamma'_1 \mid A' \ot B' \rdbc_{\lolli} \ot B}{
+			\infer[\lright^{*}]{T \mid \Gamma_{00} , \Gamma_{01} \vdash^{\bullet}_{\RI} \ldbc \Gamma'_1 \mid A' \ot B' \rdbc_{\lolli}}{
+				\infer[\mathsf{sw}]{T \mid (\Gamma')^{\Gamma^{\bullet}_{10}} , (\Gamma'')^{\Gamma^{\bullet}_{11}} \vdash^{\bullet}_{\RI} A' \ot B'}{
+					\infer[\tr]{T \mid (\Gamma')^{\Gamma^{\bullet}_{10}} , (\Gamma'')^{\Gamma^{\bullet}_{11}} \vdash^{\bullet}_{\F} A' \ot B'}{
+						\deduce{T \mid \Gamma' \vdash^{\bullet}_{\RI} A'}{f'}
 						&
-						\deduce{{-} \mid \Gamma'' \vdash_{\RI} B}{f''}
+						\deduce{{-} \mid \Gamma'' \vdash_{\RI} B'}{f''}
 					}
 				}
 			}
 			&
-			\deduce{{-} \mid \Delta \vdash_{\RI} C}{g}
+			\deduce{{-} \mid \Delta \vdash_{\RI} B}{g}
 		}
 		}
-		\hspace*{-3cm}
+		\hspace*{-2.5cm}
 		\end{array}
 	  \end{displaymath}
 	\item If $f = \lleft \text{ } (f' , f'')$, then $\Gamma = \Gamma',\Gamma''$. This implies that $\Gamma_0 = \Gamma_{00} , \Gamma_{01}$ and $\Gamma_1 = \Gamma_{10} , \Gamma_{11}$ so that $\Gamma_{00} ; \Gamma_{10} \bowtie \Gamma'$ and $\Gamma_{01};\Gamma_{11} \bowtie \Gamma''$.
           %then we have $\Gamma_0 = (\Gamma_{00} , \Delta_{00})$, $\Gamma_1 = (\Gamma_{10} , \Delta_{10})$, and $\iota : (\Gamma_{00} , \Delta_{00}) ; (\Gamma_{10} , \Delta_{10}) \bowtie (\Gamma , \Delta)$.
 	  We do further induction on $\Gamma_{10}$ to check if there is any formula in $\Gamma'_1$ coming from the left premise $f'$.
 %	  \begin{itemize}
-	  If $\Gamma_{10}$ is empty, then the rules can be permuted, i.e. $\tr_{\Gamma'_1}^{\F} \text{ } (\lleft \text{ } (f' , f'') , g) \defeq \lleft \text{ } (f' , \tr_{\Gamma'_1}^{\LI} \text{ } (f'' , g))$.
+	  If $\Gamma_{10}$ is empty, then the $\lleft$ can be applied first, i.e. $\tr_{\Gamma'_1}^{\F} \text{ } (\lleft \text{ } (f' , f'') , g) \defeq \lleft \text{ } (f' , \tr_{\Gamma'_1}^{\LI} \text{ } (f'' , g))$.
 %          
 	  If $\Gamma_{10}$ is non-empty, then $\tr$ must be applied before $\lleft$, i.e.
           %= \Gamma'_{10} , D , \Gamma''_{10}$, then 
@@ -2644,22 +2644,23 @@ When $\Gamma_0;\Gamma_1 \bowtie \Gamma$, we write $\Gamma^{\Gamma^{x}_1}$ to ind
 		  \end{array}
 		   \end{displaymath}
 %	  \end{itemize}
+                 The last application of $\lleft$ is justified since $\Gamma_{10}$ is non-empty.
 	\end{itemize}
 \end{proof}
 \begin{proposition}
 	The following rules are admissible:
     \begin{displaymath}
 		\footnotesize
-        \infer[\tr^{\C}]{S \mid \Gamma , \Delta  \spl \Lambda \vdash_{\C} A \ot B}{
+        \infer[\tr^{\C}]{S \mid \Gamma , \Gamma'  \spl \Delta \vdash_{\C} A \ot B}{
             S \mid \Gamma \spl ~  \vdash_{\C} A
             &
-            {-} \mid \Delta \spl \Lambda \vdash_{\C} B
+            {-} \mid \Gamma \spl \Delta \vdash_{\C} B
         }
 		\qquad
-		\infer[\tr^{\C\text{-}\RI}]{S \mid \Gamma \spl \Delta , \Lambda \vdc A \ot B}{
+		\infer[\tr^{\C\text{-}\RI}]{S \mid \Gamma \spl \Delta , \Delta' \vdc A \ot B}{
 			S \mid \Gamma \spl \Delta \vdc A
 			&
-			{-} \mid \Lambda \vdash_{\RI} B
+			{-} \mid \Delta' \vdash_{\RI} B
 		}
     \end{displaymath}
 \end{proposition}
@@ -2715,10 +2716,10 @@ The admissibility of $\tr^{\C \text{-} \RI}$ is proved by induction on the left 
 	
 	The paper describes sequent calculi for \SkNMILL\ and \SkMILL, skew variants of non-commutative and commutative multiplicative intuitionistic linear logic. The introduction of these logics is motivated by the categorical notion of (symmetric) skew monoidal closed category, which yields the intended categorical semantics. Sequent calculus derivations admit unique normal forms wrt.\ a congruence relation $\circeq$ capturing the equational theory of (symmetric) skew monoidal closed categories at the level of derivations. Normal forms can be organized in a focused sequent calculus, where each focused derivation uniquely corresponds to (and so represents) a $\circeq$-equivalence class in the unfocused sequent calculus. In order to deal with all the permutative conversions of $\circeq$ and to consequently eliminate the related sources of non-determinism in root-first proof search, the focused sequent calculus employs a system of tags for keeping track of the new formulae occurring in the context while building a derivation. The focused sequent calculus solves the coherence problem for (symmetric) skew monoidal closed categories: deciding if a canonical diagram commutes in every (symmetric) skew monoidal closed category reduces to deciding equality of focused derivations. 
 	
-	We plan to investigate alternative presentations of \SkNMILL\ and \SkMILL, such as natural deduction. Analogously to the case of the sequent calculus studied in this paper, we expect natural deduction derivation to be strongly normalizing wrt.\ an appropriately defined $\beta\eta$-conversion. We are interested in directly comparing the resulting $\beta\eta$-long normal forms with the focused derivations of Section \ref{sec:focus} and Section \ref{sec:sym-focus}.
+	We plan to investigate alternative presentations of \SkNMILL\ and \SkMILL, such as natural deduction. Analogously to the case of the sequent calculi studied in this paper, we expect natural deduction derivation to be strongly normalizing wrt.\ an appropriately defined $\beta\eta$-conversion. We are interested in directly comparing the resulting $\beta\eta$-long normal forms with the focused derivations of Section \ref{sec:focus} and Section \ref{sec:sym-focus}.
 	
 	The system of tags in focused proofs, used for taming non-deterministic choices arising in proof search to be able to canonically represent each equivalence class of $\circeq$, appears to be a new idea.
-	There exist other techniques for drastically reducing non-determinism in proof search, such as maximal multi-focusing \cite{chaudhuri:canonical:2008} and saturated focusing \cite{scherer:simple:2015}, and we wonder if our system of tags is in any way related to these. As a general disclaimer, we should state that we have interpreted focusing broadly as the idea of root-first proof search defining a normal form, based on a careful discipline of application of invertible and non-invertible rules to reduce non-determinism, but not necessarily driven by a polarity-centric analysis. In this respect, our approach is similar in spirit to, e.g., \cite{dyckhoff:ljq}.
+	There exist other techniques for drastically reducing non-determinism in proof search, such as maximal multi-focusing \cite{chaudhuri:canonical:2008} and saturated focusing \cite{scherer:simple:2015}, and we wonder if our system of tags is in any way related to these. We also wonder whether the device of tags can be employed in the design of a calculus of maximally multi-focused derivations in classical linear logic, providing an explicit descriptions of the normal forms in \cite{chaudhuri:canonical:2008}, which will then be equivalent to proof nets.  As a general disclaimer, we should state that we have interpreted focusing broadly as the idea of root-first proof search defining a normal form, based on a careful discipline of application of invertible and non-invertible rules to reduce non-determinism, but not necessarily driven by a polarity-centric analysis. In this respect, our approach is similar in spirit to, e.g., \cite{dyckhoff:ljq}.
 	
 	This paper represents the latest installment of a large project aiming at the development of the proof theory of categories with skew structure. So far the project, promoted and advanced by Uustalu, Veltri and Zeilberger, has investigated proof systems for skew semigroup categories \cite{zeilberger:semiassociative:19}, (non-symmetric and symmetric) skew monoidal categories \cite{uustalu:sequent:2021,uustalu:proof:nodate,veltri:coherence:2021} and skew prounital closed categories \cite{uustalu:deductive:nodate}. From a purely proof-theoretic perspective, the main lesson gained from the study of these skew systems consists in first insights into ways of \emph{modular} construction of focusing calculi. This is particularly highlighted in Uustalu et al.'s study of \emph{partially normal} skew monoidal categories \cite{uustalu:proof:nodate}, where one or more structural laws among $\lambda$, $\rho$ and $\alpha$ can be required to be invertible. The focused sequent calculus of partially normal skew monoidal categories is obtained from the focused sequent calculus of skew monoidal categories by modularly adding new rules for each enforced normality condition.
 	We expect similar modularity to show up in the case of partially normal (symmetric) skew monoidal closed categories.
