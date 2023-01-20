@@ -136,19 +136,20 @@
 % #2 is a mandatory argument which should contain the paper's title in a full form. If it needs to be broken into multiple lines, one can do that by inserting the "\\" symbols in the appropriate places,
 % #3 is an optional argument which can contain a footnote text if an author wants to attach one to the title.
 
-\Title[Proof Theory of Skew Non-Commutative MILL (extended version)]{Proof Theory of Skew Non-Commutative MILL \\ (extended version)}[]
+\Title[Proof Theory of Skew Multiplicative Intuitionistic Linear Logic]{Proof Theory of Skew Multiplicative Intuitionistic Linear Logic}[]
 
 \begin{document}
 
 	\begin{abstract}
-        Monoidal closed categories naturally model \NMILL, non-commutative multiplicative intuitionistic linear logic: the monoidal unit and tensor interpret the multiplicative verum and conjunction; the internal hom interprets linear implication. In recent years, the weaker notion of (left) skew monoidal closed category has been proposed by Ross Street, where the three structural laws of left and right unitality and associativity are not required to be invertible, they are merely natural transformations with a specific orientation. A question arises: is it possible to find a logic which is naturally modelled by skew monoidal closed categories? We answer positively by introducing a cut-free sequent calculus for a skew version of \NMILL\ that is a presentation of the free skew monoidal closed category. We study the proof-theoretic semantics of the sequent calculus by identifying a calculus of derivations in normal form, obtained from an adaptation of Andreoli's focusing technique to the skew setting. The resulting focused sequent calculus peculiarly employs a system of tags for keeping track of new formulae appearing in the antecedent and appropriately reducing non-deterministic choices in proof search. Focusing solves the coherence problem for skew monoidal closed categories by exhibiting an effective procedure for deciding equality of maps in the free such category.
+          Monoidal closed categories naturally model \NMILL, non-commutative multiplicative intuitionistic linear logic: the monoidal unit and tensor interpret the multiplicative verum and conjunction; the internal hom interprets linear implication. Similarly, symmetric monoidal closed categories model \MILL, the commutative variant of \NMILL. In recent years, the weaker notion of (left) skew monoidal closed category has been proposed by Ross Street, where the three structural laws of left and right unitality and associativity are not required to be invertible, they are merely natural transformations with a specific orientation. Bourke and Lack introduced a symmetric version of this notion, where the structural law of symmetry involves three objects instead of two. A question arises: is it possible to find a logic which is naturally modelled by skew monoidal closed categories? We answer positively by introducing a cut-free sequent calculus for a skew version of \NMILL\ that is a presentation of the free skew monoidal closed category. We study the proof-theoretic semantics of the sequent calculus by identifying a calculus of derivations in normal form, obtained from an adaptation of Andreoli's focusing technique to the skew setting. The resulting focused sequent calculus peculiarly employs a system of tags for keeping track of new formulae appearing in the antecedent and appropriately reducing non-deterministic choices in proof search. Focusing solves the coherence problem for skew monoidal closed categories by exhibiting an effective procedure for deciding equality of maps in the free such category.
+We also perform an analogous proof-theoretic analysis of a skew variant of \MILL, which has models in symmetric skew monoidal closed categories.
 	\end{abstract}
 	\begin{keywords}
-		Skew monoidal category, Linear logic, Substructural logic, Agda
+		Skew monoidal closed categories, Substructural logic, Focusing, Agda
 	\end{keywords}
-	\begin{msc}[2020]
-		03B47, 03F52, 03G30, 68V15
-	\end{msc}
+% 	\begin{msc}[2020]
+% 		03B47, 03F52, 03G30, 68V15
+% 	\end{msc}
 
 
 
@@ -157,10 +158,18 @@
 	It is a widely known fact from the late 80s/early 90s that symmetric monoidal closed categories model \MILL, multiplicative intuitionistic linear logic, whose logical connectives comprise multiplicative verum $\I$ and conjunction $\ot$ and linear implication $\lolli$ \cite{mellies:categorical:09}. Probably lesser-known, though a quite straightforward variation of this observation (which actually predated the inception of linear logic altogether) is the fact that (not necessarily symmetric) monoidal biclosed categories provide a semantics for the non-commutative variant of \MILL\ (for which we use the abbreviation \NMILL) \cite{abrusci:noncommutative:1990}, where the structural rule of exchange is absent and there are two ordered implications $\lolli$ and $\illol$. The sequent calculus of \NMILL\ without verum is known as the \emph{Lambek calculus} \cite{lambek:deductive:68}. From the beginning, the Lambek calculus has been employed in formal investigations of natural languages \cite{lambek:mathematics:58}. Lambek refers to the implications $\lolli$ and $\illol$ as residuals, and monoidal biclosed categories without unit are therefore also called residual categories.
 	By dropping one of the ordered implications of \NMILL, one obtains a fragment of the logic interpretable in every monoidal closed category.
 	
-	In recent years, Ross Street introduced the new notion of (left) skew monoidal closed categories \cite{street:skew-closed:2013}. These are a weakening of monoidal closed categories: their structure includes a unit $\I$, a tensor $\ot$, an internal hom $\lolli$ and an adjunction relating the latter two operations, as in usual non-skew monoidal closed categories. The difference lies in the three structural laws of left and right unitality, $\lambda_A : \I \ot A \to A$ and $\rho_A : A \to A \ot \I$, and associativity, $\alpha_{A,B,C} : (A \ot B) \ot C \to A \ot (B \ot C)$, which are usually required to be natural isomorphisms, but in the skew variant are merely natural transformations with the specified orientation. Street originally proposed this weaker notion to reach better understanding of and to fix a famous imbalance, first noticed by Eilenberg and Kelly \cite{eilenberg:closed:1966}, present in the adjunction relating monoidal and closed structures \cite{street:skew-closed:2013,uustalu:eilenberg-kelly:2020}. In the last decade, skew monoidal closed categories, together with their non-closed/non-monoidal variants, have been thoroughly studied, with applications ranging from algebra and homotopy theory to programming language semantics \cite{szlachanyi:skew-monoidal:2012,lack:skew:2012,lack:triangulations:2014,altenkirch:monads:2014,buckley:catalan:2015,bourke:skew:2017,bourke:skew:2018,tomita:realizability:21}.
+	In recent years, Ross Street introduced the new notion of (left) skew monoidal closed categories \cite{street:skew-closed:2013}. These are a weakening of monoidal closed categories: their structure includes a unit $\I$, a tensor $\ot$, an internal hom $\lolli$ and an adjunction relating the latter two operations, as in usual non-skew monoidal closed categories. The difference lies in the three structural laws of left and right unitality, $\lambda_A : \I \ot A \to A$ and $\rho_A : A \to A \ot \I$, and associativity, $\alpha_{A,B,C} : (A \ot B) \ot C \to A \ot (B \ot C)$, which are usually required to be natural isomorphisms, but in the skew variant are merely natural transformations with the specified orientation. Street originally proposed this weaker notion to reach better understanding of and to fix a famous imbalance, first noticed by Eilenberg and Kelly \cite{eilenberg:closed:1966}, present in the adjunction relating monoidal and closed structures \cite{street:skew-closed:2013,uustalu:eilenberg-kelly:2020}.
+
+        Bourke and Lack \cite{bourke:lack:braided:2020} have introduced an appropriate notion of symmetry (and, more generally, braiding) for skew monoidal closed categories. The original symmetry of Mac Lane \cite{maclane1963natural}, typed $B \ot C \to C \ot B$, is replaced by a
+symmetry typed $(A \ot B) \ot C \to (A \ot C) \ot
+B$, exclusively allowing the swapping of the second and third objects
+$B$ and $C$, leaving the first object $A$ in its place.
+        In the last decade, (symmetric) skew monoidal closed categories, together with their non-closed/non-monoidal variants, have been thoroughly studied, with applications ranging from algebra and homotopy theory to programming language semantics \cite{szlachanyi:skew-monoidal:2012,lack:skew:2012,lack:triangulations:2014,altenkirch:monads:2014,buckley:catalan:2015,bourke:skew:2017,bourke:skew:2018,tomita:realizability:21}.
 	
-	A question arises naturally: is it possible to characterize skew monoidal closed categories as categorical models of (a deductive system for) a logic?
-	This paper provides a positive answer to this question. We introduce a cut-free sequent calculus for a skew variant of \NMILL, which we name \SkNMILL. Sequents are peculiarly defined as triples $S \mid \Gamma \vdash A$, where the succedent is a single formula $A$ (as in intuitionistic linear logic), but the antecedent is divided into two parts: an optional formula $S$, called the \emph{stoup} \cite{girard:constructive:91}, and an ordered list of formulae $\Gamma$, the \emph{context}. Inference rules are similar to the ones of \NMILL\ but with specific structural restrictions for accurately capturing the structural laws of skew monoidal closed categories and nothing more. In particular, and in analogy with \NMILL, the structural rules of contraction, weakening and exchange are all absent. Sets of derivations are quotiented by a congruence relation $\circeq$, carefully crafted to serve as the sequent-calculus counterpart of the equational theory of skew monoidal closed categories. The design of the sequent calculus draws inspiration from, and further advance, the line of work of Uustalu, Veltri and Zeilberger on proof systems for various categories with skew structure: skew semigroup (a.k.a.\ the Tamari order) \cite{zeilberger:semiassociative:19}, skew monoidal (non-closed) \cite{uustalu:sequent:2021,uustalu:proof:nodate} and its symmetric variant \cite{veltri:coherence:2021}, skew prounital (non-monoidal) closed \cite{uustalu:deductive:nodate}.
+	A question arises naturally: is it possible to characterize skew monoidal closed categories as categorical models of (a deductive system for) a logic? What about symmetric skew monoidal closed categories? This paper provides positive answers to these questions.
+
+        We first introduce a cut-free sequent calculus for a skew variant of \NMILL, which we name \SkNMILL. Sequents are peculiarly defined as triples $S \mid \Gamma \vdash A$, where the succedent is a single formula $A$ (as in intuitionistic linear logic), but the antecedent is divided into two parts: an optional formula $S$, called the \emph{stoup} \cite{girard:constructive:91}, and an ordered list of formulae $\Gamma$, the \emph{context}. Inference rules are similar to the ones of \NMILL\ but with specific structural restrictions for accurately capturing the structural laws of skew monoidal closed categories and nothing more. In particular, and in analogy with \NMILL, the structural rules of contraction, weakening and exchange are all absent. Sets of derivations are quotiented by a congruence relation $\circeq$, carefully crafted to serve as the sequent-calculus counterpart of the equational theory of skew monoidal closed categories. The design of the sequent calculus draws inspiration from, and further advance, the line of work of Uustalu, Veltri and Zeilberger on proof systems for various categories with skew structure: skew semigroup (a.k.a.\ the Tamari order) \cite{zeilberger:semiassociative:19}, skew monoidal (non-closed) \cite{uustalu:sequent:2021,uustalu:proof:nodate} and %its symmetric variant \cite{veltri:coherence:2021},
+        skew prounital (non-monoidal) closed \cite{uustalu:deductive:nodate}.
 	
 	The metatheory of \SkNMILL\ is developed in two different but related directions:
 	\begin{itemize}
@@ -173,8 +182,14 @@
 	developed normal forms for skew monoidal categories \cite{uustalu:sequent:2021} and skew prounital closed categories \cite{uustalu:deductive:nodate}. The presence of both positive ($\I$,$\ot$) and negative ($\lolli$) connectives requires some extra care in the design of the proof search strategy, reflected in the focused sequent calculus, in particular when aiming at removing all possible undesired non-deterministic choices leading to $\circeq$-equivalent derivations that can arise during proof search. This is technically realized in the focused sequent calculus by peculiar employment of a system of \emph{tags} for keeping track of new formulae appearing in the antecedent. The focused sequent calculus can also be seen as an optimized presentation of the initial model for \SkNMILL, and as such can be used for solving the coherence problem in an effective way: deciding equality of two maps in this model (or equality of two canonical maps in every model) is equivalent to deciding \emph{syntactic} equality of the corresponding focused derivations.
 	\end{itemize}
 	
-	
-	The equivalence between sequent calculus derivations, quotiented by the equivalence relation $\circeq$, and focused derivations, that we present in Section \ref{sec:focus}, has been formalized in the Agda proof assistant. The associated code is available at \url{https://github.com/niccoloveltri/code-skewmonclosed}.
+        We then introduce a cut-free sequent calculus for a skew variant of \MILL, which we name \SkMILL. The inference rules of the calculus are the one of \SkNMILL\ augmented with an exchange rule that allows the swapping of formulae in context but keeps the formula in the stoup position (whenever there is one) in its place. We show that \SkMILL\ has categorical semantics in the symmetric skew monoidal closed categories of Bourke and Lack \cite{bourke:lack:braided:2020} and it corresponds to a presentation of the free symmetric skew monoidal closed category. We then define a focused sequent calculus for \SkMILL, extending the focused calculus for \SkNMILL with an exchange rule in a way inspired by a Veltri's account of focusing in the non-closed case \cite{veltri:coherence:2021}.
+
+        
+%        \paragraph{Formalization}
+	The equivalence between sequent calculus derivations in \SkNMILL, quotiented by the equivalence relation $\circeq$, and focused derivations, that we present in Section \ref{sec:focus}, has been formalized in the Agda proof assistant. Also formalized is the focusing procedure for \SkMILL, that we present in Section \ref{sec:sym-focus}. The associated code is available at \url{https://github.com/niccoloveltri/code-skewmonclosed}.
+
+%        \paragraph{Publication History}
+        This paper is an extended version of \cite{UVW:protsn}. Compared to the conference version, we have added a detailed proof of the admissibility of rule $\tr^{\RI}_{\Gamma'}$ in the end of Section \ref{sec:focus}, which is the most challenging part in the definition of the focusing algorithm. The whole Section \ref{sec:comm}, studying the proof theory of \SkMILL, is new.
 	
 	\section{A Sequent Calculus for Skew Non-Commutative \MILL}\label{sec2}
 	
@@ -2136,7 +2151,7 @@ Notice the difference with the usual structural law $\sigma$ of symmetry of Mac 
 %% 2. normal coherence conditions fail here
         %% 3. exchange rule captures the skew structure
         
-\subsection{A Tagged Focused Sequent Calculus for \SkMILL}\label{seq:sym-focus}
+\subsection{A Tagged Focused Sequent Calculus for \SkMILL}\label{sec:sym-focus}
 \SkMILL\ also enjoys a tagged focused subsystem of derivations corresponding to normal forms for the equivalence relation $\circeq$ in (\ref{fig:circeq:sym}).
 \begin{equation}\label{eq:focus:sym}
           \arraycolsep=-8pt
@@ -2282,7 +2297,7 @@ There are two main differences with the non-commutative focused calculus in (\re
 %  The second and the last entail that $\mathsf{focus}$ and $\mathsf{emb}_{\C}$ are inverses of each other.
   %\end{proof}
 
-  The focused sequent calculus can be used to decide whether two morphisms in the free symmetric skew monoidal closed category are ``equal'', in the sense of being related by the equivalence relation generated by the equational theory of symmetric skew monoidal closed categories. In the non-closed case, Veltri~\cite{veltri:coherence:2021} showed that the coherence problem has a more interesting solution than the one for (non-skew, normal) symmetric monoidal categories. In fact, there exist pair of non-equal morphisms which have the same underlying permutation of atomic formulae, a phenomenon that is peculiar to the skew case. Veltri illustrates this by showing two distinct focused derivations of the sequent ${-} \mid X,\I \ot Y \vdash_{\C} X \ot Y$. Clearly, these derivations can also be replicated in the focused sequent calculus (\ref{eq:focus:sym}) of \SkMILL.
+  The focused sequent calculus can be used to decide whether two morphisms in the free symmetric skew monoidal closed category are ``equal'', in the sense of being related by the equivalence relation generated by the equational theory of symmetric skew monoidal closed categories. In the non-closed case, Veltri~\cite{veltri:coherence:2021} showed that the coherence problem has a more interesting solution than the one for non-skew symmetric monoidal categories. In fact, there exist pair of non-equal morphisms which have the same underlying permutation of atomic formulae, a phenomenon that is peculiar to the skew case. Veltri illustrates this by showing two distinct focused derivations of the sequent ${-} \mid X,\I \ot Y \vdash_{\C} X \ot Y$. Clearly, these derivations can also be replicated in the focused sequent calculus (\ref{eq:focus:sym}) of \SkMILL.
   
   Similarly to the non-commutative case, the main challenge in the construction of the $\mathsf{focus}$ function lies in proving the admissibility of $\tr^{\C}$, the right $\ot$-rule in phase $\C$. 
   We show how to adopt the admissibility of rule $\lright^{*}$ from Proposition~\ref{prop:iter-lright} and the $\ot$-right rules from Proposition \ref{prop:admiss:gen-otR} in the commutative focused calculus and then show how this leads to the admissibility of $\tr^{\C}$.
@@ -2708,26 +2723,29 @@ The admissibility of $\tr^{\C \text{-} \RI}$ is proved by induction on the left 
 	
 	We are also planning to develop an extension of \SkNMILL\ with an exponential modality $!$. This in turns requires the study of linear exponential comonads on skew monoidal closed categories, extending the work of Hasegawa \cite{hasegawa:linear:2017}. We would also like to consider modalities for exchange \cite{jiang:lambek:2019} and associativity/unitality.
 
-\section{Bibliography management}
+% \section{Bibliography management}
+% 
+% The authors are requested to use \textsc{Bib}\negthinspace\TeX{} to process their bibliographies. It involves creating a separate \texttt{.bib} file with bibliography entries and putting it in the same folder as the main \texttt{.tex} source file.
+% 
+% In order for \LaTeX{} to generate a bibliography which will be formatted in accordance with \texttt{BSLbibstyle}, one needs to execute the following sequence of commands:
+% \begin{itemize}
+% 	\item[] \texttt{\textbackslash bibliographystyle\{BSLbibstyle\}}
+% 	\item[] \texttt{\textbackslash bibliography\{\#1\}}
+% \end{itemize}
+% in the place where the bibliography is to be displayed (\texttt{\#1} is the name (without the file type extension) of the \texttt{.bib} file with bibliography entries). The authors can use the attached bibliography template (named \texttt{biblio.bib}) to create their own bibliography file. More information about bibliography management with \textsc{Bib}\negthinspace\TeX{} see~\cite{BibTeX}.
+% 
+% There are three rules the authors are asked to abide by when preparing their \texttt{.bib} files:
+% 
+% \begin{description}
+% 	\item[Rule 1:] Always use journal names and names of proceedings series in their \textbf{full form}. For instance: \texttt{Journal of Logic and Computation} rather than (\texttt{J. Logic Comput.}) or \texttt{Lecture Notes in Computer Science} rather than \texttt{LNCS}.
+% 	\item[Rule 2:] Whenever for a given publication occurring in the bibliography there exists a DOI number, include it in the bibliography entry in the \texttt{.bib} file. Use, however, \textbf{plain DOI numbers} rather than\linebreak full links, so for example \texttt{10.2307/2267577} rather than\linebreak \texttt{http://dx.doi.org/10.2307/2267577}.
+% 	\item[Rule 3:] When providing page numbers of a given bibliography entry use an ndash (i.e., \texttt{{-}{-}}) rather than a hyphen (i.e., \texttt{-}) to separate the first page and the last page numbers. For example: \texttt{pages = \{153{-}{-}169\}} rather than \texttt{pages = \{153-169\}}.
+% \end{description}
 
-The authors are requested to use \textsc{Bib}\negthinspace\TeX{} to process their bibliographies. It involves creating a separate \texttt{.bib} file with bibliography entries and putting it in the same folder as the main \texttt{.tex} source file.
-
-In order for \LaTeX{} to generate a bibliography which will be formatted in accordance with \texttt{BSLbibstyle}, one needs to execute the following sequence of commands:
-\begin{itemize}
-	\item[] \texttt{\textbackslash bibliographystyle\{BSLbibstyle\}}
-	\item[] \texttt{\textbackslash bibliography\{\#1\}}
-\end{itemize}
-in the place where the bibliography is to be displayed (\texttt{\#1} is the name (without the file type extension) of the \texttt{.bib} file with bibliography entries). The authors can use the attached bibliography template (named \texttt{biblio.bib}) to create their own bibliography file. More information about bibliography management with \textsc{Bib}\negthinspace\TeX{} see~\cite{BibTeX}.
-
-There are three rules the authors are asked to abide by when preparing their \texttt{.bib} files:
-
-\begin{description}
-	\item[Rule 1:] Always use journal names and names of proceedings series in their \textbf{full form}. For instance: \texttt{Journal of Logic and Computation} rather than (\texttt{J. Logic Comput.}) or \texttt{Lecture Notes in Computer Science} rather than \texttt{LNCS}.
-	\item[Rule 2:] Whenever for a given publication occurring in the bibliography there exists a DOI number, include it in the bibliography entry in the \texttt{.bib} file. Use, however, \textbf{plain DOI numbers} rather than\linebreak full links, so for example \texttt{10.2307/2267577} rather than\linebreak \texttt{http://dx.doi.org/10.2307/2267577}.
-	\item[Rule 3:] When providing page numbers of a given bibliography entry use an ndash (i.e., \texttt{{-}{-}}) rather than a hyphen (i.e., \texttt{-}) to separate the first page and the last page numbers. For example: \texttt{pages = \{153{-}{-}169\}} rather than \texttt{pages = \{153-169\}}.
-\end{description}
-
-\Acknowledgements{Acknowledgements such as funding information or thanks for reviewers' remarks can be put here.}
+\Acknowledgements{N.V.\ and T.U.\ were supported by the
+Estonian Research Council grants no. PSG659, PSG749 and PRG1210, N.V.\ and C.-S.W.\ by the ESF funded Estonian IT Academy research measure
+(project 2014-2020.4.05.19-0001) and partially supported by  COST CA19135 - Connecting Education and Research Communities for an Innovative Resource Aware Society. T.U.\ was supported by the Icelandic
+Research Fund grant no.~196323-053.}
 
 \bibliographystyle{BSLbibstyle}
 \bibliography{SkMonCloExtBSL}
