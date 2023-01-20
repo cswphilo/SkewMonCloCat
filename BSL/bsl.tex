@@ -141,7 +141,7 @@
 \begin{document}
 
 	\begin{abstract}
-          Monoidal closed categories naturally model \NMILL, non-commutative multiplicative intuitionistic linear logic: the monoidal unit and tensor interpret the multiplicative verum and conjunction; the internal hom interprets linear implication. Similarly, symmetric monoidal closed categories model \MILL, the commutative variant of \NMILL. In recent years, the weaker notion of (left) skew monoidal closed category has been proposed by Ross Street, where the three structural laws of left and right unitality and associativity are not required to be invertible, they are merely natural transformations with a specific orientation. Bourke and Lack introduced a symmetric version of this notion, where the structural law of symmetry involves three objects instead of two. A question arises: is it possible to find a logic which is naturally modelled by skew monoidal closed categories? We answer positively by introducing a cut-free sequent calculus for a skew version of \NMILL\ that is a presentation of the free skew monoidal closed category. We study the proof-theoretic semantics of the sequent calculus by identifying a calculus of derivations in normal form, obtained from an adaptation of Andreoli's focusing technique to the skew setting. The resulting focused sequent calculus peculiarly employs a system of tags for keeping track of new formulae appearing in the antecedent and appropriately reducing non-deterministic choices in proof search. Focusing solves the coherence problem for skew monoidal closed categories by exhibiting an effective procedure for deciding equality of maps in the free such category.
+          Symmetric monoidal closed categories naturally model \MILL,  multiplicative intuitionistic linear logic: the monoidal unit and tensor interpret the multiplicative verum and conjunction; the internal hom interprets linear implication. Similarly, non-symmetric monoidal closed categories model \NMILL, the non-commutative variant of \NMILL. In recent years, the weaker notion of (left) skew monoidal closed category has been proposed by Ross Street, where the three structural laws of left and right unitality and associativity are not required to be invertible, they are merely natural transformations with a specific orientation. Bourke and Lack introduced a symmetric version of this notion, where the structural law of symmetry involves three objects instead of two. A question arises: is it possible to find a logic which is naturally modelled by skew monoidal closed categories? We answer positively by introducing a cut-free sequent calculus for a skew version of \NMILL\ that is a presentation of the free skew monoidal closed category. We study the proof-theoretic semantics of the sequent calculus by identifying a calculus of derivations in normal form, obtained from an adaptation of Andreoli's focusing technique to the skew setting. The resulting focused sequent calculus peculiarly employs a system of tags for keeping track of new formulae appearing in the antecedent and appropriately reducing non-deterministic choices in proof search. Focusing solves the coherence problem for skew monoidal closed categories by exhibiting an effective procedure for deciding equality of maps in the free such category.
 We also perform an analogous proof-theoretic analysis of a skew variant of \MILL, which has models in symmetric skew monoidal closed categories.
 	\end{abstract}
 	\begin{keywords}
@@ -163,7 +163,7 @@ We also perform an analogous proof-theoretic analysis of a skew variant of \MILL
         Bourke and Lack \cite{bourke:lack:braided:2020} have introduced an appropriate notion of symmetry (and, more generally, braiding) for skew monoidal closed categories. The original symmetry of Mac Lane \cite{maclane1963natural}, typed $B \ot C \to C \ot B$, is replaced by a
 symmetry typed $(A \ot B) \ot C \to (A \ot C) \ot
 B$, exclusively allowing the swapping of the second and third objects
-$B$ and $C$, leaving the first object $A$ in its place.
+$B$ and $C$, leaving the first object $A$ in place.
         In the last decade, (symmetric) skew monoidal closed categories, together with their non-closed/non-monoidal variants, have been thoroughly studied, with applications ranging from algebra and homotopy theory to programming language semantics \cite{szlachanyi:skew-monoidal:2012,lack:skew:2012,lack:triangulations:2014,altenkirch:monads:2014,buckley:catalan:2015,bourke:skew:2017,bourke:skew:2018,tomita:realizability:21}.
 	
 	A question arises naturally: is it possible to characterize skew monoidal closed categories as categorical models of (a deductive system for) a logic? What about symmetric skew monoidal closed categories? This paper provides positive answers to these questions.
@@ -182,14 +182,14 @@ $B$ and $C$, leaving the first object $A$ in its place.
 	developed normal forms for skew monoidal categories \cite{uustalu:sequent:2021} and skew prounital closed categories \cite{uustalu:deductive:nodate}. The presence of both positive ($\I$,$\ot$) and negative ($\lolli$) connectives requires some extra care in the design of the proof search strategy, reflected in the focused sequent calculus, in particular when aiming at removing all possible undesired non-deterministic choices leading to $\circeq$-equivalent derivations that can arise during proof search. This is technically realized in the focused sequent calculus by peculiar employment of a system of \emph{tags} for keeping track of new formulae appearing in the antecedent. The focused sequent calculus can also be seen as an optimized presentation of the initial model for \SkNMILL, and as such can be used for solving the coherence problem in an effective way: deciding equality of two maps in this model (or equality of two canonical maps in every model) is equivalent to deciding \emph{syntactic} equality of the corresponding focused derivations.
 	\end{itemize}
 	
-        We then introduce a cut-free sequent calculus for a skew variant of \MILL, which we name \SkMILL. The inference rules of the calculus are the one of \SkNMILL\ augmented with an exchange rule that allows the swapping of formulae in context but keeps the formula in the stoup position (whenever there is one) in its place. We show that \SkMILL\ has categorical semantics in the symmetric skew monoidal closed categories of Bourke and Lack \cite{bourke:lack:braided:2020} and it corresponds to a presentation of the free symmetric skew monoidal closed category. We then define a focused sequent calculus for \SkMILL, extending the focused calculus for \SkNMILL with an exchange rule in a way inspired by a Veltri's account of focusing in the non-closed case \cite{veltri:coherence:2021}.
+        We then introduce a cut-free sequent calculus for a skew variant of \MILL, which we name \SkMILL. The inference rules of the calculus are the one of \SkNMILL\ augmented with an exchange rule that allows the swapping of formulae in context but does not move the formula in the stoup, whenever there is one positioned there. We show that \SkMILL\ has categorical semantics in symmetric skew monoidal closed categories  and corresponds to a presentation of the free symmetric skew monoidal closed category. We then define a focused sequent calculus for \SkMILL, extending the focused calculus for \SkNMILL\ with an exchange rule inspired by Veltri's account of focusing in the non-closed case \cite{veltri:coherence:2021}.
 
         
-%        \paragraph{Formalization}
-	The equivalence between sequent calculus derivations in \SkNMILL, quotiented by the equivalence relation $\circeq$, and focused derivations, that we present in Section \ref{sec:focus}, has been formalized in the Agda proof assistant. Also formalized is the focusing procedure for \SkMILL, that we present in Section \ref{sec:sym-focus}. The associated code is available at \url{https://github.com/niccoloveltri/code-skewmonclosed}.
+        \paragraph{Formalization}
+	The equivalence between sequent calculus derivations in \SkNMILL, quotiented by the equivalence relation $\circeq$, and focused derivations, that we present in Section \ref{sec:focus}, has been formalized in the Agda proof assistant. We have also formalized the focusing procedure for \SkMILL, that in the paper is dicussed in Section \ref{sec:sym-focus}. The associated code is available at \url{https://github.com/niccoloveltri/code-skewmonclosed}.
 
-%        \paragraph{Publication History}
-        This paper is an extended version of \cite{UVW:protsn}. Compared to the conference version, we have added a detailed proof of the admissibility of rule $\tr^{\RI}_{\Gamma'}$ in the end of Section \ref{sec:focus}, which is the most challenging part in the definition of the focusing algorithm. The whole Section \ref{sec:comm}, studying the proof theory of \SkMILL, is new.
+        \paragraph{Publication History}
+        This paper is an extended version of \cite{UVW:protsn}. Compared to the conference version, we have added a detailed proof of the admissibility of rule $\tr^{\RI}_{\Gamma'}$ in the end of Section \ref{sec:focus}, which is the most technically challenging part in the implementation of the focusing algorithm. The whole Section \ref{sec:comm}, studying the proof theory of \SkMILL, is new.
 	
 	\section{A Sequent Calculus for Skew Non-Commutative \MILL}\label{sec2}
 	
@@ -339,21 +339,22 @@ $B$ and $C$, leaving the first object $A$ in its place.
 	  \\
 	  \ax_{A \lolli B} &\circeq & \lright \text{ } (\lleft \text{ } (\pass \text{ } \ax_{A}, \ax_{B} ))
 	  \\
-	  \tr \text{ } (\pass \text{ } f, g) &\circeq & \pass \text{ } (\tr \text{ } (f, g)) &\hspace{-30pt}f : A' \mid \Gamma \vdash A, g : {-} \mid \Delta \vdash B
+	  \tr \text{ } (\pass \text{ } f, g) &\circeq & \pass \text{ } (\tr \text{ } (f, g)) &f : A' \mid \Gamma \vdash A, g : {-} \mid \Delta \vdash B
 	  \\
-	  \tr \text{ } (\unitl \text{ } f, g) &\circeq & \unitl \text{ } (\tr \text{ } (f , g)) &\hspace{-30pt}f : {-} \mid \Gamma \vdash A , g : {-} \mid \Delta \vdash B
+	  \tr \text{ } (\unitl \text{ } f, g) &\circeq & \unitl \text{ } (\tr \text{ } (f , g)) &f : {-} \mid \Gamma \vdash A , g : {-} \mid \Delta \vdash B
 	  \\
-	  \tr \text{ } (\tl \text{ } f, g) &\circeq & \tl \text{ } (\tr \text{ } (f , g)) &\hspace{-30pt}f : A' \mid B' , \Gamma \vdash A , g : {-} \mid \Delta \vdash B
+	  \tr \text{ } (\tl \text{ } f, g) &\circeq & \tl \text{ } (\tr \text{ } (f , g)) &f : A' \mid B' , \Gamma \vdash A , g : {-} \mid \Delta \vdash B
 	  \\
-	  \tr \text{ } (\lleft \text{ } (f , g), h) & \circeq & \lleft \text{ } (f, \tr \text{ } (g, h)) &\hspace{-30pt}f: {-} \mid \Gamma \vdash A, g : B \mid \Delta \vdash C, h : {-} \mid \Lambda \vdash D
+	  \tr \text{ } (\lleft \text{ } (f , g), h) & \circeq & \lleft \text{ } (f, \tr \text{ } (g, h)) &f: {-} \mid \Gamma \vdash A, g : B \mid \Delta \vdash C,
+          \\ &&& h : {-} \mid \Lambda \vdash D
 	  \\
-	  \pass \text{ } (\lright \text{ } f) &\circeq & \lright \text{ } (\pass \text{ } f) &\hspace{-30pt}f : A' \mid \Gamma , A \vdash B
+	  \pass \text{ } (\lright \text{ } f) &\circeq & \lright \text{ } (\pass \text{ } f) &f : A' \mid \Gamma , A \vdash B
 	  \\
-	  \unitl \text{ } (\lright \text{ } f) &\circeq & \lright \text{ } (\unitl \text{ } f) &\hspace{-30pt}f : {-} \mid \Gamma , A \vdash B
+	  \unitl \text{ } (\lright \text{ } f) &\circeq & \lright \text{ } (\unitl \text{ } f) &f : {-} \mid \Gamma , A \vdash B
 	  \\
-	  \tl \text{ } (\lright \text{ } f) &\circeq & \lright \text{ } (\tl \text{ } f) &\hspace{-30pt}f : A \mid B , \Gamma , C \vdash D
+	  \tl \text{ } (\lright \text{ } f) &\circeq & \lright \text{ } (\tl \text{ } f) &f : A \mid B , \Gamma , C \vdash D
 	  \\
-	  \lleft \text{ } (f, \lright \text{ } g) &\circeq & \lright \text{ } (\lleft \text{ } (f, g)) &\hspace{-30pt}f : {-} \mid \Gamma \vdash A', g : B' \mid \Delta , A \vdash B
+	  \lleft \text{ } (f, \lright \text{ } g) &\circeq & \lright \text{ } (\lleft \text{ } (f, g)) &f : {-} \mid \Gamma \vdash A', g : B' \mid \Delta , A \vdash B
 	\end{array}
 	\end{equation}
 	The first three equations above are $\eta$-conversions, completely characterizing the $\ax$ rule on non-atomic formulae. The remaining equations are permutative conversions. The congruence $\circeq$ has been carefully chosen to serve as the proof-theoretic counterpart of the equational theory of skew monoidal closed categories, introduced in Definition \ref{def:skewcat}. The subsystem of equations involving only $(\I,\ot)$ originated in \cite{uustalu:sequent:2021} while the subsystem involving only $\lolli$ is from \cite{uustalu:deductive:nodate}.
@@ -1528,36 +1529,36 @@ $B$ and $C$, leaving the first object $A$ in its place.
 	 \end{displaymath}
 	 The inductive hypothesis applied to $f$ and $g$ would produce a derivation of the wrong sequent. The use of $\Gamma'$ in the generalized rule $\tr_{\Gamma'}^{\RI}$ is there to fix precisely this issue.
 
-	 To prove the admissibility of $\tr_{\Gamma'}^{\RI}$, it is essential to build a focused variant of the rule $\lright^{*}$ from (\ref{eq:inter:ante}). We detail its construction in the upcoming proposition.
+	 To prove the admissibility of $\tr_{\Gamma'}^{\RI}$, it is essential to build a focused variant of the rule $\lright^{*}$ in (\ref{eq:inter:ante}). We detail its construction in the upcoming proposition.
 	 \begin{proposition}\label{prop:iter-lright}
            The following rule, corresponding to an iterated \linebreak $\lolli$-right rule, is admissible:
 		\begin{displaymath}
-			\infer[\lright^{*}]{S \mid \Gamma \vdash^{x}_{\RI} \ldbc \Delta \mid C\rdbc_{\lolli} }{
-				S \mid \Gamma , \Delta^x \vdash^{x}_{\RI} C
+			\infer[\lright^{*}]{S \mid \Gamma \vdash^{x}_{\RI} \ldbc \Gamma' \mid C\rdbc_{\lolli} }{
+				S \mid \Gamma , \Gamma'^x \vdash^{x}_{\RI} C
 			}
 		\end{displaymath}
 	 \end{proposition}
 	 \begin{proof}
-		By structural induction on $\Delta$:
+		By structural induction on $\Gamma'$:
 		\begin{itemize}
-			\item if $\Delta$ is empty, then $\lright^{*} \text{ } f \defeq f$;
-			\item if $\Delta = A , \Delta'$, then $\lright^{*} \text{ } f \defeq \lright \text{ } (\lright^{*} \text{ } f)$, i.e.
+			\item if $\Gamma'$ is empty, then $\lright^{*} \text{ } f \defeq f$;
+			\item if $\Gamma' = A , \Gamma''$, then $\lright^{*} \text{ } f \defeq \lright \text{ } (\lright^{*} \text{ } f)$, i.e.
 			\begin{displaymath}
                 \proofbox{
-                \infer[\lright^{*}]{S \mid \Gamma \vdash^{x}_{\RI} \ldbc A , \Delta \mid C \rdbc_{\lolli}}{
-					\deduce{S \mid \Gamma , A^{x} , \Delta^{x} \vdash^{x}_{\RI} C}{f}
+                \infer[\lright^{*}]{S \mid \Gamma \vdash^{x}_{\RI} \ldbc A , \Gamma'' \mid C \rdbc_{\lolli}}{
+					\deduce{S \mid \Gamma , A^{x} , \Gamma''^{x} \vdash^{x}_{\RI} C}{f}
 				}
                 }
 				=
                 \proofbox{
-				\infer[\lright]{S \mid \Gamma \vdash^{x}_{\RI} A \lolli \ldbc \Delta \mid C \rdbc_{\lolli}}{
-					\infer[\lright^{*}]{S \mid \Gamma , A^{x} \vdash^{x}_{\RI} \ldbc \Delta \mid C \rdbc_{\lolli}}{
-						\deduce{S \mid \Gamma , A^{x} , \Delta^{x} \vdash^{x}_{\RI} C}{f}
+				\infer[\lright]{S \mid \Gamma \vdash^{x}_{\RI} A \lolli \ldbc \Gamma'' \mid C \rdbc_{\lolli}}{
+					\infer[\lright^{*}]{S \mid \Gamma , A^{x} \vdash^{x}_{\RI} \ldbc \Gamma'' \mid C \rdbc_{\lolli}}{
+						\deduce{S \mid \Gamma , A^{x} , \Gamma''^{x} \vdash^{x}_{\RI} C}{f}
 					}
 				}
                 }
 			\end{displaymath}
-			where by definition $A \lolli \ldbc \Delta \mid C \rdbc_{\lolli} = \ldbc A , \Delta \mid C \rdbc_{\lolli}$.
+			where by definition $A \lolli \ldbc \Gamma'' \mid C \rdbc_{\lolli} = \ldbc A , \Gamma'' \mid C \rdbc_{\lolli}$.
 		\end{itemize}
 	 \end{proof}
 	 \begin{proposition}\label{prop:admiss:gen-otR}
@@ -1746,8 +1747,8 @@ $B$ and $C$, leaving the first object $A$ in its place.
 		    \end{array}
 		  \end{displaymath}                  
 		\item If $f = \lleft \text{ } (f_1 , f_2)$, there are two possibilities, depending on whether the $\lleft$ rule splits the context in $\Gamma$ or $\Gamma'$, i.e. whether at least one formula from $\Gamma'$ is moved to the left premise $f_1$.                  
-                  In the first case $\tr^{\F}_{\Gamma'}$ is permuted with $\lleft$, i.e. $\tr_{\Gamma'}^{\F} \text{ } (\lleft \text{ } (f_1 , f_2) , g) \defeq \lleft \text{ } (f_1 , \tr_{\Gamma'}^{\LI} \text{ } (f_2 , g))$. % when there is no formula in $\Gamma'$ comes from $f$.
-                  In the second case $\Gamma' = \Gamma'_0,\Gamma'_1$, with non-empty $\Gamma'_0$, and 
+                  In the first case, $\lleft$ can be applied first, i.e. $\tr_{\Gamma'}^{\F} \text{ } (\lleft \text{ } (f_1 , f_2) , g) \defeq \lleft \text{ } (f_1 , \tr_{\Gamma'}^{\LI} \text{ } (f_2 , g))$. % when there is no formula in $\Gamma'$ comes from $f$.
+                  In the second case, $\Gamma' = \Gamma'_0,\Gamma'_1$ with non-empty $\Gamma'_0$ and 
 %		  \item  When there is at least one formula in $\Gamma'$ appears in $f$, $\tr_{\Gamma'}^{\F} \text{ } (\lleft \text{ } (f , f') , g)$
 		  % \defeq \tr \text{ } (\lright^{*} \text{ } (\LI 2 \RI \text{ } (\Pass 2 \LI \text{ } (\F 2 \Pass \text{ } (\lleft \text{ } (f , f'))))) , g)
 		  \begin{displaymath}
@@ -1804,11 +1805,11 @@ $B$ and $C$, leaving the first object $A$ in its place.
 
         
 	\section{A Commutative Extension of \SkNMILL}\label{sec:comm}
-	Veltri \cite{veltri:coherence:2021} has recently investigated the proof theory of skew \emph{symmetric} monoidal categories. These are a variant of Mac Lane's symmetric monoidal categories originally introduced by Bourke and Lack \cite{bourke:lack:braided:2020} where the  natural isomorphism representing symmetry involves \emph{three} objects rather than two.
-	Following the ideas in Veltri's study, we discuss a commutative extension of \SkNMILL\ \ref{eq:seqcalc}, that we call \SkMILL\ (dropping the \texttt{N} for `non-commutative') and its connection to symmetric skew monoidal closed categories.
+	Veltri \cite{veltri:coherence:2021} has recently investigated the proof theory of \emph{symmetric} skew monoidal categories. These are a variant of Mac Lane's symmetric monoidal categories originally introduced by Bourke and Lack \cite{bourke:lack:braided:2020} where the  natural isomorphism representing symmetry involves \emph{three} objects rather than two.
+	Following the ideas in Veltri's study, we discuss a commutative extension of \SkNMILL, that we call \SkMILL\ (dropping the \texttt{N} for `non-commutative'), and its connection to symmetric skew monoidal closed categories.
         
 	\subsection{A Sequent Calculus for \SkMILL}\label{sec:skmill}
-        A sequent calculus for \SkMILL\ is obtained by adding the following \emph{restricted} exchange rule to the collection of inference rules in (\ref{eq:seqcalc}):
+        A sequent calculus for \SkMILL\ is obtained by adding the following \emph{restricted exchange} rule to the collection of inference rules in (\ref{eq:seqcalc}):
 %	Derivations in \SkMILL \text{ }are inductively generated according to the rules below.
 	\begin{equation}\label{eq:seqcalc:sym}
 %	\def\arraystretch{2.5}
@@ -1920,27 +1921,27 @@ The rule $\ex$ allows to swap the position of two adjacent formulae in the conte
   The following generalized exchange rules are admissible:
   \begin{equation}\label{eq:gen-ex}
     \begin{array}{c}
-      \infer[\mathsf{exs_{A , \Lambda}}]{S \mid \Gamma , \Lambda , A , \Delta \vdash C}{S \mid \Gamma , A , \Lambda , \Delta \vdash C}
+      \infer[\mathsf{exs}_{A , \Lambda}]{S \mid \Gamma , \Lambda , A , \Delta \vdash C}{S \mid \Gamma , A , \Lambda , \Delta \vdash C}
       \qquad
-      \infer[\mathsf{exs_{\Lambda , A}}]{S \mid \Gamma , A, \Lambda , \Delta \vdash C}{S \mid \Gamma , \Lambda , A , \Delta \vdash C}  
+      \infer[\mathsf{exs}_{\Lambda , A}]{S \mid \Gamma , A, \Lambda , \Delta \vdash C}{S \mid \Gamma , \Lambda , A , \Delta \vdash C}  
     \end{array}
   \end{equation}
 \end{proposition}
 \begin{proof}
-  We only show the proof of $\mathsf{exs_{A , \Lambda}}$, the proof of $\mathsf{exs_{\Lambda,A}}$ is similar. The proof proceeds by induction on $\Lambda$.
-  If $\Lambda$ is empty, then $\mathsf{exs_{A , (~)}}$ simply returns the input derivation.
+  We only show the proof of $\mathsf{exs}_{A , \Lambda}$, the proof of $\mathsf{exs}_{\Lambda,A}$ is similar. The proof proceeds by induction on $\Lambda$.
+  If $\Lambda$ is empty, then $\mathsf{exs}_{A , (~)}$ simply returns the input derivation.
   If $\Lambda = \Lambda' , B$, we first swap $A$ and $B$ and then apply the inductive hypothesis:
   \begin{displaymath}
     \begin{array}{c}
       \proofbox{
-        \infer[\mathsf{exs_{A , (\Lambda' , B)}}]{S \mid \Gamma , \Lambda' , B , A , \Delta \vdash C}{
+        \infer[\mathsf{exs}_{A , (\Lambda' , B)}]{S \mid \Gamma , \Lambda' , B , A , \Delta \vdash C}{
         \deduce{S \mid \Gamma , A , \Lambda' , B , \Delta \vdash C}{f}
         }
       }
       \defeq
       \proofbox{
         \infer[\ex_{A , B}]{S \mid \Gamma , \Lambda' , B , A , \Delta \vdash C}{
-        \infer[\mathsf{exs_{A , \Lambda'}}]{S \mid \Gamma , \Lambda' , A , B , \Delta \vdash C}{
+        \infer[\mathsf{exs}_{A , \Lambda'}]{S \mid \Gamma , \Lambda' , A , B , \Delta \vdash C}{
           \deduce{S \mid \Gamma , A , \Lambda' , B , \Delta \vdash C}{f}
         }
         }
@@ -1963,7 +1964,7 @@ The two forms of cut in \ref{eq:seqcalc:sym} are admissible also in \SkMILL. The
   }
   =
   \proofbox{
-    \infer[\mathsf{exs_{\Gamma , B}}]{S \mid \Delta_0 ,  B , \Gamma , \Delta_1 \vdash C}{
+    \infer[\mathsf{exs}_{\Gamma , B}]{S \mid \Delta_0 ,  B , \Gamma , \Delta_1 \vdash C}{
     \infer[\mathsf{ccut}]{S \mid \Delta_0 , \Gamma , B , \Delta_1 \vdash C}{
       \deduce{{-} \mid \Gamma \vdash A}{f}
       &
@@ -1985,7 +1986,7 @@ The two forms of cut in \ref{eq:seqcalc:sym} are admissible also in \SkMILL. The
   }
   =
   \proofbox{
-    \infer[\mathsf{exs_{A,\Gamma}}]{S \mid \Delta_0 ,  \Gamma ,A, \Delta_1 \vdash C}{
+    \infer[\mathsf{exs}_{A,\Gamma}]{S \mid \Delta_0 ,  \Gamma ,A, \Delta_1 \vdash C}{
     \infer[\mathsf{ccut}]{S \mid \Delta_0 , A,\Gamma , \Delta_1 \vdash C}{
       \deduce{{-} \mid \Gamma \vdash B}{f}
       &
@@ -1998,7 +1999,7 @@ The two forms of cut in \ref{eq:seqcalc:sym} are admissible also in \SkMILL. The
 \SkMILL\ can be seen as a logic of resources, akin to its non-commutative variant \SkNMILL, for which such an interpretation is provided in the end of Section~\ref{sec2}. The antecedent of a sequent contains the resources at hand, while the stoup position, when it is
 non-empty, contains the resource that is immediately usable. Now the resources in the context are not ordered anymore, but they are still ordered wrt. the resource in the stoup. This implies that, when the resource in the stoup has been used, it is possible to choose which resource in the context can be spent next. It is also possible to rearrange the position of resources in the context before splitting it when applying rules $\lleft$ and $\tr$.
 
-\subsection{Symmetric Skew Monoidal Closed Categories and Categorical Semantics}\label{sec:symm-cat-sem}
+\subsection{Categorical Semantics of \SkMILL}\label{sec:symm-cat-sem}
 
 The categorical semantics of \SkMILL\ is given in terms of a symmetric extension of skew monoidal closed categories.
 \begin{definition}\label{def:symm-skewcat}
@@ -2094,8 +2095,8 @@ Notice the difference with the usual structural law $\sigma$ of symmetry of Mac 
   \end{array}
 \end{equation}
 	\begin{example}[Example~\ref{ex:comonad} ctd]
-	Let $(\mathbb{C},\I,\ot,\lolli)$ is a symmetric monoidal closed category equipped with a lax monoidal comonad $(D,\varepsilon, \delta)$. Let $\sigma$ be its (non-skew) symmetry typed $\sigma_{B,C} : B \ot C \to C \ot B$.
-	Then the skew monoidal closed structure $(\I, \otd, \lollid)$ of Example~\ref{ex:comonad} is also symmetric with $s^D_{A,B,C} : (A \ot D\,B) \ot D\,C \to (A \ot D\,C) \ot D\,B$ defined as $s'_{A,D\,B,D\,C}$ from (\ref{eq:der-skew-symm}).
+	Let $(\mathbb{C},\I,\ot,\lolli)$ be a symmetric monoidal closed category equipped with a lax monoidal comonad $(D,\varepsilon, \delta)$. Let $\sigma$ be its (non-skew) symmetry typed $\sigma_{B,C} : B \ot C \to C \ot B$.
+	Then the skew monoidal closed structure $(\I, \otd, \lollid)$ of Example~\ref{ex:comonad} is also symmetric with $s^D_{A,B,C} : (A \ot D\,B) \ot D\,C \to (A \ot D\,C) \ot D\,B$ defined as $s'_{A,D\,B,D\,C}$ in (\ref{eq:der-skew-symm}).
 %	\[
 %	\footnotesize
 %	\begin{array}{c}
@@ -2106,7 +2107,7 @@ Notice the difference with the usual structural law $\sigma$ of symmetry of Mac 
 	\end{example}
 
 		
-	Similarly to the non-commutative case investigated in Section \ref{sec:catsem}, the formulae, derivations and the equivalence relation $\circeq$ of the sequent calculus for \SkMILL\ determine a symmetric skew monoidal closed category $\FSymSkMCC(\mathsf{At}$). This is defined analogously to the skew monoidal closed category $\FSkMCC(\mathsf{At}$) of Definition \label{def:fskmcc} with the addition of the structural law $s$ given by the left derivation in (\ref{eq:s}).
+	Similarly to the non-commutative case investigated in Section \ref{sec:catsem}, the formulae, derivations and the equivalence relation $\circeq$ of the sequent calculus for \SkMILL\ determine a symmetric skew monoidal closed category $\FSymSkMCC(\mathsf{At}$). This is defined analogously to the skew monoidal closed category $\FSkMCC(\mathsf{At}$) of Definition \ref{def:fskmcc} with the addition of the structural law $s$ given by the left derivation in (\ref{eq:s}).
 	
 %	Every interpretation of atomic formulae in a symmetric skew monoidal closed category extends to a symmetric skew monoidal closed functor, in the sense specified by the following theorem.
 	\begin{theorem}\label{thm:symm-models}
@@ -2121,7 +2122,7 @@ Notice the difference with the usual structural law $\sigma$ of symmetry of Mac 
 \begin{array}{c}
 	\xymatrix{
 	  ((((\dots ((S \ot' A_1) \dots ) \ot' B) \ot'A) \ot' A_j) \dots )\ot' A_n
-	  \ar[r]^-{((s_{((S \ot' A_1) \dots ),A,B} \ot' A_j) \dots) \ot' A_n} &
+	  \ar[r]^-{((s_{((S \ot' A_1) \dots ),B,A} \ot' A_j) \dots) \ot' A_n} &
         }
         \\
 \xymatrixcolsep{3pc}
@@ -2152,7 +2153,7 @@ Notice the difference with the usual structural law $\sigma$ of symmetry of Mac 
         %% 3. exchange rule captures the skew structure
         
 \subsection{A Tagged Focused Sequent Calculus for \SkMILL}\label{sec:sym-focus}
-\SkMILL\ also enjoys a tagged focused subsystem of derivations corresponding to normal forms for the equivalence relation $\circeq$ in (\ref{fig:circeq:sym}).
+\SkMILL\ also has a tagged focused subsystem of derivations corresponding to normal forms for the equivalence relation $\circeq$ in (\ref{fig:circeq:sym}).
 \begin{equation}\label{eq:focus:sym}
           \arraycolsep=-8pt
   \footnotesize
