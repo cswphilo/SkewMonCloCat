@@ -127,7 +127,7 @@
 % In such a case the order in which subsequent \Affiliation commands are executed can be arbitrary.
 % If a given argument is not applicable, leave it empty.
 
-\Affiliation{Reykjavik University}{Department of Computer Science}{102 Menntavegi 1 }{Reykjavik, Iceland}{1}
+\Affiliation{Reykjavik University}{Department of Computer Science}{102 Menntavegi 1}{Reykjavik, Iceland}{1}
 \Affiliation{Tallinn University of Technology}{Department of Software Science}{12618 Akadeemia tee 21b}{Tallinn, Estonia}{1,2,3}
 
 
@@ -1528,7 +1528,7 @@ $B$ and $C$, leaving the first object $A$ in its place.
 	 \end{displaymath}
 	 The inductive hypothesis applied to $f$ and $g$ would produce a derivation of the wrong sequent. The use of $\Gamma'$ in the generalized rule $\tr_{\Gamma'}^{\RI}$ is there to fix precisely this issue.
 
-	 To prove the admissibility of $\tr_{\Gamma'}^{\RI}$, it is essential to build a focused variant of the rule $\lright^{*}$ from (\ref{eq:inter:ante}). We detail its contruction in the upcoming proposition.
+	 To prove the admissibility of $\tr_{\Gamma'}^{\RI}$, it is essential to build a focused variant of the rule $\lright^{*}$ from (\ref{eq:inter:ante}). We detail its construction in the upcoming proposition.
 	 \begin{proposition}\label{prop:iter-lright}
            The following rule, corresponding to an iterated \linebreak $\lolli$-right rule, is admissible:
 		\begin{displaymath}
@@ -2106,7 +2106,7 @@ Notice the difference with the usual structural law $\sigma$ of symmetry of Mac 
 	\end{example}
 
 		
-	Similarly to the non-commutative case investigated in Section \ref{sec:catsem}, the formulae, derivations and the equivalence relation $\circeq$ of the sequent calculus for \SkMILL\ determine a symmetric skew monoidal closed category $\FSymSkMCC(\mathsf{At}$). This is defined analogously to the skew monoidal closed category $\FSkMCC(\mathsf{At}$) of Definition \label{def:fskmcc} with the addition of the structural law $s$ fiven by the left derivation in (\ref{eq:s}).
+	Similarly to the non-commutative case investigated in Section \ref{sec:catsem}, the formulae, derivations and the equivalence relation $\circeq$ of the sequent calculus for \SkMILL\ determine a symmetric skew monoidal closed category $\FSymSkMCC(\mathsf{At}$). This is defined analogously to the skew monoidal closed category $\FSkMCC(\mathsf{At}$) of Definition \label{def:fskmcc} with the addition of the structural law $s$ given by the left derivation in (\ref{eq:s}).
 	
 %	Every interpretation of atomic formulae in a symmetric skew monoidal closed category extends to a symmetric skew monoidal closed functor, in the sense specified by the following theorem.
 	\begin{theorem}\label{thm:symm-models}
@@ -2711,17 +2711,17 @@ The admissibility of $\tr^{\C \text{-} \RI}$ is proved by induction on the left 
 
 	\section{Conclusion}
 	
-	The paper describes a sequent calculus for \SkNMILL, a skew variant of non-commutative multiplicative intuitionistic linear logic. The introduction of the logic \SkNMILL\ via this sequent calculus is motivated by the categorical notion of skew monoidal closed category, which yields the intended categorical semantics for the logic. Sequent calculus derivations admit unique normal forms wrt.\ a congruence relation $\circeq$ capturing the equational theory of skew monoidal closed categories at the level of derivations. Normal forms can be organized in a focused sequent calculus, where each focused derivation uniquely corresponds to (and so represents) a $\circeq$-equivalence class in the unfocused sequent calculus. In order to deal with all the permutative conversions of $\circeq$ and to consequently eliminate the related sources of non-determinism in root-first proof search, the focused sequent calculus employs a system of tags for keeping track of the new formulae occurring in the context while building a derivation. The focused sequent calculus solves the coherence problem for skew monoidal closed categories: deciding if a canonical diagram commutes in every skew monoidal closed category reduces to deciding equality of focused derivations.
+	The paper describes sequent calculi for \SkNMILL\ and \SkMILL, skew variants of non-commutative and commutative multiplicative intuitionistic linear logic. The introduction of these logics is motivated by the categorical notion of (symmetric) skew monoidal closed category, which yields the intended categorical semantics. Sequent calculus derivations admit unique normal forms wrt.\ a congruence relation $\circeq$ capturing the equational theory of (symmetric) skew monoidal closed categories at the level of derivations. Normal forms can be organized in a focused sequent calculus, where each focused derivation uniquely corresponds to (and so represents) a $\circeq$-equivalence class in the unfocused sequent calculus. In order to deal with all the permutative conversions of $\circeq$ and to consequently eliminate the related sources of non-determinism in root-first proof search, the focused sequent calculus employs a system of tags for keeping track of the new formulae occurring in the context while building a derivation. The focused sequent calculus solves the coherence problem for (symmetric) skew monoidal closed categories: deciding if a canonical diagram commutes in every (symmetric) skew monoidal closed category reduces to deciding equality of focused derivations. 
 	
-	We plan to investigate alternative presentations of \SkNMILL, such as natural deduction. Analogously to the case of the sequent calculus studied in this paper, we expect natural deduction derivation to be strongly normalizing wrt.\ an appropriately defined $\beta\!\eta$-conversion. We are interested in directly comparing the resulting $\beta\!\eta$-long normal forms with the focused derivations of Section \ref{sec:focus}.
+	We plan to investigate alternative presentations of \SkNMILL\ and \SkMILL, such as natural deduction. Analogously to the case of the sequent calculus studied in this paper, we expect natural deduction derivation to be strongly normalizing wrt.\ an appropriately defined $\beta\eta$-conversion. We are interested in directly comparing the resulting $\beta\eta$-long normal forms with the focused derivations of Section \ref{sec:focus} and Section \ref{sec:sym-focus}.
 	
-	The system of tags in focused proofs, used for taming the non-deterministic choices arising in proof search to be able to canonically represent each equivalence class of $\circeq$, appears to be a new idea.
+	The system of tags in focused proofs, used for taming non-deterministic choices arising in proof search to be able to canonically represent each equivalence class of $\circeq$, appears to be a new idea.
 	There exist other techniques for drastically reducing non-determinism in proof search, such as maximal multi-focusing \cite{chaudhuri:canonical:2008} and saturated focusing \cite{scherer:simple:2015}, and we wonder if our system of tags is in any way related to these. As a general disclaimer, we should state that we have interpreted focusing broadly as the idea of root-first proof search defining a normal form, based on a careful discipline of application of invertible and non-invertible rules to reduce non-determinism, but not necessarily driven by a polarity-centric analysis. In this respect, our approach is similar in spirit to, e.g., \cite{dyckhoff:ljq}.
 	
 	This paper represents the latest installment of a large project aiming at the development of the proof theory of categories with skew structure. So far the project, promoted and advanced by Uustalu, Veltri and Zeilberger, has investigated proof systems for skew semigroup categories \cite{zeilberger:semiassociative:19}, (non-symmetric and symmetric) skew monoidal categories \cite{uustalu:sequent:2021,uustalu:proof:nodate,veltri:coherence:2021} and skew prounital closed categories \cite{uustalu:deductive:nodate}. From a purely proof-theoretic perspective, the main lesson gained from the study of these skew systems consists in first insights into ways of \emph{modular} construction of focusing calculi. This is particularly highlighted in Uustalu et al.'s study of \emph{partially normal} skew monoidal categories \cite{uustalu:proof:nodate}, where one or more structural laws among $\lambda$, $\rho$ and $\alpha$ can be required to be invertible. The focused sequent calculus of partially normal skew monoidal categories is obtained from the focused sequent calculus of skew monoidal categories by modularly adding new rules for each enforced normality condition.
-	We expect similar modularity to show up in the case of partially normal skew monoidal closed categories.
+	We expect similar modularity to show up in the case of partially normal (symmetric) skew monoidal closed categories.
 	
-	We are also planning to develop an extension of \SkNMILL\ with an exponential modality $!$. This in turns requires the study of linear exponential comonads on skew monoidal closed categories, extending the work of Hasegawa \cite{hasegawa:linear:2017}. We would also like to consider modalities for exchange \cite{jiang:lambek:2019} and associativity/unitality.
+	We are also planning to develop extensions of \SkNMILL\ and \SkMILL\ with an exponential modality $!$. This in turns requires the study of linear exponential comonads on skew monoidal closed categories, extending the work of Hasegawa \cite{hasegawa:linear:2017}. We would also like to consider modalities for exchange \cite{jiang:lambek:2019} and associativity/unitality.
 
 % \section{Bibliography management}
 % 
