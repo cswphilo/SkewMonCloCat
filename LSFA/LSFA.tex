@@ -102,11 +102,13 @@ Niccol{\`o} Veltri \qquad\qquad Cheng-Syuan Wan
 \begin{document}
 \maketitle
 \begin{abstract}
-  This work concerns the proof theory of (left) skew monoidal categories and their variants (e.g. closed monoidal, symmetric monoidal), continuing the line of work initiated in recent years by Uustalu et al. \cite{uustalu:sequent:2021, uustalu:proof:nodate,uustalu:deductive:nodate, veltri:coherence:2021,UVW:protsn}. Skew monoidal categories are a weak version of Mac Lane's monoidal categories, where the structural laws $\lambda$, $\rho$, and $\alpha$ are not required to be invertible, they are merely natural transformations with a specific orientation. Uustalu et al. describe sequent calculi for numerous variants of skew monoidal categories, which can be identified as restricted substructural fragments of intuitionistic linear logic. These calculi enjoy cut elimination and admit a focusing strategy, sharing resemblance with Andreoli's normalization technique for linear logic \cite{andreoli:logic:1992}. The focusing procedure is useful for solving the coherence problem of the considered categories with skew structure.
+This work concerns the proof theory of (left) skew monoidal categories and their variants (e.g. closed monoidal, symmetric monoidal), continuing the line of work initiated in recent years by Uustalu et al.
+Skew monoidal categories are a weak version of Mac Lane's monoidal categories, where the structural laws are not required to be invertible, they are merely natural transformations with a specific orientation. 
+Numerous variants of skew monoidal categories are described as sequent calculi, which can be identified as restricted substructural fragments of intuitionistic linear logic. These calculi enjoy cut elimination and admit a focusing strategy, sharing resemblance with Andreoli's normalization technique for linear logic. The focusing procedure is useful for solving the coherence problem of the considered categories with skew structure.
 
 Here we investigate possible extensions of the sequent calculi of Uustalu et al. with additive connectives. 
-As a first step, we extend the sequent calculus in \cite{uustalu:sequent:2021} with additive conjunction and disjunction ($\land$ and $\lor$), corresponding to studying the proof theory of skew monoidal categories with binary Cartesian products and coproducts. 
-We introduce a new focused sequent calculus of derivations in normal form, which employs tag annotations in the style of \cite{UVW:protsn} to reduce non-deterministic choices in bottom-up proof search.
+As a first step, we extend the sequent calculus with additive conjunction and disjunction, corresponding to studying the proof theory of skew monoidal categories with binary Cartesian products and coproducts. 
+We introduce a new focused sequent calculus of derivations in normal form, which employs tag annotations to reduce non-deterministic choices in bottom-up proof search.
 Apart from statements and proofs on pen and paper, we also want to formalize the focused sequent calculus and verify its correctness in the Agda proof assistant.
 We believe this to be beneficial for the development of modular normalization techniques for substructural logics arising as an extension of our sequent calculus, e.g. full Lambek calculus or intuitionistic linear logic.
 
@@ -473,7 +475,7 @@ For example, the proof search in (\ref{eq:ex:tag:focused}) actually proceeds as:
 In this case, $[ \tL , \tR ]$ is valid.
 \subsection{Meta properties of the focused calculus}
 \begin{theorem}\label{theorem:focus:sound:complete}
-  The focused calculus is sound and complete with the sequent calculus (\ref{eq:seqcalc}): there is a bijective correspondence between the set of derivations of $S \mid \Gamma \vdash A$ quotiented by $\circeq$ and the set of derivations of $S \mid \Gamma \vdash_{\RI} A$.
+  The focused calculus is sound and complete with the sequent calculus (\ref{eq:seqcalc}).
 \end{theorem}
 Soundness is immediate because there exist functions $\mathsf{emb}_{ph} : S \mid \Gamma \vdash^{l?}_{ph} A \to S \mid \Gamma \vdash A$, for all $ph \in \{ \RI , \LI , P , F \}$, which erase all phase and tag annotations.
 Completeness follows from the fact that the following rules are all admissible:
@@ -606,9 +608,9 @@ We fix the issue by following three lemmata.
 \end{lemma}
 \begin{proof}
   Without lose of generality, we assume $fs$ is always non-empty, i.e. $fs = [f_1 , fs']$.
-  Proof proceeds by induction on $f$.
+  Proof proceeds by induction on $f_1$.
   \begin{itemize}
-    \item If $f$ is a conclusion of an left invertible rule, then we simply permute the rule with $\orrone^{\LI}$ and apply the inductive hypothesis.
+    \item If $f_1$ is a conclusion of an left invertible rule, then we simply permute the rule with $\orrone^{\LI}$ and apply the inductive hypothesis.
     \item If $f_1 = \Pass 2 \LI \text{ } f'_1$, then we do a further case analysis on $f'_1$:
     \begin{itemize}
       \item If $f'_1 = \pass \text{ } f''_1$, then we check the rest sequents in $fs$. 
@@ -682,15 +684,14 @@ We fix the issue by following three lemmata.
 \end{proof}
 Following the admissible rules in (\ref{eq:admis}), we construct a function $\mathsf{focus} : S \mid \Gamma \vdash A \to S \mid \Gamma \vdash_{\RI} A$ which replaces applications of each rule in (\ref{eq:seqcalc}) within a derivation by the corresponding admissible rule in phase $\RI$.
 For example, $\mathsf{focus} \ (\orrone \ f) = \orrone^{\RI} \ (\mathsf{focus} \ f)$.
-
-\begin{lemma}
-  The set of derivations of $S \mid \Gamma \vdash A$ quotiented by $\circeq$ and the set of derivations of $S \mid \Gamma \vdash_{\RI} A$.
+\begin{corollary}
+  The set of derivations of $S \mid \Gamma \vdash A$ quotiented by $\circeq$ and the set of derivations of $S \mid \Gamma \vdash_{\RI} A$ have a bijective correspondence.
   \begin{itemize}
     \item For all $f, g : S \mid \Gamma \vdash A$, if $f \circeq g$ then $\mathsf{focus} \text{ } f = \mathsf{focus} \text{ } g$.
     \item Given any $f : S \mid \Gamma \vdash A$, $\mathsf{emb}_{\RI} \text{ } (\mathsf{focus} \text{ } f) \circeq f$.
     \item Given any $f : S \mid \Gamma \vdash_{\RI} A$, $\mathsf{focus} \text{ } (\mathsf{emb}_{\RI} \text{ } f) = f$.
   \end{itemize}
-\end{lemma}
+\end{corollary}
 \begin{proof}
   By structural induction on derivations.
 \end{proof}
