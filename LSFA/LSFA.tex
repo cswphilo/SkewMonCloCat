@@ -732,7 +732,7 @@ We fix the issue by following three lemmata.
         }
         \end{array}
       \end{displaymath}
-      Note that $fs^{*'}$ is a list of sequents which are tagged version of those in $fs^{*}$.
+      Note that $fs^{*'}$ is a list of sequents whose sequents are tagged version of those in $fs^{*}$.
       For example, an $f_i : A' \land B' \mid \Gamma \vdash_{\F} A_i$ in $fs^{*}$ is corresponding to $A' \land B' \mid \Gamma \vdash^{\tL}_{\F} A_i$ in $fs^{*'}$.
       % \begin{displaymath}
       %   \begin{array}{c}
@@ -878,7 +878,7 @@ We consider the commutative extension of (\ref{eq:seqcalc}) by adding a rule
 \end{displaymath}
 which swaps adjacent formulae in context.
 Note that exchanging stoup formula (when it is non-empty) with a formula in context is forbidden.
-Sequent calculus (\ref{eq:seqcalc}) extended with $\ex$ is an internal language of skew symmetric monoidal category with additive connectives since $\ex$ characterizes the natural isomorphism $s_{A , B , C} : A \ot (B \ot C) \to A \ot (C \ot B)$ which represents skew symmetry in \cite{bourke:lack:braided:2020}.
+Sequent calculus (\ref{eq:seqcalc}) extended with $\ex$ is an internal language of skew symmetric monoidal categories with products and coproducts since $\ex$ characterizes the natural isomorphism $s_{A , B , C} : A \ot (B \ot C) \to A \ot (C \ot B)$ which represents skew symmetry in \cite{bourke:lack:braided:2020}.
 
 To accommodate the new $\ex$ rule, it is necessary to expand the congruence relation $\circeq$ in (\ref{fig:circeq}) with additional generating equations.
 \begin{equation}\label{fig:circeq:sym}
@@ -1013,7 +1013,19 @@ There are two differences with (\ref{eq:focus}):
 \subsection{Partial associativity and unitality}\label{subsec:asso:uni}
 
 \subsection{Implication}\label{subsec:impl}
-implication, incorporate tags of tracking new formulae and monitoring proof process.
+We consider a skew version of non-commutative intuitionistic linear logic with additive connectives which is presented by extending (\ref{eq:seqcalc}) with linear implication $\lolli$ and following two rules:
+\begin{displaymath}
+  \begin{array}{c}
+    \infer[\lleft]{A \lolli B \mid \Gamma , \Delta \vdash C}{
+      - \mid \Gamma \vdash A
+      &
+      B \mid \Delta \vdash C
+    }
+    \qquad
+    \infer[\lright]{S \mid \Gamma \vdash A \lolli B}{S \mid \Gamma , A \vdash B}
+  \end{array}
+\end{displaymath}
+Categorical semantics of the sequent calculus is skew monoidal closed categories with products and coproducts.
 
 \section{Formalization}\label{sec:formalization}
 
