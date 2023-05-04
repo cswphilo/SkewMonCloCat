@@ -60,6 +60,7 @@
 \newcommand{\msfL}{\mathsf{L}}
 \newcommand{\defeq}{=_{\mathsf{df}}}
 \newcommand{\comp}{\mathsf{comp}}
+\newcommand{\C}{\mathsf{C}}
 \newcommand{\RI}{\mathsf{RI}}
 \newcommand{\LI}{\mathsf{LI}}
 \newcommand{\Pass}{\mathsf{P}}
@@ -71,9 +72,11 @@
 \newcommand{\tE}{\mathbb{E}}
 \newcommand{\xvdash}{\vdash^{x}}
 \newcommand{\yvdash}{\vdash^{y}}
+\newcommand{\ex}{\mathsf{ex}}
 
 \newcommand{\otd}{\ot^D}
 \newcommand{\lollid}{\;\textsuperscript{$D$}\!\!\lolli}
+\newcommand{\spl}{\raisebox{-1.5pt}[0.5\height]{\hspace{1pt}\vdots\hspace{1pt}}}
 
 \newcommand{\highlight}[1]{\textcolor{blue}{#1}}
 
@@ -671,7 +674,7 @@ We fix the issue by following three lemmata.
        }
       \end{array}
     \end{displaymath}
-    where $l$ is equal to $l_1 , l_2$.
+    where $l = [l_1 , l_2]$.
   \end{itemize}
 \end{proof}
 \begin{lemma}
@@ -696,87 +699,161 @@ We fix the issue by following three lemmata.
   are admissible in the focused calculus, where $A = A_1 \land \dots \land A_n$ and $B = B_1 \land \dots \land B_n$.
 \end{lemma}
 \begin{proof}
-  (sketch)
-
   The list of derivations $fs$ is non-empty, so we let $fs = [f_1 , fs']$.
   Proof proceeds by induction on $f_1$.
+  We present the proof of $\orrone^{\LI}$, while the proofs of other two cases, $\orrtwo^{\LI}$ and $\tr^{\LI}$, are similar.
   \begin{itemize}
-    \item If $f_1$ is a conclusion of an left invertible rule, then we simply permute the rule with $\orrone^{\LI}$ and apply the inductive hypothesis.
-    \item If $f_1 = \Pass 2 \LI \text{ } f'_1$, then we do a further case analysis on $f'_1$:
+    \item If $f_1$ is the conclusion of a left invertible rule, then it is necessary that the remaining elements in $fs'$ end with the same rule as well.
+    Therefore, we permute the rule with $\orrone^{\LI}$ and apply the inductive hypothesis.
+    \item If $f_1 = \F 2 \LI f'_1$, then it is necessary for all the remaining elements in $fs'$ to also end with $\F 2 \LI$. In this case, we apply $\F 2 \LI$ to all elements in $fs$ and generate a list of tags $l$ by examining each element in $fs$.
+    We add $\tP$ for each $\pass$, $\tL$ for each $\andlone$, $\tR$ for each $\andltwo$, and $\tE$ for all other rules in $\F$.
+    There are two possibilities:
     \begin{itemize}
-      \item If $f'_1 = \pass \text{ } f''_1$, then we check the rest sequents in $fs$. 
-      \begin{itemize}
-        \item If all $f_i$ are in the form of $\Pass 2 \LI \text{ } (\pass \text{ } f''_i)$ then we permute down $\Pass 2 \LI $ and $\pass \text{ }$ and apply inductive hypothesis.
-        \begin{displaymath}
-          \begin{array}{cc}
-            \proofbox{
-              \infer[\orrone^{\LI}]{- \mid A' , \Gamma \vdash_{\LI} A \lor B}{
-                \infer[ {[\Pass 2 \LI]} ]{- \mid A' , \Gamma \vdash_{\LI} A_i , i \in [1 , \dots , n]}{
-                  \infer[ {[\pass]} ]{- \mid A', \Gamma \vdash_{\Pass} A_i , i \in [1 , \dots , n]}{
-                    \deduce{[A' \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
-                  }
-                }
+      \item $l$ is valid. In this case, we switch to $\F$ and apply  $\orrone^{\LI}$ followed by $\andr^{*}_{t}$:
+      \begin{displaymath}
+        \begin{array}{cc}
+          \infer[\orrone^{\LI}]{T \mid \Gamma \vdash_{\LI} A \lor B}{
+            \infer[ {[\F 2 \LI]} ]{[T \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{
+              \deduce{[T \mid \Gamma \vdash_{\F} A_i]_{i \in [1 , \dots , n]}}{fs^{*}}
+            }
+          }
+          \\[10pt]
+          &
+          =
+          \quad
+          \proofbox{
+          \infer[\F 2 \LI]{T \mid \Gamma \vdash_{\LI} A \lor B}{
+            \infer[\orrone]{T \mid \Gamma \vdash_{\F} A \lor B}{
+              \infer[\andr^{*}_t]{T \mid \Gamma \vdash^{l}_{\RI} A}{
+                \deduce{[T \mid \Gamma \vdash^{t_i}_{\F} A_i]_{i \in [1 , \dots , n]}}{fs^{*'}}
               }
             }
-            \\[10pt]
-            &
-            =
-            \quad
-            \proofbox{
-              \infer[\Pass 2 \LI]{- \mid A' , \Gamma \vdash_{\LI} A \lor B}{
-                \infer[\pass]{- \mid A' , \Gamma \vdash_{\Pass} A \lor B}{
-                  \infer[\orrone^{\LI}]{A' \mid \Gamma \vdash_{\LI} A \lor B}{
-                    \deduce{[A' \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
-                  }
-                }
-              }
-            }
-          \end{array}
-        \end{displaymath}
-        Rules with brackets $[ \ ]$ are applied to each element in the list.
-        \item If there exists an $f_j = \F 2 \Pass f'_j$, then there exists a list of sequents $fs' : [- \mid A' , \Gamma \vdash^{t_i}_{\Pass} A_i]_{i \in 1 , \dots , n}$ and a list of tags $l = [t_1 , \dots , t_n]$, where $fs$ is obtained by removing tags and apply $\Pass 2 \LI$ on each elements in $fs'$.
-        The corresponding tag to $f'_j$ is $\tE$ because it is impossible to be a conclusion of any of $\andli$, so the validity of $l$ is justified.
-        With $fs'$ and $l$ in hand, we define: 
-        \begin{displaymath}
-          \begin{array}{cc}
+          }
+        }
+        \end{array}
+      \end{displaymath}
+      Note that $fs^{*'}$ is a list of sequents which are tagged version of those in $fs^{*}$.
+      For example, an $f_i : A' \land B' \mid \Gamma \vdash_{\F} A_i$ in $fs^{*}$ is corresponding to $A' \land B' \mid \Gamma \vdash^{\tL}_{\F} A_i$ in $fs^{*'}$.
+      % \begin{displaymath}
+      %   \begin{array}{c}
+      %     \proofbox{
+      %       \infer[\andlone]{A' \land B' \mid \Gamma \vdash_{\F} A_i}{A' \mid \Gamma \vdash_{\LI} A_i}
+      %     }
+      %     \quad
+      %     \text{corresponds to}
+      %     \quad
+      %     \proofbox{
+      %     \infer[\andlone]{A' \land B' \mid \Gamma \vdash^{\tL}_{\F} A_i}{A' \mid \Gamma \vdash_{\LI} A_i}
+      %   }
+      %   \end{array}
+      % \end{displaymath}
+      % in $fs^{*'}$.
+      \item $l$ is invalid. In this case, all elements in $fs$ end with the same left non-invertible rule, so we permute the rule down with $\orrone^{\LI}$ and continue recursively.
+      Here is an example where all elements in $fs$ are conclusions of $\pass$:
+      \begin{displaymath}
+        \begin{array}{cc}
+          \proofbox{
             \infer[\orrone^{\LI}]{- \mid A' , \Gamma \vdash_{\LI} A \lor B}{
-              \deduce{[- \mid A' , \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
-            }
-            \\[10pt]
-            &
-            =
-            \quad
-            \proofbox{
-            \infer[\sw]{- \mid A' , \Gamma \vdash_{\LI} A \lor B}{
-              \infer[\orrone]{- \mid A' , \Gamma \vdash_{\F} A \lor B}{
-                \infer[\andr^{*}_t]{- \mid A' , \Gamma \vdash^{l}_{\RI} A}{
-                  \deduce{[- \mid A' , \Gamma \vdash^{t_i}_{\Pass} A_i]_{i \in [1 , \dots , n]}}{fs'}
+              \infer[ {[\F 2 \LI]} ]{[- \mid A' , \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{
+                \infer[ {[\pass]} ]{[- \mid A' , \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{
+                  \deduce{[A' \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs^{*}}
                 }
               }
             }
           }
-          \end{array}
-        \end{displaymath}
-      \end{itemize}
-      \item If $f'_1 = \F 2 \Pass \text{ } f''_1$, then we do a further case analysis on $f''_1$:
-      \begin{itemize}
-        \item If $f''_1 = \andlone \text{ } f'''_1$, then we check if the rest elements of $fs$ have the same structure with $f'_1$. If they do, then we permute $\andlone$ down and apply the inductive hypothesis.
-        If it is not the case, then either there exists an $f_j = \Pass 2 \LI \text{ } (\F 2 \Pass \text{ } (\andltwo f'_j))$ or $f_j = \Pass 2 \LI \text{ } (\F 2 \Pass \text{ } f'_j)$ where $f'_j$ is a conclusion of a rule other than $\andlone$.
-        In either case, there exists a list of sequents $fs' : [A' \land B' \mid \Gamma \vdash^{t_i}_{\Pass} A_i]_{i \in [1 , \dots , n]}$ and a list of tags $l = [t_1 , \dots , t_n]$.
-        In the forme case, $f_j$ is corresponding to tag $\tR$ and in the latter, it corresponds to $\tE$ so $l$ is valid in both cases.
-        We can define a derivation analogously as above.
-        \item $f''_1 = \andltwo \text{ } f'''_1$ is symmetric to the first case.
-        \item If $f''_1$ is a derivation ending with other rules, then a similar argument applies.
-        Notice that $l$ is always valid since $t_1 = \tE$.
-      \end{itemize}
-    \end{itemize} 
+          \\[10pt]
+          &
+          =
+          \quad
+          \proofbox{
+            \infer[\F 2 \LI]{- \mid A' , \Gamma \vdash_{\LI} A \lor B}{
+              \infer[\pass]{- \mid A' , \Gamma \vdash_{\F} A \lor B}{
+                \infer[\orrone^{\LI}]{A' \mid \Gamma \vdash_{\LI} A \lor B}{
+                  \deduce{[A' \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs^{*}}
+                }
+              }
+            }
+          }
+        \end{array}
+      \end{displaymath}
+    \end{itemize}
   \end{itemize}
-  Proof of $\orrtwo^{\LI}$ and $\tr^{\LI}$ are similar.
+  % \begin{itemize}
+  %   \item If $f_1$ is a conclusion of an left invertible rule, then we simply permute the rule with $\orrone^{\LI}$ and apply the inductive hypothesis.
+  %   \item If $f_1 = \Pass 2 \LI \text{ } f'_1$, then we do a further case analysis on $f'_1$:
+  %   \begin{itemize}
+  %     \item If $f'_1 = \pass \text{ } f''_1$, then we check the rest sequents in $fs$. 
+  %     \begin{itemize}
+  %       \item If all $f_i$ are in the form of $\Pass 2 \LI \text{ } (\pass \text{ } f''_i)$ then we permute down $\Pass 2 \LI $ and $\pass \text{ }$ and apply inductive hypothesis.
+  %       \begin{displaymath}
+  %         \begin{array}{cc}
+  %           \proofbox{
+  %             \infer[\orrone^{\LI}]{- \mid A' , \Gamma \vdash_{\LI} A \lor B}{
+  %               \infer[ {[\Pass 2 \LI]} ]{- \mid A' , \Gamma \vdash_{\LI} A_i , i \in [1 , \dots , n]}{
+  %                 \infer[ {[\pass]} ]{- \mid A', \Gamma \vdash_{\Pass} A_i , i \in [1 , \dots , n]}{
+  %                   \deduce{[A' \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
+  %                 }
+  %               }
+  %             }
+  %           }
+  %           \\[10pt]
+  %           &
+  %           =
+  %           \quad
+  %           \proofbox{
+  %             \infer[\Pass 2 \LI]{- \mid A' , \Gamma \vdash_{\LI} A \lor B}{
+  %               \infer[\pass]{- \mid A' , \Gamma \vdash_{\Pass} A \lor B}{
+  %                 \infer[\orrone^{\LI}]{A' \mid \Gamma \vdash_{\LI} A \lor B}{
+  %                   \deduce{[A' \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
+  %                 }
+  %               }
+  %             }
+  %           }
+  %         \end{array}
+  %       \end{displaymath}
+  %       Rules with brackets $[ \ ]$ are applied to each element in the list.
+  %       \item If there exists an $f_j = \F 2 \Pass f'_j$, then there exists a list of sequents $fs' : [- \mid A' , \Gamma \vdash^{t_i}_{\Pass} A_i]_{i \in 1 , \dots , n}$ and a list of tags $l = [t_1 , \dots , t_n]$, where $fs$ is obtained by removing tags and apply $\Pass 2 \LI$ on each elements in $fs'$.
+  %       The corresponding tag to $f'_j$ is $\tE$ because it is impossible to be a conclusion of any of $\andli$, so the validity of $l$ is justified.
+  %       With $fs'$ and $l$ in hand, we define: 
+  %       \begin{displaymath}
+  %         \begin{array}{cc}
+  %           \infer[\orrone^{\LI}]{- \mid A' , \Gamma \vdash_{\LI} A \lor B}{
+  %             \deduce{[- \mid A' , \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
+  %           }
+  %           \\[10pt]
+  %           &
+  %           =
+  %           \quad
+  %           \proofbox{
+  %           \infer[\sw]{- \mid A' , \Gamma \vdash_{\LI} A \lor B}{
+  %             \infer[\orrone]{- \mid A' , \Gamma \vdash_{\F} A \lor B}{
+  %               \infer[\andr^{*}_t]{- \mid A' , \Gamma \vdash^{l}_{\RI} A}{
+  %                 \deduce{[- \mid A' , \Gamma \vdash^{t_i}_{\Pass} A_i]_{i \in [1 , \dots , n]}}{fs'}
+  %               }
+  %             }
+  %           }
+  %         }
+  %         \end{array}
+  %       \end{displaymath}
+  %     \end{itemize}
+  %     \item If $f'_1 = \F 2 \Pass \text{ } f''_1$, then we do a further case analysis on $f''_1$:
+  %     \begin{itemize}
+  %       \item If $f''_1 = \andlone \text{ } f'''_1$, then we check if the rest elements of $fs$ have the same structure with $f'_1$. If they do, then we permute $\andlone$ down and apply the inductive hypothesis.
+  %       If it is not the case, then either there exists an $f_j = \Pass 2 \LI \text{ } (\F 2 \Pass \text{ } (\andltwo f'_j))$ or $f_j = \Pass 2 \LI \text{ } (\F 2 \Pass \text{ } f'_j)$ where $f'_j$ is a conclusion of a rule other than $\andlone$.
+  %       In either case, there exists a list of sequents $fs' : [A' \land B' \mid \Gamma \vdash^{t_i}_{\Pass} A_i]_{i \in [1 , \dots , n]}$ and a list of tags $l = [t_1 , \dots , t_n]$.
+  %       In the forme case, $f_j$ is corresponding to tag $\tR$ and in the latter, it corresponds to $\tE$ so $l$ is valid in both cases.
+  %       We can define a derivation analogously as above.
+  %       \item $f''_1 = \andltwo \text{ } f'''_1$ is symmetric to the first case.
+  %       \item If $f''_1$ is a derivation ending with other rules, then a similar argument applies.
+  %       Notice that $l$ is always valid since $t_1 = \tE$.
+  %     \end{itemize}
+  %   \end{itemize} 
+  % \end{itemize}
 \end{proof}
 Following the admissible rules in (\ref{eq:admis}), we construct a function $\mathsf{focus} : S \mid \Gamma \vdash A \to S \mid \Gamma \vdash_{\RI} A$ which replaces applications of each rule in (\ref{eq:seqcalc}) within a derivation by the corresponding admissible rule in phase $\RI$.
 For example, $\mathsf{focus} \ (\orrone \ f) = \orrone^{\RI} \ (\mathsf{focus} \ f)$.
 
-Moreover, one can prove that $\mathsf{emb}_{\RI}$ and $\mathsf{focus}$ are inverse functions of each other and following corollary holds.
+Furthermore, it can be proved that $\mathsf{emb}_{\RI}$ and $\mathsf{focus}$ are inverse functions of each other and following corollary holds.
 \begin{corollary}
   The set of derivations of $S \mid \Gamma \vdash A$ quotiented by $\circeq$ and the set of derivations of $S \mid \Gamma \vdash_{\RI} A$ have a bijective correspondence.
   \begin{itemize}
@@ -790,6 +867,153 @@ Moreover, one can prove that $\mathsf{emb}_{\RI}$ and $\mathsf{focus}$ are inver
 \end{proof}
 
 \section{Extensions of the Logic}\label{sec:extensions}
+\subsection{Additive units}\label{subsec:AddUnits}
+
+\subsection{Exchange}\label{subsec:Ex}
+We consider the commutative extension of (\ref{eq:seqcalc}) by adding a rule 
+\begin{displaymath}
+  \infer[\ex]{S \mid \Gamma , B , A , \Delta \vdash C}{
+    S \mid \Gamma , A , B , \Delta \vdash C
+  }
+\end{displaymath}
+which swaps adjacent formulae in context.
+Note that exchanging stoup formula (when it is non-empty) with a formula in context is forbidden.
+Sequent calculus (\ref{eq:seqcalc}) extended with $\ex$ is an internal language of skew symmetric monoidal category with additive connectives since $\ex$ characterizes the natural isomorphism $s_{A , B , C} : A \ot (B \ot C) \to A \ot (C \ot B)$ which represents skew symmetry in \cite{bourke:lack:braided:2020}.
+
+To accommodate the new $\ex$ rule, it is necessary to expand the congruence relation $\circeq$ in (\ref{fig:circeq}) with additional generating equations.
+\begin{equation}\label{fig:circeq:sym}
+  % \footnotesize
+  \arraycolsep=2pt
+  \def\arraystretch{1.1}
+  \hspace{-8.9pt}
+\begin{array}{rclll}
+\ex_{B , A}  (\ex_{A , B}  f) &\circeq & f &&f: S \mid \Gamma , A , B , \Delta \vdash C
+\\
+\ex_{A , B}  (\ex_{A , D}  (\ex_{B , D}  f)) &\circeq & \ex_{B , D}  (\ex_{A , D}  (\ex_{A , B}  f)) &&f : S \mid \Gamma , A , B , D , \Delta \vdash C \\
+  \unitl \text{ } (\ex_{A , B} f) &\circeq & \ex_{A , B} (\unitl \text{ } f) &&f: {-} \mid \Gamma , A , B , \Delta \vdash C
+  \\
+  \pass \text{ } (\ex_{A , B}  f) &\circeq & \ex_{A , B}  (\pass \text{ } f) &&f : A' \mid \Gamma , A , B , \Delta \vdash C
+  \\
+  \tl \text{ } (\ex_{A , B}  f) &\circeq & \ex_{A , B}  (\tl \text{ } f) &&f : A' \mid B' , \Gamma , A , B , \Delta \vdash C
+  \\
+  \tr \text{ }(\ex_{A , B}  f , g) &\circeq & \ex_{A , B}  (\tr \text{ } (f , g)) && f : S \mid \Gamma_0 , A , B , \Gamma_1 \vdash A',
+  \\ & & && g : {-} \mid \Delta \vdash B'
+  \\
+  \tr \text{ } (f , \ex_{A , B}  g) &\circeq & \ex_{A , B}  (\tr \text{ } (f , g)) &&f : S \mid \Gamma \vdash A', \\ & & && g : {-} \mid \Delta_0 , A , B , \Delta_1 \vdash B'
+  \\
+  \andlone \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\andlone \ f) &&f : A' \mid \Gamma , A , B , \Delta \vdash C
+  \\
+  \andltwo \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\andltwo \ f) &&f : B' \mid \Gamma , A , B , \Delta \vdash C
+  \\
+  \andr \ (\ex_{A , B} \ f , \ex_{A , B} \ g) &\circeq &\ex_{A , B} \ (\andr \ (f , g)) &&f : S \mid \Gamma , A , B , \Delta \vdash A' , g : S \mid \Gamma , A , B , \Delta \vdash B'
+  \\
+  \orl \ (\ex_{A , B} \ f , \ex_{A , B} \ g) &\circeq &\ex_{A , B} \ (\orl \ (f , g)) &&f : A' \mid \Gamma , A , B , \Delta \vdash C ,  g : B' \mid \Gamma , A , B , \Delta \vdash C
+  \\
+  \orrone \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\orrone \ f) &&f : S \mid \Gamma , A , B \vdash A'
+  \\
+  \orrtwo \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\orrtwo \ f) &&f : S \mid \Gamma , A , B \vdash B'
+  \\
+  \ex_{A , B}  (\ex_{A' , B'}  f) &\circeq & \ex_{A' , B'}  (\ex_{A , B}  f) &&f: S \mid \Gamma , A , B , \Delta , A' , B' , \Lambda \vdash C	
+\end{array}
+\end{equation}
+The first equation states that performing the operation of swapping the same two formulas twice yields the same result as doing nothing.
+The second equation is a for of the Yang-Baxter equation, which states that the two possible ways of interchanging the order of three adjacent formulas $A , B , C$ to obtain the sequence $C , B , A$ are equivalent.
+The remaining equations are permutative conversions.
+
+We study the proof-theoretic semantics of (\ref{eq:seqcalc}) extended with $\ex$ by accommodating the additive rules to the focused sequent calculus introduced in \cite{veltri:coherence:2021}.
+\begin{equation}\label{eq:focus:sym}
+  \begin{array}{lc}
+    \text{(Context)} &
+    \proofbox{
+      \infer[\ex]{S \mid \Gamma , A \spl \Delta , \Lambda \vdash^{l?}_{\C} C}{S \mid \Gamma \spl \Delta , A , \Lambda \vdash_{\C} C}
+      \qquad
+      \infer[\RI 2 \C]{S \mid \quad \spl \Gamma \vdash^{l?}_{\C} C}{S \mid \Gamma \vdash^{l?}_{\RI} C}
+    }
+    \\[20pt]
+    \text{(right invertible)} & %\\[-4pt] &
+    \proofbox{
+      \infer[\andr]{S \mid \Gamma \vdash^{l_1?, l_2?}_{\RI} A \land B}{
+        S \mid \Gamma \vdash^{l_1?}_{\RI} A
+        &
+        S \mid \Gamma \vdash^{l_2?}_{\RI} B
+      }
+    \qquad
+    \infer[\LI 2 \RI]{S \mid \Gamma \vdash^{t?}_{\RI} P}{S \mid \Gamma \vdash^{t?}_{\LI} P}
+    }
+    \\[20pt]
+    \text{(left invertible)} & %\\[-4pt] &
+    \proofbox{
+      \infer[\unitl]{\I \mid \Gamma \vdash_{\LI} P}{{-} \mid \Gamma \vdash_{\LI} P}
+    \qquad
+    \infer[\tl]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B \spl \Gamma \vdash_{\C} P}
+    \\
+    \infer[\orl]{A \lor B \mid \Gamma \vdash P}{
+      A \mid \Gamma \vdash P
+      &
+      B \mid \Gamma \vdash P
+    }
+    \qquad
+    \infer[\F 2 \LI]{T \mid \Gamma \vdash^{t?}_{\LI} P}{T \mid \Gamma \vdash^{t?}_{\F} P}
+    }
+    \\[20pt]
+    \text{(focusing)} &    %\\[-4pt] &
+    \proofbox{
+    \infer[\pass]{{-} \mid A , \Gamma \vdash^{\tP?}_{\F} P }{
+        A \mid \Gamma \vdash_{\LI} P
+    }
+    \qquad
+    \infer[\ax]{X \mid \quad \vdash^{\tE?}_{\F} X}{}
+    \qquad
+    \infer[\unitr]{{-} \mid \quad \vdash^{\tE?}_{\F} \I}{}
+    }
+    \\[10pt]
+    \multicolumn{2}{c}{
+    \infer[\tr]{T \mid \Gamma , \Delta \vdash^{\tE?}_{\F} A \ot B}{
+      T \mid \Gamma \vdash^{l}_{\C} A
+      &
+      {-} \mid \Delta \vdash_{\RI} B
+      &
+      l \ \text{valid}
+    }
+    \qquad
+    \infer[\orrone]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
+      T \mid \Gamma \vdash^{l}_{\C} A
+      &
+      l \ \text{valid}
+    }
+    \qquad
+    \infer[\orrtwo]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
+      T \mid \Gamma \vdash^{l}_{\C} B
+      &
+      l \ \text{valid}
+    }
+    }
+    \\[6pt]
+    \multicolumn{2}{c}{
+    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tL?}_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
+    \qquad
+    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tR?}_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
+    }
+  \end{array}
+\end{equation}
+There are two differences with (\ref{eq:focus}):
+\begin{itemize}
+  \item Root-first proof search begins in a new phase $\C$, where formulae in context are permuted.
+  The idea is to start with a sequent whose formulae are arbitrarily ordered in the context then use $\ex$ to move each formula to its appropriate position.
+  Consequently, we start with a sequent $S \mid \Gamma \spl \quad \vdash_{\C}$ and end with a sequent $S \mid \quad \spl \Gamma' \vdash_{\C}$ where $\Gamma'$ is a permutation of $\Gamma$.
+  Throughout the process, the context is divided into two parts: $\Gamma \spl \Delta$, where the formulae in $\Gamma$ are ready to be moved while the those in $\Delta$ have already been placed in the correct position.
+  Once all formulae in $\Gamma$ have been moved, we switch to phase $\RI$ and continue.
+  Note that a sequent in $\C$ may be tagged with a list of tags $l$.
+  However, as previously mentioned, we only assume the existence of $l$ during the proof search, and we examine the validity after the search is completed.
+  Therefore, we do not consider how to move tags in phase $\C$.
+  \item The other difference is in rule $\tl$ which is the only one rule that adds new formulae to the context from the bottom-up reading of the rules.
+  The premises of these rules are now required to go back to phase $\C$ to utilize the rule $\ex$ to relocate the new formula $A$ to its correct position within the context.
+\end{itemize}
+
+\subsection{Partial associativity and unitality}\label{subsec:asso:uni}
+
+\subsection{Implication}\label{subsec:impl}
+implication, incorporate tags of tracking new formulae and monitoring proof process.
 
 \section{Formalization}\label{sec:formalization}
 
