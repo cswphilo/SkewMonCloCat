@@ -85,6 +85,7 @@
 \newcommand{\MILL}{$\mathtt{MILL}$}
 \newcommand{\NMILL}{$\mathtt{NMILL}$}
 \newcommand{\SkNMILL}{$\mathtt{SkNMILL}$}
+\newcommand{\SkNMILLA}{$\mathtt{SkNMILLA}$}
 \newcommand{\FSkMCC}{\mathsf{FSkMCl}}
 
 
@@ -126,7 +127,7 @@ Semi-substructural logics correspond to the internal languages of skew monoidal 
 
 In our investigations we have explored deductive systems for $(i)$ skew semigroup \cite{zeilberger:semiassociative:19}, $(ii)$ skew monoidal \cite{uustalu:sequent:2021}, $(iii)$ skew (prounital) closed \cite{uustalu:deductive:nodate} and $(iv)$ skew monoidal closed categories \cite{UVW:protsn}, corresponding to skew variants of the fragments of non-commutative intuitionistic linear logic consisting of connectives $(i)$ $\otimes$, $(ii)$ $(\I,\otimes)$, $(iii)$ $\lolli$ and $(iv)$ $(\I,\otimes,\lolli)$. We have also studied partial normality conditions, when one or more among associator and unitors is allowed to have an inverse \cite{uustalu:proof:nodate}, and extensions with exchange {\`a} la Bourke and Lack \cite{veltri:coherence:2021}.
 
-When studying meta-theretic properties of these semi-structural deductive systems, we have been mostly interested in categorical and proof-theoretic semantics. In the latter, we have particularly investigated normalization strategies inspired by Andreoli's focused sequent calculus for classical linear logic \cite{andreoli:logic:1992} and employed the resulting normal forms to solve the \emph{coherence problem} for the corresponding categories with skew structure. For the latter categories, the word problem is more nuanced than in the normal non-skew case studied by MacLane \cite{maclane1963natural}. Our study also revealed that the focused sequent calculi of semi-substructural logics can serve as cornerstones for a compositional and modular understanding of normalization techniques for other richer substructural logics.
+When studying meta-theoretic properties of these semi-structural deductive systems, we have been mostly interested in categorical and proof-theoretic semantics. In the latter, we have particularly investigated normalization strategies inspired by Andreoli's focused sequent calculus for classical linear logic \cite{andreoli:logic:1992} and employed the resulting normal forms to solve the \emph{coherence problem} for the corresponding categories with skew structure. For the latter categories, the word problem is more nuanced than in the normal non-skew case studied by MacLane \cite{maclane1963natural}. Our study also revealed that the focused sequent calculi of semi-substructural logics can serve as cornerstones for a compositional and modular understanding of normalization techniques for other richer substructural logics.
 
 In this work we begin the investigation of  semi-substructural logics with \emph{additive connectives}. We start in Section \ref{sec:sequent-calculus} by considering a fragment of non-commutative linear logic consisting of skew multiplicative unit $\I$ and conjunction $\ot$, and additive conjunction $\land$ and disjunction $\lor$. We describe a cut-free sequent calculus and a congruence relation identifying derivations up-to $\eta$-equivalence and permutative conversions. In Section \ref{sec:categorical}, we discuss categorical semantics in terms of skew monoidal categories with binary products and coproducts. In Section \ref{sec:focusing}, we subsequently introduce a sequent calculus of proofs in normal form, again inspired by the ideas of Andreoli, which describes a sound and complete root-first proof search strategy for the original sequent calculus. Completeness is achieved by marking sequents with lists of \emph{tags}, a mechanism introduced by Uustalu et al. \cite{UVW:protsn} and inspired by Scherer and R{\'e}my's saturation technique \cite{scherer:simple:2015}, which help to  eliminate completely all unnecessary non-determinism in proof search and faithfully capture normal forms wrt. the congruence relation on derivations in the original sequent calculus. %In a sense, this is similar to what proof nets are used for.
 
@@ -433,7 +434,7 @@ Note that following each right non-invertible rule, we should decompose succeden
 In this case, there is only one right invertible rule, $\andr$ which would create two premises when applied and eventually lead to an application of a right non-invertible rule.
 Therefore we introduce tag annotations to monitor the proof search process after an application of a right non-invertible rule.
 We define four tags, $\tP , \tL , \tR , \tE$ which respectively correspond to $\pass , \andlone , \andltwo$ and the rest of non-invertible rules.
-In particular, right non-invertible rules will produce a valid non-empty list of tags to mark their premises (only left premise is tagged in the $\tr$ case).
+In particular, right non-invertible rules will produce a valid non-empty list of tags to mark their premises (only left premise is marked in the $\tr$ case).
 \begin{defn}\label{tag:validity}
   A non-empty list of tags $l$ is valid if 
   \begin{itemize}
@@ -628,7 +629,7 @@ Taking $\orrone^{\RI}$ for an instance:
 \end{displaymath}
 The inductive hypothesis applied to $f$ and $g$ would produce wrong sequents for the target conclusion.
 We fix the issue by following three lemmata.
-\begin{lemma}
+\begin{lemma}\label{lem:RI:invert}
   Phase $\RI$ is invertible, which means that for every $f : S \mid \Gamma \vdash_{\RI} A$, there is a list of sequents $fs : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$ such that $f = \andr^{*} fs$.
 \end{lemma}
 \begin{proof}
@@ -638,7 +639,7 @@ We fix the issue by following three lemmata.
     \item If $f = \andr \text{ } f_1 f_2$, then by inductive hypothesis, we have $fs_1 : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$ and $fs_2 : [S \mid \Gamma \vdash_{\LI} B_i]_{i \in [1 , \dots , m]}$ such that $fs = [fs_1 , fs_2]$.
   \end{itemize}
 \end{proof}
-\begin{lemma}
+\begin{lemma}\label{lem:BigStep}
   \begin{displaymath}
     \infer[\andr^{*}_t]{T \mid \Gamma \vdash^{l}_{\RI} A}{
       \deduce{[T \mid \Gamma \vdash^{t_i}_{\F} A_i]_{i \in [1 , \dots , n]}}{fs}
@@ -677,7 +678,7 @@ We fix the issue by following three lemmata.
     where $l = [l_1 , l_2]$.
   \end{itemize}
 \end{proof}
-\begin{lemma}
+\begin{lemma}\label{lem:GenRightRules}
   Generalized $\orri^{\LI}$ and $\tr^{\LI}$
   \begin{displaymath}
     \begin{array}{c}
@@ -880,7 +881,7 @@ which swaps adjacent formulae in context.
 Note that exchanging stoup formula (when it is non-empty) with a formula in context is forbidden.
 Sequent calculus (\ref{eq:seqcalc}) extended with $\ex$ is an internal language of skew symmetric monoidal categories with products and coproducts since $\ex$ characterizes the natural isomorphism $s_{A , B , C} : A \ot (B \ot C) \to A \ot (C \ot B)$ which represents skew symmetry in \cite{bourke:lack:braided:2020}.
 
-To accommodate the new $\ex$ rule, it is necessary to expand the congruence relation $\circeq$ in (\ref{fig:circeq}) with additional generating equations.
+To accommodate the new $\ex$ rule, it is necessary to expand the congruence relation $\circeq$ in (\ref{fig:circeq}) with additional generating equations:
 \begin{equation}\label{fig:circeq:sym}
   % \footnotesize
   \arraycolsep=2pt
@@ -1012,8 +1013,8 @@ There are two differences with (\ref{eq:focus}):
 
 \subsection{Partial associativity and unitality}\label{subsec:asso:uni}
 
-\subsection{Implication}\label{subsec:impl}
-We consider a skew version of non-commutative intuitionistic linear logic with additive connectives which is presented by extending (\ref{eq:seqcalc}) with linear implication $\lolli$ and following two rules:
+\subsection{Linear implication}\label{subsec:impl}
+We consider a skew version of non-commutative intuitionistic linear logic (\SkNMILL) with additive connectives (\SkNMILLA), which is presented by extending (\ref{eq:seqcalc}) with a connective $\lolli$ (linear implication) and the following two rules:
 \begin{displaymath}
   \begin{array}{c}
     \infer[\lleft]{A \lolli B \mid \Gamma , \Delta \vdash C}{
@@ -1025,8 +1026,293 @@ We consider a skew version of non-commutative intuitionistic linear logic with a
     \infer[\lright]{S \mid \Gamma \vdash A \lolli B}{S \mid \Gamma , A \vdash B}
   \end{array}
 \end{displaymath}
-Categorical semantics of the sequent calculus is skew monoidal closed categories with products and coproducts.
+Categorical models of \SkNMILLA are skew monoidal closed categories with products and coproducts.
 
+The presence of $\lolli$ and its corresponding rules requires the extension of the congruence relation $\circeq$ with additional generating equations:
+\begin{equation}\label{fig:circeq:impl}
+  \begin{array}{rlll}
+  \ax_{A \lolli B} &\circeq \lright \text{ } (\lleft \text{ } (\pass \text{ } \ax_{A}, \ax_{B} ))
+  \\
+  \tr \text{ } (\lleft \text{ } (f , g), h) & \circeq \lleft \text{ } (f, \tr \text{ } (g, h)) &&f: {-} \mid \Gamma \vdash A, g : B \mid \Delta \vdash C, h : {-} \mid \Lambda \vdash D
+  \\
+  \lright \text{ } (\pass \text{ } f) &\circeq \pass \text{ } (\lright \text{ } f) &&f : A' \mid \Gamma , A \vdash B
+  \\
+  \lright \text{ } (\unitl \text{ } f) &\circeq \unitl \text{ } (\lright \text{ } f) &&f : {-} \mid \Gamma , A \vdash B
+  \\
+  \lright \text{ } (\tl \text{ } f) &\circeq \tl \text{ } (\lright \text{ } f) &&f : A \mid B , \Gamma , C \vdash D
+  \\
+  \lright \text{ } (\lleft \text{ } (f, g)) &\circeq \lleft \text{ } (f, \lright \text{ } g) &&f : {-} \mid \Gamma \vdash A', g : B' \mid \Delta , A \vdash B
+  \\
+  \lright \ (\andlone \ f) &\circeq \andlone \ (\lright \ f) &&f : A' \mid \Gamma , A \vdash B
+  \\
+  \lright \ (\andltwo \ f) &\circeq \andltwo \ (\lright \ f) &&f : B' \mid \Gamma , A \vdash B
+  \\
+  \lright \ (\orl \ (f ,g)) &\circeq \orl \ (\lright \ f , \lright \ g) &&f : A' \mid \Gamma , A \vdash B , g : B' \mid \Gamma , A \vdash B
+  \\
+  \orrone \ (\lleft \  (f , g)) &\circeq \lleft \ (f , \orrone \ g) &&f : - \mid \Gamma \vdash A , g : B \mid \Delta \vdash A'
+  \\
+  \orrtwo \ (\lleft \  (f , g)) &\circeq \lleft \ (f , \orrtwo \ g) &&f : - \mid \Gamma \vdash A , g : B \mid \Delta \vdash B'
+  \end{array}
+\end{equation}
+The first equation is about $\eta$-conversion of $\lolli$ and the remaining are permutative conversions.
+
+To eliminate undesired non-determinism and maintain completeness with \SkNMILLA, we incorporate (\ref{eq:focus}) into the focused calculus in the section 4.2 of \cite{UVW:protsn} which employs tags to track formulae which are moved from the succedent to context via applications of the rule $\lright$.
+Therefore in the new focused calculus, following any right non-invertible rule, a new applicable right invertible rule $\lright$ is introduced, where any formula $A$ moved from succedent to context via $\lright$ is marked as $A^{\bullet}$.
+We use $\bullet$ as the tag where there is at least one tagged formula sent to the first premise of $\lleft$ following an right non-invertible rule.
+
+The addition of $\lleft$ introduces a new type of non-determinism, as illustrated by the sequent $\I \lolli \I \mid \I , Y \vdash (\I \land \I) \ot Y$, which can be proved in different ways depending on how the context is split.
+Here are two different proofs of the sequent $\I \lolli \I \mid \I , Y \vdash (\I \land \I) \ot Y$.
+\begin{equation}\label{eq:ex:lleft:NonDeter}
+  \begin{array}{c}
+    \infer[\tr]{\I \lolli \I \mid \I , Y \vdash (\I \land \I) \ot Y}{
+      \infer[\andr]{\I \lolli \I \mid \I \vdash \I \land \I}{
+        \infer[\lleft]{\I \lolli \I \mid \I \vdash \I}{
+      \infer[\unitr]{- \mid \quad \vdash \I}{}
+      &
+      \infer[\unitl]{\I \mid \I \vdash \I}{
+        \infer[\pass]{- \mid \I \vdash \I}{
+          \infer[\unitl]{\I \mid \quad \vdash \I}{
+            \infer[\unitr]{- \mid \quad \vdash \I}{}
+          }
+        }
+      }
+    }
+    &
+    \infer[\lleft]{\I \lolli \I \mid \I \vdash \I}{
+      \infer[\pass]{- \mid \I \vdash \I}{
+        \infer[\unitl]{\I \mid \quad \vdash \I}{
+          \infer[\unitr]{- \mid \quad \vdash \I}{}
+        }
+      }
+      &
+      \infer[\unitl]{\I \mid \quad \vdash \I}{
+        \infer[\unitr]{- \mid \quad \vdash \I}{}
+      }
+    }
+      }
+      &
+      \infer[\pass]{- \mid Y \vdash Y}{
+        \infer[\ax]{Y \mid \quad \vdash Y}{}
+      }
+    }
+    \\[10pt]
+    \infer[\tr]{\I \lolli \I \mid \I , Y \vdash (\I \land \I) \ot Y}{
+      \infer[\andr]{\I \lolli \I \mid \I \vdash \I \land \I}{
+        \infer[\lleft]{\I \lolli \I \mid \I \vdash \I}{
+      \infer[\unitr]{- \mid \quad \vdash \I}{}
+      &
+      \infer[\unitl]{\I \mid \I \vdash \I}{
+        \infer[\pass]{- \mid \I \vdash \I}{
+          \infer[\unitl]{\I \mid \quad \vdash \I}{
+            \infer[\unitr]{- \mid \quad \vdash \I}{}
+          }
+        }
+      }
+    }
+    &
+    \infer[\lleft]{\I \lolli \I \mid \I \vdash \I}{
+      \infer[\unitr]{- \mid \quad \vdash \I}{}
+      &
+      \infer[\unitl]{\I \mid \I \vdash \I}{
+        \infer[\pass]{- \mid \I \vdash \I}{
+          \infer[\unitl]{\I \mid \quad \vdash \I}{
+            \infer[\unitr]{- \mid \quad \vdash \I}{}
+          }
+        }
+      }
+    }
+      }
+      &
+      \infer[\pass]{- \mid Y \vdash Y}{
+        \infer[\ax]{Y \mid \quad \vdash Y}{}
+      }
+    }
+  \end{array}
+\end{equation}
+In this case, we should always perform right non-invertible rules before $\lleft$ to avoid losing possible derivations.
+Note that this type of non-determinism is essential because it demonstrates the fact that there are sequents with multiple derivations in \SkNMILLA \ that are not equivalent under $\circeq$.
+
+To capture this non-determinism and ensure completeness, we introduce a new type of tag denoted by $\# \Gamma$ which records the number of formula occurrences in $\Gamma$ that are sent as the first premise of an application of $\lleft$.
+\begin{defn}\label{def:tag:validity:impl}
+  A non-empty list of tags $l$ is valid if 
+  \begin{itemize}
+    \item there is one $\tE$ occurrence in $l$,
+    \item both of $\tL$ and $\tR$ have one occurrence in $l$,
+    \item there is one $\bullet$ in $l$, or
+    \item there exists $\Gamma$ and $\Gamma'$ such that $\# \Gamma \neq \# \Gamma'$.
+  \end{itemize}
+\end{defn}
+The validity condition is extended by two cases, where the first one distinguishes the situation where there is at least one new formula introduced in the context due to the previous right non-invertible rule, while the second captures cases of essential non-determinism and avoids situations where all the contexts of the corresponding sequents of $l$ are split in the same way.
+It is worth noting that the context of an application of $\lleft$ can be split at different new formula occurrences.
+% the focusing strategy in  the focused calculus of \SkNMILL is equipped with tag annotations to track new formulae occurrences in the context via $\lright$.
+% We incorporate the tag annotations in the focused \SkNMILL with \ref{eq:focus} to obtain following rules.
+
+Derivations in the focused sequent calculus of \SkNMILLA \ are generated by the rules.
+\begin{equation}\label{eq:focus:impl}
+  \begin{array}{lc}
+    \text{(right invertible)} & %\\[-4pt] &
+    \proofbox{
+      \infer[\andr]{S \mid \Gamma \vdash^{l_1?, l_2?}_{\RI} A \land B}{
+        S \mid \Gamma \vdash^{l_1?}_{\RI} A
+        &
+        S \mid \Gamma \vdash^{l_2?}_{\RI} B
+      }
+    \qquad
+    \infer[\lright]{S \mid \Gamma \vdash^{l?}_{\RI} A \lolli B}{S \mid \Gamma , A^{\bullet ?} \vdash^{l?}_{\RI} B}
+    \qquad
+    \infer[\LI 2 \RI]{S \mid \Gamma \vdash^{t?}_{\RI} P}{S \mid \Gamma \vdash^{t?}_{\LI} P}
+    }
+    \\[10pt]
+    \text{(left invertible)} & %\\[-4pt] &
+    \proofbox{
+      \infer[\unitl]{\I \mid \Gamma \vdash_{\LI} P}{{-} \mid \Gamma \vdash_{\LI} P}
+    \qquad
+    \infer[\tl]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B , \Gamma \vdash_{\LI} P}
+    \\
+    \infer[\orl]{A \lor B \mid \Gamma \vdash P}{
+      A \mid \Gamma \vdash P
+      &
+      B \mid \Gamma \vdash P
+    }
+    \qquad
+    \infer[\F 2 \LI]{T \mid \Gamma \vdash^{t?}_{\LI} P}{T \mid \Gamma \vdash^{t?}_{\F} P}
+    }
+    \\[10pt]
+    \text{(focusing)} &    %\\[-4pt] &
+    \proofbox{
+    \infer[\pass]{{-} \mid A^{\bullet ?} , \Gamma \vdash^{\tP?}_{\F} P }{
+        A \mid \Gamma^{\circ} \vdash_{\LI} P
+    }
+    \qquad
+    \infer[\ax]{X \mid \quad \vdash^{\tE?}_{\F} X}{}
+    \qquad
+    \infer[\unitr]{{-} \mid \quad \vdash^{\tE?}_{\F} \I}{}
+    }
+    \\[10pt]
+    \multicolumn{2}{c}{
+    \infer[\tr]{T \mid \Gamma , \Delta \vdash^{\tE?}_{\F} A \ot B}{
+      T \mid \Gamma^{\circ} \vdash^{l}_{\RI} A
+      &
+      {-} \mid \Delta^{\circ} \vdash_{\RI} B
+      &
+      l \ \text{valid}
+    }
+    \qquad
+    \infer[\orrone]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
+      T \mid \Gamma^{\circ} \vdash^{l}_{\RI} A
+      &
+      l \ \text{valid}
+    }
+    \qquad
+    \infer[\orrtwo]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
+      T \mid \Gamma^{\circ} \vdash^{l}_{\RI} B
+      &
+      l \ \text{valid}
+    }
+    }
+    \\[6pt]
+    \multicolumn{2}{c}{
+    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tL?}_{\F} P}{A \mid \Gamma^{\circ} \vdash_{\LI} P}
+    \qquad
+    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tR?}_{\F} P}{B \mid \Gamma^{\circ} \vdash_{\LI} P}
+    }
+    \\[6pt]
+    \multicolumn{2}{c}{
+      \infer[\lleft]{A \lolli B \mid \Gamma , \Delta^{\bullet ?} , \Lambda \vdash^{t?}_{\F} P}{
+        - \mid \Gamma , \Delta^{\circ} \vdash_{\RI} A
+        &
+        B \mid \Lambda^{\circ} \vdash_{\LI} P
+        % &
+        % t \text{ exists } \supset \ (\Delta \text{ empty and } \ t = \# \Gamma) \text{ or } \ t = \bullet
+        &
+        \Delta \text{ empty } \supset \ t \text{ does not exist } \text{ or } t = \# \Gamma  \text{ else }  t = \bullet 
+      }
+    }
+  \end{array}
+\end{equation}
+There are some differences with (\ref{eq:focus}):
+\begin{itemize}
+  \item The positive formula $P$ now means that $P$ is not in the form of $\land$ nor $\lolli$. $A^{\bullet}$ means that $A$ is tagged and $\Gamma^{\bullet}$ means that all the formula occurrences in $\Gamma$ are tagged. $\Gamma^{\circ}$ means that all the tags of the formula occurrences in $\Gamma$ are erased.
+  \item $\lright$ is a new rule in phase $\RI$, which moves formulae from the succedent to the context. If the conclusion of $\lright$ is $T \mid \Gamma \vdash^{l}_{\RI} A \lolli B$, then $A$ in the premise is a new formula and tagged by $\bullet$.
+  \item The side condition in rule $\lleft$ has two parts: first, if $\Delta$ is empty, the sequent is either untagged or split in different ways, and second, if $\Delta$ is inhabited, then $t = \bullet$.
+  The inhabited or non-inhabited nature of $\Delta$ is crucial because if there is any formula occurrence in $\Delta$, then it indicates that there is an application of a right non-invertible rule before $\lleft$ and the order of rule applications is guaranteed due to the new formula occurrences in $\Delta$.
+  If $\Delta$ is empty, then either there is no application of right non-invertible rule before or there is an application of a right non-invertible rule before $\lleft$ is but there is no formula moved to the context via $\lright$.
+  In the latter case, tags are used to record the splitting of contexts.
+\end{itemize}
+We can reconstruct the upper proof in (\ref{eq:ex:lleft:NonDeter}) within (\ref{eq:focus:impl}).
+\begin{displaymath}
+  \infer[\sw]{\I \lolli \I \mid \I , Y \vdash_{\RI} (\I \land \I) \ot Y}{
+    \infer[\tr]{\I \lolli \I \mid \I , Y \vdash_{\F} (\I \land \I) \ot Y}{
+      \infer[\andr]{\I \lolli \I \mid \I \vdash^{0 , 1}_{\RI} \I \land \I}{
+        \infer[\sw]{\I \lolli \I \mid \I \vdash^{0}_{\RI} \I}{
+          \infer[\lleft]{\I \lolli \I \mid \I \vdash^{0}_{\F} \I}{
+            \infer[\sw]{- \mid \quad \vdash_{\RI} \I}{
+              \infer[\unitr]{- \mid \quad \vdash_{\F} \I}{}
+            }
+            &
+            \infer[\unitl]{\I \mid \I \vdash_{\LI} \I}{
+              \infer[\F 2 \LI]{- \mid \I \vdash_{\LI} \I}{
+                \infer[\pass]{- \mid \I \vdash_{\F} \I}{
+                  \infer[\unitl]{\I \mid \quad \vdash_{\LI} \I}{
+                    \infer[\F 2 \LI]{- \mid \quad \vdash_{\LI} \I}{
+                      \infer[\unitr]{- \mid \quad \vdash_{\F} \I}{}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        &
+        \infer[\sw]{\I \lolli \I \mid \I \vdash^{1}_{\RI} \I}{
+          \infer[\lleft]{\I \lolli \I \mid \I \vdash^{1}_{\RI} \I}{
+            \infer[\sw]{- \mid \I \vdash_{\RI} \I}{
+              \infer[\pass]{- \mid \I \vdash_{\F} \I}{
+                \infer[\unitl]{\I \mid \quad \vdash_{\LI} \I}{
+                  \infer[\F 2 \LI]{- \mid \quad \vdash_{\LI} \I}{
+                    \infer[\unitr]{- \mid \quad \vdash_{\F} \I}{}
+                  }
+                }
+              }
+            }
+            &
+            \infer[\unitl]{\I \mid \quad \vdash_{\LI} \I}{
+              \infer[\F 2 \LI]{- \mid \quad \vdash_{\LI} \I}{
+                \infer[\unitr]{- \mid \quad \vdash_{\F} \I}{}
+              }
+            }
+          }
+        }
+      }
+      &
+      \infer[\sw]{- \mid Y \vdash_{\RI} Y}{
+        \infer[\pass]{- \mid Y \vdash_{\F} Y}{
+          \infer[\F 2 \LI]{Y \mid \quad \vdash_{\LI} Y}{
+            \infer[\ax]{Y \mid \quad \vdash_{\F} Y}{}
+          }
+        }
+      }
+    }
+  }
+\end{displaymath}
+In this case $[0 , 1]$ is a valid list.
+
+On the other hand, the bottom derivation in (\ref{eq:ex:lleft:NonDeter}) should correspond to a derivation starting with $\lleft$, otherwise it is not a proof within (\ref{eq:focus:impl}) because of an invalid list of tags $[0 , 0]$.
+% \begin{displaymath}
+%   \begin{array}{cc}
+%     \text{valid proof} &
+%     \proofbox{
+
+%     }
+%     \\
+%     \text{invalid proof} &
+%     \proofbox{
+
+%     }
+%   \end{array}
+% \end{displaymath}
+
+% To obtain a generalization of theorem (\ref{theorem:focus:sound:complete}), we generalize the three lemmata (\ref{lem:RI:invert})
 \section{Formalization}\label{sec:formalization}
 
 
