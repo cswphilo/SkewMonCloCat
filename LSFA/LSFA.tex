@@ -406,10 +406,6 @@ We introduce a congruence relation $\circeq$ on the sets of cut-free derivations
   \caption{Equivalence of sequent calculus derivations.}
 \end{figure}
 The first four equations ($\eta$-conversions) characterize the $\ax$ rule for non-atomic formulae. The remaining equations are permutative conversions. The congruence $\circeq$ has been carefully chosen to serve as the proof-theoretic counterpart of the equational theory of skew monoidal categories with products and coproducts, which we introduce next.
-
-\niccolo{In equations 10-16, the left- and right-hand sides of the equations should be swapped (so that equations, when read from left to right, becomes conversion rules)}
-
-\cheng{Moved}
   % , introduced in Definition \ref{def:skewcat}. The subsystem of equations involving only $(\I,\ot)$ originated in \cite{uustalu:sequent:2021} while the subsystem involving only $\lolli$ is from \cite{uustalu:deductive:nodate}.
 
 \section{Categorical Semantics}\label{sec:categorical}
@@ -492,62 +488,81 @@ The construction of the functor $F$ and the proof of uniqueness proceed similarl
 \section{A Focused Sequent Calculus with Tag Annotations}\label{sec:focusing}
 When oriented from left-to-right, the equations in (\ref{fig:circeq}) become a  rewrite system, which is confluent with unique normal forms. Here we provide an explicit description of the proof normal forms of (\ref{eq:seqcalc}).
 %Similar to the strategy employed in \cite{UVW:protsn},
-For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure can be defined as follows. First apply right invertible rules on the sequent until the principal connective of the succedent is non-negative, then apply left invertible rules until the stoup becomes either empty or non-positive.
-At this stage, only non-invertible rules can be applied, so the question is: how to arrange the order between non-invertible rules without causing undesired non-determinism and losing completeness with respect to the sequent calculus in (\ref{eq:seqcalc}) and its equivalence $\circeq$?
+For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure can be defined as follows. First apply right invertible rules on the sequent until the principal connective of the succedent is non-negative, then apply left invertible rules until the stoup becomes either empty or non-positive. At this point, if we do not insist on focusing on a particular formula (either in the stoup or succedent, since no rule act on formulae in context) as in Andreoli's focusing procedure~\cite{andreoli:logic:1992}, we obtain a sequent calculus with a reduced proof search space:
 
-Similarly to \cite{UVW:protsn}, our strategy is to prioritize left non-invertible rules over right ones, unless this does not lead to a valid derivation and the other way around is necessary.
-For example, consider the sequent $X \land Y \mid \quad \vdash (X \land Y) \lor Z$. Proof search fails if we apply $\andli$ before $\orrone$. A valid proof is obtained only when applying $\orrone$ before $\andli$.
+\niccolo{Add rules for ``naive'' focused sequent calculus here.}
 
-\niccolo{Maybe we can remove the proof tree below.}
+This calculus is too permissive. The same sequent $S \mid \Gamma \vdash_{\RI} A$ may have multiple derivations, which correspond to $\circeq$-related derivations in the original sequent calculus. For example, \niccolo{Add a few examples of sequents here, only inline, no proof trees.}
+
+In phase $\F$, only non-invertible rules can be applied, so the question is: how to arrange the order between non-invertible rules without causing undesired non-determinism and losing completeness with respect to the sequent calculus in (\ref{eq:seqcalc}) and its equivalence $\circeq$? Similarly to \cite{UVW:protsn}, our strategy is to prioritize left non-invertible rules over right ones, unless this does not lead to a valid derivation and the other way around is necessary.
+For example, consider the sequent $X \land Y \mid \quad \vdash (X \land Y) \lor Z$. Proof search fails if we apply $\andli$ before $\orrone$. A valid proof is obtained only when applying $\orrone$ before $\andli$. Rule $\sw$ is an abbreviation for the application of multiple consecutive phase switching rules.
+
 
 \begin{equation}\label{eq:ex:focused}
   \begin{array}{c}
-    \infer[\andlone]{X \land Y \mid \quad \vdash (X \land Y) \lor Z}{
-      \infer[\orrone]{X \mid \quad \vdash (X \land Y) \lor Z}
-      {
-         \infer[\andr]{X \mid \quad \vdash X \land Y}{
-           \infer[\ax]{X \mid \quad \vdash X}{}
-           &
-           \deduce{X \mid \quad \vdash Y}{??}
-         }
-      }
-     }
-     \qquad
-     \infer[\orrone]{X \land Y \mid \quad \vdash (X \land Y) \lor Z}{
-      \infer[\andr]{X \land Y \mid \quad \vdash X \land Y}{
-        \infer[\andlone]{X \land Y \mid \quad \vdash X}{
-          \infer[\ax]{X \mid \quad \vdash X}{}
-        }
+%%    \infer[\andlone]{X \land Y \mid \quad \vdash (X \land Y) \lor Z}{
+%%      \infer[\orrone]{X \mid \quad \vdash (X \land Y) \lor Z}
+%%      {
+%%         \infer[\andr]{X \mid \quad \vdash X \land Y}{
+%%           \infer[\ax]{X \mid \quad \vdash X}{}
+%%           &
+%%           \deduce{X \mid \quad \vdash Y}{??}
+%%         }
+%%      }
+%%     }
+%%     \qquad
+     \infer[\orrone]{X \land Y \mid \quad \vdash_\F (X \land Y) \lor Z}{
+      \infer[\andr]{X \land Y \mid \quad \vdash_\RI X \land Y}{
+        \infer[\sw]{X \land Y \mid \quad \vdash_\RI X}{
+          \infer[\andlone]{X \land Y \mid \quad \vdash_\F X}{
+          \infer[\sw]{X \mid \quad \vdash_\RI X}{
+          \infer[\ax]{X \mid \quad \vdash_\F X}{}
+        }}}
         &
-        \infer[\andltwo]{X \land Y \mid \quad \vdash Y}{
-          \infer[\ax]{Y \mid \quad \vdash Y}{}
-        }
+        \infer[\sw]{X \land Y \mid \quad \vdash_\RI Y}{
+        \infer[\andltwo]{X \land Y \mid \quad \vdash_\F Y}{
+          \infer[\sw]{Y \mid \quad \vdash_\RI Y}{
+          \infer[\ax]{Y \mid \quad \vdash_\F Y}{}
+        }}}
       }
     }
   \end{array}
 \end{equation}
+From a different perspective, in this example it was possible to first apply $\orrone$ since, after the application of $\andr$, different left $\land$-rules are applied to different premises. If we would have applied  the same rule $\andlone$ to both premises (imagine that $X = Y$ for this to be possible), then we could have obtained a $\circeq$-equivalent derivation by moving  the application of $\andlone$ to the bottom of the proof tree. 
 
-Note that following each right non-invertible rule, we should decompose succedents using right invertible rules.
-In this case, there is only one right invertible rule, $\andr$ which would create two premises when applied and eventually lead to an application of a right non-invertible rule.
-Therefore we introduce tag annotations to monitor the proof search process after an application of a right non-invertible rule.
-We define four tags, $\tP , \tL , \tR , \tE$ which respectively correspond to $\pass , \andlone , \andltwo$ and the rest of non-invertible rules.
-In particular, right non-invertible rules will produce a valid non-empty list of tags to mark their premises (only left premise is marked in the $\tr$ case).
-\begin{defn}\label{tag:validity}
-  A non-empty list of tags $l$ is valid if 
-  \begin{itemize}
-    \item there is one $\tE$ occurrence in $l$, or
-    \item both of $\tL$ and $\tR$ have one occurrence in $l$.
-  \end{itemize}
-\end{defn}
-The validity condition aims to prevent undesired non-determinism.
-The first bullet covers the cases where all branches following a right non-invertible rule are applied by $\pass$ and the second covers the cases where all branches are applied only by one of $\andli$.
-In both cases, left non-invertible rules should be applied before the right non-invertible rule.
+\niccolo{Add another example, where the a right non-invertible rule must be applied first since in different premises passivation is applied/non applied.}
+
+%Note that following each right non-invertible rule, we should decompose succedents using right invertible rules.
+%In this case, there is only one right invertible rule, $\andr$ which would create two premises when applied and eventually lead to an application of a right non-invertible rule.
+In general, a right non-invertible rule should be applied  before a left non-invertible one if, after the possible application of some $\andr$ rules, either:
+$(i)$ $\andlone$ and $\andltwo$ are applied to different premises;
+%$(ii)$ $\pass$ and $\F 2 \Pass$ are applied to different premises;
+$(iii)$ a right non-invertible rule or the $\ax$ rule is applied to one of the premises.
+%\niccolo{Question: If there is no phase $\Pass$, do we actually need a tag $\tP$?}
+Therefore, we have to make sure that, after the application of a right non-invertible rule, not all premises use the same left non-invertible rule, because in this case the latter rule could be applied first.
+
+In order to keep track of this,
+%motivate when a right non-invertible rule can be applied before a left non-invertible rule during root-first proof search,
+we use a system of \emph{tag annotations} and we introduce new phases of proof search where sequents are annotated by \emph{list of tags}. 
+%to monitor the proof search process after an application of a right non-invertible rule.
+There are four tags: $\tP , \tL , \tR , \tE$. Intuitively, they respectively correspond to rules $\pass , \andlone , \andltwo$ and all the remaining non-invertible rules.
+%In particular, right non-invertible rules will produce a valid non-empty list of tags to mark their premises (only left premise is marked in the $\tr$ case).
+%\begin{defn}\label{tag:validity}
+A list of tags $l$ is \emph{valid} if it is non-empty and either $(i)$ $\tE \in l$ or $(ii)$ both $\tL \in l$ and $\tR \in l$.
+%%  \begin{itemize}
+%%    \item there is one $\tE$ occurrence in $l$, or
+%%    \item both of $\tL$ and $\tR$ have one occurrence in $l$.
+%%  \end{itemize}
+%\end{defn}
+%The validity condition aims to prevent undesired non-determinism.
+%The first bullet covers the cases where all branches following a right non-invertible rule are applied by $\pass$ and the second covers the cases where all branches are applied only by one of $\andli$.
+%In both cases, left non-invertible rules should be applied before the right non-invertible rule.
 % For example, considering a sequent $- \mid A' , \Gamma \vdash (A \land B) \lor C$, if 
 % For the first bullet, an $\tE$ occurrence in $l$ means that there is one branch after a right non-invertible rule ending with $\ax , \unitr$, or a right non-invertible rule.
 
-In the rest of this paper, lists of tags are always non-empty unless otherwise specified.
-\\
-Derivations in the focused sequent calculus with tag annotations are generated by the rules.
+%In the rest of this paper, lists of tags are always non-empty unless otherwise specified.
+%\\
+Derivations in the focused sequent calculus with tag annotations are generated by the rules
 \begin{equation}\label{eq:focus}
   \begin{array}{lc}
     \text{(right invertible)} & %\\[-4pt] &
@@ -616,30 +631,30 @@ Derivations in the focused sequent calculus with tag annotations are generated b
     }
   \end{array}
 \end{equation}
-$P$ is a positive formula, which means it is not in the form of $\land$.
-$T$ is a negative stoup, which means that it is not in the form of $\I , \ot$, or $\lor$.
-Each tag (list of tags) notation with a question mark means that either the sequent is untagged or there is a corresponding tag (a list of tag).
+In the rules above, $P$ is a non-negative formula, i.e. its principal connective is not $\land$, while $T$ is a non-positive stoup, i.e. it is not $\I$ and its principal connective is not $\ot$ nor $\lor$.
+We use $l$ for lists of tags and $t$ for single tags.
+The notation $l?$ indicates that the sequent is either untagged or it is assigned the list of tags $l$. Similarly for notation $t?$.
+%Each tag (list of tags) notation with a question mark means that either the sequent is untagged or there is a corresponding tag (a list of tag).
 We discuss the proof search procedures of untagged and tagged sequents separately.
-\\
 The proof search of a sequent $S \mid \Gamma \vdash_\RI A$ proceeds as follows:
 \begin{itemize}
   \item[($\vdash_{\RI}$)] We apply the right invertible rule $\andr$ eagerly to decompose the succedent until its principal connective is not $\land$, then we move to the left invertible phase.
-  \item[($\vdash_{\LI}$)] We apply left invertible rules until the stoup becomes negative, then move to the focusing phase.
+  \item[($\vdash_{\LI}$)] We apply left invertible rules until the stoup becomes irreducible, then move to the focusing phase.
   % \item[($\vdash_{\Pass}$)] In this phase, if the stoup is empty, then we can apply $\pass$ to move the head element of the context to stoup then go back to the left invertible phase.  If we do not (or cannot) apply $\pass$, we move to the focusing phase via $\F2 \Pass$.
-  \item[($\vdash_{\F}$)] In the focusing phase, we apply one of the remaining rules. Since the sequents are untagged, $\pass, \ax , \unitr , \andli$ can be directly applied when stoups, contexts, and succedents are appropriate.
-  For the right non-invertible rules, as mentioned above, their premises will be tagged by a list of tags and moved to the tagged right invertible phase.
+  \item[($\vdash_{\F}$)] We apply one of the remaining rules. Since the sequents are untagged, $\pass$, $\ax$ , $\unitr$ and $\andli$ can be directly applied when stoups, contexts, and succedents are of the appropriate form.
+  For the right non-invertible rules, their premises will be tagged by a valid list of tags $l$ and moved to the tagged right invertible phase ($\vdash^{l}_{\RI}$) described below. Notice that only the first premise of $\tr$ is tagged, the second premise is not, i.e. its proof search continues in phase $\vdash_{\RI}$.
 \end{itemize}
 The proof search of a sequent $T \mid \Gamma \vdash^{l}_\RI A$ proceeds as follows:
 \begin{itemize}
-  \item[($\vdash^{l}_{\RI}$)] We apply the $\andr$ rule to decompose the succedent and separate the list of tags carefully until the succedent is not in $\land$ and the list of tags is a singleton list, then we move to $\LI$ by $\LI2 \RI$.
+  \item[($\vdash^{l}_{\RI}$)] We apply the $\andr$ rule to decompose the succedent and separate the list of tags carefully until the succedent becomes non-negative and the list of tags becomes a singleton $t$, then we move to phase $\vdash_\LI^t$ by an application of $\LI2 \RI$.
   \item[($\vdash^{t}_{\LI}$)] Since the stoup is either empty or a negative formula, we switch to phase $\F$ immediately.
   % \item[($\vdash^{t}_{\Pass}$)] In this phase, $\pass$ can be applied only when the stoup is empty and the conclusion sequent has the tag $\tP$. For other cases, we should move to the focusing phase directly.
-  \item[($\vdash^{t}_{\F}$)] We apply one of $\ax , \unitr$, and right non-invertible rules when the sequent is tagged with $\tE$ and the stoup and succedent formula are appropriate. 
-  Left non-invertible rules can be applied only when the tag is correct, i.e.$\tP$, $\tL$, and $\tR$ respectively correspond to $\pass$, $\andlone$, and $\andltwo$.
+  \item[($\vdash^{t}_{\F}$)] If $t = \tE$ we can apply either $\ax$, $\unitr$ or right non-invertible rules. Again, when applying right non-invertible rules we need to provide a new valid list of tags.
+  Left non-invertible rules can be applied only when the tag is correct, i.e. $\pass$ with tag $\tP$, $\andlone$ with tag $\tL$, and $\andltwo$ with tag $\tR$.
 \end{itemize}
-We reconstruct the derivation on right-hand side in (\ref{eq:ex:focused}) within the focused calculus with tag annotations.
-$\sw$ is an abbreviation of multiple phase switching rules.
+The derivation in (\ref{eq:ex:focused}) can be reconstructed in the focused calculus with tag annotations.
 \begin{equation}\label{eq:ex:tag:focused}
+  \begin{array}{c}
   \infer[\orrone]{X \land Y \mid \quad \vdash_{\F} (X \land Y) \lor Z}{
     \infer[\andr]{X \land Y \mid \quad \vdash^{[ \tL , \tR ]}_{\RI} X \land Y}{
       \infer[\sw]{X \land Y \mid \quad \vdash^{\tL}_{\RI} X}{
@@ -659,18 +674,21 @@ $\sw$ is an abbreviation of multiple phase switching rules.
       }
     }
   }
+  \end{array}
 \end{equation}
-Notice that the list of tags is not pre-determined when a right non-invertible rule is applied.
-For example, the proof search in (\ref{eq:ex:tag:focused}) actually proceeds as: we apply $\orrone$ and assume that there is a valid list of tags. We continue the proof search and apply the $\andli$ in the tagged phase. When the proof tree closes, we concatenate the singleton list from the leftmost sequent to right and check whether the result list is valid.
-In this case, $[ \tL , \tR ]$ is valid.
+Notice that the list of tags is not predetermined when a right non-invertible rule is applied, we have to come up with one ourselves.
+Practically, the list $l$ is computed by continuing proof search until in each branch we hit the first application of a rule in phase $\vdash_\F$, each with its own (necessarily uniquely determined) tag $t$. Take $l$ as the concatenation of the resulting $t$s and check whether it is valid. If it is not, backtrack and apply a left non-invertible rule instead.
+%For example, the proof search in (\ref{eq:ex:tag:focused}) actually proceeds as: we apply $\orrone$ and assume that there is a valid list of tags. We continue the proof search and apply the $\andli$ in the tagged phase. When the proof tree closes, we concatenate the singleton list from the leftmost sequent to right and check whether the result list is valid.
+%In this case, $[ \tL , \tR ]$ is valid.
 
-\subsection{Meta properties of the focused calculus}
+%\subsection{Meta properties of the focused calculus}
 \begin{theorem}\label{theorem:focus:sound:complete}
-  The focused calculus is sound and complete with the sequent calculus (\ref{eq:seqcalc}).
+  The focused calculus is sound and complete with respect to the sequent calculus in (\ref{eq:seqcalc}).
 \end{theorem}
-Soundness is immediate because there exist functions $\mathsf{emb}_{ph} : S \mid \Gamma \vdash^{l?}_{ph} A \to S \mid \Gamma \vdash A$, for all $ph \in \{ \RI , \LI , P , F \}$, which erase all phase and tag annotations.
+Soundness is immediate because there exist functions $\mathsf{emb}_{ph} : S \mid \Gamma \vdash^{l?}_{ph} A \to S \mid \Gamma \vdash A$, for all $ph \in \{ \RI , \LI , \F \}$, which erase all phase and tag annotations.
 Completeness follows from the fact that the following rules are all admissible:
 \begin{equation}\label{eq:admis}
+  \small
   \hspace*{-4mm}
     \begin{array}{c}
       \infer[\unitl^{\RI}]{\I \mid \Gamma \vdash_{\RI} C}{{-} \mid \Gamma \vdash_{\RI} C}
@@ -704,9 +722,9 @@ Completeness follows from the fact that the following rules are all admissible:
       \infer[\orrone^{\RI}]{S \mid \Gamma \vdash_{\RI} A \lor B}{S \mid \Gamma \vdash_{\RI} B}
     \end{array}
   \end{equation}
-We prove admissibility of the rules except right non-invertible ones by structural induction on derivations.
-The same strategy does not apply to right non-invertible rules because of the case that derivation ends with $\andr$.
-Taking $\orrone^{\RI}$ for an instance:
+The admissibility of the rules in (\ref{eq:admis}), apart from the right non-invertible ones, is proved by structural induction on derivations.
+The same strategy cannot be applied to right non-invertible rules.  because of the case that derivation ends with $\andr$.
+Take $\orrone^{\RI}$ for an instance. If its premise ends with an application of $\andr$, we get immediately stuck:
 \begin{displaymath}
   \begin{array}{c}
     \proofbox{
@@ -725,40 +743,48 @@ Taking $\orrone^{\RI}$ for an instance:
   \end{array}
 \end{displaymath}
 The inductive hypothesis applied to $f$ and $g$ would produce wrong sequents for the target conclusion.
-We fix the issue by following three lemmata.
+This is fixed by proving the admissibility of more general rules. First we need a few lemmata. The first one corresponds to the invertibility of phase $\vdash_\RI$.
+
+\niccolo{We need to define $\andr^{*}$. Derivations in $fs$ are in phase $\LI$, does this mean that $\andr^{*}$ takes in input a list $fs : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$? Not $fs : [S \mid \Gamma \vdash_{\RI} A_i]_{i \in [1 , \dots , n]}$?}
 \begin{lemma}\label{lem:RI:invert}
-  Phase $\RI$ is invertible, which means that for every $f : S \mid \Gamma \vdash_{\RI} A$, there is a list of sequents $fs : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$ such that $f = \andr^{*} fs$.
+  For every $f : S \mid \Gamma \vdash_{\RI} A$ there is a list of derivations $fs : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$ such that $f = \andr^{*} fs$.
 \end{lemma}
 \begin{proof}
-  Proof proceeds by structural induction on $f : S \mid \Gamma \vdash_{\RI} A$.
+  The proof proceeds by structural induction on $f : S \mid \Gamma \vdash_{\RI} A$.
   \begin{itemize}
-    \item If $f = \LI2 \RI \text{ } f_1$, then $A$ is a positive formula and $fs = S \mid \Gamma \vdash_{\LI} A$.
-    \item If $f = \andr \text{ } f_1 f_2$, then by inductive hypothesis, we have $fs_1 : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$ and $fs_2 : [S \mid \Gamma \vdash_{\LI} B_i]_{i \in [1 , \dots , m]}$ such that $fs = [fs_1 , fs_2]$.
+    \item If $f = \LI2 \RI \text{ } f_1$, then $A$ is non-negative and $fs$ is the singleton $f_1$.
+    \item If $f = \and(f_1, f_2)$, then by inductive hypothesis we have $fs_1 : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$ and $fs_2 : [S \mid \Gamma \vdash_{\LI} B_i]_{i \in [1 , \dots , m]}$. Take $fs$ as the concatenation of $fs_1$ and $fs_2$.
   \end{itemize}
 \end{proof}
+\niccolo{The next statement is not precise, $A$ is not really equal to $A_1 \land \dots \land A_n$. One should define an operation $\mathsf{conj}$ (or whatever name) that flattens conjunctions into a list: $\mathsf{conj}(A) = A$ if $A$ is non-negative and $\mathsf{conj}(A \land B) = \mathsf{conj}(A),\mathsf{conj}(B)$. Then in the hypothesis of the theorem there should be $\mathsf{conj}(A) = [A_1, \dots,A_n]$. Same for the subsequent Proposition.}
+
+\niccolo{The proof also needs some more explanation. What are $fs_1$ and $fs_2$? How are these computed?}
 \begin{lemma}\label{lem:BigStep}
+  The following rule
   \begin{displaymath}
     \infer[\andr^{*}_t]{T \mid \Gamma \vdash^{l}_{\RI} A}{
-      \deduce{[T \mid \Gamma \vdash^{t_i}_{\F} A_i]_{i \in [1 , \dots , n]}}{fs}
+      [T \mid \Gamma \vdash^{t_i}_{\F} A_i]_{i \in [1 , \dots , n]}
     }
   \end{displaymath}
   is admissible, where $l = [t_1 , \dots , t_n]$ and $A = A_1 \land \dots \land A_n$.
 \end{lemma}
 \begin{proof}
-  Proof proceeds by induction on $A$.
+  Let $fs : [T \mid \Gamma \vdash^{t_i}_{\F} A_i]_i$. The proof proceeds by induction on $A$.
   \begin{itemize}
-    \item If $A$ is a positive formula, we have $fs = [ f ]$ and $\andr^*_{t} \text{ } fs = \F 2 \LI \text{ } (\LI 2 \RI \text{ } f)$.
+    \item If $A$ is non-negative, we have $fs = [ f ]$ and $\andr^*_{t} \text{ } fs = \F 2 \LI \text{ } (\LI 2 \RI \text{ } f)$.
     \item If $A = A' \land B'$, we define:
     \begin{displaymath}
       \small
       \begin{array}{cc}
+        \proofbox{
         \infer[\andr^*_{t}]{T \mid \Gamma \vdash^{l} A' \land B'}{
           \deduce{[T \mid \Gamma \vdash^{t_i}_{\F} A_i]_{i \in [1 , \dots , n]}}{fs}
         }
-        \\
+        }
+%        \\
         &
         =
-        \quad
+%        \quad
         \proofbox{
         \infer[\andr]{T \mid \Gamma \vdash^{l_1 , l_2}_{\RI} A' \land B'}{
           \infer[\andr^{*}_{t}]{T \mid \Gamma \vdash^{l_1}_{\RI} A'}{
@@ -775,8 +801,8 @@ We fix the issue by following three lemmata.
     where $l = [l_1 , l_2]$.
   \end{itemize}
 \end{proof}
-\begin{lemma}\label{lem:GenRightRules}
-  Generalized $\orri^{\LI}$ and $\tr^{\LI}$
+\begin{proposition}\label{lem:GenRightRules}
+  The following rules
   \begin{displaymath}
     \begin{array}{c}
       \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
@@ -786,7 +812,7 @@ We fix the issue by following three lemmata.
       \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
         \deduce{[S \mid \Gamma \vdash_{\LI} B_i]_{i \in [1 , \dots , n]}}{fs}
       }
-      \\
+      \quad
       \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} A \ot B'}{
         \deduce{[S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
         &
@@ -794,31 +820,33 @@ We fix the issue by following three lemmata.
       }
     \end{array}
   \end{displaymath}
-  are admissible in the focused calculus, where $A = A_1 \land \dots \land A_n$ and $B = B_1 \land \dots \land B_n$.
-\end{lemma}
+  generalizing $\orri^{\LI}$ and $\tr^{\LI}$, are admissible, where $A = A_1 \land \dots \land A_n$ and $B = B_1 \land \dots \land B_n$.
+\end{proposition}
 \begin{proof}
   The list of derivations $fs$ is non-empty, so we let $fs = [f_1 , fs']$.
-  Proof proceeds by induction on $f_1$.
-  We present the proof of $\orrone^{\LI}$, while the proofs of other two cases, $\orrtwo^{\LI}$ and $\tr^{\LI}$, are similar.
+  We proceed by induction on $f_1$.
+  We only present the proof for $\orrone^{\LI}$, the admissibility of $\orrtwo^{\LI}$ and $\tr^{\LI}$ is proved similarly.
   \begin{itemize}
-    \item If $f_1$ is the conclusion of a left invertible rule, then it is necessary that the remaining elements in $fs'$ end with the same rule as well.
-    Therefore, we permute the rule with $\orrone^{\LI}$ and apply the inductive hypothesis.
-    \item If $f_1 = \F 2 \LI f'_1$, then it is necessary for all the remaining elements in $fs'$ to also end with $\F 2 \LI$. In this case, we apply $\F 2 \LI$ to all elements in $fs$ and generate a list of tags $l$ by examining each element in $fs$.
-    We add $\tP$ for each $\pass$, $\tL$ for each $\andlone$, $\tR$ for each $\andltwo$, and $\tE$ for all other rules in $\F$.
+    \item If $f_1$ is the conclusion of a left invertible rule, then all the derivations in $fs'$ necessarily end with the same rule as well.
+    Therefore, we permute this rule with $\orrone^{\LI}$ and apply the inductive hypothesis.
+  \item If $f_1 = \F 2 \LI f'_1$, then all the derivations in $fs'$ necessarily end with $\F 2 \LI$ as well. %In this case, we apply $\F 2 \LI$ to all elements in $fs$ and
+    We generate a list of tags $l$ by examining the shape of each derivation in $fs$: we add $\tP$ for each $\pass$, $\tL$ for each $\andlone$, $\tR$ for each $\andltwo$ and $\tE$ for the remaining rules.
     There are two possibilities:
     \begin{itemize}
-      \item $l$ is valid. In this case, we switch to $\F$ and apply  $\orrone^{\LI}$ followed by $\andr^{*}_{t}$:
+      \item The resulting list $l$ is valid. In this case, we switch to phase $\vdash_\F$ and apply  $\orrone^{\LI}$ followed by $\andr^{*}_{t}$:
       \begin{displaymath}
         \begin{array}{cc}
+          \proofbox{
           \infer[\orrone^{\LI}]{T \mid \Gamma \vdash_{\LI} A \lor B}{
             \infer[ {[\F 2 \LI]} ]{[T \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{
               \deduce{[T \mid \Gamma \vdash_{\F} A_i]_{i \in [1 , \dots , n]}}{fs^{*}}
             }
           }
-          \\[10pt]
+          }
+%          \\[10pt]
           &
           =
-          \quad
+%          \quad
           \proofbox{
           \infer[\F 2 \LI]{T \mid \Gamma \vdash_{\LI} A \lor B}{
             \infer[\orrone]{T \mid \Gamma \vdash_{\F} A \lor B}{
@@ -830,6 +858,7 @@ We fix the issue by following three lemmata.
         }
         \end{array}
       \end{displaymath}
+      \niccolo{We need to say what $[\F 2 \LI]$ means. Also what is $fs^*$. Be careful at the distinction between the word ``sequent'' and ``derivation''. For example, in the following statement you say that $fs^{*'}$ is a list of sequents, but it is a list of derivations instead. I have fixed this in some parts of the text before, please check the rest.}
       Note that $fs^{*'}$ is a list of sequents whose sequents are tagged version of those in $fs^{*}$.
       For example, an $f_i : A' \land B' \mid \Gamma \vdash_{\F} A_i$ in $fs^{*}$ is corresponding to $A' \land B' \mid \Gamma \vdash^{\tL}_{\F} A_i$ in $fs^{*'}$.
       % \begin{displaymath}
@@ -846,7 +875,7 @@ We fix the issue by following three lemmata.
       %   \end{array}
       % \end{displaymath}
       % in $fs^{*'}$.
-      \item $l$ is invalid. In this case, all elements in $fs$ end with the same left non-invertible rule, so we permute the rule down with $\orrone^{\LI}$ and continue recursively.
+      \item The list $l$ is invalid. In this case, all elements in $fs$ end with the same left non-invertible rule, so we permute the rule down with $\orrone^{\LI}$ and continue recursively.
       Here is an example where all elements in $fs$ are conclusions of $\pass$:
       \begin{displaymath}
         \begin{array}{cc}
@@ -859,10 +888,10 @@ We fix the issue by following three lemmata.
               }
             }
           }
-          \\[10pt]
+         % \\[10pt]
           &
           =
-          \quad
+          %\quad
           \proofbox{
             \infer[\F 2 \LI]{- \mid A' , \Gamma \vdash_{\LI} A \lor B}{
               \infer[\pass]{- \mid A' , \Gamma \vdash_{\F} A \lor B}{
@@ -948,20 +977,18 @@ We fix the issue by following three lemmata.
   %   \end{itemize} 
   % \end{itemize}
 \end{proof}
-Following the admissible rules in (\ref{eq:admis}), we construct a function $\mathsf{focus} : S \mid \Gamma \vdash A \to S \mid \Gamma \vdash_{\RI} A$ which replaces applications of each rule in (\ref{eq:seqcalc}) within a derivation by the corresponding admissible rule in phase $\RI$.
-For example, $\mathsf{focus} \ (\orrone \ f) = \orrone^{\RI} \ (\mathsf{focus} \ f)$.
-
-Furthermore, it can be proved that $\mathsf{emb}_{\RI}$ and $\mathsf{focus}$ are inverse functions of each other and following corollary holds.
-\begin{corollary}
-  The set of derivations of $S \mid \Gamma \vdash A$ quotiented by $\circeq$ and the set of derivations of $S \mid \Gamma \vdash_{\RI} A$ have a bijective correspondence.
+We can construct a function $\mathsf{focus} : S \mid \Gamma \vdash A \to S \mid \Gamma \vdash_{\RI} A$ which replaces applications of each rule in (\ref{eq:seqcalc}) within a derivation by the corresponding admissible rule in (\ref{eq:admis}).
+For example, $\mathsf{focus} \ (\orrone \ f) = \orrone^{\RI} \ (\mathsf{focus} \ f)$. Furthermore, it can be shown that $\mathsf{emb}_{\RI}$ and $\mathsf{focus}$ are each other inverses, in the sense made precise by the following theorem.
+\begin{theorem}
+  The functions $\mathsf{emb}_{\RI}$ and $\mathsf{focus}$ define a bijective correspondence between the set of derivations of $S \mid \Gamma \vdash A$ quotiented by the equivalence relation $\circeq$ and the set of derivations of $S \mid \Gamma \vdash_{\RI} A$. More precisely:
   \begin{itemize}
     \item For all $f, g : S \mid \Gamma \vdash A$, if $f \circeq g$ then $\mathsf{focus} \text{ } f = \mathsf{focus} \text{ } g$.
     \item Given any $f : S \mid \Gamma \vdash A$, $\mathsf{emb}_{\RI} \text{ } (\mathsf{focus} \text{ } f) \circeq f$.
     \item Given any $f : S \mid \Gamma \vdash_{\RI} A$, $\mathsf{focus} \text{ } (\mathsf{emb}_{\RI} \text{ } f) = f$.
   \end{itemize}
-\end{corollary}
+\end{theorem}
 \begin{proof}
-  By structural induction on derivations.
+  The first bullet is proved by structural induction on the given equality proof $e : f \circeq g$. The other bullets are proved by structural induction on $f$.
 \end{proof}
 
 \section{Extensions of the Logic}\label{sec:extensions}
