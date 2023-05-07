@@ -73,6 +73,8 @@
 \newcommand{\xvdash}{\vdash^{x}}
 \newcommand{\yvdash}{\vdash^{y}}
 \newcommand{\ex}{\mathsf{ex}}
+\newcommand{\topr}{\top \mathsf{R}}
+\newcommand{\botl}{\bot \mathsf{L}}
 
 \newcommand{\otd}{\ot^D}
 \newcommand{\lollid}{\;\textsuperscript{$D$}\!\!\lolli}
@@ -965,6 +967,125 @@ Furthermore, it can be proved that $\mathsf{emb}_{\RI}$ and $\mathsf{focus}$ are
 \section{Extensions of the Logic}\label{sec:extensions}
 \subsection{Additive units}\label{subsec:AddUnits}
 
+\begin{displaymath}
+  \begin{array}{c}
+    \infer[\botl]{\bot \mid \Gamma \vdash C}{}
+    \qquad
+    \infer[\topr]{S \mid \Gamma \vdash \top}{}
+  \end{array}
+\end{displaymath}
+
+\begin{displaymath}
+  \begin{array}{c}
+    (\text{full associativity of sequents with } \bot \text{ in the stoup})
+    \\[10pt]
+    \proofbox{
+    \infer[\tl]{\bot \ot (B \ot C) \mid \quad \vdash (\bot \ot B) \ot C}{
+    \infer[\botl]{\bot \mid B \ot C \vdash (\bot \ot B) \ot C}{}
+  }
+  }
+  \end{array}
+\end{displaymath}
+
+\begin{equation}
+  \begin{array}{rclll}
+    \ax_{\top} &\circeq \topr
+    \\
+    \ax_{\bot} & \circeq \botl
+    \\
+    \pass \ f &\circeq \topr &&f : A \mid \Gamma \vdash \top
+    \\
+    \tl \ f &\circeq \topr &&f : A \mid B , \Gamma \vdash \top
+    \\
+    \unitl f &\circeq \topr &&f : - \mid \Gamma \vdash \top
+    \\
+    \andlone \ f &\circeq \topr &&f : A \mid \Gamma \vdash \top
+    \\
+    \andltwo \ f &\circeq \topr &&f : B \mid \Gamma \vdash \top
+    \\
+    \orl \ (f , g) &\circeq \topr &&f: A \mid \Gamma \vdash \top , B \mid \Gamma \vdash \top
+    \\
+    \tr \ (f , g) &\circeq \botl &&f : \bot \mid \Gamma \vdash A , g : - \mid \Delta \vdash B
+    \\
+    \andr \ (f , g) &\circeq \botl &&f : \bot \mid \Gamma \vdash A , g : \bot \mid \Gamma \vdash B
+    \\
+    \orrone \ f &\circeq \botl &&f : \bot \mid \Gamma \vdash A
+    \\
+    \orrtwo \ f &\circeq \botl &&f : \bot \mid \Gamma \vdash B
+  \end{array}
+\end{equation}
+\begin{equation}\label{eq:focus:units}
+  \begin{array}{lc}
+    \text{(right invertible)} & %\\[-4pt] &
+    \proofbox{
+      \infer[\andr]{S \mid \Gamma \vdash^{l_1?, l_2?}_{\RI} A \land B}{
+        S \mid \Gamma \vdash^{l_1?}_{\RI} A
+        &
+        S \mid \Gamma \vdash^{l_2?}_{\RI} B
+      }
+    \qquad
+    \infer[\topr]{S \mid \Gamma \vdash^{[]?}_{\RI} \top}{}
+    \qquad
+    \infer[\LI 2 \RI]{S \mid \Gamma \vdash^{t?}_{\RI} P}{S \mid \Gamma \vdash^{t?}_{\LI} P}
+    }
+    \\[10pt]
+    \text{(left invertible)} & %\\[-4pt] &
+    \proofbox{
+      \infer[\unitl]{\I \mid \Gamma \vdash_{\LI} P}{{-} \mid \Gamma \vdash_{\LI} P}
+    \qquad
+    \infer[\tl]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B , \Gamma \vdash_{\LI} P}
+    \qquad
+    \infer[\botl]{\bot \mid \Gamma \vdash_{\LI} P}{}
+    \\
+    \infer[\orl]{A \lor B \mid \Gamma \vdash P}{
+      A \mid \Gamma \vdash P
+      &
+      B \mid \Gamma \vdash P
+    }
+    \qquad
+    \infer[\F 2 \LI]{T \mid \Gamma \vdash^{t?}_{\LI} P}{T \mid \Gamma \vdash^{t?}_{\F} P}
+    }
+    \\[10pt]
+    \text{(focusing)} &    %\\[-4pt] &
+    \proofbox{
+    \infer[\pass]{{-} \mid A , \Gamma \vdash^{\tP?}_{\F} P }{
+        A \mid \Gamma \vdash_{\LI} P
+    }
+    \qquad
+    \infer[\ax]{X \mid \quad \vdash^{\tE?}_{\F} X}{}
+    \qquad
+    \infer[\unitr]{{-} \mid \quad \vdash^{\tE?}_{\F} \I}{}
+    }
+    \\[10pt]
+    \multicolumn{2}{c}{
+    \infer[\tr]{T \mid \Gamma , \Delta \vdash^{\tE?}_{\F} A \ot B}{
+      T \mid \Gamma \vdash^{l}_{\RI} A
+      &
+      {-} \mid \Delta \vdash_{\RI} B
+      &
+      l \ \text{valid}
+    }
+    \qquad
+    \infer[\orrone]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
+      T \mid \Gamma \vdash^{l}_{\RI} A
+      &
+      l \ \text{valid}
+    }
+    \qquad
+    \infer[\orrtwo]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
+      T \mid \Gamma \vdash^{l}_{\RI} B
+      &
+      l \ \text{valid}
+    }
+    }
+    \\[6pt]
+    \multicolumn{2}{c}{
+    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tL?}_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
+    \qquad
+    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tR?}_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
+    }
+  \end{array}
+\end{equation}
 \subsection{Exchange}\label{subsec:Ex}
 We consider the commutative extension of (\ref{eq:seqcalc}) by adding a rule 
 \begin{displaymath}
