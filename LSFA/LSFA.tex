@@ -89,8 +89,8 @@
 \newcommand{\FSkMCC}{\mathsf{FSkMCl}}
 
 \newcommand\cheng[1]{\mbox{}
-{\marginpar{\color{darkgreen}CSW}}
-{\sf\noindent\color{darkgreen}#1}}%
+{\marginpar{\color{blue}CSW}}
+{\sf\noindent\color{blue}#1}}%
 \newcommand\niccolo[1]{\mbox{}
 {\marginpar{\color{red}NV}}
 {\sf\noindent\color{red}#1}}%
@@ -235,37 +235,37 @@ Notice that, similarly to the case of \NMILL, all structural rules of exchange, 
 
 \niccolo{Perhaps this discussion about commutativity of conjunction/disjunction could be removed}
 
-  Although the sequent calculus is non-commutative, the additive connectives are still commutative due to the nature of cartesian and cocartesian structure.
-  \begin{displaymath}
-    % \hspace{-1cm}
-    \begin{array}{cc}
-      (\text{commutativity of } \land) & (\text{commutativity of } \land)
-      \\[10pt]
-      \proofbox{
-        \infer[\andr]{A \land B \mid \quad \vdash B \land A}{
-          \infer[\andltwo]{A \land B \mid \quad \vdash B}{
-            \infer[\ax]{B \mid \quad \vdash B}{}
-          }
-          &
-          \infer[\andlone]{A \land B \mid \quad \vdash A}{
-            \infer[\ax]{A \mid \quad \vdash A}{}
-          }
-        }
-      }
-      &
-      \proofbox{
-        \infer[\orl]{A \lor B \mid \quad \vdash B \lor A}{
-          \infer[\orrtwo]{A \mid \quad \vdash B \lor A}{
-            \infer[\ax]{A \mid \quad \vdash A}{}
-          }
-          &
-          \infer[\orrone]{B \mid \quad \vdash B \lor A}{
-            \infer[\ax]{B \mid \quad \vdash B}{}
-          }
-        }
-      }
-    \end{array}
-  \end{displaymath}
+  % Although the sequent calculus is non-commutative, the additive connectives are still commutative due to the nature of cartesian and cocartesian structure.
+  % \begin{displaymath}
+  %   % \hspace{-1cm}
+  %   \begin{array}{cc}
+  %     (\text{commutativity of } \land) & (\text{commutativity of } \land)
+  %     \\[10pt]
+  %     \proofbox{
+  %       \infer[\andr]{A \land B \mid \quad \vdash B \land A}{
+  %         \infer[\andltwo]{A \land B \mid \quad \vdash B}{
+  %           \infer[\ax]{B \mid \quad \vdash B}{}
+  %         }
+  %         &
+  %         \infer[\andlone]{A \land B \mid \quad \vdash A}{
+  %           \infer[\ax]{A \mid \quad \vdash A}{}
+  %         }
+  %       }
+  %     }
+  %     &
+  %     \proofbox{
+  %       \infer[\orl]{A \lor B \mid \quad \vdash B \lor A}{
+  %         \infer[\orrtwo]{A \mid \quad \vdash B \lor A}{
+  %           \infer[\ax]{A \mid \quad \vdash A}{}
+  %         }
+  %         &
+  %         \infer[\orrone]{B \mid \quad \vdash B \lor A}{
+  %           \infer[\ax]{B \mid \quad \vdash B}{}
+  %         }
+  %       }
+  %     }
+  %   \end{array}
+  % \end{displaymath}
   
 While the left $\land$-rules only act on the formula in stoup position (as all the other left logical rules), other $\land$-rules $\andli^{\mathsf{C}}$ acting on formulae in context are admissible.
   \begin{displaymath}
@@ -283,7 +283,7 @@ While the left $\land$-rules only act on the formula in stoup position (as all t
       }
     \end{array}
   \end{displaymath}
-However, this is not the case for the other left logical rules. For example, a general left $\lor$-rule $\orl^{\mathsf{C}}$ acting on a disjunction in context is inadmissible. should be forbidden since it would make some inadmissible sequents provable in the sequent calculus. 
+However, this is not the case for the other left logical rules. For example, a general left $\lor$-rule $\orl^{\mathsf{C}}$ acting on a disjunction in context is inadmissible. Should be forbidden since it would make some inadmissible sequents provable in the sequent calculus. 
 For example, the sequent $X \land Y \mid Y \lor X \vdash (X \ot Y) \lor (Y \ot X)$ is not admissible (this can be proved using the normalization procedure of Section \ref{sec:focusing}) but a proof can be found using $\orl^{\mathsf{C}}$:
 \begin{displaymath}
   \footnotesize
@@ -362,17 +362,17 @@ We introduce a congruence relation $\circeq$ on the sets of derivations generate
     \\
     \tr \ (\orl \ (f_1 , f_2) , g) &\circeq \orl \ (\tr \ (f_1 , g) , \tr \ (f_2 , g)) &&f_1 : A' \mid \Gamma \vdash A , f_2 : B' \mid \Gamma \vdash A , g : - \mid \Delta \vdash B
     \\
-    \andr \ (\pass \ f , \pass \ g) &\circeq \pass \ (\andr \ (f , g)) &&f : A' \mid \Gamma \vdash A , g : A' \mid \Gamma \vdash B
+    \pass \ (\andr \ (f , g)) &\circeq  \andr \ (\pass \ f , \pass \ g) &&f : A' \mid \Gamma \vdash A , g : A' \mid \Gamma \vdash B
     \\
-    \andr \ (\unitl \ f , \unitl \ g) &\circeq \unitl \ (\andr \ (f , g)) &&f : - \mid \Gamma \vdash A , g : - \mid \Gamma \vdash B
+    \unitl \ (\andr \ (f , g)) &\circeq  \andr \ (\unitl \ f , \unitl \ g) &&f : - \mid \Gamma \vdash A , g : - \mid \Gamma \vdash B
     \\
-    \andr \ (\tl \ f , \tl \ g) &\circeq \tl \ (\andr \ (f , g)) &&f : A' \mid B' , \Gamma \vdash A , g : A' \mid B' , \Gamma \vdash B
+    \tl \ (\andr \ (f , g)) &\circeq  \andr \ (\tl \ f , \tl \ g) &&f : A' \mid B' , \Gamma \vdash A , g : A' \mid B' , \Gamma \vdash B
     \\
-    \andr \ (\andlone \ f , \andlone \ g) &\circeq \andlone \ (\andr \ (f , g)) &&f : A' \mid \Gamma \vdash A , g : A' \mid \Gamma \vdash B
+    \andlone \ (\andr \ (f , g)) &\circeq  \andr \ (\andlone \ f , \andlone \ g) &&f : A' \mid \Gamma \vdash A , g : A' \mid \Gamma \vdash B
     \\
-    \andr \ (\andltwo \ f , \andltwo \ g) &\circeq \andltwo \ (\andr \ (f , g)) &&f : B' \mid \Gamma \vdash A , g : B' \mid \Gamma \vdash B
+    \andltwo \ (\andr \ (f , g)) &\circeq \andr \ (\andltwo \ f , \andltwo \ g)&&f : B' \mid \Gamma \vdash A , g : B' \mid \Gamma \vdash B
     \\
-    \andr \ (\orl \ (f_1 , f_2) , \orl \ (g_1 , g_2)) &\circeq \orl \ (\andr \ (f_1 , g_1) , \andr \ (f_2 , g_2)) &&f_1 : A' \mid \Gamma \vdash A , f_2 : B' \mid \Gamma \vdash A , 
+    \orl \ (\andr \ (f_1 , g_1) , \andr \ (f_2 , g_2)) &\circeq  \andr \ (\orl \ (f_1 , f_2) , \orl \ (g_1 , g_2)) &&f_1 : A' \mid \Gamma \vdash A , f_2 : B' \mid \Gamma \vdash A , 
     \\
     & &&g_1 : A' \mid \Gamma \vdash B , g_2 : B' \mid \Gamma \vdash B
     \\
@@ -407,6 +407,7 @@ The first four equations ($\eta$-conversions) characterize the $\ax$ rule for no
 
 \niccolo{In equations 10-16, the left- and right-hand sides of the equations should be swapped (so that equations, when read from left to right, becomes conversion rules)}
 
+\cheng{Moved}
   % , introduced in Definition \ref{def:skewcat}. The subsystem of equations involving only $(\I,\ot)$ originated in \cite{uustalu:sequent:2021} while the subsystem involving only $\lolli$ is from \cite{uustalu:deductive:nodate}.
 
 \section{Categorical Semantics}\label{sec:categorical}
@@ -1294,7 +1295,7 @@ Derivations in the focused sequent calculus of \SkNMILLA \ are generated by the 
     }
     \\[6pt]
     \multicolumn{2}{c}{
-      \infer[\lleft]{A \lolli B \mid \Gamma , \Delta^{\bullet ?} , \Lambda \vdash^{t?}_{\F} P}{
+      \infer[\lleft]{A \lolli B \mid \Gamma , \Delta^{\bullet} , \Lambda \vdash^{t?}_{\F} P}{
         - \mid \Gamma , \Delta^{\circ} \vdash_{\RI} A
         &
         B \mid \Lambda^{\circ} \vdash_{\LI} P
@@ -1373,7 +1374,7 @@ We can reconstruct the upper proof in (\ref{eq:ex:lleft:NonDeter}) within (\ref{
 \end{displaymath}
 In this case $[0 , 1]$ is a valid list.
 
-On the other hand, the bottom derivation in (\ref{eq:ex:lleft:NonDeter}) should correspond to a derivation starting with $\lleft$, otherwise it is not a proof within (\ref{eq:focus:impl}) because of an invalid list of tags $[0 , 0]$.
+On the other hand, the bottom derivation in (\ref{eq:ex:lleft:NonDeter}) should correspond to a derivation starting with $\lleft$, otherwise it is not a proof within (\ref{eq:focus:impl}) due to an invalid list of tags $[0 , 0]$.
 % \begin{displaymath}
 %   \begin{array}{cc}
 %     \text{valid proof} &
