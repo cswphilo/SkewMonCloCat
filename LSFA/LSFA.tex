@@ -561,7 +561,7 @@ For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure ca
   \end{array}
 \end{equation}
 % \niccolo{Add rules for ``naive'' focused sequent calculus here.}
-In the rules above, $P$ is a non-negative formula, i.e. its principal connective is not $\land$, while $T$ is a non-positive stoup, i.e. it is not $\I$ and its principal connective is not $\ot$ nor $\lor$.
+In the rules above, $P$ is a non-negative formula, i.e. its principal connective is not $\land$, while $T$ is a non-positive stoup, that we also call \emph{irreducible}, i.e. it is not $\I$ and its principal connective is not $\ot$ nor $\lor$.
 
 This calculus is too permissive. The same sequent $S \mid \Gamma \vdash_{\RI} A$ may have multiple derivations, which correspond to $\circeq$-related derivations in the original sequent calculus. For example, $- \mid A , \Gamma \vdash_{\RI} A' \ot B'$ and $A \land B \mid \Gamma \vdash_{\F} A' \lor B'$ have multiple proofs in this calculus..
 % \niccolo{Add a few examples of sequents here, only inline, no proof trees.}
@@ -708,10 +708,10 @@ Derivations in the focused sequent calculus with tag annotations are generated b
     \qquad
     \infer[\tl]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B , \Gamma \vdash_{\LI} P}
     \\
-    \infer[\orl]{A \lor B \mid \Gamma \vdash P}{
-      A \mid \Gamma \vdash P
+    \infer[\orl]{A \lor B \mid \Gamma \vdash_\LI P}{
+      A \mid \Gamma \vdash_\LI P
       &
-      B \mid \Gamma \vdash P
+      B \mid \Gamma \vdash_\LI P
     }
     \qquad
     \infer[\F 2 \LI]{T \mid \Gamma \vdash^{t?}_{\LI} P}{T \mid \Gamma \vdash^{t?}_{\F} P}
@@ -1137,7 +1137,8 @@ For example, $\mathsf{focus} \ (\orrone \ f) = \orrone^{\RI} \ (\mathsf{focus} \
 \end{proof}
 
 \section{Extensions of the Logic}\label{sec:extensions}
-\subsection{Aditive Units}\label{subsec:AddUnits}
+
+\subsection{Additive Units}\label{subsec:AddUnits}
 %\cheng{I think fully additive sequent calculus may not be a good name. Do you have any suggestion?}
 
 The sequent calculus in (\ref{eq:seqcalc}) can be made ``fully'' additive by including two units $\top$ and $\bot$ %corresponding to $\land$ and $\lor$ respectively
@@ -1295,19 +1296,18 @@ We include a new tag $\tT$ for $\top$. The validity condition for lists of tags 
 Categorical models of the extended sequent calculus are the distributive monoidal categories of Section~\ref{sec:categorical} with additionally a terminal and an initial object, which moreover satisfy a \emph{(nullary) left-distributivity} (or \emph{absorption}) condition: the canonical morphism typed $0 \to 0 \ot C$ has an inverse $k : 0 \ot C \to 0$. The latter is used in the interpretation of the rule $\botl$.
 
 \subsection{Exchange}\label{subsec:Ex}
-We consider the commutative extension of (\ref{eq:seqcalc}) by adding a rule 
+
+Following \cite{veltri:coherence:2021}, we consider a ``skew'' commutative extension of the sequent calculus in (\ref{eq:seqcalc}) obtained by adding a rule swapping adjacent  formulae in context:
 \begin{displaymath}
   \infer[\ex]{S \mid \Gamma , B , A , \Delta \vdash C}{
     S \mid \Gamma , A , B , \Delta \vdash C
   }
 \end{displaymath}
-which swaps adjacent formulae in context.
-Note that exchanging stoup formula (when it is non-empty) with a formula in context is forbidden.
-Sequent calculus (\ref{eq:seqcalc}) extended with $\ex$ is an internal language of distributive skew symmetric monoidal categories since $\ex$ characterizes the natural isomorphism $s_{A , B , C} : A \ot (B \ot C) \to A \ot (C \ot B)$ which represents skew symmetry in \cite{bourke:lack:braided:2020}.
-
-To accommodate the new $\ex$ rule, it is necessary to expand the congruence relation $\circeq$ in (\ref{fig:circeq}) with additional generating equations:
+Note that exchanging the formula in the stoup, whenever the latter is non-empty, with a formula in context is not allowed. The new rule $\ex$ comes with additional generating equations for the congruence relation $\circeq$:
+%in (\ref{fig:circeq}) with additional generating equations:
 \begin{equation}\label{fig:circeq:sym}
   % \footnotesize
+  \small
   \arraycolsep=2pt
   \def\arraystretch{1.1}
   \hspace{-8.9pt}
@@ -1342,100 +1342,107 @@ To accommodate the new $\ex$ rule, it is necessary to expand the congruence rela
   \ex_{A , B}  (\ex_{A' , B'}  f) &\circeq & \ex_{A' , B'}  (\ex_{A , B}  f) &&f: S \mid \Gamma , A , B , \Delta , A' , B' , \Lambda \vdash C	
 \end{array}
 \end{equation}
-The first equation states that performing the operation of swapping the same two formulas twice yields the same result as doing nothing.
-The second equation is a for of the Yang-Baxter equation, which states that the two possible ways of interchanging the order of three adjacent formulas $A , B , C$ to obtain the sequence $C , B , A$ are equivalent.
+The first equation states that swapping the same two formulas twice yields the same result as doing nothing.
+The second equation corresponds to the Yang-Baxter equation.
+%which states that the two possible ways of interchanging the order of three adjacent formulas $A , B , C$ to obtain the sequence $C , B , A$ are equivalent.
 The remaining equations are permutative conversions.
-We refer \cite{veltri:coherence:2021} to see the equations about permuting $\ex$ with $\pass$ and other multiplicative rules. 
+We left out permutative conversions describing the relation between $\ex$ and the rules $\pass$, $\unitl$, $\tl$ and $\tr$, which can be found in \cite[Fig. 2]{veltri:coherence:2021}.
+%to see the equations about permuting $\ex$ with $\pass$ and other multiplicative rules. 
 
-We study the proof-theoretic semantics of (\ref{eq:seqcalc}) extended with $\ex$ by accommodating the additive rules to the focused sequent calculus introduced in \cite{veltri:coherence:2021}.
-\begin{equation}\label{eq:focus:sym}
-  \begin{array}{lc}
-    \text{(Context)} &
-    \proofbox{
-      \infer[\ex]{S \mid \Gamma , A \spl \Delta , \Lambda \vdash^{l?}_{\C} C}{S \mid \Gamma \spl \Delta , A , \Lambda \vdash_{\C} C}
+The resulting sequent calculus enjoys categorical semantics in distributive skew \emph{symmetric} monoidal categories, that possess a natural isomorphism $s_{A , B , C} : A \ot (B \ot C) \to A \ot (C \ot B)$ representing a form of ``skew symmetry''  involving three objects instead of two \cite{bourke:lack:braided:2020}.
+
+The focused sequent calculus is extended with a new phase $\vdash_\C$ (for `context`) where the exchange rule can be applied. Rule $\tl$ has to be modified, since we need to give the possibility to move the formula $B$ to a different position in the context.
+%We study the proof-theoretic semantics of (\ref{eq:seqcalc}) extended with $\ex$ by accommodating the additive rules to the focused sequent calculus introduced in \cite{veltri:coherence:2021}.
+\begin{equation*}\label{eq:focus:sym}
+  \begin{array}{c}
+%    \text{(Context)} &
+%    \proofbox{
+      \infer[\ex]{S \mid \Gamma , A \spl \Delta , \Lambda \vdash_{\C} C}{S \mid \Gamma \spl \Delta , A , \Lambda \vdash_{\C} C}
       \qquad
-      \infer[\RI 2 \C]{S \mid \quad \spl \Gamma \vdash^{l?}_{\C} C}{S \mid \Gamma \vdash^{l?}_{\RI} C}
-    }
-    \\[20pt]
-    \text{(right invertible)} & %\\[-4pt] &
-    \proofbox{
-      \infer[\andr]{S \mid \Gamma \vdash^{l_1?, l_2?}_{\RI} A \land B}{
-        S \mid \Gamma \vdash^{l_1?}_{\RI} A
-        &
-        S \mid \Gamma \vdash^{l_2?}_{\RI} B
-      }
-    \qquad
-    \infer[\LI 2 \RI]{S \mid \Gamma \vdash^{t?}_{\RI} P}{S \mid \Gamma \vdash^{t?}_{\LI} P}
-    }
-    \\[20pt]
-    \text{(left invertible)} & %\\[-4pt] &
-    \proofbox{
-      \infer[\unitl]{\I \mid \Gamma \vdash_{\LI} P}{{-} \mid \Gamma \vdash_{\LI} P}
+      \infer[\RI 2 \C]{S \mid \quad \spl \Gamma \vdash_{\C} C}{S \mid \Gamma \vdash_{\RI} C}
+%    }
+%    \\[20pt]
+%    \text{(right invertible)} & %\\[-4pt] &
+%    \proofbox{
+%      \infer[\andr]{S \mid \Gamma \vdash^{l_1?, l_2?}_{\RI} A \land B}{
+%        S \mid \Gamma \vdash^{l_1?}_{\RI} A
+%        &
+%        S \mid \Gamma \vdash^{l_2?}_{\RI} B
+%      }
+%    \qquad
+%    \infer[\LI 2 \RI]{S \mid \Gamma \vdash^{t?}_{\RI} P}{S \mid \Gamma \vdash^{t?}_{\LI} P}
+%    }
+%    \\[20pt]
+%    \text{(left invertible)} & %\\[-4pt] &
+%    \proofbox{
+%      \infer[\unitl]{\I \mid \Gamma \vdash_{\LI} P}{{-} \mid \Gamma \vdash_{\LI} P}
     \qquad
     \infer[\tl]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B \spl \Gamma \vdash_{\C} P}
-    \\
-    \infer[\orl]{A \lor B \mid \Gamma \vdash P}{
-      A \mid \Gamma \vdash P
-      &
-      B \mid \Gamma \vdash P
-    }
-    \qquad
-    \infer[\F 2 \LI]{T \mid \Gamma \vdash^{t?}_{\LI} P}{T \mid \Gamma \vdash^{t?}_{\F} P}
-    }
-    \\[20pt]
-    \text{(focusing)} &    %\\[-4pt] &
-    \proofbox{
-    \infer[\pass]{{-} \mid A , \Gamma \vdash^{\tP?}_{\F} P }{
-        A \mid \Gamma \vdash_{\LI} P
-    }
-    \qquad
-    \infer[\ax]{X \mid \quad \vdash^{\tE?}_{\F} X}{}
-    \qquad
-    \infer[\unitr]{{-} \mid \quad \vdash^{\tE?}_{\F} \I}{}
-    }
-    \\[10pt]
-    \multicolumn{2}{c}{
-    \infer[\tr]{T \mid \Gamma , \Delta \vdash^{\tE?}_{\F} A \ot B}{
-      T \mid \Gamma \vdash^{l}_{\C} A
-      &
-      {-} \mid \Delta \vdash_{\RI} B
-      &
-      l \ \text{valid}
-    }
-    \qquad
-    \infer[\orrone]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
-      T \mid \Gamma \vdash^{l}_{\C} A
-      &
-      l \ \text{valid}
-    }
-    \qquad
-    \infer[\orrtwo]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
-      T \mid \Gamma \vdash^{l}_{\C} B
-      &
-      l \ \text{valid}
-    }
-    }
-    \\[6pt]
-    \multicolumn{2}{c}{
-    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tL?}_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
-    \qquad
-    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tR?}_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
-    }
+%    \\
+%    \infer[\orl]{A \lor B \mid \Gamma \vdash P}{
+%      A \mid \Gamma \vdash P
+%      &
+%      B \mid \Gamma \vdash P
+%    }
+%    \qquad
+%    \infer[\F 2 \LI]{T \mid \Gamma \vdash^{t?}_{\LI} P}{T \mid \Gamma \vdash^{t?}_{\F} P}
+%    }
+%    \\[20pt]
+%    \text{(focusing)} &    %\\[-4pt] &
+%    \proofbox{
+%    \infer[\pass]{{-} \mid A , \Gamma \vdash^{\tP?}_{\F} P }{
+%        A \mid \Gamma \vdash_{\LI} P
+%    }
+%    \qquad
+%    \infer[\ax]{X \mid \quad \vdash^{\tE?}_{\F} X}{}
+%    \qquad
+%    \infer[\unitr]{{-} \mid \quad \vdash^{\tE?}_{\F} \I}{}
+%    }
+%    \\[10pt]
+%    \multicolumn{2}{c}{
+%    \infer[\tr]{T \mid \Gamma , \Delta \vdash^{\tE?}_{\F} A \ot B}{
+%      T \mid \Gamma \vdash^{l}_{\C} A
+%      &
+%      {-} \mid \Delta \vdash_{\RI} B
+%      &
+%      l \ \text{valid}
+%    }
+%    \qquad
+%    \infer[\orrone]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
+%      T \mid \Gamma \vdash^{l}_{\C} A
+%      &
+%      l \ \text{valid}
+%    }
+%    \qquad
+%    \infer[\orrtwo]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
+%      T \mid \Gamma \vdash^{l}_{\C} B
+%      &
+%      l \ \text{valid}
+%    }
+%    }
+%    \\[6pt]
+%    \multicolumn{2}{c}{
+%    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tL?}_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
+%    \qquad
+%    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tR?}_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
+%    }
   \end{array}
-\end{equation}
-There are two differences with (\ref{eq:focus}):
-\begin{itemize}
-  \item Root-first proof search begins in a new phase $\C$, where formulae in context are permuted.
-  The idea is to start with a sequent whose formulae are arbitrarily ordered in the context then use $\ex$ to move each formula to its appropriate position.
-  Consequently, we start with a sequent $S \mid \Gamma \spl \quad \vdash_{\C}$ and end with a sequent $S \mid \quad \spl \Gamma' \vdash_{\C}$ where $\Gamma'$ is a permutation of $\Gamma$.
-  Throughout the process, the context is divided into two parts: $\Gamma \spl \Delta$, where the formulae in $\Gamma$ are ready to be moved while the those in $\Delta$ have already been placed in the correct position.
-  Once all formulae in $\Gamma$ have been moved, we switch to phase $\RI$ and continue.
-  Note that a sequent in $\C$ may be tagged with a list of tags $l$.
-  However, as previously mentioned, we only assume the existence of $l$ during the proof search, and we examine the validity after the search is completed.
-  Therefore, we do not consider how to move tags in phase $\C$.
-  \item The other difference is in rule $\tl$ which is the only one rule that adds new formulae to the context from the bottom-up reading of the rules.
-  The premises of these rules are now required to go back to phase $\C$ to utilize the rule $\ex$ to relocate the new formula $A$ to its correct position within the context.
-\end{itemize}
+\end{equation*}
+%There are two differences with (\ref{eq:focus}):
+%\begin{itemize}
+ Root-first proof search now begins in the new phase $\vdash_\C$, where formulae in context are permuted.
+  %The idea is to start with a sequent whose formulae are arbitrarily ordered in the context then use $\ex$ to move each formula to its appropriate position.
+  We start with a sequent $S \mid \Gamma \spl \quad \vdash_{\C}$ and end with a sequent $S \mid \quad \spl \Gamma' \vdash_{\C}$ where $\Gamma'$ is a permutation of $\Gamma$.
+  In the process, the context is divided into two parts: $\Gamma \spl \Delta$, where the formulae in $\Gamma$ are ready to be moved while those in $\Delta$ have already been placed in their final position.
+  Once all formulae in $\Gamma$ have been moved, we switch to phase $\RI$ with an application of rule $\RI 2 \C$. 
+  Note that sequent in $\vdash_\C$ are not marked by list of tags, since after the application of right non-invertible rules there is no need to further permute formulae in context, and no new formulae appear can appear in context via an application of $\tl$ since the stoup is irreducible at this point.
+%  However, as previously mentioned, we only assume the existence of $l$ during the proof search, and we examine the validity after the search is completed.
+%  Therefore, we do not consider how to move tags in phase $\C$.
+
+  As already mentioned, rule $\tl$ has been modified. Its premise is now a sequent in phase $\vdash_\C$, which allows a further application of $\ex$ for the relocation of the formula $B$ to a different position in the context.
+  %which is the only one rule that adds new formulae to the context from the bottom-up reading of the rules.
+%  The premises of these rules are now required to go back to phase $\C$ to utilize the rule $\ex$ to relocate the new formula $A$ to its correct position within the context.
+%\end{itemize}
 
 \subsection{Normal $\I , \ot$-fragment of \NMILL with $\land$ and $\lor$}\label{subsec:asso:uni}
 In the definition of distributive skew monoidal category, three structural laws, $\lambda$, $\rho$ and $\alpha$ are merely natural transformations from a specific orientation.
