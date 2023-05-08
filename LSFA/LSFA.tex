@@ -45,13 +45,13 @@
 \newcommand{\unitl}{\mathsf{IL}}
 \newcommand{\unitr}{\mathsf{IR}}
 \newcommand{\unitc}{\mathsf{IC}}
-\newcommand{\andlone}{\land \mathsf{L_{1}}}
-\newcommand{\andltwo}{\land \mathsf{L_{2}}}
+\newcommand{\andlone}{\land \mathsf{L}_{1}}
+\newcommand{\andltwo}{\land \mathsf{L}_{2}}
 \newcommand{\andli}{\land \mathsf{L}_{i}}
 \newcommand{\andr}{\land \mathsf{R}}
 \newcommand{\orl}{\lor \mathsf{L}}
-\newcommand{\orrone}{\lor \mathsf{R_{1}}}
-\newcommand{\orrtwo}{\lor \mathsf{R_{2}}}
+\newcommand{\orrone}{\lor \mathsf{R}_{1}}
+\newcommand{\orrtwo}{\lor \mathsf{R}_{2}}
 \newcommand{\orri}{\lor \mathsf{R}_{i}}
 \newcommand{\ax}{\mathsf{ax}}
 \newcommand{\id}{\mathsf{id}}
@@ -532,7 +532,7 @@ For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure ca
     \\[10pt]
     \multicolumn{2}{c}{
     \infer[\tr]{T \mid \Gamma , \Delta \vdash_{\F} A \ot B}{
-      T \mid \Gamma \vdash^{l}_{\RI} A
+      T \mid \Gamma \vdash_{\RI} A
       &
       {-} \mid \Delta \vdash_{\RI} B
       % &
@@ -540,13 +540,13 @@ For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure ca
     }
     \qquad
     \infer[\orrone]{T \mid \Gamma \vdash_{\F} A \lor B}{
-      T \mid \Gamma \vdash^{l}_{\RI} A
+      T \mid \Gamma \vdash_{\RI} A
       % &
       % l \ \text{valid}
     }
     \qquad
     \infer[\orrtwo]{T \mid \Gamma \vdash_{\F} A \lor B}{
-      T \mid \Gamma \vdash^{l}_{\RI} B
+      T \mid \Gamma \vdash_{\RI} B
       % &
       % l \ \text{valid}
     }
@@ -560,6 +560,7 @@ For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure ca
   \end{array}
 \end{equation}
 % \niccolo{Add rules for ``naive'' focused sequent calculus here.}
+In the rules above, $P$ is a non-negative formula, i.e. its principal connective is not $\land$, while $T$ is a non-positive stoup, i.e. it is not $\I$ and its principal connective is not $\ot$ nor $\lor$.
 
 This calculus is too permissive. The same sequent $S \mid \Gamma \vdash_{\RI} A$ may have multiple derivations, which correspond to $\circeq$-related derivations in the original sequent calculus. For example, $- \mid A , \Gamma \vdash_{\RI} A' \ot B'$ and $A \land B \mid \Gamma \vdash_{\F} A' \lor B'$ have multiple proofs in this calculus..
 % \niccolo{Add a few examples of sequents here, only inline, no proof trees.}
@@ -569,6 +570,7 @@ For example, consider the sequent $X \land Y \mid \quad \vdash_{\F} (X \land Y) 
 
 
 \begin{equation}\label{eq:ex:focused}
+  \small
   \begin{array}{c}
 %%    \infer[\andlone]{X \land Y \mid \quad \vdash (X \land Y) \lor Z}{
 %%      \infer[\orrone]{X \mid \quad \vdash (X \land Y) \lor Z}
@@ -600,45 +602,58 @@ For example, consider the sequent $X \land Y \mid \quad \vdash_{\F} (X \land Y) 
 \end{equation}
 From a different perspective, in this example it was possible to first apply $\orrone$ since, after the application of $\andr$, different left $\land$-rules are applied to different premises. If we would have applied  the same rule $\andlone$ to both premises (imagine that $X = Y$ for this to be possible), then we could have obtained a $\circeq$-equivalent derivation by moving the application of $\andlone$ to the bottom of the proof tree. 
 
-In addition, it is possible that the two premises of $\andr$ correspond to $\circeq$-nonequivalent derivations.
-For example, consider the derivation of the sequent $- \mid \I \ot X \vdash ((I \ot X) \land (X \ot X)) \lor Y$ in (\ref{eq:seqcalc}): 
-\begin{equation}
+In addition, it is possible that the two premises of $\andr$ correspond to $\circeq$-inequivalent derivations.
+For example, consider the derivation of the sequent $- \mid \I \ot X \vdash_\F ((I \ot X) \land (\I \ot X)) \lor Y$: % in (\ref{eq:seqcalc}): 
+\begin{equation*}\small
   \begin{array}{c}
-    \infer[\orrone]{- \mid \I \ot X \vdash ((\I \ot X) \land (\I \ot X)) \lor Y}{
-      \infer[\andr]{- \mid \I \ot X \vdash (\I \ot X) \land (\I \ot X)}{
-        \infer[\pass]{- \mid \I \ot X \vdash \I \ot X}{
-          \infer[\tl]{\I \ot X \mid \quad \vdash \I \ot X}{
-            \infer[\tr]{\I \mid X \vdash \I \ot X}{
-              \infer[\unitl]{\I \mid \quad \vdash \I}{
-                \infer[\unitr]{- \mid \quad \vdash \I}{}
+    \infer[\orrone]{- \mid \I \ot X \vdash_\F ((\I \ot X) \land (\I \ot X)) \lor Y}{
+      \infer[\andr]{- \mid \I \ot X \vdash_\RI (\I \ot X) \land (\I \ot X)}{
+        \infer[\sw]{- \mid \I \ot X \vdash_\RI \I \ot X}{
+        \infer[\pass]{- \mid \I \ot X \vdash_\F \I \ot X}{
+          \infer[\tl]{\I \ot X \mid \quad \vdash_\LI \I \ot X}{
+          \infer[\unitl]{\I \mid X \vdash_\LI \I \ot X}{
+            \infer[\F 2 \LI]{- \mid X \vdash_\LI \I \ot X}{
+            \infer[\tr]{- \mid X \vdash_\F \I \ot X}{
+                \infer[\sw]{- \mid \quad \vdash_\RI \I}{
+                \infer[\unitr]{- \mid \quad \vdash_\F \I}{}
               }
               &
-              \infer[\pass]{- \mid X \vdash X}{
-                \infer[\ax]{X \mid \quad \vdash X}{}
+              \infer[\sw]{- \mid X \vdash_\RI X}{
+              \infer[\pass]{- \mid X \vdash_\F X}{
+                \infer[\F 2 \LI]{X \mid \quad \vdash_\LI X}{
+                \infer[\ax]{X \mid \quad \vdash_\F X}{}
               }
             }
           }
         }
+        }}}}}
         &
-        \infer[\tr]{- \mid \I \ot X \vdash \I \ot X}{
-          \infer[\unitr]{- \mid \quad \I}{}
+        \infer[\sw]{- \mid \I \ot X \vdash_\RI \I \ot X}{
+        \infer[\tr]{- \mid \I \ot X \vdash_\F \I \ot X}{
+          \infer[\sw]{- \mid \quad \vdash_\RI \I}{
+            \infer[\unitr]{- \mid \quad \vdash_\F \I}{}
+            }
           &
-          \infer[\pass]{- \mid \I \ot X \vdash X}{
-            \infer[\tl]{\I \ot X \mid \quad \vdash X}{
-              \infer[\unitl]{\I \mid X \vdash X}{
-                \infer[\pass]{- \mid X \vdash X}{
-                  \infer[\ax]{X \mid \quad \vdash X}{}
+          \infer[\sw]{- \mid \I \ot X \vdash_\RI X}{
+          \infer[\pass]{- \mid \I \ot X \vdash_\F X}{
+            \infer[\tl]{\I \ot X \mid \quad \vdash_\LI X}{
+              \infer[\unitl]{\I \mid X \vdash_\LI X}{
+                \infer[\F 2 \LI]{- \mid X \vdash_\LI X}{
+                \infer[\pass]{- \mid X \vdash_\F X}{
+                  \infer[\F 2 \LI]{X \mid \quad \vdash_\LI X}{
+                  \infer[\ax]{X \mid \quad \vdash_\F X}{}
                 }
               }
             }
           }
         }
       }
-    }
+    }}}}}
   \end{array}
-\end{equation}
-In this case, when doing proof search of the sequent $- \mid \I \ot X \vdash_{\F} ((\I \ot X) \land (\I \ot X)) \lor Y$ in the focused calculus, $\orrone$ is necessary to be applied before $\pass$.
-Therefore we need to introduce a machinery to ensure the order of rules in this kind of situations, otherwise the focused calculus will fail in being sound and complete with (\ref{eq:seqcalc}) and $\circeq$. 
+\end{equation*}
+In this case, %when doing proof search of the sequent $- \mid \I \ot X \vdash_{\F} ((\I \ot X) \land (\I \ot X)) \lor Y$ in the focused calculus,
+the right non-invertible rule $\orrone$ must be applied before the left non-invertible rule $\pass$. This is because $\pass$ is used in the proof of the left premise of $\andr$, but it is not used in the proof of the right premise, $\tr$ is used instead. If both left and write proofs would have used $\pass$, then it would have been possible to apply $\pass$ before $\orrone$.
+%Therefore we need to introduce a machinery to ensure the order of rules in this kind of situations, otherwise the focused calculus will fail in being sound and complete with (\ref{eq:seqcalc}) and $\circeq$. 
 % This is because applying $\pass$ before $\orrone$ enforces two different derivations of the premises of $\andr$ to be identical.
 % \niccolo{Add another example, where the a right non-invertible rule must be applied first since in different premises passivation is appl ied/non applied.}
 
@@ -741,7 +756,6 @@ Derivations in the focused sequent calculus with tag annotations are generated b
     }
   \end{array}
 \end{equation}
-In the rules above, $P$ is a non-negative formula, i.e. its principal connective is not $\land$, while $T$ is a non-positive stoup, i.e. it is not $\I$ and its principal connective is not $\ot$ nor $\lor$.
 We use $l$ for lists of tags and $t$ for single tags.
 The notation $l?$ indicates that the sequent is either untagged or it is assigned the list of tags $l$. Similarly for notation $t?$.
 %Each tag (list of tags) notation with a question mark means that either the sequent is untagged or there is a corresponding tag (a list of tag).
@@ -787,7 +801,7 @@ The derivation in (\ref{eq:ex:focused}) can be reconstructed in the focused calc
   \end{array}
 \end{equation}
 Notice that the list of tags is not predetermined when a right non-invertible rule is applied, we have to come up with one ourselves.
-Practically, the list $l$ is computed by continuing proof search until in each branch we hit the first application of a rule in phase $\vdash_\F$, each with its own (necessarily uniquely determined) tag $t$. Take $l$ as the concatenation of the resulting $t$s and check whether it is valid. If it is not, backtrack and apply a left non-invertible rule instead.
+Practically, the list $l$ is computed by continuing proof search until in each branch we hit the first application of a rule in phase $\vdash_\F$, each with its own (necessarily uniquely determined) single tag $t$. Take $l$ as the concatenation of the resulting $t$s and check whether it is valid. If it is not, backtrack and apply a left non-invertible rule instead.
 %For example, the proof search in (\ref{eq:ex:tag:focused}) actually proceeds as: we apply $\orrone$ and assume that there is a valid list of tags. We continue the proof search and apply the $\andli$ in the tagged phase. When the proof tree closes, we concatenate the singleton list from the leftmost sequent to right and check whether the result list is valid.
 %In this case, $[ \tL , \tR ]$ is valid.
 
@@ -856,17 +870,17 @@ The inductive hypothesis applied to $f$ and $g$ would produce wrong sequents for
 This is fixed by proving the admissibility of more general rules. First we need a few lemmata. 
 The first one shows that applying several $\andr$ in one step is admissible.
 % \niccolo{The next statement is not precise, $A$ is not really equal to $A_1 \land \dots \land A_n$. One should define an operation $\mathsf{conj}$ (or whatever name) that flattens conjunctions into a list: $\mathsf{conj}(A) = A$ if $A$ is non-negative and $\mathsf{conj}(A \land B) = \mathsf{conj}(A),\mathsf{conj}(B)$. Then in the hypothesis of the theorem there should be $\mathsf{conj}(A) = [A_1, \dots,A_n]$. Same for the subsequent Proposition.}
-\begin{defn}
-  We use $\conj{A}$ to denote a list of formula obtained from decomposing $\land$ in the formula $A$.
-  \begin{displaymath}
-    \conj{A} = 
-    \begin{cases}
-      A & A \neq A' \land B'
-      \\
-      \conj{A'} , \conj{B'} & A = A' \land B'.
-    \end{cases}
-  \end{displaymath}
-\end{defn}
+%\begin{defn}
+  Let $\conj{A}$ be the list of formulae obtained by decomposing additive conjunctions $\land$ in the formula $A$. Concretely, $\conj{A} = \conj{A'} , \conj{B'}$ if $A = A' \land B'$ and $\conj{A} = A$ otherwise.
+%  \begin{displaymath}
+%    \conj{A} = 
+%    \begin{cases}
+%      A & A \neq A' \land B'
+%      \\
+% \conj{A'} , \conj{B'} & A = A' \land B'.     
+%    \end{cases}
+%  \end{displaymath}
+%\end{defn}
 % \niccolo{The proof also needs some more explanation. What are $fs_1$ and $fs_2$? How are these computed?}
 \begin{lemma}\label{lem:BigStep}
   The following rules
@@ -882,12 +896,12 @@ The first one shows that applying several $\andr$ in one step is admissible.
   are admissible, where $\conj{A} = [A_1 , \dots , A_n]$ and $l = [t_1 , \dots , t_n]$.
 \end{lemma}
 \begin{proof}
-  We show the case of $\andr^{*}_{t}$ and the other one is similar.
+  We show the case of $\andr^{*}_{t}$, the other one is similar.
   Let $fs : [T \mid \Gamma \vdash^{t_i}_{\F} A_i]_i$. The proof proceeds by induction on $A$.
   \begin{itemize}
     \item If $A \neq A' \land B'$, then we have $fs = [ f ]$ and $\andr^*_{t} \text{ } fs = \F 2 \LI \text{ } (\LI 2 \RI \text{ } f)$.
-    \item If $A = A' \land B'$, then by the inductive hypothesis, there exist $fs_1 : [T \mid \Gamma \vdash^{t_i}_{\F} A'_i]_{i \in [1 , \dots , m]}$, $l_1 = t_1 , \dots , t_n$, $fs_2 : [T \mid \Gamma \vdash^{t_i}_{\F} B'_i]_{i \in [m+1 , \dots , n]}$, and $l_2 = t_{m+1} , \dots , t_n$ where $fs$ is the concatenation of $fs_1$ and $fs_2$ and $l$ is the concatenation of $l_1 $ and $l_2$.
-    Therefore we can apply $\andr$ at the bottom then proceed recursively:
+    \item If $A = A' \land B'$, then there exist $fs_1 : [T \mid \Gamma \vdash^{t_i}_{\F} A'_i]_{i \in [1 , \dots , m]}$, $l_1 = t_1 , \dots , t_n$, $fs_2 : [T \mid \Gamma \vdash^{t_i}_{\F} B'_i]_{i \in [m+1 , \dots , n]}$, and $l_2 = t_{m+1} , \dots , t_n$ where $fs$ is the concatenation of $fs_1$ and $fs_2$ and $l$ is the concatenation of $l_1 $ and $l_2$.
+    We apply $\andr$ at the bottom then proceed recursively:
     \begin{displaymath}
       \small
       \begin{array}{cc}
@@ -916,11 +930,11 @@ The first one shows that applying several $\andr$ in one step is admissible.
   \end{itemize}
 \end{proof}
 
-The second one corresponds to the invertibility of phase $\vdash_\RI$.
+The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
 
 % \niccolo{We need to define $\andr^{*}$. Derivations in $fs$ are in phase $\LI$, does this mean that $\andr^{*}$ takes in input a list $fs : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$? Not $fs : [S \mid \Gamma \vdash_{\RI} A_i]_{i \in [1 , \dots , n]}$?}
 \begin{lemma}\label{lem:RI:invert}
-  For every $f : S \mid \Gamma \vdash_{\RI} A$ there is a list of derivations $fs : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$ such that $f = \andr^{*} fs$.
+  Given $f : S \mid \Gamma \vdash_{\RI} A$ there is a list of derivations $fs : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$ with $f = \andr^{*} fs$.
 \end{lemma}
 \begin{proof}
   The proof proceeds by structural induction on $f : S \mid \Gamma \vdash_{\RI} A$.
@@ -958,11 +972,11 @@ The second one corresponds to the invertibility of phase $\vdash_\RI$.
   \begin{itemize}
     \item If $f_1$ is the conclusion of a left invertible rule, then all the derivations in $fs'$ necessarily end with the same rule as well.
     Therefore, we permute this rule with $\orrone^{\LI}$ and apply the inductive hypothesis.
-  \item If $f_1 = \F 2 \LI f'_1$, then all the derivations in $fs'$ necessarily end with $\F 2 \LI$ as well. %In this case, we apply $\F 2 \LI$ to all elements in $fs$ and
+  \item If $f_1 = \F 2 \LI \,f'_1$, then all the derivations in $fs'$ necessarily end with $\F 2 \LI$ as well. %In this case, we apply $\F 2 \LI$ to all elements in $fs$ and
     We generate a list of tags $l$ by examining the shape of each derivation in $fs$: we add $\tP$ for each $\pass$, $\tL$ for each $\andlone$, $\tR$ for each $\andltwo$ and $\tE$ for the remaining rules.
     There are two possibilities:
     \begin{itemize}
-      \item The resulting list $l$ is valid. In this case, we switch to phase $\vdash_\F$ and apply  $\orrone^{\LI}$ followed by $\andr^{*}_{t}$:
+      \item The resulting list $l$ is valid. We switch to phase $\vdash_\F$ and apply  $\orrone^{\LI}$ followed by $\andr^{*}_{t}$:
       \begin{displaymath}
         \begin{array}{cc}
           \proofbox{
@@ -988,8 +1002,8 @@ The second one corresponds to the invertibility of phase $\vdash_\RI$.
         \end{array}
       \end{displaymath}
       % \niccolo{We need to say what $[\F 2 \LI]$ means. Also what is $fs^*$. Be careful at the distinction between the word ``sequent'' and ``derivation''. For example, in the following statement you say that $fs^{*'}$ is a list of sequents, but it is a list of derivations instead. I have fixed this in some parts of the text before, please check the rest.}
-      Rules in ${[ \quad ]}$ means that it is applied to the conclusion of each derivation in the list.
-      $fs^{*}$ is a list of derivations obtained from $fs$ by applying $[\F 2 \LI]$, while $fs^{*'}$ is a list of derivations whose conclusions are tagged version of those in $fs^{*}$.
+      A rule wrapped in square brackets, like $[\F 2 \LI]$ above, denotes the application of the rule to the conclusion of each derivation in the list.
+      The list of derivations $fs^{*}$ is obtained from $fs$ by applying $[\F 2 \LI]$, i.e. $fs = [\F 2 \LI]\,fs^*$, while $fs^{*'}$ is a list of derivations whose conclusions are tagged version of those in $fs^{*}$, which can be easily constructed from $fs^{*}$.
       % For example, an $f_i : A' \land B' \mid \Gamma \vdash_{\F} A_i$ in $fs^{*}$ is corresponding to $A' \land B' \mid \Gamma \vdash^{\tL}_{\F} A_i$ in $fs^{*'}$.
       % \begin{displaymath}
       %   \begin{array}{c}
@@ -1006,7 +1020,7 @@ The second one corresponds to the invertibility of phase $\vdash_\RI$.
       % \end{displaymath}
       % in $fs^{*'}$.
       \item The list $l$ is invalid. In this case, all elements in $fs$ end with the same left non-invertible rule, so we permute the rule down with $\orrone^{\LI}$ and continue recursively.
-      Here is an example where all elements in $fs$ are conclusions of $\pass$:
+      Here is an example where all elements are conclusions of $\pass$, i.e. $fs = [\F 2 \LI] \,([\pass]\,fs^*)$:
       \begin{displaymath}
         \begin{array}{cc}
           \proofbox{
