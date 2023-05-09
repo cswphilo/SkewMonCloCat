@@ -1581,7 +1581,7 @@ The focused sequent calculus is extended with a new phase $\vdash_\C$ (for `cont
 %Similar to the commutative extension, the premise of $\tl$ goes back to the context phase since it adds a new formula to the context.
 
 \subsection{Linear implication}\label{subsec:impl}
-Finally, we finally consider a deductive system for a skew version of non-commutative intuitionistic linear logic with additive conjunction and disjunction.
+Finally, we consider a deductive system for a skew version of non-commutative intuitionistic linear logic with additive conjunction and disjunction.
 This is obtained by extending the sequent calculus in (\ref{eq:seqcalc}) with a liner implication $\lolli$ and two introduction rules:
 \begin{displaymath}
   \begin{array}{c}
@@ -1868,10 +1868,14 @@ Here are the inference rules of the focused sequent calculus including linear im
     \\[10pt]
     \text{(focusing)} &    %\\[-4pt] &
     \proofbox{
-    \infer[\pass]{{-} \mid A^{\bullet ?} , \Gamma \vdash^{\tP?}_{\F} P }{
+    \infer[\pass]{{-} \mid A^{\bullet ?} , \Gamma \vdash^{t?}_{\F} P }{
         A \mid \Gamma^{\circ} \vdash_{\LI} P
+        &
+        \text{if } A^{\bullet?} = A \text{ then } (t \text{ does not exist or } t = \tP) \text{ else } t = \bullet
     }
-    \qquad
+    }
+    \\[10pt]
+    \multicolumn{2}{c}{
     \infer[\ax]{X \mid \quad \vdash^{\tE?}_{\F} X}{}
     \qquad
     \infer[\unitr]{{-} \mid \quad \vdash^{\tE?}_{\F} \I}{}
@@ -1927,9 +1931,15 @@ We discuss some key differences with (\ref{eq:focus}).
 \begin{itemize}
 %  \item The positive formula $P$ now means that $P$ is not in the form of $\land$ nor $\lolli$. $A^{\bullet}$ means that $A$ is tagged and $\Gamma^{\bullet}$ means that all the formula occurrences in $\Gamma$ are tagged. $\Gamma^{\circ}$ means that all the tags of the formula occurrences in $\Gamma$ are erased.
 \item Rule $\lright$ is new, and it moves formulae from the succedent to the context. If the conclusion of $\lright$ is $S \mid \Gamma \vdash^{l}_{\RI} A \lolli B$, so the sequent is marked by a list of tags $l$, then $A$ in the premise is a new formula in context and it is tagged with $\bullet$.
-\item \niccolo{Talk about the difference in passivation}
-\item The side condition in rule $\lleft$ should be read as follows. If $\Delta$ is empty, then the sequent is either untagged (so there is no $t$) or the tag $t$ is equal to $ \Gamma$. If $\Delta$ is non-empty, then $t = \bullet$.
-  Checking whether $\Delta$ is empty or not is crucial here. If it is non-empty, then $\Delta^\bullet$ contains at least one tagged formula, which must have appeared in context from an application of $\lright$. If $\Delta$ is empty and $t = \Gamma$, no new (meaning tagged with $\bullet$) formula is moved to the left premise. If $t = \Gamma$ then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$, and $l$ could be valid because of a different branch where $\lleft$ is also applied but the context has been split differently (so its tag would be $ \Gamma'$ for some $\Gamma \not= \Gamma'$.
+\item The side condition in the rule $\pass$ should be read as follows.
+If $A$ is untagged, then the sequent is either untagged (so there is no $t$) or the tag $t$ is equal to $\tP$.
+If $A$ is tagged, then $t = \bullet$.
+It is crucial to determine whether $A$ is tagged or not.
+If $A$ is tagged, then it must have been moved to the context using $\lright$.
+If $A$ is untagged and $t = \tP$, then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$, and $l$ could be valid because of another branch performing a phase $\F$ rule distinct from $\pass$.
+% \niccolo{Talk about the difference in passivation}
+\item The side condition in rule $\lleft$ should be read as follows. If $\Delta$ is empty, then the sequent is either untagged or the tag $t$ is equal to $ \Gamma$. If $\Delta$ is non-empty, then $t = \bullet$.
+Checking whether $\Delta$ is empty or not is crucial here. If it is non-empty, then $\Delta^\bullet$ contains at least one tagged formula, which must have appeared in context from an application of $\lright$. If $\Delta$ is empty and $t = \Gamma$, no new (meaning tagged with $\bullet$) formula is moved to the left premise. If $t = \Gamma$ then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$, and $l$ could be valid because of a different branch where $\lleft$ is also applied but the context has been split differently (so its tag would be $ \Gamma'$ for some $\Gamma \not= \Gamma'$).
 %  The inhabited or non-inhabited nature of $\Delta$ is crucial because if there is any formula occurrence in $\Delta$, then it indicates that there is an application of a right non-invertible rule before $\lleft$ and the order of rule applications is guaranteed due to the new formula occurrences in $\Delta$.
 %  If $\Delta$ is empty, then either there is no application of right non-invertible rule before or there is an application of a right non-invertible rule before $\lleft$ is but there is no formula moved to the context via $\lright$.
 %  In the latter case, tags are used to record the splitting of contexts.
@@ -2011,29 +2021,45 @@ The proofs with tags of the derivations in (\ref{eq:counterexample1}) can be fou
 % To obtain a generalization of theorem (\ref{theorem:focus:sound:complete}), we generalize the three lemmata (\ref{lem:RI:invert})
 %\section{Formalization}\label{sec:formalization}
 
-Proving completeness of the extended focused sequent calculus is more involved. In fact, the complication resides in stating and proving the analog of Proposition \ref{prop:GenRightRules}. First, define an operation $\mathsf{impconj}(A)$ which produces two lists of formulae as follows: \niccolo{give definition}. The statement of Proposition \ref{prop:GenRightRules} for focused sequent calculus in (\ref{eq:focus:impl}) the then becomes:
+Proving completeness of the extended focused sequent calculus is more involved. In fact, the complication resides in stating and proving the analog of Proposition \ref{prop:GenRightRules}. First, define an operation $\mathsf{impconj}(A)$ which produces a list of pairs of lists of formulae and formulae as follows: 
+\begin{displaymath}
+  \begin{array}{rll}
+    \impconj{A} &= \impconj{A'} , \impconj{B'} &\text{when } A = A' \land B'
+    \\
+    \impconj{A} &= ([A' , \Gamma'_1] , B'_1) , \dots , ([A' , \Gamma'_n] , B'_n) &\text{when } A = A' \lolli B' \text{ and}
+    \\
+    & &\impconj{B'} = ([(\Gamma'_1 , B'_1) , \dots , (\Gamma'_n , B'_n)])
+    \\
+    \impconj{A} &= ([\ ] , A) &\text{otherwise}
+  \end{array}
+\end{displaymath}
+% $\impconj{A} = \impconj{A'} , \impconj{B'}$ if $A = A' \land B'$, $\impconj{A} = ([(A' , \Gamma'_1) , \dots , (A' , \Gamma'_n)] , [B_1 , \dots , B_n])$ if $A = A' \lolli B'$ and $\impconj{B} = ([\Gamma'_1 , \dots , \Gamma'_n] , [B_1 , \dots , B_n])$ and $\impconj{A} = ([\ ] , A)$ otherwise.
+% \niccolo{give definition}.
+The statement of Proposition \ref{prop:GenRightRules} for focused sequent calculus in (\ref{eq:focus:impl}) then becomes:
 \begin{proposition}\label{prop:GenRightRules:impl}
   The following rules
   \begin{displaymath}
     \begin{array}{c}
       \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
-        \deduce{[S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
+        \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
       }
       \quad
       \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
-        \deduce{[S \mid \Gamma \vdash_{\LI} B_i]_{i \in [1 , \dots , n]}}{fs}
+        \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} B_i]_{i \in [1 , \dots , n]}}{fs}
       }
-      \quad
+      \\
       \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} A \ot B'}{
-        \deduce{[S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
+        \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
         &
         - \mid \Delta \vdash_{\RI} B'
       }
     \end{array}
   \end{displaymath}
-  generalizing $\orri^{\LI}$ and $\tr^{\LI}$, are admissible, where $\impconj{A} = [A_1 , \dots , A_n]$ and $\impconj{B} = [B_1 , \dots , B_n]$.
+  generalizing $\orri^{\LI}$ and $\tr^{\LI}$, are admissible, where
+  \\
+  $\impconj{A} = ([(\Gamma'_1 , A_1) , \dots , (\Gamma'_n , A_n)])$ and $\impconj{B} = ([(\Gamma'_1 , B_1) , \dots , (\Gamma'_n , B_n)])$.
 \end{proposition}
-\niccolo{Write the statement of the proposition}
+% \niccolo{Write the statement of the proposition}
 
 \section{Conclusion}
 The paper presents an additive extension of the sequent calculus in \cite{uustalu:sequent:2021}, whose categorical interpretation is skew monoidal categories with products and coproducts.
