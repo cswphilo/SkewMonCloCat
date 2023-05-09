@@ -79,6 +79,7 @@
 \newcommand{\topr}{\top \mathsf{R}}
 \newcommand{\botl}{\bot \mathsf{L}}
 \newcommand{\conj}[1]{\mathsf{conj} (#1)}
+\newcommand{\impconj}[1]{\mathsf{impconj} (#1)}
 \newcommand{\otd}{\ot^D}
 \newcommand{\lollid}{\;\textsuperscript{$D$}\!\!\lolli}
 \newcommand{\spl}{\raisebox{-1.5pt}[0.5\height]{\hspace{1pt}\vdots\hspace{1pt}}}
@@ -1832,7 +1833,7 @@ In the first derivation, rule $\pass$ in the left branch of $\tr$ cannot be move
 % validity condition is extended by two cases, where the first one distinguishes the situation where there is at least one new formula introduced in the context due to the previous right non-invertible rule, while the second captures cases of essential non-determinism and avoids situations where all the contexts of the corresponding sequents of $l$ are split in the same way.
 %It is worth noting that the context of an application of $\lleft$ can be split at different new formula occurrences.
 
-This motivates the addition of two new tags on top of $\tP,\tL,\tR$ and $\tE$, corresponding to the two situations previously discussed: $\#\Gamma$, for each context $\Gamma$, and $\bullet$.  The validity condition for list of tags also needs to be updated. A list of tags $l$ is now valid if it is non-empty and either $(i)$ $\tE \in l$, $(ii)$ both $\tL \in l$ and $\tR \in l$,  $(iii)$ there exist contexts $\Gamma , \Gamma'$ such that $\# \Gamma \in l$, $\# \Gamma' \in l$ and $\# \Gamma \neq \# \Gamma'$, or $(iv)$ $\bullet \in l$. Following \cite{UVW:protsn}, on top of tag annotations for sequents, we also require tag annotations for formulae in context. There is only one tag $\bullet$ for formulae. The tag on the formula $A^\bullet$ means that $A$ has been previously moved to the context by an application of $\lright$ in phase $\vdash^l_\RI$.
+This motivates the addition of two new tags on top of $\tP,\tL,\tR$ and $\tE$, corresponding to the two situations previously discussed: $\Gamma$, for each context $\Gamma$, and $\bullet$.  The validity condition for list of tags also needs to be updated. A list of tags $l$ is now valid if it is non-empty and either $(i)$ $\tE \in l$, $(ii)$ both $\tL \in l$ and $\tR \in l$,  $(iii)$ there exist contexts $\Gamma , \Gamma'$ such that $ \Gamma \in l$, $ \Gamma' \in l$ and $ \Gamma \neq  \Gamma'$, or $(iv)$ $\bullet \in l$. Following \cite{UVW:protsn}, on top of tag annotations for sequents, we also require tag annotations for formulae in context. There is only one tag $\bullet$ for formulae. The tag on the formula $A^\bullet$ means that $A$ has been previously moved to the context by an application of $\lright$ in phase $\vdash^l_\RI$.
 
 Here are the inference rules of the focused sequent calculus including linear implication:
 \begin{equation*}\label{eq:focus:impl}
@@ -1905,21 +1906,21 @@ Here are the inference rules of the focused sequent calculus including linear im
     }
     \\[6pt]
     \multicolumn{2}{c}{
-      \infer[\lleft]{A \lolli B \mid \Gamma , \Delta^{\bullet} , \Lambda \vdash^{t?}_{\F} P}{
+      \infer[\lleft]{A \lolli B \mid \Gamma , \Delta^{\bullet} , \Lambda^{\bullet} \vdash^{t?}_{\F} P}{
         - \mid \Gamma , \Delta^{\circ} \vdash_{\RI} A
         &
         B \mid \Lambda^{\circ} \vdash_{\LI} P
         % &
-        % t \text{ exists } \supset \ (\Delta \text{ empty and } \ t = \# \Gamma) \text{ or } \ t = \bullet
+        % t \text{ exists } \supset \ (\Delta \text{ empty and } \ t =  \Gamma) \text{ or } \ t = \bullet
         &
-        \text{if } \Delta \text{ is empty then } (t \text{ does not exist or } t = \# \Gamma)  \text{ else }  t = \bullet 
+        \text{if } \Delta \text{ is empty then } (t \text{ does not exist or } t =  \Gamma)  \text{ else }  t = \bullet 
       }
     }
   \end{array}
 \end{equation*}
 Here $P$ again indicates a non-negative formula, which now means that its principal connective is not $\land$ nor $\lolli$. Notation $\Gamma^{\bullet}$ means that all the formulae in $\Gamma$ are tagged, while $\Gamma^{\circ}$ indicates that all the tags on formulae in $\Gamma$ have been erased. We write $A^{\bullet?}$ to denote $A$ if the formula appears in an untagged sequent and $A^\bullet$ if it appears in a sequent marked with list of tags.
 
-Tags of the form $\# \Gamma$ are used to record different splitting of the context in applications of $\lleft$, while tag $\bullet$ is used to mark when rule $\lleft$ sends tagged formulae to the left premis and when rule $\pass$ moves a tagged formula to the stoup.
+Tags of the form $ \Gamma$ are used to record different splitting of the context in applications of $\lleft$, while tag $\bullet$ is used to mark when rule $\lleft$ sends tagged formulae to the left premise and when rule $\pass$ moves a tagged formula to the stoup.
 
 
 We discuss some key differences with (\ref{eq:focus}).
@@ -1927,8 +1928,8 @@ We discuss some key differences with (\ref{eq:focus}).
 %  \item The positive formula $P$ now means that $P$ is not in the form of $\land$ nor $\lolli$. $A^{\bullet}$ means that $A$ is tagged and $\Gamma^{\bullet}$ means that all the formula occurrences in $\Gamma$ are tagged. $\Gamma^{\circ}$ means that all the tags of the formula occurrences in $\Gamma$ are erased.
 \item Rule $\lright$ is new, and it moves formulae from the succedent to the context. If the conclusion of $\lright$ is $S \mid \Gamma \vdash^{l}_{\RI} A \lolli B$, so the sequent is marked by a list of tags $l$, then $A$ in the premise is a new formula in context and it is tagged with $\bullet$.
 \item \niccolo{Talk about the difference in passivation}
-\item The side condition in rule $\lleft$ should be read as follows. If $\Delta$ is empty, then the sequent is either untagged (so there is no $t$) or the tag $t$ is equal to $\# \Gamma$. If $\Delta$ is non-empty, then $t = \bullet$.
-  Checking whether $\Delta$ is empty or not is crucial here. If it is non-empty, then $\Delta^\bullet$ contains at least one tagged formula, which must have appeared in context from an application of $\lright$. If $\Delta$ is empty and $t = \#\Gamma$, no new (meaning tagged with $\bullet$) formula is moved to the left premise. If $t = \#\Gamma$ then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$, and $l$ could be valid because of a different branch where $\lleft$ is also applied but the context has been split differently (so its tag would be $\# \Gamma'$ for some $\Gamma \not= \Gamma'$.
+\item The side condition in rule $\lleft$ should be read as follows. If $\Delta$ is empty, then the sequent is either untagged (so there is no $t$) or the tag $t$ is equal to $ \Gamma$. If $\Delta$ is non-empty, then $t = \bullet$.
+  Checking whether $\Delta$ is empty or not is crucial here. If it is non-empty, then $\Delta^\bullet$ contains at least one tagged formula, which must have appeared in context from an application of $\lright$. If $\Delta$ is empty and $t = \Gamma$, no new (meaning tagged with $\bullet$) formula is moved to the left premise. If $t = \Gamma$ then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$, and $l$ could be valid because of a different branch where $\lleft$ is also applied but the context has been split differently (so its tag would be $ \Gamma'$ for some $\Gamma \not= \Gamma'$.
 %  The inhabited or non-inhabited nature of $\Delta$ is crucial because if there is any formula occurrence in $\Delta$, then it indicates that there is an application of a right non-invertible rule before $\lleft$ and the order of rule applications is guaranteed due to the new formula occurrences in $\Delta$.
 %  If $\Delta$ is empty, then either there is no application of right non-invertible rule before or there is an application of a right non-invertible rule before $\lleft$ is but there is no formula moved to the context via $\lright$.
 %  In the latter case, tags are used to record the splitting of contexts.
@@ -2011,6 +2012,27 @@ The proofs with tags of the derivations in (\ref{eq:counterexample1}) can be fou
 %\section{Formalization}\label{sec:formalization}
 
 Proving completeness of the extended focused sequent calculus is more involved. In fact, the complication resides in stating and proving the analog of Proposition \ref{prop:GenRightRules}. First, define an operation $\mathsf{impconj}(A)$ which produces two lists of formulae as follows: \niccolo{give definition}. The statement of Proposition \ref{prop:GenRightRules} for focused sequent calculus in (\ref{eq:focus:impl}) the then becomes:
+\begin{proposition}\label{prop:GenRightRules:impl}
+  The following rules
+  \begin{displaymath}
+    \begin{array}{c}
+      \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
+        \deduce{[S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
+      }
+      \quad
+      \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
+        \deduce{[S \mid \Gamma \vdash_{\LI} B_i]_{i \in [1 , \dots , n]}}{fs}
+      }
+      \quad
+      \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} A \ot B'}{
+        \deduce{[S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
+        &
+        - \mid \Delta \vdash_{\RI} B'
+      }
+    \end{array}
+  \end{displaymath}
+  generalizing $\orri^{\LI}$ and $\tr^{\LI}$, are admissible, where $\impconj{A} = [A_1 , \dots , A_n]$ and $\impconj{B} = [B_1 , \dots , B_n]$.
+\end{proposition}
 \niccolo{Write the statement of the proposition}
 
 \section{Conclusion}
