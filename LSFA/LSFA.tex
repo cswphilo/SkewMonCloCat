@@ -2062,14 +2062,16 @@ The statement of Proposition \ref{prop:GenRightRules} for focused sequent calcul
 % \niccolo{Write the statement of the proposition}
 
 \section{Conclusion}
-The paper presents an additive extension of the sequent calculus in \cite{uustalu:sequent:2021}, whose categorical interpretation is skew monoidal categories with products and coproducts.
-Derivations in the calculus are quotiented by the congruence relation $\circeq$, where each equivalence class corresponds to precisely one derivation in the focused calculus with tag annotations.
-In order to eliminate non-determinism related to permutative conversions of non-invertible rules, the focused calculus prioritizes the left-invertible rules over the right ones and employs tag annotations to ensure completeness.
-Moreover, the focused calculus provides a procedure to solve the coherence problem of skew monoidal categories with products and coproducts since $\circeq$ is carefully defined in accord with the equations of morphisms in the categories.
- 
-This paper takes one step further of a large project aiming at modular analysis of proof systems whose categorical models are categories with skew structure \cite{zeilberger:semiassociative:19, uustalu:sequent:2021,uustalu:proof:nodate,uustalu:deductive:nodate,veltri:coherence:2021,UVW:protsn}.
-We plan to extend the sequent calculus in this paper to include the linear implication, which is a skew version of noncommutative intuitionistic linear logic with additive conjunction and disjunction and has skew monoidal closed categories with products and coproducts as its models.
-We expect that the tag annotations, which guarantee correct proof searches in this paper, will complement nicely with the tag annotations in \cite{UVW:protsn}, which track new formulae in context.
+The paper presents a sequent calculus for a semi-associative and semi-unital logic,  extending the system introduced in \cite{uustalu:sequent:2021} with additive conjunction and disjunction. Categorical models of this calculus are skew monoidal categories with binary products and coproducts, and the tensor product preserves coproduct on the left: $(A + B) \ot C \cong (A \ot C) + (B \ot C)$.
+Derivations in the sequent calculus are equated by a congruence relation $\circeq$, and canonical representative of each $\circeq$-equivalence class can be computed in a separate sequent calculus of normal forms, that we dubbed ``focused'' due to its phase separation similar to the one in Andreoli's technique \cite{andreoli:logic:1992}.  Though we do not insist on keeping the focusing during the synchronous phase of root-first proof search, and always privilege the application of left non-invertible rules over right non-invertible ones. In order to achieve completeness wrt. the sequent calculus, the focused system employs a system of tag annotations providing explicit justifications for the cases in which right non-invertible rules must be applied before the left non-invertible ones.
+%In order to eliminate non-determinism related to permutative conversions of non-invertible rules, the focused calculus prioritizes the left-invertible rules over the right ones and employs tag annotations to ensure completeness.
+The focused sequent calculus is a concrete presentation of the free distributive skew monoidal categories on the set of atomic formulae, therefore the normalization/focusing algorithm determines a procedure for solving the coherence problem of distributive skew monoidal categories.
+
+In the final part of the paper, we have looked at extension of the logic with additive units, a skew exchange rule in the style of Bourke and Lack \cite{bourke:lack:braided:2020} and a linear implication. This section still needs to be formalized in Agda, which will be our immediate forthcoming step.
+
+This paper takes one step further in a large project aiming at modular analysis of proof systems with categorical models given by categories with skew structure \cite{zeilberger:semiassociative:19, uustalu:sequent:2021,uustalu:proof:nodate,uustalu:deductive:nodate,veltri:coherence:2021,UVW:protsn}. We are interested in looking for application of these systems to combinatorics and linguistics, following initial investigation by Zeilberger \cite{zeilberger:semiassociative:19} and Moortgat \cite{moortgat:tamari:20}.
+ %, which is a skew version of noncommutative intuitionistic linear logic with additive conjunction and disjunction and has skew monoidal closed categories with products and coproducts as its models.
+%We expect that the tag annotations, which guarantee correct proof searches in this paper, will complement nicely with the tag annotations in \cite{UVW:protsn}, which track new formulae in context.
 % We expect the tag annotations as guarantee of correct proof searches in this paper can nicely cooperate with the one in \cite{UVW:protsn} that tracks new formulae in context.
 
 
