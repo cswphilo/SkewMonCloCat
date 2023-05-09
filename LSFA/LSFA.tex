@@ -738,13 +738,13 @@ Derivations in the focused sequent calculus with tag annotations are generated b
       &
       l \ \text{valid}
     }
-    \qquad
+    \quad
     \infer[\orrone]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
       T \mid \Gamma \vdash^{l}_{\RI} A
       &
       l \ \text{valid}
     }
-    \qquad
+    \quad
     \infer[\orrtwo]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
       T \mid \Gamma \vdash^{l}_{\RI} B
       &
@@ -854,6 +854,7 @@ The same strategy cannot be applied to right non-invertible rules, because of th
 Take $\orrone^{\RI}$ for an instance. If its premise ends with an application of $\andr$, we get immediately stuck:
 \begin{displaymath}
   \begin{array}{c}
+    \small
     \proofbox{
     \infer[\orrone^{\RI}]{S \mid \Gamma \vdash_{\RI} (A' \land B') \lor B}{
       \infer[\andr]{S \mid \Gamma \vdash_{\RI} A' \land B'}{
@@ -1691,7 +1692,7 @@ As an example of situation $(i)$, consider the sequent $\I \lolli \I \mid \I , Y
 Here $\tr$ must be applied first, before $\lleft$. In the proofs of the two premises of $\andr$, which prove the same sequent $\I \lolli \I \mid \I \vdash_\RI \I$ , the rule $\lleft$ splits the context in different ways: in the left branch the unit $\I$ in context is sent to the left premise, while in the right branch it is sent to the right branch. If the application of the rule $\lleft$ would have split the context in the same way, then we could have applied $\lleft$ before $\tr$.
 
 For $(ii)$, consider sequents ${-} \mid Y \vdash_{\F} (X \lolli X) \ot Y$ and $X \lolli Y \mid Z \vdash_{\F} (X \lolli Y) \ot Z$ with proofs:
-\begin{equation}\label{eq:counterexample1}
+\begin{equation*}\label{eq:counterexample1}
   \small
        \infer[\tr]{{-} \mid Y \vdash_{\F} (X \lolli X) \ot Y}{
       \infer[\lright]{{-} \mid \quad \vdash_{\RI} X \lolli X}{
@@ -1740,7 +1741,7 @@ For $(ii)$, consider sequents ${-} \mid Y \vdash_{\F} (X \lolli X) \ot Y$ and $X
         }
       }
      }     
-\end{equation}
+\end{equation*}
 In the first derivation, rule $\pass$ in the left branch of $\tr$ cannot be moved to the bottom of the proof tree, since formula $X$ is not yet in context, it becomes available only after the application of $\lright$. Analogously, in the second derivation, rule $\lleft$ in the left branch of $\tr$ cannot be moved to the bottom, since the formula $X$ that is sends to the left premise is appears in context only after the application of $\lright$.
 
 %To eliminate undesired non-determinism and maintain completeness with \SkNMILLA, we incorporate (\ref{eq:focus}) into the focused calculus in the section 4.2 of \cite{UVW:protsn} which employs tags to track formulae which are moved from the succedent to context via applications of the rule $\lright$.
@@ -1835,7 +1836,7 @@ In the first derivation, rule $\pass$ in the left branch of $\tr$ cannot be move
 
 This motivates the addition of two new tags on top of $\tP,\tL,\tR$ and $\tE$, corresponding to the two situations previously discussed: $\Gamma$, for each context $\Gamma$, and $\bullet$.  The validity condition for list of tags also needs to be updated. A list of tags $l$ is now valid if it is non-empty and either $(i)$ $\tE \in l$, $(ii)$ both $\tL \in l$ and $\tR \in l$,  $(iii)$ there exist contexts $\Gamma , \Gamma'$ such that $ \Gamma \in l$, $ \Gamma' \in l$ and $ \Gamma \neq  \Gamma'$, or $(iv)$ $\bullet \in l$. Following \cite{UVW:protsn}, on top of tag annotations for sequents, we also require tag annotations for formulae in context. There is only one tag $\bullet$ for formulae. The tag on the formula $A^\bullet$ means that $A$ has been previously moved to the context by an application of $\lright$ in phase $\vdash^l_\RI$.
 
-Here are the inference rules of the focused sequent calculus including linear implication:
+Here are the inference rules of the focused sequent calculus with linear implication:
 \begin{equation*}\label{eq:focus:impl}
   \begin{array}{lc}
     \text{(right invertible)} & %\\[-4pt] &
@@ -1879,6 +1880,10 @@ Here are the inference rules of the focused sequent calculus including linear im
     \infer[\ax]{X \mid \quad \vdash^{\tE?}_{\F} X}{}
     \qquad
     \infer[\unitr]{{-} \mid \quad \vdash^{\tE?}_{\F} \I}{}
+    \qquad
+    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tL?}_{\F} P}{A \mid \Gamma^{\circ} \vdash_{\LI} P}
+    \qquad
+    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tR?}_{\F} P}{B \mid \Gamma^{\circ} \vdash_{\LI} P}
     }
     \\[10pt]
     \multicolumn{2}{c}{
@@ -1889,24 +1894,18 @@ Here are the inference rules of the focused sequent calculus including linear im
       &
       l \ \text{valid}
     }
-    \qquad
+    \quad
     \infer[\orrone]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
       T \mid \Gamma^{\circ} \vdash^{l}_{\RI} A
       &
       l \ \text{valid}
     }
-    \qquad
+    \quad
     \infer[\orrtwo]{T \mid \Gamma \vdash^{\tE?}_{\F} A \lor B}{
       T \mid \Gamma^{\circ} \vdash^{l}_{\RI} B
       &
       l \ \text{valid}
     }
-    }
-    \\[6pt]
-    \multicolumn{2}{c}{
-    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tL?}_{\F} P}{A \mid \Gamma^{\circ} \vdash_{\LI} P}
-    \qquad
-    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tR?}_{\F} P}{B \mid \Gamma^{\circ} \vdash_{\LI} P}
     }
     \\[6pt]
     \multicolumn{2}{c}{
@@ -1922,28 +1921,29 @@ Here are the inference rules of the focused sequent calculus including linear im
     }
   \end{array}
 \end{equation*}
-Here $P$ again indicates a non-negative formula, which now means that its principal connective is not $\land$ nor $\lolli$. Notation $\Gamma^{\bullet}$ means that all the formulae in $\Gamma$ are tagged, while $\Gamma^{\circ}$ indicates that all the tags on formulae in $\Gamma$ have been erased. We write $A^{\bullet?}$ to denote $A$ if the formula appears in an untagged sequent and $A^\bullet$ if it appears in a sequent marked with list of tags.
+Again $P$ indicates a non-negative formula, which now means that its principal connective is not $\land$ nor $\lolli$. Notation $\Gamma^{\bullet}$ means that all the formulae in $\Gamma$ are tagged, while $\Gamma^{\circ}$ indicates that all the tags on formulae in $\Gamma$ have been erased. We write $A^{\bullet?}$ to denote $A$ if the formula appears in an untagged sequent and $A^\bullet$ if it appears in a sequent marked with list of tags.
 
-Tags of the form $ \Gamma$ are used to record different splitting of the context in applications of $\lleft$, while tag $\bullet$ is used to mark when rule $\lleft$ sends tagged formulae to the left premise and when rule $\pass$ moves a tagged formula to the stoup.
-
-
-We discuss some key differences with (\ref{eq:focus}).
-\begin{itemize}
+Tags of the form $ \Gamma$ are used to record different splitting of context in applications of $\lleft$, while tag $\bullet$ is marks when rule $\lleft$ sends tagged formulae to the left premise and when rule $\pass$ moves a tagged formula to the stoup.
+%We discuss some key differences with (\ref{eq:focus}).
+%\begin{itemize}
 %  \item The positive formula $P$ now means that $P$ is not in the form of $\land$ nor $\lolli$. $A^{\bullet}$ means that $A$ is tagged and $\Gamma^{\bullet}$ means that all the formula occurrences in $\Gamma$ are tagged. $\Gamma^{\circ}$ means that all the tags of the formula occurrences in $\Gamma$ are erased.
-\item Rule $\lright$ is new, and it moves formulae from the succedent to the context. If the conclusion of $\lright$ is $S \mid \Gamma \vdash^{l}_{\RI} A \lolli B$, so the sequent is marked by a list of tags $l$, then $A$ in the premise is a new formula in context and it is tagged with $\bullet$.
-\item The side condition in the rule $\pass$ should be read as follows.
-If $A$ is untagged, then the sequent is either untagged (so there is no $t$) or the tag $t$ is equal to $\tP$.
-If $A$ is tagged, then $t = \bullet$.
-It is crucial to determine whether $A$ is tagged or not.
-If $A$ is tagged, then it must have been moved to the context using $\lright$.
-If $A$ is untagged and $t = \tP$, then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$, and $l$ could be valid because of another branch performing a phase $\F$ rule distinct from $\pass$.
-% \niccolo{Talk about the difference in passivation}
-\item The side condition in rule $\lleft$ should be read as follows. If $\Delta$ is empty, then the sequent is either untagged or the tag $t$ is equal to $ \Gamma$. If $\Delta$ is non-empty, then $t = \bullet$.
-Checking whether $\Delta$ is empty or not is crucial here. If it is non-empty, then $\Delta^\bullet$ contains at least one tagged formula, which must have appeared in context from an application of $\lright$. If $\Delta$ is empty and $t = \Gamma$, no new (meaning tagged with $\bullet$) formula is moved to the left premise. If $t = \Gamma$ then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$, and $l$ could be valid because of a different branch where $\lleft$ is also applied but the context has been split differently (so its tag would be $ \Gamma'$ for some $\Gamma \not= \Gamma'$).
+Rule $\lright$  moves formulae from the succedent to the context. If its conclusion is marked by a list of tags $l$, then $A$ in the premise is a new formula in context and it is tagged with $\bullet$.
+%\item The side condition in the rule $\pass$ should be read as follows.
+%If $A$ is untagged, then the sequent is either untagged (so there is no $t$) or the tag $t$ is equal to $\tP$.
+%If $A$ is tagged, then $t = \bullet$.
+%It is crucial to determine whether $A$ is tagged or not.
+%If $A$ is tagged, then it must have been moved to the context using $\lright$.
+%If $A$ is untagged and $t = \tP$, then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$, and $l$ could be valid because of another branch performing a phase $\F$ rule distinct from $\pass$.
+
+The side condition in rule $\lleft$ should be read as follows. If $\Delta$ is empty, then the sequent is either untagged or the tag $t$ is equal to $ \Gamma$. If $\Delta$ is non-empty, then $t = \bullet$. In particular,
+%Checking whether $\Delta$ is empty or not is crucial here. If it is non-empty, then
+$\Delta^\bullet$ contains at least one tagged formula, which must have appeared in context from an application of $\lright$. If $\Delta$ is empty and $t = \Gamma$, no new (meaning tagged with $\bullet$) formula is moved to the left premise. If $t = \Gamma$ then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$, and $l$ could be valid because of a different branch where $\lleft$ is also applied but the context has been split differently (so its tag would be $ \Gamma'$ for some $\Gamma \not= \Gamma'$).
+
+Rule $\pass$ has a similar side condition to $\lleft$. If $A$ does not have a tag, then the sequent is also untagged (so there is no $t$) or the tag $t$ is equal to $\tP$. If $A$ has tag $\bullet$, then $t$ must also be $\bullet$. In other words, if $t = \bullet$ then the formula that moves to the stoup must also be tagged with $\bullet$, i.e. must have been added to the context by an application of $\lright$.
 %  The inhabited or non-inhabited nature of $\Delta$ is crucial because if there is any formula occurrence in $\Delta$, then it indicates that there is an application of a right non-invertible rule before $\lleft$ and the order of rule applications is guaranteed due to the new formula occurrences in $\Delta$.
 %  If $\Delta$ is empty, then either there is no application of right non-invertible rule before or there is an application of a right non-invertible rule before $\lleft$ is but there is no formula moved to the context via $\lright$.
 %  In the latter case, tags are used to record the splitting of contexts.
-\end{itemize}
+%\end{itemize}
 
 We can reconstruct the derivation in (\ref{eq:ex:lleft:NonDeter}) within the focused sequent calculus in (\ref{eq:focus:impl}).
 \begin{displaymath}\small
@@ -2001,7 +2001,7 @@ We can reconstruct the derivation in (\ref{eq:ex:lleft:NonDeter}) within the foc
     }
   }
 \end{displaymath}
-The proofs with tags of the derivations in (\ref{eq:counterexample1}) can be found in \cite{UVW:protsn}.
+%The proofs with tags of the derivations in (\ref{eq:counterexample1}) can be found in \cite{UVW:protsn}.
 % In this case $[0 , 1]$ is a valid list.
 %On the other hand, the bottom derivation in (\ref{eq:ex:lleft:NonDeter}) should correspond to a derivation starting with $\lleft$, otherwise it is not a proof within (\ref{eq:focus:impl}) due to an invalid list of tags $[0 , 0]$.
 % \begin{displaymath}
@@ -2055,8 +2055,7 @@ The statement of Proposition \ref{prop:GenRightRules} for focused sequent calcul
       }
     \end{array}
   \end{displaymath}
-  generalizing $\orri^{\LI}$ and $\tr^{\LI}$, are admissible, where
-  \\
+  are admissible, where
   $\impconj{A} = [(\Gamma'_1 , A_1) , \dots , (\Gamma'_n , A_n)]$ and $\impconj{B} = [(\Gamma'_1 , B_1) , \dots , (\Gamma'_n , B_n)]$.
 \end{proposition}
 % \niccolo{Write the statement of the proposition}
