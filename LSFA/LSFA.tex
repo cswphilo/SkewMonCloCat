@@ -496,7 +496,7 @@ The construction of the functor $F$ and the proof of uniqueness proceed similarl
 \section{A Focused Sequent Calculus with Tag Annotations}\label{sec:focusing}
 When oriented from left-to-right, the equations in Figure~\ref{fig:circeq} become a  rewrite system, which is confluent with unique normal forms. Here we provide an explicit description of the proof normal forms of (\ref{eq:seqcalc}).
 %Similar to the strategy employed in \cite{UVW:protsn},
-For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure can be defined as follows. First apply right invertible rules on the sequent until the principal connective of the succedent is non-negative, then apply left invertible rules until the stoup becomes either empty or non-positive. At this point, if we do not insist on focusing on a particular formula (either in the stoup or succedent, since no rule act on formulae in context) as in Andreoli's focusing procedure~\cite{andreoli:logic:1992}, we obtain a sequent calculus with a reduced proof search space:
+For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure can be defined as follows. First apply right invertible rules on the sequent until the principal connective of the succedent is non-negative, then apply left invertible rules until the stoup becomes either empty or non-positive. At this point, if we do not insist on focusing on a particular formula (either in the stoup or succedent, since no rule act on formulae in context) as in Andreoli's focusing procedure~\cite{andreoli:logic:1992}, we obtain a sequent calculus with a reduced proof search space, that looks like this:
 \begin{equation}\label{eq:naive:focus}
   \begin{array}{lc}
     \text{(right invertible)} & %\\[-4pt] &
@@ -568,10 +568,10 @@ For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure ca
 % \niccolo{Add rules for ``naive'' focused sequent calculus here.}
 In the rules above, $P$ is a non-negative formula, i.e. its principal connective is not $\land$, and $T$ is a non-positive stoup (also called \emph{irreducible}), i.e. it is not $\I$ and its principal connective is not $\ot$ nor $\lor$.
 
-This calculus is too permissive. The same sequent $S \mid \Gamma \vdash_{\RI} A$ may have multiple derivations, which correspond to $\circeq$-related derivations in the original sequent calculus. For example, $- \mid A , \Gamma \vdash_{\RI} A' \ot B'$ and $A \land B \mid \Gamma \vdash_{\F} A' \lor B'$ have multiple proofs in this calculus..
+This calculus is too permissive. The same sequent $S \mid \Gamma \vdash_{\RI} A$ may have multiple derivations, which correspond to $\circeq$-related derivations in the original sequent calculus. This happens since certain sequents in phase $\vdash_\F$ can be alternatively proved by an application of a left non-invertible rule ($\pass$, $\andlone$ and $\andltwo$) or an application of a right non-invertible rule ($\tr$, $\orrone$ and $\orrtwo$). For example, both sequents $- \mid A , \Gamma \vdash_{\F} A' \ot B'$ and $A \land B \mid \Gamma \vdash_{\F} A' \lor B'$ have multiple distinct proofs in this calculus, but their corresponding proofs in the original calculus are $\circeq$-related.
 % \niccolo{Add a few examples of sequents here, only inline, no proof trees.}
 
-In phase $\vdash_\F$, only non-invertible rules can be applied, so the question is: how to arrange the order between non-invertible rules without causing undesired non-determinism and losing completeness with respect to the sequent calculus in (\ref{eq:seqcalc}) and its equivalence $\circeq$? Similarly to \cite{UVW:protsn}, our strategy is to prioritize left non-invertible rules over right ones, unless this does not lead to a valid derivation and the other way around is necessary.
+In phase $\vdash_\F$, only non-invertible rules can be applied, so the question is: how to arrange the order between non-invertible rules without causing undesired non-determinism and losing completeness with respect to the sequent calculus in (\ref{eq:seqcalc}) and its equivalence relation $\circeq$? Similarly to \cite{UVW:protsn}, our strategy is to prioritize left non-invertible rules over right ones, unless this does not lead to a valid derivation and the other way around is necessary.
 For example, consider the sequent $X \land Y \mid \quad \vdash_{\F} (X \land Y) \lor Z$. Proof search fails if we apply $\andli$ before $\orrone$. A valid proof is obtained only when applying $\orrone$ before $\andli$. Rule $\sw$ is an abbreviation for the application of multiple consecutive phase switching rules.
 
 
@@ -606,9 +606,9 @@ For example, consider the sequent $X \land Y \mid \quad \vdash_{\F} (X \land Y) 
     }
   \end{array}
 \end{equation}
-From a different perspective, in this example it was possible to first apply $\orrone$ since, after the application of $\andr$, different left $\land$-rules are applied to different premises. If we would have applied  the same rule $\andlone$ to both premises (imagine that $X = Y$ for this to be possible), then we could have obtained a $\circeq$-equivalent derivation by moving the application of $\andlone$ to the bottom of the proof tree. 
+In this example it was possible to first apply $\orrone$ since, after the application of $\andr$, different left $\land$-rules are applied in different branches of the proof tree. If we would have applied  the same rule $\andlone$ to both premises (imagine that $X = Y$ for this to be possible), then we could have obtained a $\circeq$-equivalent derivation by moving the application of $\andlone$ to the bottom of the proof tree. 
 
-In addition, it is possible that the two premises of $\andr$ correspond to $\circeq$-inequivalent derivations.
+It is also possible that the two premises of $\andr$ correspond to $\circeq$-inequivalent derivations.
 For example, consider the derivation of the sequent $- \mid \I \ot X \vdash_\F ((I \ot X) \land (\I \ot X)) \lor Y$: % in (\ref{eq:seqcalc}): 
 \begin{equation*}\small
   \begin{array}{c}
