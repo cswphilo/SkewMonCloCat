@@ -663,9 +663,9 @@ the right non-invertible rule $\orrone$ must be applied before the left non-inve
 %Note that following each right non-invertible rule, we should decompose succedents using right invertible rules.
 %In this case, there is only one right invertible rule, $\andr$ which would create two premises when applied and eventually lead to an application of a right non-invertible rule.
 In general, a right non-invertible rule should be applied  before a left non-invertible one if, after the possible application of some $\andr$ rules, either:
-$(i)$ $\andlone$ and $\andltwo$ are applied to different premises;
+$(i)$ a right non-invertible rule or the $\ax$ rule is applied to one of the premises;
 %$(ii)$ $\pass$ and $\F 2 \Pass$ are applied to different premises;
-$(ii)$ a right non-invertible rule or the $\ax$ rule is applied to one of the premises.
+$(ii)$ $\andlone$ and $\andltwo$ are applied to different premises.
 %\niccolo{Question: If there is no phase $\Pass$, do we actually need a tag $\tP$?}
 Therefore, we have to make sure that, after the application of a right non-invertible rule, not all premises use the same left non-invertible rule, because in this case the latter rule could be applied first.
 
@@ -822,7 +822,7 @@ Completeness follows from the fact that the following rules are all admissible:
       \quad
       \infer[\tl^{\RI}]{A \ot B \mid \Gamma \vdash_{\RI} C}{A \mid B, \Gamma \vdash_{\RI} C}
       \quad
-      \infer[\pass^{\RI}]{{-} \mid \Gamma \vdash_{\RI} C}{A \mid \Gamma \vdash_{\RI} C}
+      \infer[\pass^{\RI}]{{-} \mid A , \Gamma \vdash_{\RI} C}{A \mid \Gamma \vdash_{\RI} C}
       \quad
       \infer[\ax^{\RI}]{A \mid \quad \vdash_{\RI} A}{}
       \quad
@@ -904,7 +904,7 @@ The first one shows that applying several $\andr$ in one step is admissible.
   Let $fs : [T \mid \Gamma \vdash^{t_i}_{\F} A_i]_i$. The proof proceeds by induction on $A$.
   \begin{itemize}
     \item If $A \neq A' \land B'$, then we have $fs = [ f ]$ and $\andr^*_{t} \text{ } fs = \F 2 \LI \text{ } (\LI 2 \RI \text{ } f)$.
-    \item If $A = A' \land B'$, then there exist $fs_1 : [T \mid \Gamma \vdash^{t_i}_{\F} A'_i]_{i \in [1 , \dots , m]}$, $l_1 = t_1 , \dots , t_n$, $fs_2 : [T \mid \Gamma \vdash^{t_i}_{\F} B'_i]_{i \in [m+1 , \dots , n]}$, and $l_2 = t_{m+1} , \dots , t_n$ where $fs$ is the concatenation of $fs_1$ and $fs_2$ and $l$ is the concatenation of $l_1 $ and $l_2$.
+    \item If $A = A' \land B'$, then there exists $fs_1 : [T \mid \Gamma \vdash^{t_i}_{\F} A'_i]_{i \in [1 , \dots , m]}$, $l_1 = t_1 , \dots , t_m$, $fs_2 : [T \mid \Gamma \vdash^{t_i}_{\F} B'_i]_{i \in [m+1 , \dots , n]}$, and $l_2 = t_{m+1} , \dots , t_n$ where $fs$ is the concatenation of $fs_1$ and $fs_2$ and $l$ is the concatenation of $l_1 $ and $l_2$.
     We apply $\andr$ at the bottom then proceed recursively:
     \begin{displaymath}
       \small
@@ -944,7 +944,7 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
   The proof proceeds by structural induction on $f : S \mid \Gamma \vdash_{\RI} A$.
   \begin{itemize}
     \item If $f = \LI2 \RI \text{ } f_1$, then $A$ is non-negative and $fs$ is the singleton $f_1$.
-    \item If $f = \and(f_1, f_2)$, then by inductive hypothesis we have $fs_1 : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$ and $fs_2 : [S \mid \Gamma \vdash_{\LI} B_i]_{i \in [1 , \dots , m]}$. Take $fs$ as the concatenation of $fs_1$ and $fs_2$.
+    \item If $f = \andr \ (f_1, f_2)$, then by inductive hypothesis we have $fs_1 : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$ and $fs_2 : [S \mid \Gamma \vdash_{\LI} B_i]_{i \in [1 , \dots , m]}$. Take $fs$ as the concatenation of $fs_1$ and $fs_2$.
   \end{itemize}
 \end{proof}
 
@@ -952,15 +952,15 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
   The following rules
   \begin{displaymath}
     \begin{array}{c}
-      \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
+      \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\RI} A \lor B}{
         \deduce{[S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
       }
       \quad
-      \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
+      \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\RI} A \lor B}{
         \deduce{[S \mid \Gamma \vdash_{\LI} B_i]_{i \in [1 , \dots , n]}}{fs}
       }
       \quad
-      \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} A \ot B'}{
+      \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\RI} A \ot B'}{
         \deduce{[S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
         &
         - \mid \Delta \vdash_{\RI} B'
@@ -1125,6 +1125,27 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
   %   \end{itemize} 
   % \end{itemize}
 \end{proof}
+Finally, a right non-invertible rule in $\RI$ is defined as follows: we invert its premise (for $\tr^{\RI}$, only the left premise), and then we apply the corresponding generalized version.
+% For example:
+% \begin{displaymath}
+%   \begin{array}{c}
+%     \proofbox{
+%       \infer[\orrone^{\RI}]{S \mid \Gamma \vdash_{\RI} A \lor B}{
+%         \deduce{S \mid \Gamma \vdash_{\RI} A}{f}
+%         }
+%     }
+%     \qquad
+%     =
+%     \qquad
+%     \proofbox{
+%       \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\RI} A \lor B}{
+%         \deduce{[S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
+%       }
+%     }
+%   \end{array}
+% \end{displaymath}
+% where $f = \andr^{*} fs$
+
 We can construct a function $\mathsf{focus} : S \mid \Gamma \vdash A \to S \mid \Gamma \vdash_{\RI} A$ which replaces applications of each rule in (\ref{eq:seqcalc}) within a derivation by the corresponding admissible rule in (\ref{eq:admis}).
 For example, $\mathsf{focus} \ (\orrone \ f) = \orrone^{\RI} \ (\mathsf{focus} \ f)$. Furthermore, it can be shown that $\mathsf{emb}_{\RI}$ and $\mathsf{focus}$ are each other inverses, in the sense made precise by the following theorem.
 \begin{theorem}
@@ -1935,11 +1956,11 @@ Rule $\lright$  moves formulae from the succedent to the context. If its conclus
 %If $A$ is tagged, then it must have been moved to the context using $\lright$.
 %If $A$ is untagged and $t = \tP$, then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$, and $l$ could be valid because of another branch performing a phase $\F$ rule distinct from $\pass$.
 
-The side condition in rule $\lleft$ should be read as follows. If $\Delta$ is empty, then the sequent is either untagged or the tag $t$ is equal to $ \Gamma$. If $\Delta$ is non-empty, then $t = \bullet$. In particular,
+The side condition in rule $\lleft$ should be read as follows. If $\Delta$ is empty, then the sequent is either untagged (so there is no $t$) or the tag $t$ is equal to $ \Gamma$. If $\Delta$ is non-empty, then $t = \bullet$. In particular,
 %Checking whether $\Delta$ is empty or not is crucial here. If it is non-empty, then
 $\Delta^\bullet$ contains at least one tagged formula, which must have appeared in context from an application of $\lright$. If $\Delta$ is empty and $t = \Gamma$, no new (meaning tagged with $\bullet$) formula is moved to the left premise. If $t = \Gamma$ then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$, and $l$ could be valid because of a different branch where $\lleft$ is also applied but the context has been split differently (so its tag would be $ \Gamma'$ for some $\Gamma \not= \Gamma'$).
 
-Rule $\pass$ has a similar side condition to $\lleft$. If $A$ does not have a tag, then the sequent is also untagged (so there is no $t$) or the tag $t$ is equal to $\tP$. If $A$ has tag $\bullet$, then $t$ must also be $\bullet$. In other words, if $t = \bullet$ then the formula that moves to the stoup must also be tagged with $\bullet$, i.e. must have been added to the context by an application of $\lright$.
+Rule $\pass$ has a similar side condition to $\lleft$. If $A$ does not have a tag, then the sequent is also untagged or the tag $t$ is equal to $\tP$. If $A$ has tag $\bullet$, then $t$ must also be $\bullet$. In other words, if $t = \bullet$ then the formula that moves to the stoup must also be tagged with $\bullet$, i.e. must have been added to the context by an application of $\lright$.
 %  The inhabited or non-inhabited nature of $\Delta$ is crucial because if there is any formula occurrence in $\Delta$, then it indicates that there is an application of a right non-invertible rule before $\lleft$ and the order of rule applications is guaranteed due to the new formula occurrences in $\Delta$.
 %  If $\Delta$ is empty, then either there is no application of right non-invertible rule before or there is an application of a right non-invertible rule before $\lleft$ is but there is no formula moved to the context via $\lright$.
 %  In the latter case, tags are used to record the splitting of contexts.
@@ -2040,15 +2061,15 @@ The statement of Proposition \ref{prop:GenRightRules} for focused sequent calcul
   The following rules
   \begin{displaymath}
     \begin{array}{c}
-      \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
+      \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\RI} A \lor B}{
         \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
       }
       \quad
-      \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
+      \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\RI} A \lor B}{
         \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} B_i]_{i \in [1 , \dots , n]}}{fs}
       }
       \\
-      \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} A \ot B'}{
+      \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\RI} A \ot B'}{
         \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
         &
         - \mid \Delta \vdash_{\RI} B'
