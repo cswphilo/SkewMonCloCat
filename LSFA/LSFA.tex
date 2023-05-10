@@ -364,9 +364,10 @@ We introduce a congruence relation $\circeq$ on the sets of cut-free derivations
     \\
     \tr \text{ } (\tl \text{ } f, g) &\circeq \tl \text{ } (\tr \text{ } (f , g)) &&(f : A' \mid B' , \Gamma \vdash A , g : {-} \mid \Delta \vdash B)
     \\
-    \tr \ (\andlone \ f , g) &\circeq \andlone \ (\tr \ (f , g)) &&(f : A' \mid \Gamma \vdash A, g : - \mid \Delta \vdash B)
-    \\
-    \tr \ (\andltwo \ f , g) &\circeq \andltwo \ (\tr \ (f , g)) &&(f : B' \mid \Gamma \vdash A, g : - \mid \Delta \vdash B)
+    \tr \ (\andli \ f , g) &\circeq \andli \ (\tr \ (f , g)) &&(f : A' \mid \Gamma \vdash A, g : - \mid \Delta \vdash B)
+    % \tr \ (\andlone \ f , g) &\circeq \andlone \ (\tr \ (f , g)) &&(f : A' \mid \Gamma \vdash A, g : - \mid \Delta \vdash B)
+    % \\
+    % \tr \ (\andltwo \ f , g) &\circeq \andltwo \ (\tr \ (f , g)) &&(f : B' \mid \Gamma \vdash A, g : - \mid \Delta \vdash B)
     \\
     \tr \ (\orl \ (f_1 , f_2) , g) &\circeq \orl \ (\tr \ (f_1 , g) , \tr \ (f_2 , g)) &&(f_1 : A' \mid \Gamma \vdash A , f_2 : B' \mid \Gamma \vdash A , \\
     & && \;\;g : - \mid \Delta \vdash B)
@@ -377,37 +378,44 @@ We introduce a congruence relation $\circeq$ on the sets of cut-free derivations
     \\
     \tl \ (\andr \ (f , g)) &\circeq  \andr \ (\tl \ f , \tl \ g) &&(f : A' \mid B' , \Gamma \vdash A , g : A' \mid B' , \Gamma \vdash B)
     \\
-    \andlone \ (\andr \ (f , g)) &\circeq  \andr \ (\andlone \ f , \andlone \ g) &&(f : A' \mid \Gamma \vdash A , g : A' \mid \Gamma \vdash B)
+    \andli \ (\andr \ (f , g)) &\circeq  \andr \ (\andli \ f , \andli \ g) &&(f : A' \mid \Gamma \vdash A , g : A' \mid \Gamma \vdash B)
+    % \andlone \ (\andr \ (f , g)) &\circeq  \andr \ (\andlone \ f , \andlone \ g) &&(f : A' \mid \Gamma \vdash A , g : A' \mid \Gamma \vdash B)
     \\
-    \andltwo \ (\andr \ (f , g)) &\circeq \andr \ (\andltwo \ f , \andltwo \ g)&&(f : B' \mid \Gamma \vdash A , g : B' \mid \Gamma \vdash B)
-    \\
+    % \andltwo \ (\andr \ (f , g)) &\circeq \andr \ (\andltwo \ f , \andltwo \ g)&&(f : B' \mid \Gamma \vdash A , g : B' \mid \Gamma \vdash B)
+    % \\
     \orl \ (\andr \ (f_1 , g_1) , \andr \ (f_2 , g_2)) &\circeq  \andr \ (\orl \ (f_1 , f_2) , \orl \ (g_1 , g_2)) &&(f_1 : A' \mid \Gamma \vdash A , f_2 : B' \mid \Gamma \vdash A , 
     \\
     & &&\;\;g_1 : A' \mid \Gamma \vdash B , g_2 : B' \mid \Gamma \vdash B)
     \\
-    \orrone \ (\pass \ f) &\circeq \pass \ (\orrone \ f) &&(f : A' \mid \Gamma \vdash A)
+    \orri \ (\pass \ f) &\circeq \pass \ (\orri \ f) &&(f : A' \mid \Gamma \vdash A)
+    % \orrone \ (\pass \ f) &\circeq \pass \ (\orrone \ f) &&(f : A' \mid \Gamma \vdash A)
     \\
-    \orrone \ (\unitl \ f) &\circeq \unitl \ (\orrone \ f) &&(f : - \mid \Gamma \vdash A)
+    \orri \ (\unitl \ f) &\circeq \unitl \ (\orri \ f) &&(f : - \mid \Gamma \vdash A)
+    % \orrone \ (\unitl \ f) &\circeq \unitl \ (\orrone \ f) &&(f : - \mid \Gamma \vdash A)
     \\
-    \orrone \ (\tl \ f) &\circeq \tl \ (\orrone \ f) &&(f : A' \mid B' , \Gamma \vdash A)
+    \orri \ (\tl \ f) &\circeq \tl \ (\orri \ f) &&(f : A' \mid B' , \Gamma \vdash A)
+    % \orrone \ (\tl \ f) &\circeq \tl \ (\orrone \ f) &&(f : A' \mid B' , \Gamma \vdash A)
     \\
-    \orrone \ (\andlone \ f) &\circeq \andlone \ (\orrone \ f) &&(f : A' \mid \Gamma \vdash A)
+    \orri \ (\andlone \ f) &\circeq \andlone \ (\orri \ f) &&(f : A' \mid \Gamma \vdash A)
+    % \orrone \ (\andlone \ f) &\circeq \andlone \ (\orrone \ f) &&(f : A' \mid \Gamma \vdash A)
     \\
-    \orrone \ (\andltwo \ f) &\circeq \andltwo \ (\orrone \ f) &&(f : B' \mid \Gamma \vdash A)
+    \orri \ (\andltwo \ f) &\circeq \andltwo \ (\orri \ f) &&(f : B' \mid \Gamma \vdash A)
+    % \orrone \ (\andltwo \ f) &\circeq \andltwo \ (\orrone \ f) &&(f : B' \mid \Gamma \vdash A)
     \\
-    \orrone \ (\orl \ (f , g)) &\circeq \orl \ (\orrone \ f , \orrone \ g) &&(f : A' \mid \Gamma \vdash A , g : B' \mid \Gamma \vdash A)
-    \\
-    \orrtwo \ (\pass \ f) &\circeq \pass \ (\orrtwo \ f) &&(f : A' \mid \Gamma \vdash B)
-    \\
-    \orrtwo \ (\unitl \ f) &\circeq \unitl \ (\orrtwo \ f) &&(f : - \mid \Gamma \vdash B)
-    \\
-    \orrtwo \ (\tl \ f) &\circeq \tl \ (\orrtwo \ f) &&(f : A' \mid B' , \Gamma \vdash B)
-    \\
-    \orrtwo \ (\andlone \ f) &\circeq \andlone \ (\orrtwo \ f) &&(f : A' \mid \Gamma \vdash B)
-    \\
-    \orrtwo \ (\andltwo \ f) &\circeq \andltwo \ (\orrtwo \ f) &&(f : B' \mid \Gamma \vdash B)
-    \\
-    \orrtwo \ (\orl \ (f , g)) &\circeq \orl \ (\orrtwo \ f , \orrtwo \ g) &&(f : A' \mid \Gamma \vdash B , g : B' \mid \Gamma \vdash B)
+    \orri \ (\orl \ (f , g)) &\circeq \orl \ (\orri \ f , \orri \ g) &&(f : A' \mid \Gamma \vdash A , g : B' \mid \Gamma \vdash A)
+    % \orrone \ (\orl \ (f , g)) &\circeq \orl \ (\orrone \ f , \orrone \ g) &&(f : A' \mid \Gamma \vdash A , g : B' \mid \Gamma \vdash A)
+    % \\
+    % \orrtwo \ (\pass \ f) &\circeq \pass \ (\orrtwo \ f) &&(f : A' \mid \Gamma \vdash B)
+    % \\
+    % \orrtwo \ (\unitl \ f) &\circeq \unitl \ (\orrtwo \ f) &&(f : - \mid \Gamma \vdash B)
+    % \\
+    % \orrtwo \ (\tl \ f) &\circeq \tl \ (\orrtwo \ f) &&(f : A' \mid B' , \Gamma \vdash B)
+    % \\
+    % \orrtwo \ (\andlone \ f) &\circeq \andlone \ (\orrtwo \ f) &&(f : A' \mid \Gamma \vdash B)
+    % \\
+    % \orrtwo \ (\andltwo \ f) &\circeq \andltwo \ (\orrtwo \ f) &&(f : B' \mid \Gamma \vdash B)
+    % \\
+    % \orrtwo \ (\orl \ (f , g)) &\circeq \orl \ (\orrtwo \ f , \orrtwo \ g) &&(f : A' \mid \Gamma \vdash B , g : B' \mid \Gamma \vdash B)
   \end{array}
   \end{equation*}
   \caption{Equivalence of sequent calculus derivations.}
@@ -1354,17 +1362,19 @@ Note that exchanging the formula in the stoup, whenever the latter is non-empty,
   % \\
   % \tr \text{ } (f , \ex_{A , B}  g) &\circeq & \ex_{A , B}  (\tr \text{ } (f , g)) &&f : S \mid \Gamma \vdash A', \\ & & && g : {-} \mid \Delta_0 , A , B , \Delta_1 \vdash B'
   % \\
-  \andlone \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\andlone \ f) &&(f : A' \mid \Gamma , A , B , \Delta \vdash C)
-  \\
-  \andltwo \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\andltwo \ f) &&(f : B' \mid \Gamma , A , B , \Delta \vdash C)
+  \andli \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\andli \ f) &&(f : A' \mid \Gamma , A , B , \Delta \vdash C)
+  % \andlone \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\andlone \ f) &&(f : A' \mid \Gamma , A , B , \Delta \vdash C)
+  % \\
+  % \andltwo \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\andltwo \ f) &&(f : B' \mid \Gamma , A , B , \Delta \vdash C)
   \\
   \andr \ (\ex_{A , B} \ f , \ex_{A , B} \ g) &\circeq &\ex_{A , B} \ (\andr \ (f , g)) &&(f : S \mid \Gamma , A , B , \Delta \vdash A' , g : S \mid \Gamma , A , B , \Delta \vdash B')
   \\
   \orl \ (\ex_{A , B} \ f , \ex_{A , B} \ g) &\circeq &\ex_{A , B} \ (\orl \ (f , g)) &&(f : A' \mid \Gamma , A , B , \Delta \vdash C ,  g : B' \mid \Gamma , A , B , \Delta \vdash C)
   \\
-  \orrone \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\orrone \ f) &&(f : S \mid \Gamma , A , B \vdash A')
-  \\
-  \orrtwo \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\orrtwo \ f) &&(f : S \mid \Gamma , A , B \vdash B')
+  \orri \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\orri \ f) &&(f : S \mid \Gamma , A , B \vdash A')
+  % \orrone \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\orrone \ f) &&(f : S \mid \Gamma , A , B \vdash A')
+  % \\
+  % \orrtwo \ (\ex_{A , B} \ f) &\circeq &\ex_{A , B} \ (\orrtwo \ f) &&(f : S \mid \Gamma , A , B \vdash B')
   \\
   \ex_{A , B}  (\ex_{A' , B'}  f) &\circeq & \ex_{A' , B'}  (\ex_{A , B}  f) &&(f: S \mid \Gamma , A , B , \Delta , A' , B' , \Lambda \vdash C)
 \end{array}
@@ -1628,23 +1638,25 @@ The presence of $\lolli$ requires the extension of the congruence relation $\cir
   \\
   \tr \text{ } (\lleft \text{ } (f , g), h) & \circeq \lleft \text{ } (f, \tr \text{ } (g, h)) &&(f: {-} \mid \Gamma \vdash A, g : B \mid \Delta \vdash C, h : {-} \mid \Lambda \vdash D)
   \\
-  \lright \text{ } (\pass \text{ } f) &\circeq \pass \text{ } (\lright \text{ } f) &&(f : A' \mid \Gamma , A \vdash B)
+  \pass \text{ } (\lright \text{ } f) &\circeq  \lright \text{ } (\pass \text{ } f) &&(f : A' \mid \Gamma , A \vdash B)
   \\
-  \lright \text{ } (\unitl \text{ } f) &\circeq \unitl \text{ } (\lright \text{ } f) &&(f : {-} \mid \Gamma , A \vdash B)
+  \unitl \text{ } (\lright \text{ } f) &\circeq \lright \text{ } (\unitl \text{ } f) &&(f : {-} \mid \Gamma , A \vdash B)
   \\
-  \lright \text{ } (\tl \text{ } f) &\circeq \tl \text{ } (\lright \text{ } f) &&(f : A \mid B , \Gamma , C \vdash D)
+  \tl \text{ } (\lright \text{ } f) &\circeq \lright \text{ } (\tl \text{ } f) &&(f : A \mid B , \Gamma , C \vdash D)
   \\
-  \lright \text{ } (\lleft \text{ } (f, g)) &\circeq \lleft \text{ } (f, \lright \text{ } g) &&(f : {-} \mid \Gamma \vdash A', g : B' \mid \Delta , A \vdash B)
+  \lleft \text{ } (f, \lright \text{ } g) &\circeq \lright \text{ } (\lleft \text{ } (f, g)) &&(f : {-} \mid \Gamma \vdash A', g : B' \mid \Delta , A \vdash B)
   \\
-  \lright \ (\andlone \ f) &\circeq \andlone \ (\lright \ f) &&(f : A' \mid \Gamma , A \vdash B)
+  \andli \ (\lright \ f) &\circeq \lright \ (\andli \ f) &&(f : A' \mid \Gamma , A \vdash B)
+  % \andlone \ (\lright \ f) &\circeq \lright \ (\andlone \ f) &&(f : A' \mid \Gamma , A \vdash B)
+  % \\
+  % \lright \ (\andltwo \ f) &\circeq \andltwo \ (\lright \ f) &&(f : B' \mid \Gamma , A \vdash B)
   \\
-  \lright \ (\andltwo \ f) &\circeq \andltwo \ (\lright \ f) &&(f : B' \mid \Gamma , A \vdash B)
+  \orl \ (\lright \ f , \lright \ g) &\circeq \lright \ (\orl \ (f ,g)) &&(f : A' \mid \Gamma , A \vdash B , g : B' \mid \Gamma , A \vdash B)
   \\
-  \lright \ (\orl \ (f ,g)) &\circeq \orl \ (\lright \ f , \lright \ g) &&(f : A' \mid \Gamma , A \vdash B , g : B' \mid \Gamma , A \vdash B)
-  \\
-  \orrone \ (\lleft \  (f , g)) &\circeq \lleft \ (f , \orrone \ g) &&(f : - \mid \Gamma \vdash A , g : B \mid \Delta \vdash A')
-  \\
-  \orrtwo \ (\lleft \  (f , g)) &\circeq \lleft \ (f , \orrtwo \ g) &&(f : - \mid \Gamma \vdash A , g : B \mid \Delta \vdash B')
+  \orri \ (\lleft \  (f , g)) &\circeq \lleft \ (f , \orri \ g) &&(f : - \mid \Gamma \vdash A , g : B \mid \Delta \vdash A')
+  % \orrone \ (\lleft \  (f , g)) &\circeq \lleft \ (f , \orrone \ g) &&(f : - \mid \Gamma \vdash A , g : B \mid \Delta \vdash A')
+  % \\
+  % \orrtwo \ (\lleft \  (f , g)) &\circeq \lleft \ (f , \orrtwo \ g) &&(f : - \mid \Gamma \vdash A , g : B \mid \Delta \vdash B')
   \end{array}
 \end{equation*}
 
