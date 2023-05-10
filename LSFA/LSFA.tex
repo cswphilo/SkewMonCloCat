@@ -1956,7 +1956,7 @@ Here are the inference rules of the focused sequent calculus with linear implica
     }
     \\[6pt]
     \multicolumn{2}{c}{
-      \infer[\lleft]{A \lolli B \mid \Gamma , \Delta^{\bullet} , \Lambda^{\bullet} \vdash^{t?}_{\F} P}{
+      \infer[\lleft]{A \lolli B \mid \Gamma , \Delta^{\bullet} , \Lambda^{\bullet?} \vdash^{t?}_{\F} P}{
         - \mid \Gamma , \Delta^{\circ} \vdash_{\RI} A
         &
         B \mid \Lambda^{\circ} \vdash_{\LI} P
@@ -2081,8 +2081,10 @@ Proving completeness of the extended focused sequent calculus is more involved t
     \impconj{A} &= ([\ ] , A) &\text{otherwise}
   \end{array}
 \end{displaymath}
+For example, $\impconj{A \lolli (B \lolli (X \land (C \lor D) \land (Y \lolli Z)))} = [([A , B] , X) , ([A , B] , C \lor D) , ([A , B , Y] , Z)]$.
 % $\impconj{A} = \impconj{A'} , \impconj{B'}$ if $A = A' \land B'$, $\impconj{A} = ([(A' , \Gamma'_1) , \dots , (A' , \Gamma'_n)] , [B_1 , \dots , B_n])$ if $A = A' \lolli B'$ and $\impconj{B} = ([\Gamma'_1 , \dots , \Gamma'_n] , [B_1 , \dots , B_n])$ and $\impconj{A} = ([\ ] , A)$ otherwise.
 % \niccolo{give definition}.
+
 The statement of Proposition \ref{prop:GenRightRules} for the focused sequent calculus in (\ref{eq:focus:impl}) then becomes:
 \begin{proposition}\label{prop:GenRightRules:impl}
   The following rules
@@ -2123,7 +2125,8 @@ This paper takes one step further in a large project aiming at modular analysis 
 
 
 \paragraph{Acknowledgements}
-This work was supported by the Estonian Research Council grant PSG749 and the ESF funded Estonian IT Academy research measure (project 2014-2020.4.05.19-0001). Wan was partially supported by  COST CA19135 - Connecting Education and Research Communities for an Innovative Resource Aware Society.
+This work was supported by the Estonian Research Council grant PSG749 and the ESF funded Estonian IT Academy research measure (project 2014-2020.4.05.19-0001). 
+% Wan was partially supported by  COST CA19135 - Connecting Education and Research Communities for an Innovative Resource Aware Society.
 % N.V.\ and T.U.\ were supported by the
 % Estonian Research Council grants no. \linebreak PSG659, PSG749 and PRG1210, N.V.\ and
 % C.-S.W.\ by the ESF funded Estonian IT Academy research measure
