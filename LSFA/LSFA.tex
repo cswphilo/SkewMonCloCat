@@ -345,10 +345,11 @@ For example, the sequent $X \land Y \mid Y \lor X \vdash (X \ot Y) \lor (Y \ot X
   \end{array}
 \end{displaymath}
 
-We introduce a congruence relation $\circeq$ on the sets of cut-free derivations. The list of its generating equations is given in Figure~\ref{fig:circeq}.
-\begin{figure}[t]
+We introduce a congruence relation $\circeq$ on the sets of cut-free derivations:
+%The list of its generating equations is given in Figure~\ref{fig:circeq}.
+%\begin{figure}[t]
+  \begin{equation*}\label{fig:circeq}
   \small
-  \begin{equation*}
   \begin{array}{rlll}
     \ax_{\I} &\circeq \unitl \text{ } (\unitr)
     \\
@@ -418,9 +419,8 @@ We introduce a congruence relation $\circeq$ on the sets of cut-free derivations
     % \orrtwo \ (\orl \ (f , g)) &\circeq \orl \ (\orrtwo \ f , \orrtwo \ g) &&(f : A' \mid \Gamma \vdash B , g : B' \mid \Gamma \vdash B)
   \end{array}
   \end{equation*}
-  \caption{Equivalence of sequent calculus derivations.}
-    \label{fig:circeq}
-\end{figure}
+%  \caption{Equivalence of sequent calculus derivations.}
+%\end{figure}
 The first four equations ($\eta$-conversions) characterize the $\ax$ rule for non-atomic formulae. The remaining equations are permutative conversions. The congruence $\circeq$ has been carefully chosen to serve as the proof-theoretic counterpart of the equational theory of certain categories with skew structure, which we introduce in the next section.
   % , introduced in Definition \ref{def:skewcat}. The subsystem of equations involving only $(\I,\ot)$ originated in \cite{uustalu:sequent:2021} while the subsystem involving only $\lolli$ is from \cite{uustalu:deductive:nodate}.
 
@@ -502,7 +502,7 @@ such category on the set $\mathsf{At}$.
 The construction of the functor $F$ and the proof of uniqueness proceed similarly to the proofs of Theorems 3.1 and 3.2 in \cite{UVW:protsn}.
 
 \section{A Focused Sequent Calculus with Tag Annotations}\label{sec:focusing}
-When oriented from left-to-right, the equations in Figure~\ref{fig:circeq} become a  rewrite system, which is confluent with unique normal forms. Here we provide an explicit description of the proof normal forms of (\ref{eq:seqcalc}).
+When oriented from left-to-right, the equations in (\ref{fig:circeq}) become a  rewrite system, which is confluent with unique normal forms. Here we provide an explicit description of the proof normal forms of (\ref{eq:seqcalc}).
 %Similar to the strategy employed in \cite{UVW:protsn},
 For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure can be defined as follows. First apply right invertible rules on the sequent until the principal connective of the succedent is non-negative, then apply left invertible rules until the stoup becomes either empty or non-positive. At this point, if we do not insist on focusing on a particular formula (either in the stoup or succedent, since no rule act on formulae in context) as in Andreoli's focusing procedure~\cite{andreoli:logic:1992}, we obtain a sequent calculus with a reduced proof search space, that looks like this:
 \begin{equation}\label{eq:naive:focus}
@@ -666,7 +666,7 @@ For example, consider the derivation of the sequent $- \mid \I \ot X \vdash_\F (
   \end{array}
 \end{equation*}
 In this case, %when doing proof search of the sequent $- \mid \I \ot X \vdash_{\F} ((\I \ot X) \land (\I \ot X)) \lor Y$ in the focused calculus,
-the right non-invertible rule $\orrone$ must be applied before the left non-invertible rule $\pass$. This is because $\pass$ is used in the proof of the left premise of $\andr$, but it is not used in the proof of the right premise, $\tr$ is used instead. If both left and write proofs would have used $\pass$, then it would have been possible to apply $\pass$ before $\orrone$.
+the right non-invertible rule $\orrone$ must be applied before the left non-invertible rule $\pass$. This is because $\pass$ is used in the proof of the left branch of $\andr$, but it is not used in the proof of the right branch, $\tr$ is used instead. If both left and right proofs would have used $\pass$ (for example, they could have been the same exact proof), then it would have been possible to apply $\pass$ before $\orrone$.
 %Therefore we need to introduce a machinery to ensure the order of rules in this kind of situations, otherwise the focused calculus will fail in being sound and complete with (\ref{eq:seqcalc}) and $\circeq$. 
 % This is because applying $\pass$ before $\orrone$ enforces two different derivations of the premises of $\andr$ to be identical.
 % \niccolo{Add another example, where the a right non-invertible rule must be applied first since in different premises passivation is appl ied/non applied.}
@@ -678,16 +678,16 @@ $(i)$ a right non-invertible rule or the $\ax$ rule is applied to one of the pre
 %$(ii)$ $\pass$ and $\F 2 \Pass$ are applied to different premises;
 $(ii)$ $\andlone$ and $\andltwo$ are applied to different premises.
 %\niccolo{Question: If there is no phase $\Pass$, do we actually need a tag $\tP$?}
-Therefore, we have to make sure that, after the application of a right non-invertible rule, not all premises use the same left non-invertible rule, because in this case the latter rule could be applied first.
+Therefore, we have to make sure that in the focused sequent calculus, after the application of a right non-invertible rule, not all premises use the same left non-invertible rule, because in this case the latter rule could be applied first.
 
 In order to keep track of this,
 %motivate when a right non-invertible rule can be applied before a left non-invertible rule during root-first proof search,
 we use a system of \emph{tag annotations} and we introduce new phases of proof search where sequents are annotated by \emph{list of tags}. 
 %to monitor the proof search process after an application of a right non-invertible rule.
-There are four tags: $\tP , \tL , \tR , \tE$. Intuitively, they respectively correspond to rules $\pass , \andlone , \andltwo$ and all the remaining non-invertible rules.
+There are four tags: $\tP , \tL , \tR , \tE$. Intuitively, they respectively correspond to rules $\pass , \andlone , \andltwo$ and all the remaining non-invertible rules in phase $\vdash_\F$.
 %In particular, right non-invertible rules will produce a valid non-empty list of tags to mark their premises (only left premise is marked in the $\tr$ case).
 %\begin{defn}\label{tag:validity}
-A list of tags $l$ is \emph{valid} if it is non-empty and either $(i)$ $\tE \in l$ or $(ii)$ both $\tL \in l$ and $\tR \in l$.
+A list of tags $l$ is called \emph{valid} if it is non-empty and either $(i)$ $\tE \in l$ or $(ii)$ both $\tL \in l$ and $\tR \in l$.
 %%  \begin{itemize}
 %%    \item there is one $\tE$ occurrence in $l$, or
 %%    \item both of $\tL$ and $\tR$ have one occurrence in $l$.
@@ -776,16 +776,16 @@ The notation $l?$ indicates that the sequent is either untagged or it is assigne
 We discuss the proof search procedures of untagged and tagged sequents separately.
 The proof search of a sequent $S \mid \Gamma \vdash_\RI A$ proceeds as follows:
 \begin{itemize}
-  \item[($\vdash_{\RI}$)] We apply the right invertible rule $\andr$ eagerly to decompose the succedent until its principal connective is not $\land$, then we move to the left invertible phase.
-  \item[($\vdash_{\LI}$)] We apply left invertible rules until the stoup becomes irreducible, then move to the focusing phase.
+  \item[($\vdash_{\RI}$)] We apply the right invertible rule $\andr$ eagerly to decompose the succedent until its principal connective is not $\land$, then we move to the left invertible phase $\vdash_\LI$ with an application of $\LI 2 \RI$.
+  \item[($\vdash_{\LI}$)] We apply left invertible rules until the stoup becomes irreducible, then move to the focusing phase $\vdash_\F$ with an application of $\F 2 \LI$.
   % \item[($\vdash_{\Pass}$)] In this phase, if the stoup is empty, then we can apply $\pass$ to move the head element of the context to stoup then go back to the left invertible phase.  If we do not (or cannot) apply $\pass$, we move to the focusing phase via $\F2 \Pass$.
-  \item[($\vdash_{\F}$)] We apply one of the remaining rules. Since the sequents are untagged, $\pass$, $\ax$ , $\unitr$ and $\andli$ can be directly applied when stoups, contexts, and succedents are of the appropriate form.
-  For the right non-invertible rules, their premises will be tagged by a valid list of tags $l$ and moved to the tagged right invertible phase ($\vdash^{l}_{\RI}$) described below. Notice that only the first premise of $\tr$ is tagged, the second premise is not, i.e. its proof search continues in phase $\vdash_{\RI}$.
+  \item[($\vdash_{\F}$)] We apply one of the remaining rules. Since the sequents are not marked by tags at this point, rules $\pass$, $\ax$ , $\unitr$ and $\andli$ can be directly applied when stoups, contexts, and succedents are of the appropriate form.
+  If we decide to apply a right non-invertible rule, we need to come up with a valid list of tags $l$ and subsequently move to the tagged right invertible phase ($\vdash^{l}_{\RI}$) described below. Notice that only the first premise of $\tr$ is tagged, the second premise is not, i.e. its proof search continues in phase $\vdash_{\RI}$.
 \end{itemize}
-The proof search of a sequent $T \mid \Gamma \vdash^{l}_\RI A$ proceeds as follows:
+The proof search of a sequent $T \mid \Gamma \vdash^{l}_\RI A$ proceeds as follows (notice that at this point in proof search the stoup $T$ is necessarily irreducible):
 \begin{itemize}
   \item[($\vdash^{l}_{\RI}$)] We apply the $\andr$ rule to decompose the succedent and separate the list of tags carefully until the succedent becomes non-negative and the list of tags becomes a singleton $t$, then we move to phase $\vdash_\LI^t$ by an application of $\LI2 \RI$.
-  \item[($\vdash^{t}_{\LI}$)] Since the stoup is either empty or a negative formula, we switch to phase $\vdash_\F$ immediately.
+  \item[($\vdash^{t}_{\LI}$)] Since the stoup is either empty or a negative formula, we immediately switch to phase $\vdash_\F$ with an application of $\F 2 \LI$.
   % \item[($\vdash^{t}_{\Pass}$)] In this phase, $\pass$ can be applied only when the stoup is empty and the conclusion sequent has the tag $\tP$. For other cases, we should move to the focusing phase directly.
   \item[($\vdash^{t}_{\F}$)] If $t = \tE$ we can apply either $\ax$, $\unitr$ or right non-invertible rules. Again, when applying right non-invertible rules we need to provide a new valid list of tags.
   Left non-invertible rules can be applied only when the tag is correct, i.e. $\pass$ with tag $\tP$, $\andlone$ with tag $\tL$, and $\andltwo$ with tag $\tR$.
