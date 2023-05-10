@@ -103,7 +103,7 @@
 
 
 
-\title{Towards Skew Non-Commutative \MILL \text{ }with Additives}
+\title{Semi-Substructural Logics with Additives}
 % \author{Tarmo Uustalu
 % \institute{Reykjavik University, Iceland}
 % \institute{Tallinn University of Technology, Estonia}
@@ -114,20 +114,20 @@ Niccol{\`o} Veltri \qquad\qquad Cheng-Syuan Wan
 \institute{Tallinn University of Technology, Estonia}
 \email{\quad niccolo@cs.ioc.ee \quad\qquad cswan@cs.ioc.ee}
 }
-\def\titlerunning{Towards Skew Non-Commutative \MILL \text{ }with Additives}
+\def\titlerunning{Semi-Substructural Logics with Additives}
 \def\authorrunning{N. Veltri \& C.-S. Wan}
 \begin{document}
 \maketitle
 \begin{abstract}
 This work concerns the proof theory of (left) skew monoidal categories and their variants (e.g. closed monoidal, symmetric monoidal), continuing the line of work initiated in recent years by Uustalu et al.
 Skew monoidal categories are a weak version of Mac Lane's monoidal categories, where the structural laws are not required to be invertible, they are merely natural transformations with a specific orientation. 
-Numerous variants of skew monoidal categories are described as sequent calculi, which can be identified as restricted substructural fragments of intuitionistic linear logic. These calculi enjoy cut elimination and admit a focusing strategy, sharing resemblance with Andreoli's normalization technique for linear logic. The focusing procedure is useful for solving the coherence problem of the considered categories with skew structure.
+Sequent calculi which can be modelled in such categories can be identified as deductive systems for restricted substructural fragments of intuitionistic linear logic. These calculi enjoy cut elimination and admit a focusing strategy, sharing resemblance with Andreoli's normalization technique for linear logic. The focusing procedure is useful for solving the coherence problem of the considered categories with skew structure.
 
 Here we investigate possible extensions of the sequent calculi of Uustalu et al. with additive connectives. 
-As a first step, we extend the sequent calculus with additive conjunction and disjunction, corresponding to studying the proof theory of skew monoidal categories with binary products and coproducts. 
+As a first step, we extend the sequent calculus with additive conjunction and disjunction, corresponding to studying the proof theory of skew monoidal categories with binary products and coproducts satisfying a left-distributivity condition. 
 We introduce a new focused sequent calculus of derivations in normal form, which employs tag annotations to reduce non-deterministic choices in bottom-up proof search.
-Apart from statements and proofs on pen and paper, we also want to formalize the focused sequent calculus and verify its correctness in the Agda proof assistant.
-We believe this to be beneficial for the development of modular normalization techniques for substructural logics arising as an extension of our sequent calculus, e.g. full Lambek calculus or intuitionistic linear logic.
+The focused sequent calculus and the proof of its correctness has been formalized in the Agda proof assistant.
+We also discuss extensions of the logic with additive units, a form of skew exchange, and linear implication.
 \end{abstract}
 
 \section{Introduction}
@@ -145,6 +145,7 @@ When studying meta-theoretic properties of these semi-structural deductive syste
 In this work we begin the investigation of  semi-substructural logics with \emph{additive connectives}. We start in Section \ref{sec:sequent-calculus} by considering a fragment of non-commutative linear logic consisting of skew multiplicative unit $\I$ and conjunction $\ot$, and additive conjunction $\land$ and disjunction $\lor$. We describe a cut-free sequent calculus and a congruence relation identifying derivations up-to $\eta$-equivalence and permutative conversions. In Section \ref{sec:categorical}, we discuss categorical semantics in terms of skew monoidal categories with binary products and coproducts. In Section \ref{sec:focusing}, we subsequently introduce a sequent calculus of proofs in normal form, again inspired by the ideas of Andreoli, which describes a sound and complete root-first proof search strategy for the original sequent calculus. Completeness is achieved by marking sequents with lists of \emph{tags}, a mechanism introduced by Uustalu et al. \cite{UVW:protsn} and inspired by Scherer and R{\'e}my's saturation technique \cite{scherer:simple:2015}, which helps to  eliminate completely all unnecessary non-determinism in proof search and faithfully capture normal forms wrt. the congruence relation on derivations in the original sequent calculus. %In a sense, this is similar to what proof nets are used for.
 
 To showcase the modularity of our normalization strategy, in Section \ref{sec:extensions} we discuss extensions of the logic with other connectives, such as additive units, the structural rule of exchange in the style of Bourke and Lack, and implication.
+This indicates that our normalization techniques is potentially scalable to  other richer substructural logics arising as extensions of ours, e.g. full Lambek calculus or intuitionistic linear logic.
 
 The sequent calculi of Sections \ref{sec:sequent-calculus} and \ref{sec:focusing}, as well as the effective normalization procedure, have been formalized in the Agda proof assistant. The code is freely available at
 %\begin{center}
@@ -153,7 +154,7 @@ The sequent calculi of Sections \ref{sec:sequent-calculus} and \ref{sec:focusing
 %We briefly comment on some of the design choices and reflect on the formalization experience in Section \ref{sec:formalization}. 
 
 \section{Sequent Calculus}\label{sec:sequent-calculus}
-We introduce a sequent calculus for a skew variant of non-commutative multiplicative intuitionistic linear logic (\NMILL) with additive conjunction and disjunction.
+We introduce a sequent calculus for a skew variant of non-commutative multiplicative intuitionistic linear logic with additive conjunction and disjunction.
 
 Formulae are inductively generated by the grammar $A,B ::= X \ | \ \I \ | \ A \ot B \ | \ A \land B \ | \ A \lor B$, where $X$ comes from a set $\mathsf{At}$ of atomic formulae. 
 We use $\I , \ot , \land$, and $\lor$ to denote multiplicative verum, multiplicative conjunction, additive conjunction and additive disjunction, respectively.
@@ -208,7 +209,7 @@ Derivations of a sequent $S \mid \Gamma \vdash A$ are inductively generated by t
   \end{array}
 \end{equation}
 % The inference rules in (\ref{eq:seqcalc}) are reminiscent of the ones in the sequent calculus for \NMILL\ \cite{abrusci:noncommutative:1990}, but there are some crucial differences.
-The inference rules are similar to the ones in \NMILL \ \cite{abrusci:noncommutative:1990}, but with some essential differences. 
+The inference rules are similar to the ones in  \cite{abrusci:noncommutative:1990}, but with some essential differences. 
 \begin{enumerate}
 \item The left logical rules $\unitl$, $\tl$, $\lleft$, $\andli$, and $\orl$, when read bottom-up, can only be applied on the formula in the stoup position. 
 That is, it is generally not possible to remove a unit $\I$, or decompose a tensor $A \ot B$ or a disjunction $A \lor B$, when these formulae are located in the context.
@@ -220,7 +221,7 @@ The stoup formula of the conclusion is prohibited to move to the second premise 
 These restrictions allow the derivability of sequents $(A \ot B) \ot C \mid ~\vdash A \ot (B\ot C)$ (semi-associativity), $\I \ot A \mid ~ \vdash A$ and $A \mid ~ \vdash A \ot \I$ (semi-unitality), while forbidding the derivability of their inverses, where the formulae in the stoup and in the succedent have been swapped. This is in line with the intended categorical semantics, see Section \ref{sec:categorical}.
 % The restrictions in 1--4 are essential for precisely capturing all the features of skew monoidal closed categories and nothing more, as we discuss in Section \ref{sec:catsem}.
 % Notice also that, similarly to the case of \NMILL, all structural rules of exchange, contraction, and weakening are absent. We give names to derivations and we write $f : S \mid \Gamma \vdash A$ when $f$ is a particular derivation of the sequent $S \mid \Gamma \vdash A$.
-Notice that, similarly to the case of \NMILL, all structural rules of exchange, contraction, and weakening are absent. We give names to derivations and we write $f : S \mid \Gamma \vdash A$ when $f$ is a particular derivation of the sequent $S \mid \Gamma \vdash A$.
+Notice that, similarly to the case of non-commutative intuitionistic linear logic \cite{abrusci:noncommutative:1990}, all structural rules of exchange, contraction, and weakening are absent. We give names to derivations and we write $f : S \mid \Gamma \vdash A$ when $f$ is a particular derivation of the sequent $S \mid \Gamma \vdash A$.
 
 \begin{theorem}
   The sequent calculus enjoys cut admissibility: the following two cut rules are admissible
