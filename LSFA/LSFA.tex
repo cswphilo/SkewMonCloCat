@@ -69,9 +69,9 @@
 \newcommand{\F}{\mathsf{F}}
 \newcommand{\sw}{\mathsf{sw}}
 \newcommand{\tP}{\mathbb{P}}
-\newcommand{\tL}{\mathbb{L}}
-\newcommand{\tR}{\mathbb{R}}
-\newcommand{\tE}{\mathbb{E}}
+\newcommand{\tCone}{\mathbb{C}_1}
+\newcommand{\tCtwo}{\mathbb{C}_2}
+\newcommand{\tE}{\mathbb{R}}
 \newcommand{\tT}{\mathbb{T}}
 \newcommand{\xvdash}{\vdash^{x}}
 \newcommand{\yvdash}{\vdash^{y}}
@@ -684,13 +684,13 @@ In order to keep track of this,
 %motivate when a right non-invertible rule can be applied before a left non-invertible rule during root-first proof search,
 we use a system of \emph{tag annotations} and we introduce new phases of proof search where sequents are annotated by \emph{list of tags}. 
 %to monitor the proof search process after an application of a right non-invertible rule.
-There are four tags: $\tP , \tL , \tR , \tE$. Intuitively, they respectively correspond to rules $\pass , \andlone , \andltwo$ and all the remaining non-invertible rules.
+There are four tags: $\tP , \tCone , \tCtwo , \tE$. Intuitively, they respectively correspond to rules $\pass , \andlone , \andltwo$ and all the remaining non-invertible rules.
 %In particular, right non-invertible rules will produce a valid non-empty list of tags to mark their premises (only left premise is marked in the $\tr$ case).
 %\begin{defn}\label{tag:validity}
-A list of tags $l$ is \emph{valid} if it is non-empty and either $(i)$ $\tE \in l$ or $(ii)$ both $\tL \in l$ and $\tR \in l$.
+A list of tags $l$ is \emph{valid} if it is non-empty and either $(i)$ $\tE \in l$ or $(ii)$ both $\tCone \in l$ and $\tCtwo \in l$.
 %%  \begin{itemize}
 %%    \item there is one $\tE$ occurrence in $l$, or
-%%    \item both of $\tL$ and $\tR$ have one occurrence in $l$.
+%%    \item both of $\tCone$ and $\tCtwo$ have one occurrence in $l$.
 %%  \end{itemize}
 %\end{defn}
 %The validity condition aims to prevent undesired non-determinism.
@@ -764,9 +764,9 @@ Derivations in the focused sequent calculus with tag annotations are generated b
     }
     \\[6pt]
     \multicolumn{2}{c}{
-    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tL?}_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
+    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tCone?}_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
     \qquad
-    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tR?}_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
+    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tCtwo?}_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
     }
   \end{array}
 \end{equation}
@@ -788,23 +788,23 @@ The proof search of a sequent $T \mid \Gamma \vdash^{l}_\RI A$ proceeds as follo
   \item[($\vdash^{t}_{\LI}$)] Since the stoup is either empty or a negative formula, we switch to phase $\vdash_\F$ immediately.
   % \item[($\vdash^{t}_{\Pass}$)] In this phase, $\pass$ can be applied only when the stoup is empty and the conclusion sequent has the tag $\tP$. For other cases, we should move to the focusing phase directly.
   \item[($\vdash^{t}_{\F}$)] If $t = \tE$ we can apply either $\ax$, $\unitr$ or right non-invertible rules. Again, when applying right non-invertible rules we need to provide a new valid list of tags.
-  Left non-invertible rules can be applied only when the tag is correct, i.e. $\pass$ with tag $\tP$, $\andlone$ with tag $\tL$, and $\andltwo$ with tag $\tR$.
+  Left non-invertible rules can be applied only when the tag is correct, i.e. $\pass$ with tag $\tP$, $\andlone$ with tag $\tCone$, and $\andltwo$ with tag $\tCtwo$.
 \end{itemize}
 The derivation in (\ref{eq:ex:focused}) can be reconstructed in the focused calculus with tag annotations.
 \begin{equation}\label{eq:ex:tag:focused}
   \begin{array}{c}
   \infer[\orrone]{X \land Y \mid \quad \vdash_{\F} (X \land Y) \lor Z}{
-    \infer[\andr]{X \land Y \mid \quad \vdash^{[ \tL , \tR ]}_{\RI} X \land Y}{
-      \infer[\sw]{X \land Y \mid \quad \vdash^{\tL}_{\RI} X}{
-        \infer[\andlone]{X \land Y \mid \quad \vdash^{\tL}_{\F} X}{
+    \infer[\andr]{X \land Y \mid \quad \vdash^{[ \tCone , \tCtwo ]}_{\RI} X \land Y}{
+      \infer[\sw]{X \land Y \mid \quad \vdash^{\tCone}_{\RI} X}{
+        \infer[\andlone]{X \land Y \mid \quad \vdash^{\tCone}_{\F} X}{
           \infer[\sw]{X \mid \quad \vdash_{\LI} X}{
             \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
           }
         }
       }
       &
-      \infer[\sw]{X \land Y \mid \quad \vdash^{\tR}_{\RI} Y}{
-        \infer[\andltwo]{X \land Y \mid \quad \vdash^{\tR}_{\F} Y}{
+      \infer[\sw]{X \land Y \mid \quad \vdash^{\tCtwo}_{\RI} Y}{
+        \infer[\andltwo]{X \land Y \mid \quad \vdash^{\tCtwo}_{\F} Y}{
           \infer[\sw]{Y \mid \quad \vdash_{\LI} Y}{
             \infer[\ax]{Y \mid \quad \vdash_{\F} Y}{}
           }
@@ -817,7 +817,7 @@ The derivation in (\ref{eq:ex:focused}) can be reconstructed in the focused calc
 Notice that the list of tags is not predetermined when a right non-invertible rule is applied, we have to come up with one ourselves.
 Practically, the list $l$ is computed by continuing proof search until in each branch we hit the first application of a rule in phase $\vdash_\F$, each with its own (necessarily uniquely determined) single tag $t$. Take $l$ as the concatenation of the resulting $t$s and check whether it is valid. If it is not, backtrack and apply a left non-invertible rule instead.
 %For example, the proof search in (\ref{eq:ex:tag:focused}) actually proceeds as: we apply $\orrone$ and assume that there is a valid list of tags. We continue the proof search and apply the $\andli$ in the tagged phase. When the proof tree closes, we concatenate the singleton list from the leftmost sequent to right and check whether the result list is valid.
-%In this case, $[ \tL , \tR ]$ is valid.
+%In this case, $[ \tCone , \tCtwo ]$ is valid.
 
 %\subsection{Meta properties of the focused calculus}
 \begin{theorem}\label{theorem:focus:sound:complete}
@@ -988,7 +988,7 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
     \item If $f_1$ is the conclusion of a left invertible rule, then all the derivations in $fs'$ necessarily end with the same rule as well.
     Therefore, we permute this rule with $\orrone^{\LI}$ and apply the inductive hypothesis.
   \item If $f_1 = \F 2 \LI \,f'_1$, then all the derivations in $fs'$ necessarily end with $\F 2 \LI$ as well. %In this case, we apply $\F 2 \LI$ to all elements in $fs$ and
-    We generate a list of tags $l$ by examining the shape of each derivation in $fs$: we add $\tP$ for each $\pass$, $\tL$ for each $\andlone$, $\tR$ for each $\andltwo$ and $\tE$ for the remaining rules.
+    We generate a list of tags $l$ by examining the shape of each derivation in $fs$: we add $\tP$ for each $\pass$, $\tCone$ for each $\andlone$, $\tCtwo$ for each $\andltwo$ and $\tE$ for the remaining rules.
     There are two possibilities:
     \begin{itemize}
       \item The resulting list $l$ is valid. We switch to phase $\vdash_\F$ and apply  $\orrone^{\LI}$ followed by $\andr^{*}_{t}$:
@@ -1019,7 +1019,7 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
       % \niccolo{We need to say what $[\F 2 \LI]$ means. Also what is $fs^*$. Be careful at the distinction between the word ``sequent'' and ``derivation''. For example, in the following statement you say that $fs^{*'}$ is a list of sequents, but it is a list of derivations instead. I have fixed this in some parts of the text before, please check the rest.}
       A rule wrapped in square brackets, like $[\F 2 \LI]$ above, denotes the application of the rule to the conclusion of each derivation in the list.
       The list of derivations $fs^{*}$ is obtained from $fs$ by applying $[\F 2 \LI]$, i.e. $fs = [\F 2 \LI]\,fs^*$, while $fs^{*'}$ is a list of derivations whose conclusions are tagged version of those in $fs^{*}$, which can be easily constructed from $fs^{*}$.
-      % For example, an $f_i : A' \land B' \mid \Gamma \vdash_{\F} A_i$ in $fs^{*}$ is corresponding to $A' \land B' \mid \Gamma \vdash^{\tL}_{\F} A_i$ in $fs^{*'}$.
+      % For example, an $f_i : A' \land B' \mid \Gamma \vdash_{\F} A_i$ in $fs^{*}$ is corresponding to $A' \land B' \mid \Gamma \vdash^{\tCone}_{\F} A_i$ in $fs^{*'}$.
       % \begin{displaymath}
       %   \begin{array}{c}
       %     \proofbox{
@@ -1029,7 +1029,7 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
       %     \text{corresponds to}
       %     \quad
       %     \proofbox{
-      %     \infer[\andlone]{A' \land B' \mid \Gamma \vdash^{\tL}_{\F} A_i}{A' \mid \Gamma \vdash_{\LI} A_i}
+      %     \infer[\andlone]{A' \land B' \mid \Gamma \vdash^{\tCone}_{\F} A_i}{A' \mid \Gamma \vdash_{\LI} A_i}
       %   }
       %   \end{array}
       % \end{displaymath}
@@ -1127,7 +1127,7 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
   %       \item If $f''_1 = \andlone \text{ } f'''_1$, then we check if the rest elements of $fs$ have the same structure with $f'_1$. If they do, then we permute $\andlone$ down and apply the inductive hypothesis.
   %       If it is not the case, then either there exists an $f_j = \Pass 2 \LI \text{ } (\F 2 \Pass \text{ } (\andltwo f'_j))$ or $f_j = \Pass 2 \LI \text{ } (\F 2 \Pass \text{ } f'_j)$ where $f'_j$ is a conclusion of a rule other than $\andlone$.
   %       In either case, there exists a list of sequents $fs' : [A' \land B' \mid \Gamma \vdash^{t_i}_{\Pass} A_i]_{i \in [1 , \dots , n]}$ and a list of tags $l = [t_1 , \dots , t_n]$.
-  %       In the forme case, $f_j$ is corresponding to tag $\tR$ and in the latter, it corresponds to $\tE$ so $l$ is valid in both cases.
+  %       In the forme case, $f_j$ is corresponding to tag $\tCtwo$ and in the latter, it corresponds to $\tE$ so $l$ is valid in both cases.
   %       We can define a derivation analogously as above.
   %       \item $f''_1 = \andltwo \text{ } f'''_1$ is symmetric to the first case.
   %       \item If $f''_1$ is a derivation ending with other rules, then a similar argument applies.
@@ -1304,9 +1304,9 @@ We include a new tag $\tT$ for $\top$. The validity condition for lists of tags 
 %    }
 %    \\[6pt]
 %    \multicolumn{2}{c}{
-%    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tL?}_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
+%    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tCone?}_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
 %    \qquad
-%    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tR?}_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
+%    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tCtwo?}_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
 %    }
   \end{array}
 \end{equation*}
@@ -1459,9 +1459,9 @@ The focused sequent calculus is extended with a new phase $\vdash_\C$ (for `cont
 %    }
 %    \\[6pt]
 %    \multicolumn{2}{c}{
-%    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tL?}_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
+%    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tCone?}_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
 %    \qquad
-%    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tR?}_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
+%    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tCtwo?}_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
 %    }
   \end{array}
 \end{equation*}
@@ -1602,9 +1602,9 @@ The focused sequent calculus is extended with a new phase $\vdash_\C$ (for `cont
 %      l \ \text{valid}
 %    }
 %    \qquad
-%    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tL?}_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
+%    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tCone?}_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
 %    \qquad
-%    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tR?}_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
+%    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tCtwo?}_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
 %    }
 %  \end{array}
 %\end{equation}
@@ -1856,13 +1856,13 @@ In the first derivation, rule $\pass$ in the left branch of $\tr$ cannot be move
 %In this case, we should always perform right non-invertible rules before $\lleft$ to avoid losing possible derivations.
 %Note that this type of non-determinism is essential because it demonstrates the fact that there are sequents with multiple derivations in \SkNMILLA \ that are not equivalent under $\circeq$.
 %To capture this non-determinism and ensure completeness, we introduce a new type of tag denoted by $\# \Gamma$ which records the number of formula occurrences in $\Gamma$ that are sent as the first premise of an application of $\lleft$.
-%Under this setting, a list of tags $l$ is valid if it is non-empty and either $(i)$ $\tE \in l$, $(ii)$ both $\tL \in l$ and $\tR \in l$,  $(iii)$ $\bullet \in l$, or $(iv)$ there exist $\Gamma , \Gamma'$ such that $\# \Gamma , \# \Gamma' \in l$ and $\# \Gamma \neq \# \Gamma'$. 
+%Under this setting, a list of tags $l$ is valid if it is non-empty and either $(i)$ $\tE \in l$, $(ii)$ both $\tCone \in l$ and $\tCtwo \in l$,  $(iii)$ $\bullet \in l$, or $(iv)$ there exist $\Gamma , \Gamma'$ such that $\# \Gamma , \# \Gamma' \in l$ and $\# \Gamma \neq \# \Gamma'$. 
 
 % \begin{defn}\label{def:tag:validity:impl}
 %   A non-empty list of tags $l$ is valid if 
 %   \begin{itemize}
 %     \item there is one $\tE$ occurrence in $l$,
-%     \item both of $\tL$ and $\tR$ have one occurrence in $l$,
+%     \item both of $\tCone$ and $\tCtwo$ have one occurrence in $l$,
 %     \item there is one $\bullet$ in $l$, or
 %     \item there exists $\Gamma$ and $\Gamma'$ such that $\# \Gamma \neq \# \Gamma'$.
 %   \end{itemize}
@@ -1870,7 +1870,7 @@ In the first derivation, rule $\pass$ in the left branch of $\tr$ cannot be move
 % validity condition is extended by two cases, where the first one distinguishes the situation where there is at least one new formula introduced in the context due to the previous right non-invertible rule, while the second captures cases of essential non-determinism and avoids situations where all the contexts of the corresponding sequents of $l$ are split in the same way.
 %It is worth noting that the context of an application of $\lleft$ can be split at different new formula occurrences.
 
-This motivates the addition of two new tags on top of $\tP,\tL,\tR$ and $\tE$, corresponding to the two situations previously discussed: $\Gamma$, for each context $\Gamma$, and $\bullet$.  The validity condition for list of tags also needs to be updated. A list of tags $l$ is now valid if it is non-empty and either $(i)$ $\tE \in l$, $(ii)$ both $\tL \in l$ and $\tR \in l$,  $(iii)$ there exist contexts $\Gamma , \Gamma'$ such that $ \Gamma \in l$, $ \Gamma' \in l$ and $ \Gamma \neq  \Gamma'$, or $(iv)$ $\bullet \in l$. Following \cite{UVW:protsn}, on top of tag annotations for sequents, we also require tag annotations for formulae in context. There is only one tag $\bullet$ for formulae. The tag on the formula $A^\bullet$ means that $A$ has been previously moved to the context by an application of $\lright$ in phase $\vdash^l_\RI$.
+This motivates the addition of two new tags on top of $\tP,\tCone,\tCtwo$ and $\tE$, corresponding to the two situations previously discussed: $\Gamma$, for each context $\Gamma$, and $\bullet$.  The validity condition for list of tags also needs to be updated. A list of tags $l$ is now valid if it is non-empty and either $(i)$ $\tE \in l$, $(ii)$ both $\tCone \in l$ and $\tCtwo \in l$,  $(iii)$ there exist contexts $\Gamma , \Gamma'$ such that $ \Gamma \in l$, $ \Gamma' \in l$ and $ \Gamma \neq  \Gamma'$, or $(iv)$ $\bullet \in l$. Following \cite{UVW:protsn}, on top of tag annotations for sequents, we also require tag annotations for formulae in context. There is only one tag $\bullet$ for formulae. The tag on the formula $A^\bullet$ means that $A$ has been previously moved to the context by an application of $\lright$ in phase $\vdash^l_\RI$.
 
 Here are the inference rules of the focused sequent calculus with linear implication:
 \begin{equation*}\label{eq:focus:impl}
@@ -1917,9 +1917,9 @@ Here are the inference rules of the focused sequent calculus with linear implica
     \qquad
     \infer[\unitr]{{-} \mid \quad \vdash^{\tE?}_{\F} \I}{}
     \qquad
-    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tL?}_{\F} P}{A \mid \Gamma^{\circ} \vdash_{\LI} P}
+    \infer[\andlone]{A \land B \mid \Gamma \vdash^{\tCone?}_{\F} P}{A \mid \Gamma^{\circ} \vdash_{\LI} P}
     \qquad
-    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tR?}_{\F} P}{B \mid \Gamma^{\circ} \vdash_{\LI} P}
+    \infer[\andltwo]{A \land B \mid \Gamma \vdash^{\tCtwo?}_{\F} P}{B \mid \Gamma^{\circ} \vdash_{\LI} P}
     }
     \\[10pt]
     \multicolumn{2}{c}{
@@ -1985,9 +1985,9 @@ We can reconstruct the derivation in (\ref{eq:ex:lleft:NonDeter}) within the foc
 \begin{displaymath}\small
   \infer[\sw]{\I \lolli \I \mid \I , Y \vdash_{\RI} (\I \land \I) \ot Y}{
     \infer[\tr]{\I \lolli \I \mid \I , Y \vdash_{\F} (\I \land \I) \ot Y}{
-      \infer[\andr]{\I \lolli \I \mid \I \vdash^{0 , 1}_{\RI} \I \land \I}{
-        \infer[\sw]{\I \lolli \I \mid \I \vdash^{0}_{\RI} \I}{
-          \infer[\lleft]{\I \lolli \I \mid \I \vdash^{0}_{\F} \I}{
+      \infer[\andr]{\I \lolli \I \mid \I \vdash^{[{[\ ]} , {[\I]}]}_{\RI} \I \land \I}{
+        \infer[\sw]{\I \lolli \I \mid \I \vdash^{{[\ ]}}_{\RI} \I}{
+          \infer[\lleft]{\I \lolli \I \mid \I \vdash^{{[\ ]}}_{\F} \I}{
             \infer[\sw]{- \mid \quad \vdash_{\RI} \I}{
               \infer[\unitr]{- \mid \quad \vdash_{\F} \I}{}
             }
@@ -2006,8 +2006,8 @@ We can reconstruct the derivation in (\ref{eq:ex:lleft:NonDeter}) within the foc
           }
         }
         &
-        \infer[\sw]{\I \lolli \I \mid \I \vdash^{1}_{\RI} \I}{
-          \infer[\lleft]{\I \lolli \I \mid \I \vdash^{1}_{\RI} \I}{
+        \infer[\sw]{\I \lolli \I \mid \I \vdash^{{[\I]}}_{\RI} \I}{
+          \infer[\lleft]{\I \lolli \I \mid \I \vdash^{{[\I]}}_{\F} \I}{
             \infer[\sw]{- \mid \I \vdash_{\RI} \I}{
               \infer[\pass]{- \mid \I \vdash_{\F} \I}{
                 \infer[\unitl]{\I \mid \quad \vdash_{\LI} \I}{
