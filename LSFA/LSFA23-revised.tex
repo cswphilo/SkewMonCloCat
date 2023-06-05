@@ -488,21 +488,21 @@ satisfying the following equations due to Mac Lane \cite{maclane1963natural}:
 A skew monoidal category with binary coproducts is \emph{(binary) left-distributive} if the canonical morphism typed $(A \ot C) + (B \ot C) \to (A + B) \ot C$ has an inverse $l : (A + B) \ot C \to (A \ot C) + (B \ot C)$. We will be interested in skew monoidal categories with binary products and coproducts, which moreover are left-distributive. We simply call these distributive skew monoidal categories.
 
 A \emph{(strict) skew monoidal functor} $F : \mathbb{C} \rightarrow \mathbb{D}$ between skew monoidal categories $(\mathbb{C} , \I , \ot)$ and $(\mathbb{D} , \I' , \ot')$ is a functor from $\mathbb{C}$ to $\mathbb{D}$ satisfying
-    $F \I = \I'$ and $F (A \ot B) = F A \ot' F B$, also preserving the structural laws $\lambda$, $\rho$ and $\alpha$ on the nose. A skew monoidal functor is \emph{distributive} if it also strictly preserves products, coproducts and left-distributivity.
+    $F \I = \I'$ and $F (A \ot B) = F A \ot' F B$, also preserving the structural laws $\lambda$, $\rho$ and $\alpha$ on the nose. This means that $F \lambda_A^\mathbb{C} = \lambda_{FA}^\mathbb{D}$, where $\lambda^\mathbb{C}$ and $\lambda^\mathbb{D}$ are left-unitors of $\mathbb{C}$ and $\mathbb{D}$ respectively, and similar equations hold for $\rho$ and $\alpha$. A skew monoidal functor is \emph{distributive} if it also strictly preserves products, coproducts and left-distributivity.
 
-The formulae, derivations and the equivalence relation $\circeq$ of the sequent calculus determine a \emph{syntactic} distributive skew monoidal category $\FSkMCC(\mathsf{At})$. Its objects are formulae. The operations $\I$ and $\ot$ are the logical connectives. The set of maps between objects $A$ and $B$ is the set of derivations $A \mid ~ \vdash B$ quotiented by the equivalence relation $\circeq$. The identity map on $A$ is the equivalence class of $\ax_A$, while composition is given by $\mathsf{scut}$. The structural laws $\lambda$, $\rho$, $\alpha$ are all admissible. Products and coproducts are the additive connectives $\land$ and $\lor$. Left-distributivity follows from the logical rules of $\lor$ and $\ot$.
+The formulae, derivations and the equivalence relation $\circeq$ of the sequent calculus determine a \emph{syntactic} distributive skew monoidal category $\FSkMCC(\mathsf{At})$ (an acronym for \textsf{F}ree \textsf{D}istributive \textsf{Sk}ew \textsf{M}onoidal category). Its objects are formulae. The operations $\I$ and $\ot$ are the logical connectives. The set of maps between objects $A$ and $B$ is the set of derivations $A \mid ~ \vdash B$ quotiented by the equivalence relation $\circeq$. The identity map on $A$ is the equivalence class of $\ax_A$, while composition is given by $\mathsf{scut}$. The structural laws $\lambda$, $\rho$, $\alpha$ are all admissible. Products and coproducts are the additive connectives $\land$ and $\lor$. Left-distributivity follows from the logical rules of $\lor$ and $\ot$.
 
 Distributive skew monoidal categories form models of our sequent calculus.
 Moreover, the sequent calculus as a presentation of a distributive skew monoidal category is the \emph{initial} one among these
 models. Equivalently, $\FSkMCC(\mathsf{At})$ is the \emph{free}
 such category on the set $\mathsf{At}$.
 \begin{theorem}\label{thm:models}
-  Let $\mathbb{D}$ be a distributive skew monoidal category. Given a function $F_{\mathsf{At}} : \mathsf{At} \rightarrow |\mathbb{D}|$ evaluating atomic formulae as objects of $\mathbb{D}$, there exists a unique distributive skew monoidal functor $F : \FSkMCC(\mathsf{At}) \rightarrow \mathbb{D}$ for which $F_0 X = F_{\mathsf{At}} X$ for any atom $X$.
+  Let $\mathbb{D}$ be a distributive skew monoidal category. Given a function $F_{\mathsf{At}} : \mathsf{At} \rightarrow |\mathbb{D}|$ evaluating atomic formulae as objects of $\mathbb{D}$, there exists a unique distributive skew monoidal functor \linebreak$F : \FSkMCC(\mathsf{At}) \rightarrow \mathbb{D}$ for which $F X = F_{\mathsf{At}} X$, for any atom $X$.
 \end{theorem}
 The construction of the functor $F$ and the proof of uniqueness proceed similarly to the proofs of Theorems 3.1 and 3.2 in \cite{UVW:protsn}.
 
 \section{A Focused Sequent Calculus with Tag Annotations}\label{sec:focusing}
-When oriented from left-to-right, the equations in (\ref{fig:circeq}) become a  rewrite system, which is confluent with unique normal forms. Here we provide an explicit description of the proof normal forms of (\ref{eq:seqcalc}).
+When oriented from left-to-right, the equations in (\ref{fig:circeq}) become a  rewrite system, which is locally confluent and strongly normalizing, thus confluent with unique normal forms. Here we provide an explicit description of the proof normal forms of (\ref{eq:seqcalc}).
 %Similar to the strategy employed in \cite{UVW:protsn},
 For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure can be defined as follows. First apply right invertible rules on the sequent until the principal connective of the succedent is non-negative, then apply left invertible rules until the stoup becomes either empty or non-positive. At this point, if we do not insist on focusing on a particular formula (either in the stoup or succedent, since no rule acts on formulae in context) as in Andreoli's focusing procedure~\cite{andreoli:logic:1992}, we obtain a sequent calculus with a reduced proof search space, that looks like this:
 \begin{equation}\label{eq:naive:focus}
@@ -574,7 +574,7 @@ For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure ca
   \end{array}
 \end{equation}
 % \niccolo{Add rules for ``naive'' focused sequent calculus here.}
-In the rules above, $P$ is a non-negative formula, i.e. its principal connective is not $\land$, and $T$ is a non-positive stoup (also called \emph{irreducible}), i.e. it is not $\I$ and its principal connective is not $\ot$ nor $\lor$.
+In the rules above, $P$ is a non-negative formula, i.e. its principal connective is not $\land$, and $T$ is a non-positive stoup (also called \emph{irreducible}), i.e. it is not $\I$ and its principal connective is neither $\ot$ nor $\lor$.
 
 This calculus is too permissive. The same sequent $S \mid \Gamma \vdash_{\RI} A$ may have multiple derivations, which correspond to $\circeq$-related derivations in the original sequent calculus. This happens since certain sequents in phase $\vdash_\F$ can be alternatively proved by an application of a left non-invertible rule ($\pass$, $\andlone$ and $\andltwo$) or an application of a right non-invertible rule ($\tr$, $\orrone$ and $\orrtwo$). For example, both sequents $- \mid A , \Gamma \vdash_{\F} A' \ot B'$ and $A \land B \mid \Gamma \vdash_{\F} A' \lor B'$ have multiple distinct proofs in this calculus, but their corresponding proofs in the original calculus are $\circeq$-related.
 % \niccolo{Add a few examples of sequents here, only inline, no proof trees.}
@@ -1968,7 +1968,7 @@ Here are the inference rules of the focused sequent calculus with linear implica
     }
   \end{array}
 \end{equation}
-Again $P$ indicates a non-negative formula, which now means that its principal connective is not $\land$ nor $\lolli$. Notation $\Gamma^{\bullet}$ means that all the formulae in $\Gamma$ are tagged, while $\Gamma^{\circ}$ indicates that all the tags on formulae in $\Gamma$ have been erased. We write $A^{\bullet?}$ to denote $A$ if the formula appears in an untagged sequent and $A^\bullet$ if it appears in a sequent marked with list of tags $l$ or a single tag $t$.
+Again $P$ indicates a non-negative formula, which now means that its principal connective is neither $\land$ nor $\lolli$. Notation $\Gamma^{\bullet}$ means that all the formulae in $\Gamma$ are tagged, while $\Gamma^{\circ}$ indicates that all the tags on formulae in $\Gamma$ have been erased. We write $A^{\bullet?}$ to denote $A$ if the formula appears in an untagged sequent and $A^\bullet$ if it appears in a sequent marked with list of tags $l$ or a single tag $t$.
 
 Tags of the form $t = \Gamma$ are used to record different splitting of context in applications of $\lleft$, while tag $t = \bullet$ marks when rule $\lleft$ sends tagged formulae to the left premise and when rule $\pass$ moves a tagged formula to the stoup.
 %We discuss some key differences with (\ref{eq:focus}).

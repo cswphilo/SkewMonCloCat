@@ -72,15 +72,15 @@ Personally I would, as said above, be interested in various reflection on the mo
 Some small remarks:
 (fixed)p1: In Girard's linear logic, which have been -> which has been
 (fixed)p3 point 1: There is a comment on the left rule for linear implication, but that rule isn't there it seems.
-p5: what is `on the nose'?
-p5: It would be nice to give some intuition for the name FDSkM.
-p5: Is in Thm 3.1 F_0 the function F restricted to objects? (Sorry, could be completely standard...)
+(fixed)p5: what is `on the nose'?
+(fixed)p5: It would be nice to give some intuition for the name FDSkM.
+(fixed)p5: Is in Thm 3.1 F_0 the function F restricted to objects? (Sorry, could be completely standard...)
 (fixed)p5: the equations in (2): Is this label correct? It seems that the remark is about the equations on p4?
-p5: `confluent with unique normal forms': 
+(fixed)p5: `confluent with unique normal forms': 
 maybe add the causality; 
 the unicity of normal forms is a consequence of the confluence I suppose?
 (fixed)p6: no rule act -> no rule acts
-p6: not A nor B -> maybe: neither A nor B
+(fixed)p6: not A nor B -> maybe: neither A nor B
 
 
 
