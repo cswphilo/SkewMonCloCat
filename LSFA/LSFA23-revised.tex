@@ -524,10 +524,10 @@ For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure ca
     \qquad
     \infer[\tl]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B , \Gamma \vdash_{\LI} P}
     \\
-    \infer[\orl]{A \lor B \mid \Gamma \vdash P}{
-      A \mid \Gamma \vdash P
+    \infer[\orl]{A \lor B \mid \Gamma_\LI \vdash P}{
+      A \mid \Gamma \vdash_\LI P
       &
-      B \mid \Gamma \vdash P
+      B \mid \Gamma \vdash_\LI P
     }
     \qquad
     \infer[\F 2 \LI]{T \mid \Gamma \vdash_{\LI} P}{T \mid \Gamma \vdash_{\F} P}
@@ -576,7 +576,7 @@ For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure ca
 % \niccolo{Add rules for ``naive'' focused sequent calculus here.}
 In the rules above, $P$ is a non-negative formula, i.e. its principal connective is not $\land$, and $T$ is a non-positive stoup (also called \emph{irreducible}), i.e. it is not $\I$ and its principal connective is neither $\ot$ nor $\lor$.
 
-This calculus is too permissive. The same sequent $S \mid \Gamma \vdash_{\RI} A$ may have multiple derivations, which correspond to $\circeq$-related derivations in the original sequent calculus. This happens since certain sequents in phase $\vdash_\F$ can be alternatively proved by an application of a left non-invertible rule ($\pass$, $\andlone$ and $\andltwo$) or an application of a right non-invertible rule ($\tr$, $\orrone$ and $\orrtwo$). For example, both sequents $- \mid A , \Gamma \vdash_{\F} A' \ot B'$ and $A \land B \mid \Gamma \vdash_{\F} A' \lor B'$ have multiple distinct proofs in this calculus, but their corresponding proofs in the original calculus are $\circeq$-related.
+This calculus is too permissive. The same sequent $S \mid \Gamma \vdash_{\RI} A$ may have multiple derivations which correspond to $\circeq$-related derivations in the original sequent calculus. This happens since certain sequents in phase $\vdash_\F$ can be alternatively proved by an application of a left non-invertible rule ($\pass$, $\andlone$ and $\andltwo$) or an application of a right non-invertible rule ($\tr$, $\orrone$ and $\orrtwo$). As concrete  examples, both sequents $- \mid X , Y \vdash_{\F} X \ot Y$ and $X \land Y \mid ~ \vdash_{\F} X \lor Y$ have multiple distinct proofs in this calculus, but their corresponding proofs in the original calculus are $\circeq$-related.
 % \niccolo{Add a few examples of sequents here, only inline, no proof trees.}
 
 In phase $\vdash_\F$, only non-invertible rules can be applied, so the question is: how to arrange the order between non-invertible rules without causing undesired non-determinism and losing completeness with respect to the sequent calculus in (\ref{eq:seqcalc}) and its equivalence relation $\circeq$? Similarly to \cite{UVW:protsn}, our strategy is to prioritize left non-invertible rules over right ones, unless this does not lead to a valid derivation and the other way around is necessary.
@@ -614,10 +614,10 @@ For example, consider the sequent $X \land Y \mid \quad \vdash_{\F} (X \land Y) 
     }
   \end{array}
 \end{equation}
-In this example it was possible to first apply $\orrone$ since, after the application of $\andr$, different left $\land$-rules are applied in different branches of the proof tree. If we would have applied  the same rule $\andlone$ to both premises (imagine that $X = Y$ for this to be possible), then we could have obtained a $\circeq$-equivalent derivation by moving the application of $\andlone$ to the bottom of the proof tree. 
+In this example it was possible to first apply $\orrone$ since, after the application of $\andr$, different left \linebreak$\land$-rules are applied in different branches of the proof tree. If we would have applied  the same rule $\andlone$ to both premises (imagine that $X = Y$ for this to be possible), then we could have obtained a $\circeq$-equivalent derivation by moving the application of $\andlone$ to the bottom of the proof tree. 
 
 It is also possible that the two premises of $\andr$ correspond to $\circeq$-inequivalent derivations.
-For example, consider the derivation of the sequent $- \mid \I \ot X \vdash_\F ((I \ot X) \land (\I \ot X)) \lor Y$: % in (\ref{eq:seqcalc}): 
+For example, consider the following proof of sequent $- \mid \I \ot X \vdash_\F ((I \ot X) \land (\I \ot X)) \lor Y$: % in (\ref{eq:seqcalc}): 
 \begin{equation*}\small
   \begin{array}{c}
     \infer[\orrone]{- \mid \I \ot X \vdash_\F ((\I \ot X) \land (\I \ot X)) \lor Y}{
@@ -781,14 +781,14 @@ The proof search of a sequent $S \mid \Gamma \vdash_\RI A$ proceeds as follows:
   \item[($\vdash_{\LI}$)] We apply left invertible rules until the stoup becomes irreducible, then move to the focusing phase $\vdash_\F$ with an application of $\F 2 \LI$.
   % \item[($\vdash_{\Pass}$)] In this phase, if the stoup is empty, then we can apply $\pass$ to move the head element of the context to stoup then go back to the left invertible phase.  If we do not (or cannot) apply $\pass$, we move to the focusing phase via $\F2 \Pass$.
   \item[($\vdash_{\F}$)] We apply one of the remaining rules. Since the sequents are not marked by tags at this point, rules $\pass$, $\ax$ , $\unitr$ and $\andli$ can be directly applied when stoups, contexts and succedents are of the appropriate form.
-  If we decide to apply a right non-invertible rule, we need to come up with a valid list of tags $l$ and subsequently move to the tagged right invertible phase ($\vdash^{l}_{\RI}$) described below. Notice that only the first premise of $\tr$ is tagged, the second premise is not, i.e. its proof search continues in phase $\vdash_{\RI}$.
+  If we decide to apply a right non-invertible rule, we need to come up with a valid list of tags $l$ and subsequently continue proof search in tagged right invertible phase $\vdash^{l}_{\RI}$, which is described below. Notice that only the first premise of $\tr$ is tagged, the second premise is not, i.e. its proof search continues in phase $\vdash_{\RI}$.
 \end{itemize}
 The proof search of a sequent $T \mid \Gamma \vdash^{l}_\RI A$ proceeds as follows (notice that at this point in proof search the stoup $T$ is necessarily irreducible):
 \begin{itemize}
-  \item[($\vdash^{l}_{\RI}$)] We apply the $\andr$ rule to decompose the succedent and separate the list of tags carefully until the succedent becomes non-negative and the list of tags becomes a singleton $t$, then we move to phase $\vdash_\LI^t$ by an application of $\LI2 \RI$.
-  \item[($\vdash^{t}_{\LI}$)] Since the stoup is either empty or a negative formula, we immediately switch to phase $\vdash_\F$ with an application of $\F 2 \LI$. This is why it makes sense to only consider rules $\unitl$, $\tl$, $\orl$ in which sequents are not marked by list of tags.
+  \item[($\vdash^{l}_{\RI}$)] We apply the $\andr$ rule to decompose the succedent and separate the list of tags carefully until the succedent becomes non-negative and the list of tags becomes a singleton $t$, then we move to phase $\vdash_\LI^t$ with an application of $\LI2 \RI$.
+  \item[($\vdash^{t}_{\LI}$)] Since the stoup is either empty or a negative formula, we immediately switch to phase $\vdash_\F$ with an application of $\F 2 \LI$. This motivates why sequents in rules $\unitl$, $\tl$, $\orl$ are not tagged.
   % \item[($\vdash^{t}_{\Pass}$)] In this phase, $\pass$ can be applied only when the stoup is empty and the conclusion sequent has the tag $\tP$. For other cases, we should move to the focusing phase directly.
-  \item[($\vdash^{t}_{\F}$)] If $t = \tE$ we can apply either $\ax$, $\unitr$ or right non-invertible rules. Again, when applying right non-invertible rules we need to provide a new valid list of tags.
+  \item[($\vdash^{t}_{\F}$)] If $t = \tE$ we can apply either $\ax$, $\unitr$ or another right non-invertible rules. Again, when applying right non-invertible rules we need to provide a new valid list of tags.
   Left non-invertible rules can be applied only when the tag is correct, i.e. $\pass$ with tag $\tP$, $\andlone$ with tag $\tCone$, and $\andltwo$ with tag $\tCtwo$.
 \end{itemize}
 The derivation in (\ref{eq:ex:focused}) can be reconstructed in the focused calculus with tag annotations.
@@ -862,8 +862,9 @@ Completeness follows from the fact that the following rules are all admissible:
     \end{array}
   \end{equation}
 The admissibility of the rules in (\ref{eq:admis}), apart from the right non-invertible ones, is proved by structural induction on derivations.
-The same strategy cannot be applied to right non-invertible rules, because of the case when the derivation ends with $\andr$.
-Take $\orrone^{\RI}$ for an instance. If its premise ends with an application of $\andr$, we get immediately stuck:
+The same strategy cannot be applied to right non-invertible rules.
+%because of the case when the derivation ends with $\andr$.
+For example, if the premise of $\orrone^{\RI}$ ends with an application of $\andr$, we get immediately stuck:
 \begin{displaymath}
   \begin{array}{c}
     \small
@@ -884,7 +885,7 @@ Take $\orrone^{\RI}$ for an instance. If its premise ends with an application of
 \end{displaymath}
 The inductive hypothesis applied to $f$ and $g$ would produce wrong sequents for the target conclusion.
 This is fixed by proving the admissibility of more general rules. In order to state and prove this, we need to first introduce a a few lemmata. 
-The first one shows that applying several $\andr$ in one step is admissible.
+The first one shows that applying several $\andr$ rules in one step is admissible.
 % \niccolo{The next statement is not precise, $A$ is not really equal to $A_1 \land \dots \land A_n$. One should define an operation $\mathsf{conj}$ (or whatever name) that flattens conjunctions into a list: $\mathsf{conj}(A) = A$ if $A$ is non-negative and $\mathsf{conj}(A \land B) = \mathsf{conj}(A),\mathsf{conj}(B)$. Then in the hypothesis of the theorem there should be $\mathsf{conj}(A) = [A_1, \dots,A_n]$. Same for the subsequent Proposition.}
 %\begin{defn}
   Let $\conj{A}$ be the list of formulae obtained by decomposing additive conjunctions $\land$ in the formula $A$. Concretely, $\conj{A} = \conj{A'} , \conj{B'}$ if $A = A' \land B'$ and $\conj{A} = A$ otherwise.
@@ -906,7 +907,7 @@ The first one shows that applying several $\andr$ in one step is admissible.
     }
     \qquad
     \infer[\andr^{*}]{T \mid \Gamma \vdash_{\RI} A}{
-      [T \mid \Gamma \vdash^{t_i}_{\LI} A_i]_{i \in [1 , \dots , n]}
+      [T \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}
     }
   \end{displaymath}
   are admissible, where $\conj{A} = [A_1 , \dots , A_n]$ and $l = [t_1 , \dots , t_n]$.
@@ -915,7 +916,7 @@ The first one shows that applying several $\andr$ in one step is admissible.
   We show the case of $\andr^{*}_{t}$, the other one is similar.
   Let $fs : [T \mid \Gamma \vdash^{t_i}_{\F} A_i]_i$ be a list of derivations. The proof proceeds by induction on $A$.
   \begin{itemize}
-    \item If $A \neq A' \land B'$, then $fs$ consists of single derivation $f$. Define $\andr^*_{t} \text{ } fs = \F 2 \LI \text{ } (\LI 2 \RI \text{ } f)$.
+    \item If $A \neq A' \land B'$, then $fs$ consists of a single derivation $f$. Define $\andr^*_{t} \text{ } fs = \F 2 \LI \text{ } (\LI 2 \RI \text{ } f)$.
     \item If $A = A' \land B'$, then there exist lists of derivations $fs_1 : [T \mid \Gamma \vdash^{t_i}_{\F} A'_i]_{i \in [1 , \dots , m]}$ and $fs_2 : [T \mid \Gamma \vdash^{t_i}_{\F} B'_i]_{i \in [m+1 , \dots , n]}$, and lists of tags $l_1 = t_1 , \dots , t_m$ and $l_2 = t_{m+1} , \dots , t_n$, so that $fs$ is the concatenation of $fs_1$ and $fs_2$ and $l$ is the concatenation of $l_1 $ and $l_2$.
     Apply $\andr$ at the bottom, then proceed recursively:
     \begin{displaymath}
@@ -964,22 +965,23 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
   The following rules
   \begin{displaymath}
     \begin{array}{c}
-      \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\RI} A \lor B}{
+      \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
         \deduce{[S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
       }
       \quad
-      \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\RI} A \lor B}{
+      \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
         \deduce{[S \mid \Gamma \vdash_{\LI} B_i]_{i \in [1 , \dots , n]}}{fs}
       }
       \quad
-      \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\RI} A \ot B'}{
+      \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} A \ot B'}{
         \deduce{[S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
         &
         - \mid \Delta \vdash_{\RI} B'
       }
     \end{array}
   \end{displaymath}
-  generalizing $\orri^{\LI}$ and $\tr^{\LI}$, are admissible, where $\conj{A} = [A_1 , \dots , A_n]$ and $\conj{B} = [B_1 , \dots , B_n]$.
+  %generalizing $\orri^{\LI}$ and $\tr^{\LI}$,
+  are admissible, where $\conj{A} = [A_1 , \dots , A_n]$ and $\conj{B} = [B_1 , \dots , B_n]$.
 \end{proposition}
 \begin{proof}
   The list of derivations $fs$ is non-empty, so we let $fs = [f_1 , fs']$.
