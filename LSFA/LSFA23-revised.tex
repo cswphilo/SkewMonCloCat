@@ -397,10 +397,10 @@ We introduce a congruence relation $\circeq$ on the sets of cut-free derivations
     \orri \ (\tl \ f) &\circeq \tl \ (\orri \ f) &&(f : A' \mid B' , \Gamma \vdash A)
     % \orrone \ (\tl \ f) &\circeq \tl \ (\orrone \ f) &&(f : A' \mid B' , \Gamma \vdash A)
     \\
-    \orri \ (\andlone \ f) &\circeq \andlone \ (\orri \ f) &&(f : A' \mid \Gamma \vdash A)
+    \orri \ (\andli \ f) &\circeq \andli \ (\orri \ f) &&(f : A' \mid \Gamma \vdash A)
     % \orrone \ (\andlone \ f) &\circeq \andlone \ (\orrone \ f) &&(f : A' \mid \Gamma \vdash A)
-    \\
-    \orri \ (\andltwo \ f) &\circeq \andltwo \ (\orri \ f) &&(f : B' \mid \Gamma \vdash A)
+    % \\
+    % \orri \ (\andltwo \ f) &\circeq \andltwo \ (\orri \ f) &&(f : B' \mid \Gamma \vdash A)
     % \orrone \ (\andltwo \ f) &\circeq \andltwo \ (\orrone \ f) &&(f : B' \mid \Gamma \vdash A)
     \\
     \orri \ (\orl \ (f , g)) &\circeq \orl \ (\orri \ f , \orri \ g) &&(f : A' \mid \Gamma \vdash A , g : B' \mid \Gamma \vdash A)
@@ -601,13 +601,13 @@ For example, consider the sequent $X \land Y \mid \quad \vdash_{\F} (X \land Y) 
       \infer[\andr]{X \land Y \mid \quad \vdash_\RI X \land Y}{
         \infer[\sw]{X \land Y \mid \quad \vdash_\RI X}{
           \infer[\andlone]{X \land Y \mid \quad \vdash_\F X}{
-          \infer[\sw]{X \mid \quad \vdash_\RI X}{
+          \infer[\F 2 \LI]{X \mid \quad \vdash_\LI X}{
           \infer[\ax]{X \mid \quad \vdash_\F X}{}
         }}}
         &
         \infer[\sw]{X \land Y \mid \quad \vdash_\RI Y}{
         \infer[\andltwo]{X \land Y \mid \quad \vdash_\F Y}{
-          \infer[\sw]{Y \mid \quad \vdash_\RI Y}{
+          \infer[\F 2 \LI]{Y \mid \quad \vdash_\LI Y}{
           \infer[\ax]{Y \mid \quad \vdash_\F Y}{}
         }}}
       }
@@ -903,18 +903,18 @@ The first one shows that applying several $\andr$ rules in one step is admissibl
   The following rules
   \begin{displaymath}
     \infer[\andr^{*}_t]{T \mid \Gamma \vdash^{l}_{\RI} A}{
-      [T \mid \Gamma \vdash^{t_i}_{\F} A_i]_{i \in [1 , \dots , n]}
+      [T \mid \Gamma \vdash^{t_i}_{\F} P_i]_{i \in [1 , \dots , n]}
     }
     \qquad
     \infer[\andr^{*}]{T \mid \Gamma \vdash_{\RI} A}{
-      [T \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}
+      [T \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}
     }
   \end{displaymath}
-  are admissible, where $\conj{A} = [A_1 , \dots , A_n]$ and $l = [t_1 , \dots , t_n]$.
+  are admissible, where $\conj{A} = [P_1 , \dots , P_n]$ and $l = [t_1 , \dots , t_n]$.
 \end{lemma}
 \begin{proof}
   We show the case of $\andr^{*}_{t}$, the other one is similar.
-  Let $fs : [T \mid \Gamma \vdash^{t_i}_{\F} A_i]_i$ be a list of derivations. The proof proceeds by induction on $A$.
+  Let $fs : [T \mid \Gamma \vdash^{t_i}_{\F} P_i]_i$ be a list of derivations. The proof proceeds by induction on $A$.
   \begin{itemize}
     \item If $A \neq A' \land B'$, then $fs$ consists of a single derivation $f$. Define $\andr^*_{t} \text{ } fs = \F 2 \LI \text{ } (\LI 2 \RI \text{ } f)$.
     \item If $A = A' \land B'$, then there exist lists of derivations $fs_1 : [T \mid \Gamma \vdash^{t_i}_{\F} A'_i]_{i \in [1 , \dots , m]}$ and $fs_2 : [T \mid \Gamma \vdash^{t_i}_{\F} B'_i]_{i \in [m+1 , \dots , n]}$, and lists of tags $l_1 = t_1 , \dots , t_m$ and $l_2 = t_{m+1} , \dots , t_n$, so that $fs$ is the concatenation of $fs_1$ and $fs_2$ and $l$ is the concatenation of $l_1 $ and $l_2$.
@@ -924,7 +924,7 @@ The first one shows that applying several $\andr$ rules in one step is admissibl
       \begin{array}{cc}
         \proofbox{
         \infer[\andr^*_{t}]{T \mid \Gamma \vdash^{l} A' \land B'}{
-          \deduce{[T \mid \Gamma \vdash^{t_i}_{\F} A_i]_{i \in [1 , \dots , n]}}{fs}
+          \deduce{[T \mid \Gamma \vdash^{t_i}_{\F} P_i]_{i \in [1 , \dots , n]}}{fs}
         }
         }
 %        \\
@@ -934,11 +934,11 @@ The first one shows that applying several $\andr$ rules in one step is admissibl
         \proofbox{
         \infer[\andr]{T \mid \Gamma \vdash^{l_1 , l_2}_{\RI} A' \land B'}{
           \infer[\andr^{*}_{t}]{T \mid \Gamma \vdash^{l_1}_{\RI} A'}{
-            \deduce{[T \mid \Gamma \vdash^{t_i}_{\F} A'_i]_{i \in [1 , \dots , m]}}{fs_1}
+            \deduce{[T \mid \Gamma \vdash^{t_i}_{\F} P_i]_{i \in [1 , \dots , m]}}{fs_1}
           }
           &
           \infer[\andr^{*}_{t}]{T \mid \Gamma \vdash^{l_2}_{\RI} B'}{
-            \deduce{[T \mid \Gamma \vdash^{t_i}_{\F} B'_i]_{i \in [m+1 , \dots , n]}}{fs_2}
+            \deduce{[T \mid \Gamma \vdash^{t_i}_{\F} P_i]_{i \in [m+1 , \dots , n]}}{fs_2}
           }
         }
        }
@@ -951,13 +951,13 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
 
 % \niccolo{We need to define $\andr^{*}$. Derivations in $fs$ are in phase $\LI$, does this mean that $\andr^{*}$ takes in input a list $fs : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$? Not $fs : [S \mid \Gamma \vdash_{\RI} A_i]_{i \in [1 , \dots , n]}$?}
 \begin{lemma}\label{lem:RI:invert}
-  Given $f : S \mid \Gamma \vdash_{\RI} A$ there is a list of derivations $fs : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$ with $f = \andr^{*} fs$.
+  Given $f : S \mid \Gamma \vdash_{\RI} A$ there is a list of derivations $fs : [S \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}$ with $f = \andr^{*} fs$.
 \end{lemma}
 \begin{proof}
   The proof proceeds by structural induction on $f : S \mid \Gamma \vdash_{\RI} A$.
   \begin{itemize}
     \item If $f = \LI2 \RI \text{ } f_1$, then $A$ is non-negative. Take $fs$ as the singleton list consisting exclusively of $f_1$.
-    \item If $f = \andr \ (f_1, f_2)$, then by inductive hypothesis we have $fs_1 : [S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}$ and $fs_2 : [S \mid \Gamma \vdash_{\LI} B_i]_{i \in [1 , \dots , m]}$. Take $fs$ as the concatenation of $fs_1$ and $fs_2$.
+    \item If $f = \andr \ (f_1, f_2)$, then by inductive hypothesis we have $fs_1 : [S \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}$ and $fs_2 : [S \mid \Gamma \vdash_{\LI} P'_i]_{i \in [1 , \dots , m]}$. Take $fs$ as the concatenation of $fs_1$ and $fs_2$.
   \end{itemize}
 \end{proof}
 
@@ -966,22 +966,22 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
   \begin{displaymath}
     \begin{array}{c}
       \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
-        \deduce{[S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
+        \deduce{[S \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{fs}
       }
       \quad
       \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
-        \deduce{[S \mid \Gamma \vdash_{\LI} B_i]_{i \in [1 , \dots , n]}}{fs}
+        \deduce{[S \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{fs}
       }
       \quad
       \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} A \ot B'}{
-        \deduce{[S \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
+        \deduce{[S \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{fs}
         &
         - \mid \Delta \vdash_{\RI} B'
       }
     \end{array}
   \end{displaymath}
   %generalizing $\orri^{\LI}$ and $\tr^{\LI}$,
-  are admissible, where $\conj{A} = [A_1 , \dots , A_n]$ and $\conj{B} = [B_1 , \dots , B_n]$.
+  are admissible, where $\conj{A} = [P_1 , \dots , P_n]$ and $\conj{B} = [P_1 , \dots , P_n]$.
 \end{proposition}
 \begin{proof}
   The list of derivations $fs$ is non-empty, so we let $fs = [f_1 , fs']$.
@@ -1003,8 +1003,8 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
         \begin{array}{cc}
           \proofbox{
           \infer[\orrone^{\LI}]{T \mid \Gamma \vdash_{\LI} A \lor B}{
-            \infer[ {[\F 2 \LI]} ]{[T \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{
-              \deduce{[T \mid \Gamma \vdash_{\F} A_i]_{i \in [1 , \dots , n]}}{fs^{*}}
+            \infer[ {[\F 2 \LI]} ]{[T \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{
+              \deduce{[T \mid \Gamma \vdash_{\F} P_i]_{i \in [1 , \dots , n]}}{fs^{*}}
             }
           }
           }
@@ -1016,7 +1016,7 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
           \infer[\F 2 \LI]{T \mid \Gamma \vdash_{\LI} A \lor B}{
             \infer[\orrone]{T \mid \Gamma \vdash_{\F} A \lor B}{
               \infer[\andr^{*}_t]{T \mid \Gamma \vdash^{l}_{\RI} A}{
-                \deduce{[T \mid \Gamma \vdash^{t_i}_{\F} A_i]_{i \in [1 , \dots , n]}}{{fs^{*}}'}
+                \deduce{[T \mid \Gamma \vdash^{t_i}_{\F} P_i]_{i \in [1 , \dots , n]}}{{fs^{*}}'}
               }
             }
           }
@@ -1047,9 +1047,9 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
         \begin{array}{cc}
           \proofbox{
             \infer[\orrone^{\LI}]{- \mid A' , \Gamma \vdash_{\LI} A \lor B}{
-              \infer[ {[\F 2 \LI]} ]{[- \mid A' , \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{
-                \infer[ {[\pass]} ]{[- \mid A' , \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{
-                  \deduce{[A' \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs^{*}}
+              \infer[ {[\F 2 \LI]} ]{[- \mid A' , \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{
+                \infer[ {[\pass]} ]{[- \mid A' , \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{
+                  \deduce{[A' \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{fs^{*}}
                 }
               }
             }
@@ -1062,7 +1062,7 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
             \infer[\F 2 \LI]{- \mid A' , \Gamma \vdash_{\LI} A \lor B}{
               \infer[\pass]{- \mid A' , \Gamma \vdash_{\F} A \lor B}{
                 \infer[\orrone^{\LI}]{A' \mid \Gamma \vdash_{\LI} A \lor B}{
-                  \deduce{[A' \mid \Gamma \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs^{*}}
+                  \deduce{[A' \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{fs^{*}}
                 }
               }
             }
@@ -1245,7 +1245,7 @@ The equivalence relation $\circeq$ is extended with two equations:
 % \end{equation}
 %The idea behind the definition of $\circeq$ is that when $\topr$ or $\botl$ is applicable, we should convert the whole derivation into the appropriate one.
 In the focused sequent calculus we add $\topr$ in phase $\vdash_\RI$ and $\botl$ in phase $\vdash_\LI$, so  that they can be applied as early as possible.
-We include a new tag $\tT$ for $\top$. The validity condition for lists of tags stays the same.
+We include a new tag $\tT$ for $\top$. The validity condition for lists of tags is updated as follows: ($i$) $\tT$ or $\tE \in l$, ($ii$) for any $t \in l$, $t = \tT$, or ($iii$) both $\tCone \in l$ and $\tCtwo \in l$. 
 \begin{equation*}\label{eq:focus:units}
   \begin{array}{c}
 %    \text{(right invertible)} & %\\[-4pt] &
@@ -2093,22 +2093,22 @@ The statement of Proposition \ref{prop:GenRightRules} for the focused sequent ca
   \begin{displaymath}
     \begin{array}{c}
       \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
-        \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
+        \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{fs}
       }
       \quad
       \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
-        \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} B_i]_{i \in [1 , \dots , n]}}{fs}
+        \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{fs}
       }
       \\
       \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} A \ot B'}{
-        \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} A_i]_{i \in [1 , \dots , n]}}{fs}
+        \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{fs}
         &
         - \mid \Delta \vdash_{\RI} B'
       }
     \end{array}
   \end{displaymath}
   are admissible, where
-  $\impconj{A} = [(\Gamma'_1 , A_1) , \dots , (\Gamma'_n , A_n)]$ and $\impconj{B} = [(\Gamma'_1 , B_1) , \dots , (\Gamma'_n , B_n)]$.
+  $\impconj{A} = [(\Gamma'_1 , P_1) , \dots , (\Gamma'_n , P_n)]$ and $\impconj{B} = [(\Gamma'_1 , P_1) , \dots , (\Gamma'_n , P_n)]$.
 \end{proposition}
 % \niccolo{Write the statement of the proposition}
 
