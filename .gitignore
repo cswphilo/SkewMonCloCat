@@ -277,3 +277,5 @@ agda/SkSymMonClo/Focusing.agda
 agda/SkMonClo/Utilities.agda
 agda/SkMonClo/formulae.agda
 agda/.DS_Store
+.lh/.lhignore
+.lh/LSFA/LSFA23-revised.tex.json

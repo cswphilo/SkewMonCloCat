@@ -816,7 +816,7 @@ The derivation in (\ref{eq:ex:focused}) can be reconstructed in the focused calc
   \end{array}
 \end{equation}
 Notice that the list of tags is not predetermined when a right non-invertible rule is applied, we have to come up with one ourselves.
-Practically, the list $l$ can be computed by continuing proof search until in each branch we hit the first application of a rule in phase $\vdash_\F$, each with its own (necessarily uniquely determined) single tag $t$. Take $l$ as the concatenation of the resulting $t$s and check whether it is valid. If it is not, backtrack and apply a left non-invertible rule instead.
+Practically, the list $l$ can be computed by continuing proof search until in each branch, we hit the first application of a rule in phase $\vdash_\F$, each with its own (necessarily uniquely determined) single tag $t$. Take $l$ as the concatenation of the resulting $t$s and check whether it is valid. If it is not, backtrack and apply a left non-invertible rule instead.
 %For example, the proof search in (\ref{eq:ex:tag:focused}) actually proceeds as: we apply $\orrone$ and assume that there is a valid list of tags. We continue the proof search and apply the $\andli$ in the tagged phase. When the proof tree closes, we concatenate the singleton list from the leftmost sequent to right and check whether the result list is valid.
 %In this case, $[ \tCone , \tCtwo ]$ is valid.
 
@@ -884,7 +884,7 @@ For example, if the premise of $\orrone^{\RI}$ ends with an application of $\and
   \end{array}
 \end{displaymath}
 The inductive hypothesis applied to $f$ and $g$ would produce wrong sequents for the target conclusion.
-This is fixed by proving the admissibility of more general rules. In order to state and prove this, we need to first introduce a a few lemmata. 
+This is fixed by proving the admissibility of more general rules. In order to state and prove this, we need to first introduce a few lemmata. 
 The first one shows that applying several $\andr$ rules in one step is admissible.
 % \niccolo{The next statement is not precise, $A$ is not really equal to $A_1 \land \dots \land A_n$. One should define an operation $\mathsf{conj}$ (or whatever name) that flattens conjunctions into a list: $\mathsf{conj}(A) = A$ if $A$ is non-negative and $\mathsf{conj}(A \land B) = \mathsf{conj}(A),\mathsf{conj}(B)$. Then in the hypothesis of the theorem there should be $\mathsf{conj}(A) = [A_1, \dots,A_n]$. Same for the subsequent Proposition.}
 %\begin{defn}
@@ -917,7 +917,8 @@ The first one shows that applying several $\andr$ rules in one step is admissibl
   Let $fs : [T \mid \Gamma \vdash^{t_i}_{\F} P_i]_i$ be a list of derivations. The proof proceeds by induction on $A$.
   \begin{itemize}
     \item If $A \neq A' \land B'$, then $fs$ consists of a single derivation $f$. Define $\andr^*_{t} \text{ } fs = \F 2 \LI \text{ } (\LI 2 \RI \text{ } f)$.
-    \item If $A = A' \land B'$, then there exist lists of derivations $fs_1 : [T \mid \Gamma \vdash^{t_i}_{\F} A'_i]_{i \in [1 , \dots , m]}$ and $fs_2 : [T \mid \Gamma \vdash^{t_i}_{\F} B'_i]_{i \in [m+1 , \dots , n]}$, and lists of tags $l_1 = t_1 , \dots , t_m$ and $l_2 = t_{m+1} , \dots , t_n$, so that $fs$ is the concatenation of $fs_1$ and $fs_2$ and $l$ is the concatenation of $l_1 $ and $l_2$.
+    \item If $A = A' \land B'$, then there exist lists of derivations $fs_1 : [T \mid \Gamma \vdash^{t_i}_{\F} A'_i]_{i \in [1 , \dots , m]}$ and \linebreak 
+    $fs_2 : [T \mid \Gamma \vdash^{t_i}_{\F} B'_i]_{i \in [m+1 , \dots , n]}$, and lists of tags $l_1 = t_1 , \dots , t_m$ and $l_2 = t_{m+1} , \dots , t_n$, so that $fs$ is the concatenation of $fs_1$ and $fs_2$ and $l$ is the concatenation of $l_1 $ and $l_2$.
     Apply $\andr$ at the bottom, then proceed recursively:
     \begin{displaymath}
       \small
@@ -957,7 +958,8 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
   The proof proceeds by structural induction on $f : S \mid \Gamma \vdash_{\RI} A$.
   \begin{itemize}
     \item If $f = \LI2 \RI \text{ } f_1$, then $A$ is non-negative. Take $fs$ as the singleton list consisting exclusively of $f_1$.
-    \item If $f = \andr \ (f_1, f_2)$, then by inductive hypothesis we have $fs_1 : [S \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}$ and $fs_2 : [S \mid \Gamma \vdash_{\LI} P'_i]_{i \in [1 , \dots , m]}$. Take $fs$ as the concatenation of $fs_1$ and $fs_2$.
+    \item If $f = \andr \ (f_1, f_2)$, then by inductive hypothesis we have $fs_1 : [S \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}$ and \linebreak
+    $fs_2 : [S \mid \Gamma \vdash_{\LI} P'_i]_{i \in [1 , \dots , m]}$. Take $fs$ as the concatenation of $fs_1$ and $fs_2$.
   \end{itemize}
 \end{proof}
 
@@ -973,10 +975,10 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
         \deduce{[S \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{fs}
       }
       \quad
-      \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} A \ot B'}{
+      \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} A \ot B}{
         \deduce{[S \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{fs}
         &
-        - \mid \Delta \vdash_{\RI} B'
+        - \mid \Delta \vdash_{\RI} B
       }
     \end{array}
   \end{displaymath}
@@ -1175,7 +1177,7 @@ For example, $\mathsf{focus} \ (\orrone \ f) = \orrone^{\RI} \ (\mathsf{focus} \
   \end{itemize}
 \end{theorem}
 \begin{proof}
-  The first bullet is proved by structural induction on the given equality proof $e : f \circeq g$. The other bullets are proved by structural induction on $f$. See the associated Agda formalization for details.
+  The first bullet is proved by structural induction on the given equality proof $e : f \circeq g$. The other bullets are proved by structural induction on $f$. See the associated \href{https://github.com/cswphilo/SkewMonAdd/blob/main/skew-mon-conjunction-disjunction/Main.agda}{Agda formalization} for details.
 \end{proof}
 
 \section{Extensions of the Logic}\label{sec:extensions}
@@ -1684,7 +1686,7 @@ We now discuss the extension of the focused sequent calculus. This is more compl
     \infer[\lright]{S \mid \Gamma \vdash_\RI A \lolli B}{S \mid \Gamma , A \vdash_\RI B}
   \end{array}
 \end{displaymath}
-As we know, this calculus is too permissive, and the inclusion of the above rules increases the non-deterministic choices in proof search even further. As a strategy for taming non-determinism, as before we  decide to prioritize left non-invertible rules over right non-invertible ones. So we need to think of all possible situations when a right non-invertible rule must be applied before a left non-invertible one. The presence of $\lolli$ creates two new possibilities: $(i)$ $\lleft$ splits the context differently in different premises, or $(ii)$ left non-invertible rules manipulate formulae that have been moved to the context by applications of $\lright$ rules. To understand these situations, let us look at two examples.
+As we know, this calculus is too permissive, and the inclusion of the above rules increases the non-deterministic choices in proof search even further. As a strategy for taming non-determinism, as before we  decide to prioritize left non-invertible rules over right non-invertible ones. So we need to think of all possible situations when a right non-invertible rule must be applied before a left non-invertible one. The presence of $\lolli$ creates two new possibilities: $(i)$ $\lleft$ splits the context differently in different premises, or $(ii)$ left non-invertible rules manipulate formulae that have been moved to the context by applications of $\lright$. To understand these situations, let us look at two examples.
 
 As an example of situation $(i)$, consider the sequent $\I \lolli \I \mid \I , Y \vdash_\F (\I \land \I) \ot Y$ and the following proof:
 \begin{equation}\label{eq:ex:lleft:NonDeter}
@@ -2114,13 +2116,13 @@ The statement of Proposition \ref{prop:GenRightRules} for the focused sequent ca
 
 \section{Conclusion}
 The paper presents a sequent calculus for a semi-associative and semi-unital logic,  extending the system introduced in \cite{uustalu:sequent:2021} with additive conjunction and disjunction. Categorical models of this calculus are skew monoidal categories with binary products and coproducts, and the tensor product preserves coproducts on the left: $(A + B) \ot C \cong (A \ot C) + (B \ot C)$.
-Derivations in the sequent calculus are equated by a congruence relation $\circeq$ and canonical representatives of each $\circeq$-equivalence class can be computed in a separate sequent calculus of normal forms, that we dubbed ``focused'' due to its phase separation similar to the one in Andreoli's technique \cite{andreoli:logic:1992}.  It should be remarked that, differently from Andreoli, we do not insist on keeping the focus during the synchronous phase of proof search, and we always privilege the application of left non-invertible rules over right non-invertible ones. In order to achieve completeness wrt. the sequent calculus, the focused system employs a system of tag annotations providing explicit justifications for the cases in which right non-invertible rules must be applied before the left non-invertible ones.
+Derivations in the sequent calculus are equated by a congruence relation $\circeq$ and canonical representatives of each $\circeq$-equivalence class can be computed in a separate sequent calculus of normal forms, that we dubbed ``focused'' due to its phase separation similar to the one in Andreoli's technique \cite{andreoli:logic:1992}.  It should be remarked that, differently from Andreoli, we do not insist on keeping the focus during the synchronous phase of proof search, and we always privilege the application of left non-invertible rules over right non-invertible ones. In order to achieve completeness wrt. the sequent calculus, the focused system employs a system of tag annotations providing explicit justifications for cases where right non-invertible rules must be applied before the left non-invertible ones.
 %In order to eliminate non-determinism related to permutative conversions of non-invertible rules, the focused calculus prioritizes the left-invertible rules over the right ones and employs tag annotations to ensure completeness.
-The focused sequent calculus is a concrete presentation of the free distributive skew monoidal category on the set of atomic formulae, therefore the normalization/focusing algorithm determines a procedure for solving the coherence problem of distributive skew monoidal categories.
+The focused sequent calculus is a concrete presentation of the free distributive skew monoidal category on the set of atomic formulae. Therefore the normalization/focusing algorithm determines a procedure for solving the coherence problem of distributive skew monoidal categories.
 
-In the final part of the paper, we have looked at extensions of the logic with additive units, a skew exchange rule in the style of Bourke and Lack \cite{bourke:lack:braided:2020} and linear implication. This section still needs to be formalized in Agda, which will be our immediate forthcoming step.
+In the final part of the paper, we have looked at extensions of the logic with additive units, a skew exchange rule in the style of Bourke and Lack \cite{bourke:lack:braided:2020}, and linear implication. This section still needs to be formalized in Agda, which will be our immediate forthcoming step.
 
-This paper takes one step further in a large project aiming at modularly analyze proof systems with categorical models given by categories with skew structure \cite{zeilberger:semiassociative:19, uustalu:sequent:2021,uustalu:proof:nodate,uustalu:deductive:nodate,veltri:coherence:2021,UVW:protsn}. We are interested in looking for application of these systems to combinatorics and linguistics, following initial investigation by Zeilberger \cite{zeilberger:semiassociative:19} and Moortgat \cite{moortgat:tamari:20}.
+This paper takes one step further in a large project aiming at modularly analyzing proof systems with categorical models given by categories with skew structure \cite{zeilberger:semiassociative:19, uustalu:sequent:2021,uustalu:proof:nodate,uustalu:deductive:nodate,veltri:coherence:2021,UVW:protsn}. We are interested in looking for applications of these systems to combinatorics and linguistics, following the initial investigation by Zeilberger \cite{zeilberger:semiassociative:19} and Moortgat \cite{moortgat:tamari:20}.
  %, which is a skew version of noncommutative intuitionistic linear logic with additive conjunction and disjunction and has skew monoidal closed categories with products and coproducts as its models.
 %We expect that the tag annotations, which guarantee correct proof searches in this paper, will complement nicely with the tag annotations in \cite{UVW:protsn}, which track new formulae in context.
 % We expect the tag annotations as guarantee of correct proof searches in this paper can nicely cooperate with the one in \cite{UVW:protsn} that tracks new formulae in context.
