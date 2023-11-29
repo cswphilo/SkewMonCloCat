@@ -1967,7 +1967,7 @@ Here are the inference rules of the focused sequent calculus with linear implica
         % &
         % t \text{ exists } \supset \ (\Delta \text{ empty and } \ t =  \Gamma) \text{ or } \ t = \bullet
         &
-        \text{if } \Delta \text{ is empty then } (t \text{ does not exist or } t =  \Gamma)  \text{ else }  t = \bullet 
+        \text{if } \Delta^{\bullet} \text{ is empty then } (t \text{ does not exist or } t =  \Gamma)  \text{ else }  t = \bullet 
       }
     }
   \end{array}
@@ -1987,9 +1987,9 @@ Rule $\lright$  moves a formula $A$ from the succedent to the right end of the c
 %If $A$ is tagged, then it must have been moved to the context using $\lright$.
 %If $A$ is untagged and $t = \tP$, then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$, and $l$ could be valid because of another branch performing a phase $\F$ rule distinct from $\pass$.
 
-The side condition in rule $\lleft$ should be read as follows. If $\Delta$ is empty, then the sequent is either untagged (so there is no $t$) or the tag $t$ is equal to $ \Gamma$. If $\Delta$ is non-empty, then $t = \bullet$. In particular,
+The side condition in rule $\lleft$ should be read as follows. The tagged context $\Delta^{\bullet}$ starts with the leftmost tagged formula in the sequent. If $\Delta^{\bullet}$ is empty, then the sequent is either untagged (so there is no $t$) or the tag $t$ is equal to $ \Gamma$. If $\Delta^{\bullet}$ is non-empty, then $t = \bullet$. In particular,
 %Checking whether $\Delta$ is empty or not is crucial here. If it is non-empty, then
-$\Delta^\bullet$ contains at least one tagged formula, which must have appeared in context from an application of $\lright$. If $\Delta$ is empty and $t = \Gamma$, no new (meaning: tagged with $\bullet$) formula is moved to the left premise. If $t = \Gamma$ then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$. List $l$ could be valid because of a different branch in the proof tree where $\lleft$ is also applied but the context has been split differently (so its tag would be $ \Gamma'$ for some $\Gamma \not= \Gamma'$).
+$\Delta^{\bullet}$ contains at least one tagged formula, which must have appeared in context from an application of $\lright$. If $\Delta^{\bullet}$ is empty and $t = \Gamma$, no new (meaning: tagged with $\bullet$) formula is moved to the left premise. If $t = \Gamma$ then we are performing proof search inside the premise of a right non-invertible rule and $t$ belongs to some valid list of tags $l$. List $l$ could be valid because of a different branch in the proof tree where $\lleft$ is also applied but the context has been split differently (so its tag would be $ \Gamma'$ for some $\Gamma \not= \Gamma'$).
 
 Rule $\pass$ has a similar side condition to $\lleft$. If $A$ does not have a tag, then the sequent is also untagged or the tag $t$ is equal to $\tP$. If $A$ has tag $\bullet$, then $t$ must also be $\bullet$. In other words, if $t = \bullet$ then the formula that $\pass$ moves to the stoup must also be tagged with $\bullet$, i.e. must have been added to the context by an application of $\lright$.
 %  The inhabited or non-inhabited nature of $\Delta$ is crucial because if there is any formula occurrence in $\Delta$, then it indicates that there is an application of a right non-invertible rule before $\lleft$ and the order of rule applications is guaranteed due to the new formula occurrences in $\Delta$.
