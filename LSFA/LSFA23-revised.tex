@@ -502,7 +502,7 @@ such category on the set $\mathsf{At}$.
 The construction of the functor $F$ and the proof of uniqueness proceed similarly to the proofs of Theorems 3.1 and 3.2 in \cite{UVW:protsn}.
 
 \section{A Focused Sequent Calculus with Tag Annotations}\label{sec:focusing}
-When oriented from left-to-right, the equations in (\ref{fig:circeq}) become a  rewrite system, which is locally confluent and strongly normalizing, thus confluent with unique normal forms. Here we provide an explicit description of the proof normal forms of (\ref{eq:seqcalc}).
+When oriented from left-to-right, the equations in (\ref{fig:circeq}) become a  rewrite system, which is locally confluent and strongly normalizing, thus confluent with unique normal forms. Here we provide an explicit description of the normal forms of (\ref{eq:seqcalc})  wrt.~this rewrite system.
 %Similar to the strategy employed in \cite{UVW:protsn},
 For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure can be defined as follows. First apply right invertible rules on the sequent until the principal connective of the succedent is non-negative, then apply left invertible rules until the stoup becomes either empty or non-positive. At this point, if we do not insist on focusing on a particular formula (either in the stoup or succedent, since no rule acts on formulae in context) as in Andreoli's focusing procedure~\cite{andreoli:logic:1992}, we obtain a sequent calculus with a reduced proof search space, that looks like this:
 \begin{equation}\label{eq:naive:focus}
@@ -524,7 +524,7 @@ For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure ca
     \qquad
     \infer[\tl]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B , \Gamma \vdash_{\LI} P}
     \\
-    \infer[\orl]{A \lor B \mid \Gamma_\LI \vdash P}{
+    \infer[\orl]{A \lor B \mid \Gamma \vdash_\LI P}{
       A \mid \Gamma \vdash_\LI P
       &
       B \mid \Gamma \vdash_\LI P
@@ -785,10 +785,10 @@ The proof search of a sequent $S \mid \Gamma \vdash_\RI A$ proceeds as follows:
 \end{itemize}
 The proof search of a sequent $T \mid \Gamma \vdash^{l}_\RI A$ proceeds as follows (notice that at this point in proof search the stoup $T$ is necessarily irreducible):
 \begin{itemize}
-  \item[($\vdash^{l}_{\RI}$)] We apply the $\andr$ rule to decompose the succedent and separate the list of tags carefully until the succedent becomes non-negative and the list of tags becomes a singleton $t$, then we move to phase $\vdash_\LI^t$ with an application of $\LI2 \RI$.
+  \item[($\vdash^{l}_{\RI}$)] We apply the $\andr$ rule to decompose the succedent and split the list of tags carefully until the succedent becomes non-negative and the list of tags becomes a singleton $t$, then we move to phase $\vdash_\LI^t$ with an application of $\LI2 \RI$.
   \item[($\vdash^{t}_{\LI}$)] Since the stoup is either empty or a negative formula, we immediately switch to phase $\vdash_\F$ with an application of $\F 2 \LI$. This motivates why sequents in rules $\unitl$, $\tl$, $\orl$ are not tagged.
   % \item[($\vdash^{t}_{\Pass}$)] In this phase, $\pass$ can be applied only when the stoup is empty and the conclusion sequent has the tag $\tP$. For other cases, we should move to the focusing phase directly.
-  \item[($\vdash^{t}_{\F}$)] If $t = \tE$ we can apply either $\ax$, $\unitr$ or another right non-invertible rules. Again, when applying right non-invertible rules we need to provide a new valid list of tags.
+  \item[($\vdash^{t}_{\F}$)] If $t = \tE$ we can apply either $\ax$, $\unitr$ or another right non-invertible rule. Again, when applying right non-invertible rules we need to come up with a new valid list of tags.
   Left non-invertible rules can be applied only when the tag is correct, i.e. $\pass$ with tag $\tP$, $\andlone$ with tag $\tCone$, and $\andltwo$ with tag $\tCtwo$.
 \end{itemize}
 The derivation in (\ref{eq:ex:focused}) can be reconstructed in the focused calculus with tag annotations.
@@ -816,7 +816,7 @@ The derivation in (\ref{eq:ex:focused}) can be reconstructed in the focused calc
   \end{array}
 \end{equation}
 Notice that the list of tags is not predetermined when a right non-invertible rule is applied, we have to come up with one ourselves.
-Practically, the list $l$ can be computed by continuing proof search until in each branch, we hit the first application of a rule in phase $\vdash_\F$, each with its own (necessarily uniquely determined) single tag $t$. Take $l$ as the concatenation of the resulting $t$s and check whether it is valid. If it is not, backtrack and apply a left non-invertible rule instead.
+Practically, the list $l$ can be computed by continuing proof search until, in each branch, we hit the first application of a rule in phase $\vdash_\F$, each with its own (necessarily uniquely determined) single tag $t$. Take $l$ as the concatenation of the resulting $t$s and check whether it is valid. If it is not, backtrack and apply a left non-invertible rule instead.
 %For example, the proof search in (\ref{eq:ex:tag:focused}) actually proceeds as: we apply $\orrone$ and assume that there is a valid list of tags. We continue the proof search and apply the $\andli$ in the tagged phase. When the proof tree closes, we concatenate the singleton list from the leftmost sequent to right and check whether the result list is valid.
 %In this case, $[ \tCone , \tCtwo ]$ is valid.
 
@@ -972,7 +972,7 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
       }
       \quad
       \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
-        \deduce{[S \mid \Gamma \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{fs}
+        \deduce{[S \mid \Gamma \vdash_{\LI} Q_i]_{i \in [1 , \dots , m]}}{fs}
       }
       \quad
       \infer[\tr^{\LI}]{S \mid \Gamma , \Delta \vdash_{\LI} A \ot B}{
@@ -983,7 +983,7 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
     \end{array}
   \end{displaymath}
   %generalizing $\orri^{\LI}$ and $\tr^{\LI}$,
-  are admissible, where $\conj{A} = [P_1 , \dots , P_n]$ and $\conj{B} = [P_1 , \dots , P_n]$.
+  are admissible, where $\conj{A} = [P_1 , \dots , P_n]$ and $\conj{B} = [Q_1 , \dots , Q_m]$.
 \end{proposition}
 \begin{proof}
   The list of derivations $fs$ is non-empty, so we let $fs = [f_1 , fs']$.
@@ -992,7 +992,7 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
   %\begin{itemize}
   %\item
   
-  If $f_1$ is the conclusion of a left invertible rule, then all the derivations in $fs'$ necessarily end with the same rule as well.
+  If $f_1$ ends with the application of a left invertible rule, then all the derivations in $fs'$ necessarily end with the same rule as well.
   Therefore, we permute this rule with $\orrone^{\LI}$ and apply the inductive hypothesis.
   
   %\item
@@ -1044,7 +1044,7 @@ The second lemma corresponds to the invertibility of phase $\vdash_\RI$.
       % \end{displaymath}
       % in $fs^{*'}$.
       \item The list $l$ is invalid. In this case, all elements in $fs$ end with the same left non-invertible rule, so we permute the rule down with $\orrone^{\LI}$ and continue recursively.
-      Here is an example where all elements are conclusions of $\pass$, i.e. $fs = [\F 2 \LI] \,([\pass]\,fs^*)$:
+      Here is an example where all derivations in $fs$ end with an application of $\pass$, i.e. $fs = [\F 2 \LI] \,([\pass]\,fs^*)$:
       \begin{displaymath}
         \begin{array}{cc}
           \proofbox{
