@@ -1186,8 +1186,8 @@ We now discuss some extensions of the sequent calculus and the focusing strategy
 \subsection{Additive Units}\label{subsec:AddUnits}
 %\cheng{I think fully additive sequent calculus may not be a good name. Do you have any suggestion?}
 
-The sequent calculus in (\ref{eq:seqcalc}) can be made ``fully'' additive by including two units $\top$ and $\bot$ (the latter named 0 in linear logic literature) %corresponding to $\land$ and $\lor$ respectively
-and rules:
+The sequent calculus in (\ref{eq:seqcalc}) can be made ``fully'' additive by including two units $\top$ and $\bot$ (the latter named 0 in linear logic literature), %corresponding to $\land$ and $\lor$ respectively
+two new introduction rules and two new generating equations:
 
 \begin{displaymath}
   \begin{array}{c}
@@ -1196,20 +1196,7 @@ and rules:
     \infer[\botl]{\bot \mid \Gamma \vdash C}{}
   \end{array}
 \end{displaymath}
-% \begin{displaymath}
-%   \begin{array}{c}
-%     (\text{full associativity of sequents with } \bot \text{ in the stoup})
-%     \\[10pt]
-%     \proofbox{
-%     \infer[\tl]{\bot \ot (B \ot C) \mid \quad \vdash (\bot \ot B) \ot C}{
-%     \infer[\botl]{\bot \mid B \ot C \vdash (\bot \ot B) \ot C}{}
-%   }
-%   }
-%   \end{array}
-% \end{displaymath}
-%\cheng{I am not sure how to call the categorical models here. How about distributive skew monoidal (co)cartesian categories?}
-% The categorical models of the fully additive extension are distributive  
-The equivalence relation $\circeq$ is extended with two equations:
+%The equivalence relation $\circeq$ is extended with two equations:
 \begin{equation*}\label{eq:units}
   \small
   \begin{array}{rclll}
