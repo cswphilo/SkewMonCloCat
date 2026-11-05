@@ -284,3 +284,6 @@ LSFA/.lh/LSFA23-eptcs.tex.json
 LSFA/.lh/LSFA.bib.json
 LSFA/.lh/.lhignore
 agda/SkSymMonClo/.lh/.lhignore
+LSFA/.DS_Store
+BSL/.DS_Store
+.DS_Store
