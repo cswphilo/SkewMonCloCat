@@ -949,7 +949,7 @@ Following \cite{veltri:coherence:2021}, we consider a ``skew'' commutative exten
 Note that exchanging the formula in the stoup, whenever the latter is non-empty, with a formula in context is not allowed. The new rule $\ex$ comes with additional generating equations for the congruence relation $\circeq$:
 \begin{equation*}\label{fig:circeq:sym}
   % \footnotesize
-  \small
+  % \small
   \arraycolsep=2pt
   \def\arraystretch{1.1}
   \hspace{-8.9pt}
@@ -1010,7 +1010,7 @@ This is obtained by extending the sequent calculus in (\ref{eq:seqcalc}) with a 
 \end{displaymath}
 The presence of $\lolli$ requires the extension of the congruence relation $\circeq$ with additional generating equations: an $\eta$-conversion and more permutative conversions.
 \begin{equation*}\label{fig:circeq:impl}
-  \small
+  % \small
   \begin{array}{rlll}
   \ax_{A \lolli B} &\circeq \lright \text{ } (\lleft \text{ } (\pass \text{ } \ax_{A}, \ax_{B} ))
   \\
@@ -1282,7 +1282,34 @@ As before, $l?$ and $t?$ denote optional sequent tags. The first premise of $\tr
 
 The tag $t$ in a tagged conclusion of $\pass$ or $\lleft$ is determined as follows. For $\pass$, $t=\tP$ if the formula moved to the stoup is unmarked and $t=\bullet$ if it is marked. For $\lleft$, if $\Lambda$ contains no marked formula, then $t=(\Lambda,h)$, where $h$ is the displayed derivation of the left premise. If $\Lambda$ contains a marked formula, then $t=\bullet$.
 
-A list $l$ is valid if it contains $\tE$ or $\bullet$, both $\tCone$ and $\tCtwo$, or two pairs $(\Lambda,h)$ and $(\Lambda',h')$ with either $\Lambda\ne\Lambda'$ or $\Lambda=\Lambda'$ and $h\ne h'$. In (\ref{eq:ex:lleft:sameCxt:diffDer}), the two tags have the same context $[X\land X]$ but different derivations $f_1$ and $f_2$. In (\ref{eq:ex:lleft:NonDeter}), the contexts in the two tags are $[\I]$ and $[]$. In both derivations in (\ref{eq:counterexample1}), the tag is $\bullet$ because the formula $X$ moved to the stoup or sent to the left premise was introduced into the context by $\lright$.
+A list $l$ is valid if it contains $\tE$ or $\bullet$, both $\tCone$ and $\tCtwo$, or two pairs $(\Lambda,h)$ and $(\Lambda',h')$ with either $\Lambda\ne\Lambda'$ or $\Lambda=\Lambda'$ and $h\ne h'$.
+
+With the derivations $f_1$ and $f_2$ from case $(i)$, the tagged derivation of (\ref{eq:ex:lleft:sameCxt:diffDer}) is
+\[
+  \resizebox{\linewidth}{!}{$
+  \begin{array}{c}
+    \infer[\orrone]{X \lolli X \mid X \land X \vdash_\F (X \land X) \lor Y}{
+    \infer[\andr]{X \lolli X \mid X \land X \vdash^{[([X\land X],f_1), ([X\land X],f_2)]}_\RI X \land X}{
+      \infer[\sw]{X \lolli X \mid X \land X \vdash^{([X\land X],f_1)}_\RI X}{
+        \infer[\lleft]{X \lolli X \mid X \land X \vdash^{([X\land X],f_1)}_\F X}{
+          \deduce{{-} \mid X \land X \vdash_\RI X}{f_1} &
+          \infer[\F 2 \LI]{X \mid \quad \vdash_\LI X}{\infer[\ax]{X \mid \quad \vdash_\F X}{}}
+        }
+      } &
+      \infer[\sw]{X \lolli X \mid X \land X \vdash^{([X\land X],f_2)}_\RI X}{
+        \infer[\lleft]{X \lolli X \mid X \land X \vdash^{([X\land X],f_2)}_\F X}{
+          \deduce{{-} \mid X \land X \vdash_\RI X}{f_2} &
+          \infer[\F 2 \LI]{X \mid \quad \vdash_\LI X}{\infer[\ax]{X \mid \quad \vdash_\F X}{}}
+        }
+      }
+    } & [([X\land X],f_1), ([X\land X],f_2)]\ \text{valid}
+  }
+  \end{array}
+  $}
+\]
+Both applications of $\lleft$ send the same unmarked context $[X\land X]$ to the left premise. The first uses $f_1$, which applies $\andlone$, and the second uses $f_2$, which applies $\andltwo$. Thus $f_1\ne f_2$, so the list formed by $\andr$ is valid and $\orrone$ applies.
+
+In (\ref{eq:ex:lleft:NonDeter}), the contexts in the two tags are $[\I]$ and $[]$. In both derivations in (\ref{eq:counterexample1}), the tag is $\bullet$ because the formula $X$ moved to the stoup or sent to the left premise was introduced into the context by $\lright$.
 
 Proving completeness of the extended focused sequent calculus is more involved than in the absence of implication. Concretely, the complication resides in stating and proving the analog of Proposition \ref{prop:GenRightRules}. First, define an operation $\mathsf{impconj}(A)$ which produces a list of pairs of lists of formulae and formulae as follows: 
 \begin{displaymath}
@@ -1306,7 +1333,7 @@ The statement of Proposition \ref{prop:GenRightRules} for the focused sequent ca
       \infer[\orrone^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
         \deduce{[S \mid \Gamma , \Gamma'_i \vdash_{\LI} P_i]_{i \in [1 , \dots , n]}}{fs}
       }
-      \quad
+      \qquad
       \infer[\orrtwo^{\LI}]{S \mid \Gamma \vdash_{\LI} A \lor B}{
         \deduce{[S \mid \Gamma , \Gamma''_i \vdash_{\LI} Q_i]_{i \in [1 , \dots , m]}}{fs}
       }
