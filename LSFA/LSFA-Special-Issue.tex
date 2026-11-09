@@ -904,6 +904,154 @@ For example, $\mathsf{focus} \ (\orrone \ f) = \orrone^{\RI} \ (\mathsf{focus} \
   The first bullet is proved by structural induction on the given equality proof $e : f \circeq g$. The other bullets are proved by structural induction on $f$. See the associated \href{https://github.com/cswphilo/SkewMonAdd/blob/main/skew-mon-conjunction-disjunction/Main.agda}{Agda formalization} for details.
 \end{proof}
 
+\subsection{An alternative presentation of the focused sequent calculus}\label{subsec:foc:alt}
+
+There is an alternative presentation of the focused sequent calculus whose rules are written in a simpler way by computing tags from derivations. We use the same tags $\tP,\tCone,\tCtwo$ and $\tE$, with the same meanings as before.
+
+First, we define a predicate $\mathsf{isOK}$ on lists of tags by the following equations, where $i,j\in\{1,2\}$ and $i\ne j$:
+\begin{displaymath}
+  \begin{array}{rcl@{\qquad}rcl}
+    \mathsf{isOK}\ [\ ] &=& \bot & \mathsf{isOK}_{\mathbb{C}_i}\ [\ ] &=& \bot \\
+    \mathsf{isOK}\ (\tE,l) &=& \top & \mathsf{isOK}_{\mathbb{C}_i}\ (\tE,l) &=& \top \\
+    \mathsf{isOK}\ (\tP,l) &=& \mathsf{isOK}\ l & \mathsf{isOK}_{\mathbb{C}_i}\ (\tP,l) &=& \mathsf{isOK}_{\mathbb{C}_i}\ l \\
+    \mathsf{isOK}\ (\mathbb{C}_i,l) &=& \mathsf{isOK}_{\mathbb{C}_i}\ l & \mathsf{isOK}_{\mathbb{C}_i}\ (\mathbb{C}_j,l) &=& \top \\
+    && & \mathsf{isOK}_{\mathbb{C}_i}\ (\mathbb{C}_i,l) &=& \mathsf{isOK}_{\mathbb{C}_i}\ l.
+  \end{array}
+\end{displaymath}
+Here $\top$ and $\bot$ mean that the predicate holds and fails, respectively. Thus $\mathsf{isOK}\ l$ holds exactly when $l$ is valid in the sense defined above, i.e. it contains $\tE$ or both $\tCone$ and $\tCtwo$.
+
+The inference rules and the functions $\mathsf{tag\text{-}ri}$ and $\mathsf{tag\text{-}f}$ are defined mutually. The rules are
+\begin{equation*}\label{eq:focus:alternative}
+  \resizebox{\linewidth}{!}{$
+  \begin{array}{lc}
+    \text{(right invertible)} &\hspace*{-1cm}
+    \proofbox{
+      \infer[\andr]{S \mid \Gamma \vdash_{\RI} A \land B}{
+        S \mid \Gamma \vdash_{\RI} A
+        &
+        S \mid \Gamma \vdash_{\RI} B
+      }
+    \qquad
+    \infer[\LI 2 \RI]{S \mid \Gamma \vdash_{\RI} P}{S \mid \Gamma \vdash_{\LI} P}
+    }
+    \\[10pt]
+    \text{(left invertible)} &\hspace*{-1cm}
+    \proofbox{
+      \infer[\unitl]{\I \mid \Gamma \vdash_{\LI} P}{{-} \mid \Gamma \vdash_{\LI} P}
+    \qquad
+    \infer[\tl]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B , \Gamma \vdash_{\LI} P}
+    \\
+    \infer[\orl]{A \lor B \mid \Gamma \vdash_\LI P}{
+      A \mid \Gamma \vdash_\LI P
+      &
+      B \mid \Gamma \vdash_\LI P
+    }
+    \qquad
+    \infer[\F 2 \LI]{T \mid \Gamma \vdash_{\LI} P}{T \mid \Gamma \vdash_{\F} P}
+    }
+    \\[10pt]
+    \text{(focusing)} &\hspace*{-1cm}
+    \proofbox{
+    \infer[\pass]{{-} \mid A , \Gamma \vdash_{\F} P }{
+        A \mid \Gamma \vdash_{\LI} P
+    }
+    \qquad
+    \infer[\ax]{X \mid \quad \vdash_{\F} X}{}
+    \qquad
+    \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+    }
+    \\[10pt]
+    \multicolumn{2}{c}{
+    \infer[\tr]{T \mid \Gamma , \Delta \vdash_{\F} A \ot B}{
+      \deduce{T \mid \Gamma \vdash_{\RI} A}{f}
+      &
+      {-} \mid \Delta \vdash_{\RI} B
+      &
+      \hspace*{-2mm}
+      \mathsf{isOK}\ (\mathsf{tag\text{-}ri}\ f)
+    }
+    \quad
+    \infer[\orrone]{T \mid \Gamma \vdash_{\F} A \lor B}{
+      \deduce{T \mid \Gamma \vdash_{\RI} A}{f}
+      &\hspace*{-2mm}
+      \mathsf{isOK}\ (\mathsf{tag\text{-}ri}\ f)
+    }
+    \quad
+    \infer[\orrtwo]{T \mid \Gamma \vdash_{\F} A \lor B}{
+      \deduce{T \mid \Gamma \vdash_{\RI} B}{f}
+      &\hspace*{-2mm}
+      \mathsf{isOK}\ (\mathsf{tag\text{-}ri}\ f)
+    }
+    }
+    \\[6pt]
+    \multicolumn{2}{c}{
+    \infer[\andlone]{A \land B \mid \Gamma \vdash_{\F} P}{A \mid \Gamma \vdash_{\LI} P}
+    \qquad
+    \infer[\andltwo]{A \land B \mid \Gamma \vdash_{\F} P}{B \mid \Gamma \vdash_{\LI} P}
+    }
+  \end{array}$}
+\end{equation*}
+As before, $T$ is an irreducible stoup and $P$ is a non-negative formula. For each right non-invertible rule, we first construct its premises, then compute the list of tags of the displayed derivation $f$ and check that it is valid.
+
+For $f:T\mid\Gamma\vdash_\RI A$, the function $\mathsf{tag\text{-}ri}\ f$ computes a list of tags, while for $f:T\mid\Gamma\vdash_\F P$, the function $\mathsf{tag\text{-}f}\ f$ computes a single tag. They are defined by
+\begin{displaymath}
+  \begin{array}{rcl}
+    \mathsf{tag\text{-}ri}\ (\andr\ (f,g)) &=& \mathsf{tag\text{-}ri}\ f,\mathsf{tag\text{-}ri}\ g
+    \\
+    \mathsf{tag\text{-}ri}\ (\LI 2 \RI\ (\F 2 \LI\ f)) &=& [\mathsf{tag\text{-}f}\ f]
+  \end{array}
+\end{displaymath}
+and
+\begin{displaymath}
+  \begin{array}{rcl@{\qquad}rcl}
+    \mathsf{tag\text{-}f}\ \ax &=& \tE
+    &
+    \mathsf{tag\text{-}f}\ \unitr &=& \tE
+    \\
+    \mathsf{tag\text{-}f}\ (\pass\ f) &=& \tP
+    &
+    \mathsf{tag\text{-}f}\ (\andli\ f) &=& \mathbb{C}_i
+    \\
+    \mathsf{tag\text{-}f}\ (\tr\ (f,g)) &=& \tE
+    &
+    \mathsf{tag\text{-}f}\ (\orri\ f) &=& \tE.
+  \end{array}
+\end{displaymath}
+The comma in the first equation denotes concatenation of lists. Since $T$ is irreducible, a derivation of $T\mid\Gamma\vdash_\LI P$ ends with $\F 2 \LI$, so the two clauses for $\mathsf{tag\text{-}ri}$ cover all cases. In the equations for $\mathsf{tag\text{-}f}$, the validity assumptions of the right non-invertible rules are left implicit.
+
+For example, the derivation in (\ref{eq:ex:tag:focused}) is written as follows, where $f$ denotes the displayed premise derivation of $\orrone$:
+\begin{displaymath}
+  \begin{array}{c}
+    \infer[\orrone]{X\land Y\mid\quad\vdash_\F (X\land Y)\lor Z}{
+      \infer[\andr]{X\land Y\mid\quad\vdash_\RI X\land Y}{
+        \infer[\sw]{X\land Y\mid\quad\vdash_\RI X}{
+          \infer[\andlone]{X\land Y\mid\quad\vdash_\F X}{
+            \infer[\F 2 \LI]{X\mid\quad\vdash_\LI X}{
+              \infer[\ax]{X\mid\quad\vdash_\F X}{}
+            }
+          }
+        }
+        &
+        \infer[\sw]{X\land Y\mid\quad\vdash_\RI Y}{
+          \infer[\andltwo]{X\land Y\mid\quad\vdash_\F Y}{
+            \infer[\F 2 \LI]{Y\mid\quad\vdash_\LI Y}{
+              \infer[\ax]{Y\mid\quad\vdash_\F Y}{}
+            }
+          }
+        }
+      }
+      & \mathsf{isOK}\ (\mathsf{tag\text{-}ri}\ f)
+    }
+  \end{array}
+\end{displaymath}
+The two branches give $\tCone$ and $\tCtwo$, respectively. Hence $\mathsf{tag\text{-}ri}\ f=[\tCone,\tCtwo]$, and the side condition holds since
+\begin{displaymath}
+  \mathsf{isOK}\ [\tCone,\tCtwo]
+  = \mathsf{isOK}_{\tCone}\ [\tCtwo]
+  = \top.
+\end{displaymath}
+
+
 \section{Extensions of the Logic}\label{sec:extensions}
 We now discuss some extensions of the sequent calculus and the focusing strategy.
 
@@ -1197,42 +1345,6 @@ In the first derivation, rule $\pass$ in the left branch of $\tr$ cannot be move
 These examples motivate two new forms of tag in addition to $\tP,\tCone,\tCtwo$ and $\tE$: a pair $(\Lambda,h)$ recording the context and derivation of the left premise of $\lleft$, and $\bullet$ for a formula moved to the context by $\lright$ and subsequently moved to the stoup by $\pass$ or sent to the left premise of $\lleft$.
 
 Here are the inference rules of the focused sequent calculus with linear implication:
-% \begin{equation}\label{eq:focus:impl}
-% \scalebox{0.88}{$
-%   \begin{array}{lc}
-% \text{(right invertible)} & \infer[\andr]{S\mid\Gamma\vdash_\RI A\land B}{\deduce{S\mid\Gamma\vdash_\RI A}{f}&\deduce{S\mid\Gamma\vdash_\RI B}{g}}
-% \quad
-% \infer[\lright]{S\mid\Gamma\vdash_\RI A\lolli B}{\deduce{S\mid\Gamma,A\vdash_\RI B}{f}}
-%     % \\[10pt]
-% \quad \infer[\LI2\RI]{S\mid\Gamma\vdash_\RI P}{\deduce{S\mid\Gamma\vdash_\LI P}{f}}
-%     \\[10pt]
-% \text{(left invertible)} & 
-% \begin{array}{c}
-%   \infer[\unitl]{\I\mid\Gamma\vdash_\LI P}{\deduce{{-}\mid\Gamma\vdash_\LI P}{f}}
-% \quad
-% \infer[\tl]{A\ot B\mid\Gamma\vdash_\LI P}{\deduce{A\mid B,\Gamma\vdash_\LI P}{f}}
-% \quad \infer[\orl]{A\lor B\mid\Gamma\vdash_\LI P}{\deduce{A\mid\Gamma\vdash_\LI P}{f}&\deduce{B\mid\Gamma\vdash_\LI P}{g}}
-% \quad
-% \infer[\F2\LI]{T\mid\Gamma\vdash_\LI P}{\deduce{T\mid\Gamma\vdash_\F P}{f}}
-% \end{array}
-%     \\[20pt]
-% \text{(focusing)} & 
-% \begin{array}{c}
-%   \infer[\ax]{X\mid\quad\vdash_\F X}{}
-% \quad
-% \infer[\unitr]{{-}\mid\quad\vdash_\F\I}{}
-% \quad
-% \infer[\pass]{{-}\mid A,\Gamma\vdash_\F P}{\deduce{A\mid\Gamma\vdash_\LI P}{f}}
-% \quad \infer[\andli]{A_1\land A_2\mid\Gamma\vdash_\F P}{\deduce{A_i\mid\Gamma\vdash_\LI P}{f}}
-% \\[10pt]
-% \infer[\lleft]{A\lolli B\mid\Gamma,\Delta\vdash_\F P}{\deduce{{-}\mid\Gamma\vdash_\RI A}{f}&\deduce{B\mid\Delta\vdash_\LI P}{g}}
-% \quad \infer[\tr]{T\mid\Gamma,\Delta\vdash_\F A\ot B}{\deduce{T\mid\Gamma\vdash_\RI A}{f}&\deduce{{-}\mid\Delta\vdash_\RI B}{g}&\mathsf{isOK}(\mathsf{tags\text{-}ri}(T,[],f))}
-%     \\[10pt]
-% \quad \infer[\orrone]{T\mid\Gamma\vdash_\F A\lor B}{\deduce{T\mid\Gamma\vdash_\RI A}{f}&\mathsf{isOK}(\mathsf{tags\text{-}ri}(T,[],f))}
-% \quad \infer[\orrtwo]{T\mid\Gamma\vdash_\F A\lor B}{\deduce{T\mid\Gamma\vdash_\RI B}{f}&\mathsf{isOK}(\mathsf{tags\text{-}ri}(T,[],f))}
-% \end{array}
-%   \end{array}$}
-% \end{equation}
 \begin{equation}\label{eq:focus:impl}
 \scalebox{0.9}{$
   \begin{array}{lc}
@@ -1253,27 +1365,35 @@ Here are the inference rules of the focused sequent calculus with linear implica
     \infer[\orl]{A\lor B\mid\Gamma\vdash_\LI P}{A\mid\Gamma\vdash_\LI P & B\mid\Gamma\vdash_\LI P}
     \quad
     \infer[\F2\LI]{T\mid\Gamma\vdash^{t?}_\LI P}{T\mid\Gamma\vdash^{t?}_\F P}
-    \\[14pt]
-    \text{(focusing)} &
+    \\[10pt]
+    \text{(focusing)} &\hspace*{-2cm}
     \infer[\ax]{X\mid\quad\vdash^{\tE?}_\F X}{}
     \quad
     \infer[\unitr]{{-}\mid\quad\vdash^{\tE?}_\F\I}{}
     \quad
     \infer[\pass]{{-}\mid A^{\bullet?},\Gamma\vdash^{t?}_\F P}{A\mid\Gamma^\circ\vdash_\LI P}
-    \quad
-    \infer[\andli]{A_1\land A_2\mid\Gamma\vdash^{\mathbb C_i?}_\F P}{A_i\mid\Gamma^\circ\vdash_\LI P}
     \\[10pt]
-    & \infer[\lleft]{A\lolli B\mid\Lambda,\Delta\vdash^{t?}_\F P}{
-      \deduce{{-}\mid\Lambda^\circ\vdash_\RI A}{h} & B\mid\Delta^\circ\vdash_\LI P}
-    \quad
+    \multicolumn{2}{c}{
     \infer[\tr]{T\mid\Gamma,\Delta\vdash^{\tE?}_\F A\ot B}{
       T\mid\Gamma^\circ\vdash^l_\RI A & {-}\mid\Delta^\circ\vdash_\RI B & l\ \text{valid}}
+    }
     \\[10pt]
-    & \infer[\orrone]{T\mid\Gamma\vdash^{\tE?}_\F A\lor B}{
+    \multicolumn{2}{c}{
+      \infer[\orrone]{T\mid\Gamma\vdash^{\tE?}_\F A\lor B}{
       T\mid\Gamma^\circ\vdash^l_\RI A & l\ \text{valid}}
     \quad
     \infer[\orrtwo]{T\mid\Gamma\vdash^{\tE?}_\F A\lor B}{
       T\mid\Gamma^\circ\vdash^l_\RI B & l\ \text{valid}}
+    }
+    \\[10pt]
+    \multicolumn{2}{c}{
+    \infer[\lleft]{A\lolli B\mid\Lambda,\Delta\vdash^{t?}_\F P}{
+      {-}\mid\Lambda^\circ\vdash_\RI A & B\mid\Delta^\circ\vdash_\LI P}
+    \quad
+    \infer[\andlone]{A\land B\mid\Gamma\vdash^{\mathbb C_1?}_\F P}{A\mid\Gamma^\circ\vdash_\LI P}
+    \quad
+    \infer[\andltwo]{A\land B\mid\Gamma\vdash^{\mathbb C_2?}_\F P}{A\mid\Gamma^\circ\vdash_\LI P}
+    }
   \end{array}$}
 \end{equation}
 Again $P$ indicates a non-negative formula, whose principal connective is neither $\land$ nor $\lolli$, and $T$ is empty, an atom, a conjunction or an implication.
@@ -1325,7 +1445,7 @@ Proving completeness of the extended focused sequent calculus is more involved t
 \end{displaymath}
 For example, $\impconj{A \lolli (B \lolli (X \land (C \lor D) \land (Y \lolli Z)))} = [([A , B] , X) , ([A , B] , C \lor D) , ([A , B , Y] , Z)]$.
 
-The statement of Proposition \ref{prop:GenRightRules} for the focused sequent calculus in (\ref{eq:focus:impl}) then becomes:
+The statement of Proposition \ref{prop:GenRightRules} for the focused sequent calculus (\ref{eq:focus:impl}) then becomes:
 \begin{proposition}\label{prop:GenRightRules:impl}
   The following rules
   \begin{displaymath}
@@ -1348,6 +1468,165 @@ The statement of Proposition \ref{prop:GenRightRules} for the focused sequent ca
   are admissible, where
   $\impconj{A} = [(\Gamma'_1 , P_1) , \dots , (\Gamma'_n , P_n)]$ and $\impconj{B} = [(\Gamma''_1 , Q_1) , \dots , (\Gamma''_m , Q_m)]$.
 \end{proposition}
+
+The alternative presentation described in Section~\ref{subsec:foc:alt} also extends here. The tags are the same as in (\ref{eq:focus:impl}) and the validity condition is characterized in a predicate. The predicate $\mathsf{isOK}$ also compares the derivations recorded in tags $(\Lambda,h)$, the predicate, so the focused calculus and the tag-computing functions are defined mutually. The rules are
+\begin{equation*}\label{eq:focus:impl:alternative}
+\resizebox{\linewidth}{!}{$
+  \begin{array}{lc}
+    \text{(right invertible)} &
+    \infer[\andr]{S\mid\Gamma\vdash_\RI A\land B}{
+      S\mid\Gamma\vdash_\RI A & S\mid\Gamma\vdash_\RI B}
+    \quad
+    \infer[\lright]{S\mid\Gamma\vdash_\RI A\lolli B}{
+      S\mid\Gamma,A\vdash_\RI B}
+    \quad
+    \infer[\LI2\RI]{S\mid\Gamma\vdash_\RI P}{S\mid\Gamma\vdash_\LI P}
+    \\[10pt]
+    \text{(left invertible)} &
+    \infer[\unitl]{\I\mid\Gamma\vdash_\LI P}{{-}\mid\Gamma\vdash_\LI P}
+    \quad
+    \infer[\tl]{A\ot B\mid\Gamma\vdash_\LI P}{A\mid B,\Gamma\vdash_\LI P}
+    \quad
+    \infer[\orl]{A\lor B\mid\Gamma\vdash_\LI P}{A\mid\Gamma\vdash_\LI P & B\mid\Gamma\vdash_\LI P}
+    \quad
+    \infer[\F2\LI]{T\mid\Gamma\vdash_\LI P}{T\mid\Gamma\vdash_\F P}
+    \\[10pt]
+    \text{(focusing)} &\hspace*{-2cm}
+    \infer[\ax]{X\mid\quad\vdash_\F X}{}
+    \quad
+    \infer[\unitr]{{-}\mid\quad\vdash_\F\I}{}
+    \quad
+    \infer[\pass]{{-}\mid A,\Gamma\vdash_\F P}{A\mid\Gamma\vdash_\LI P}
+    \\[10pt]
+    \multicolumn{2}{c}{
+      \infer[\tr]{T\mid\Gamma,\Delta\vdash_\F A\ot B}{
+      \deduce{T\mid\Gamma\vdash_\RI A}{f} & {-}\mid\Delta\vdash_\RI B & \mathsf{isOK}(\mathsf{tag\text{-}ri}(T,[],f))}
+    }
+    \\[10pt]
+    \multicolumn{2}{c}{
+    \infer[\orrone]{T\mid\Gamma\vdash_\F A\lor B}{
+      \deduce{T\mid\Gamma\vdash_\RI A}{f} & \mathsf{isOK}(\mathsf{tag\text{-}ri}(T,[],f))}
+    \quad
+    \infer[\orrtwo]{T\mid\Gamma\vdash_\F A\lor B}{
+      \deduce{T\mid\Gamma\vdash_\RI B}{f} & \mathsf{isOK}(\mathsf{tag\text{-}ri}(T,[],f))}
+    }
+    \\[10pt]
+    \multicolumn{2}{c}{
+    \infer[\lleft]{A\lolli B\mid\Lambda,\Delta\vdash_\F P}{
+      {-}\mid\Lambda\vdash_\RI A & B\mid\Delta\vdash_\LI P}
+    \quad
+    \infer[\andlone]{A\land B\mid\Gamma\vdash_\F P}{A\mid\Gamma\vdash_\LI P}
+    \quad
+    \infer[\andltwo]{A\land B\mid\Gamma\vdash_\F P}{B\mid\Gamma\vdash_\LI P}
+    }
+  \end{array}$}
+\end{equation*}
+
+For $f:T\mid\Gamma,\Omega\vdash_\RI A$, the function $\mathsf{tag\text{-}ri}(T,\Omega,f)$ computes a list of tags, where $\Omega$ is the list of formulae introduced by $\lright$. Each right non-invertible rule starts with $\Omega$ being empty. The defining equations are:
+\begin{displaymath}
+  \begin{array}{rcl}
+    \mathsf{tag\text{-}ri}(T,\Omega,\andr\ (f,g)) &=& \mathsf{tag\text{-}ri}(T,\Omega,f),\mathsf{tag\text{-}ri}(T,\Omega,g) \\
+    \mathsf{tag\text{-}ri}(T,\Omega,\lright\ f) &=& \mathsf{tag\text{-}ri}(T,(\Omega,A),f) \\
+    \mathsf{tag\text{-}ri}(T,\Omega,\LI2\RI\ (\F2\LI\ f)) &=& [\mathsf{tag\text{-}f}(\Gamma,\Omega,f)]
+  \end{array}
+\end{displaymath}
+In the second equation, $A$ is the formula introduced into the context by $\lright$. For $f:T\mid\Gamma,\Omega\vdash_\F P$, the function $\mathsf{tag\text{-}f}(\Gamma,\Omega,f)$ computes a single tag by
+\begin{displaymath}
+  \begin{array}{rcl@{\qquad}rcl}
+    \mathsf{tag\text{-}f}(\Gamma,\Omega,\ax) &=& \tE & \mathsf{tag\text{-}f}(\Gamma,\Omega,\unitr) &=& \tE \\
+    \mathsf{tag\text{-}f}(\Gamma,\Omega,\tr\ (f,g)) &=& \tE & \mathsf{tag\text{-}f}(\Gamma,\Omega,\orri\ f) &=& \tE \\
+    \mathsf{tag\text{-}f}(\Gamma,\Omega,\andli\ f) &=& \mathbb{C}_i
+  \end{array}
+\end{displaymath}
+\begin{displaymath}
+  \begin{array}{rcl}
+    \mathsf{tag\text{-}f}(\Gamma,\Omega,\pass\ f) &=&
+    \begin{cases}
+      \tP & \text{if }\Gamma \text{ is non-empty} \\
+      \bullet & \text{otherwise}
+    \end{cases}
+    \\[8pt]
+    \mathsf{tag\text{-}f}(\Gamma,\Omega,\lleft\ (h,g)) &=&
+    \begin{cases}
+      (\Lambda,h) & \text{if }\Lambda\text{ is a prefix of }\Gamma \\
+      \bullet & \text{otherwise}
+    \end{cases}
+  \end{array}
+\end{displaymath}
+Here $h:{-}\mid\Lambda\vdash_\RI A$ is the derivation of the first premise of $\lleft$. Thus $\bullet$ records that $\pass$ moves a formula from $\Omega$ to the stoup or that $\lleft$ sends a formula from $\Omega$ to its first premise. As before, the validity assumptions of the right non-invertible rules are embodied in these equations.
+
+The predicate $\mathsf{isOK}$ is defined by the same equations as before, together with
+\begin{displaymath}
+  \begin{array}{rcl@{\qquad}rcl}
+    \mathsf{isOK}\ (\bullet,l) &=& \top & \mathsf{isOK}_{\mathbb{C}_i}\ (\bullet,l) &=& \top \\
+    \mathsf{isOK}\ ((\Lambda,h),l) &=& \mathsf{isOK}_{\lleft}(\Lambda,h,l).
+  \end{array}
+\end{displaymath}
+The predicate $\mathsf{isOK}_{\lleft}$ compares the remaining tags with the first pair $(\Lambda,h)$:
+\begin{displaymath}
+  \begin{array}{rcl}
+    \mathsf{isOK}_{\lleft}(\Lambda,h,[]) &=& \bot \\
+    \mathsf{isOK}_{\lleft}(\Lambda,h,(\tE,l)) &=& \top \\
+    \mathsf{isOK}_{\lleft}(\Lambda,h,(\bullet,l)) &=& \top \\
+    \mathsf{isOK}_{\lleft}(\Lambda,h,((\Lambda',h'),l)) &=&
+    \begin{cases}
+      \top & \text{if }\Lambda\ne\Lambda' \\
+      \top & \text{if }\Lambda=\Lambda'\text{ and }h\ne h' \\
+      \mathsf{isOK}_{\lleft}(\Lambda,h,l) & \text{if }\Lambda=\Lambda'\text{ and }h=h'
+    \end{cases}
+  \end{array}
+\end{displaymath}
+All tags in a list computed by $\mathsf{tag\text{-}ri}$ come from derivations with the same stoup $T$. Hence a list containing a pair $(\Lambda,h)$ would contain only pairs, $\tE$ and $\bullet$, while a list containing $\mathbb{C}_i$ contains no pairs. The equations therefore cover all lists computed by $\mathsf{tag\text{-}ri}$. When $\Lambda=\Lambda'$, the derivations $h$ and $h'$ have the same conclusion, so their equality can be checked. The predicate holds exactly when the list contains $\tE$ or $\bullet$, both $\tCone$ and $\tCtwo$, or two pairs with different contexts or different derivations.
+
+For case $(i)$, the derivation in (\ref{eq:ex:lleft:sameCxt:diffDer}) is written as follows, where $f$ denotes the displayed premise derivation of $\orrone$:
+\begin{displaymath}
+  \resizebox{\linewidth}{!}{$
+\begin{array}{l}
+    \infer[\orrone]{X \lolli X \mid X \land X \vdash_\F (X \land X) \lor Y}{
+    \infer[\andr]{X \lolli X \mid X \land X \vdash_\RI X \land X}{
+      \infer[\sw]{X \lolli X \mid X \land X \vdash_\RI X}{
+        \infer[\lleft]{X \lolli X \mid X \land X \vdash_\F X}{
+          \deduce{{-} \mid X \land X \vdash_\RI X}{f_1} &
+          \infer[\F 2 \LI]{X \mid \quad \vdash_\LI X}{\infer[\ax]{X \mid \quad \vdash_\F X}{}}
+        }
+      } &
+      \infer[\sw]{X \lolli X \mid X \land X \vdash_\RI X}{
+        \infer[\lleft]{X \lolli X \mid X \land X \vdash_\F X}{
+          \deduce{{-} \mid X \land X \vdash_\RI X}{f_2} &
+          \infer[\F 2 \LI]{X \mid \quad \vdash_\LI X}{\infer[\ax]{X \mid \quad \vdash_\F X}{}}
+        }
+      }
+    } & \mathsf{isOK}(\mathsf{tag\text{-}ri}(X\lolli X,[],f))
+  }
+  \end{array}
+  $}
+\end{displaymath}
+Here $f_1$ and $f_2$ are the derivations displayed in case $(i)$. In each branch, the marked suffix is empty and $\lleft$ sends the context $[X\land X]$ to its left premise. For $i=1,2$, we compute
+\begin{displaymath}
+  \begin{array}{rl}
+    & \mathsf{tag\text{-}ri}(X\lolli X,[],\sw\ (\lleft\ (f_i,\F2\LI\ \ax))) \\
+    = & [\mathsf{tag\text{-}f}([X\land X],[],\lleft\ (f_i,\F2\LI\ \ax))] \\
+    = & [([X\land X],f_i)]
+  \end{array}
+\end{displaymath}
+Rule $\andr$ concatenates the two lists, so
+\begin{displaymath}
+  \begin{array}{rcl}
+    \mathsf{tag\text{-}ri}(X\lolli X,[],f)
+    &=& [([X\land X],f_1)],[([X\land X],f_2)] \\
+    &=& [([X\land X],f_1),([X\land X],f_2)]
+  \end{array}
+\end{displaymath}
+The predicate first compares the two contexts, both of which are $[X\land X]$. It then compares $f_1$ and $f_2$ as derivations of $ {-}\mid X\land X\vdash_\RI X$. Their phase switches and applications of $\pass$ agree, but the following conjunction-left rules are $\andlone$ and $\andltwo$, respectively. Thus $f_1\ne f_2$, and the computation is
+\begin{displaymath}
+  \begin{array}{rl}
+    & \mathsf{isOK}(\mathsf{tag\text{-}ri}(X\lolli X,[],f)) \\
+    = & \mathsf{isOK}\ [([X\land X],f_1),([X\land X],f_2)] \\
+    = & \mathsf{isOK}_{\lleft}([X\land X],f_1,[([X\land X],f_2)]) \\
+    = & \top
+  \end{array}
+\end{displaymath}
+Hence the side condition of $\orrone$ holds.
 
 \section{Conclusion}
 The paper presents a sequent calculus for a semi-associative and semi-unital logic,  extending the system introduced in \cite{uustalu:sequent:2021} with additive conjunction and disjunction. Categorical models of this calculus are skew monoidal categories with binary products and coproducts, and the tensor product preserves coproducts on the left: $(A + B) \ot C \cong (A \ot C) + (B \ot C)$.
