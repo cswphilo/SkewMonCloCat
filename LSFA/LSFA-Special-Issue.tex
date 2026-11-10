@@ -1182,7 +1182,8 @@ The presence of $\lolli$ requires the extension of the congruence relation $\cir
 
 The sequent calculus enjoys categorical semantics in skew monoidal categories with binary products and coproducts, which moreover are endowed with a \emph{closed structure}, i.e. a functor $\lolli : \mathbb{C}^{\mathsf{op}} \times \mathbb{C} \rightarrow \mathbb{C}$ forming an adjunction ${-} \ot B \dashv B \lolli {-}$ for all objects $B$ \cite{street:skew-closed:2013}. There is no need to require left-distributivity, since this can now be proved using the adjunction and the universal property of coproducts.
 
-Notice that, in non-commutative linear logic, there exist two distinct linear implications, also called left and right residuals \cite{lambek:mathematics:58}. Our calculus includes a single implication $\lolli$. We currently do not know whether the inclusion of the second implication to our logic is a meaningful addition nor whether it corresponds to some particular categorical notion. 
+Notice that, in non-commutative linear logic, there exist two distinct linear implications, also called left and right residuals \cite{lambek:mathematics:58}. Our calculus includes a single implication $\lolli$. The logic with both linear implications corresponds to skew (monoidal) bi-closed categories. However it does not yet have a satisfying stoup and focused sequent calculus~\cite{wan2024,WanPhD}.
+% We currently do not know whether the inclusion of the second implication to our logic is a meaningful addition nor whether it corresponds to some particular categorical notion. 
 
 We now discuss the extension of the focused sequent calculus. This is more complicated than the extensions considered in Section \ref{subsec:Ex}. In order to understand the increased complexity, let us include the two new rules $\lright$ and $\lleft$ in the ``naive'' focused sequent calculus in (\ref{eq:naive:focus}). The right $\lolli$-rule is invertible, so it belongs to phase $\vdash_\RI$, while the left rule is not, so it goes in phase $\vdash_\F$.
 \begin{displaymath}
@@ -1500,15 +1501,15 @@ The alternative presentation described in Section~\ref{subsec:foc:alt} also exte
     \\[10pt]
     \multicolumn{2}{c}{
       \infer[\tr]{T\mid\Gamma,\Delta\vdash_\F A\ot B}{
-      \deduce{T\mid\Gamma\vdash_\RI A}{f} & {-}\mid\Delta\vdash_\RI B & \mathsf{isOK}(\mathsf{tag\text{-}ri}(T,[],f))}
+      \deduce{T\mid\Gamma\vdash_\RI A}{f} & {-}\mid\Delta\vdash_\RI B & \mathsf{isOK}(\mathsf{tag\text{-}ri}(T,[\ ],f))}
     }
     \\[10pt]
     \multicolumn{2}{c}{
     \infer[\orrone]{T\mid\Gamma\vdash_\F A\lor B}{
-      \deduce{T\mid\Gamma\vdash_\RI A}{f} & \mathsf{isOK}(\mathsf{tag\text{-}ri}(T,[],f))}
+      \deduce{T\mid\Gamma\vdash_\RI A}{f} & \mathsf{isOK}(\mathsf{tag\text{-}ri}(T,[\ ],f))}
     \quad
     \infer[\orrtwo]{T\mid\Gamma\vdash_\F A\lor B}{
-      \deduce{T\mid\Gamma\vdash_\RI B}{f} & \mathsf{isOK}(\mathsf{tag\text{-}ri}(T,[],f))}
+      \deduce{T\mid\Gamma\vdash_\RI B}{f} & \mathsf{isOK}(\mathsf{tag\text{-}ri}(T,[\ ],f))}
     }
     \\[10pt]
     \multicolumn{2}{c}{
@@ -1522,7 +1523,7 @@ The alternative presentation described in Section~\ref{subsec:foc:alt} also exte
   \end{array}$}
 \end{equation*}
 
-For $f:T\mid\Gamma,\Omega\vdash_\RI A$, the function $\mathsf{tag\text{-}ri}(T,\Omega,f)$ computes a list of tags, where $\Omega$ is the list of formulae introduced by $\lright$. Each right non-invertible rule starts with $\Omega$ being empty. The defining equations are:
+For $f:T\mid\Gamma,\Omega\vdash_\RI A$, the function $\mathsf{tag\text{-}ri}(T,\Omega,f)$ computes a list of tags, where $\Omega$ is the list of formulae introduced by $\lright$. Each right non-invertible rule starts with $\Omega$ being empty ($\Omega = [\ ]$). The defining equations are:
 \begin{displaymath}
   \begin{array}{rcl}
     \mathsf{tag\text{-}ri}(T,\Omega,\andr\ (f,g)) &=& \mathsf{tag\text{-}ri}(T,\Omega,f),\mathsf{tag\text{-}ri}(T,\Omega,g) \\
@@ -1553,7 +1554,7 @@ In the second equation, $A$ is the formula introduced into the context by $\lrig
     \end{cases}
   \end{array}
 \end{displaymath}
-Here $h:{-}\mid\Lambda\vdash_\RI A$ is the derivation of the first premise of $\lleft$. Thus $\bullet$ records that $\pass$ moves a formula from $\Omega$ to the stoup or that $\lleft$ sends a formula from $\Omega$ to its first premise. As before, the validity assumptions of the right non-invertible rules are embodied in these equations.
+Here $h:{-}\mid\Lambda\vdash_\RI A$ is the derivation of the first premise of $\lleft$. Thus $\bullet$ records that $\pass$ moves a formula from $\Omega$ to the stoup or that $\lleft$ sends a formula from $\Omega$ to its first premise. 
 
 The predicate $\mathsf{isOK}$ is defined by the same equations as before, together with
 \begin{displaymath}
@@ -1576,7 +1577,7 @@ The predicate $\mathsf{isOK}_{\lleft}$ compares the remaining tags with the firs
     \end{cases}
   \end{array}
 \end{displaymath}
-All tags in a list computed by $\mathsf{tag\text{-}ri}$ come from derivations with the same stoup $T$. Hence a list containing a pair $(\Lambda,h)$ would contain only pairs, $\tE$ and $\bullet$, while a list containing $\mathbb{C}_i$ contains no pairs. The equations therefore cover all lists computed by $\mathsf{tag\text{-}ri}$. When $\Lambda=\Lambda'$, the derivations $h$ and $h'$ have the same conclusion, so their equality can be checked. The predicate holds exactly when the list contains $\tE$ or $\bullet$, both $\tCone$ and $\tCtwo$, or two pairs with different contexts or different derivations.
+All tags in a list computed by $\mathsf{tag\text{-}ri}$ come from derivations with the same stoup $T$. Therefore a list containing a pair $(\Lambda,h)$ would contain only pairs, $\tE$ and $\bullet$, while a list containing $\mathbb{C}_i$ contains no pairs. The equations therefore cover all lists computed by $\mathsf{tag\text{-}ri}$. When $\Lambda=\Lambda'$, the derivations $h$ and $h'$ have the same conclusion, so their equality can be checked. The predicate holds exactly when the list contains $\tE$ or $\bullet$, both $\tCone$ and $\tCtwo$, or two pairs with different contexts or different derivations.
 
 For case $(i)$, the derivation in (\ref{eq:ex:lleft:sameCxt:diffDer}) is written as follows, where $f$ denotes the displayed premise derivation of $\orrone$:
 \begin{displaymath}
@@ -1596,31 +1597,30 @@ For case $(i)$, the derivation in (\ref{eq:ex:lleft:sameCxt:diffDer}) is written
           \infer[\F 2 \LI]{X \mid \quad \vdash_\LI X}{\infer[\ax]{X \mid \quad \vdash_\F X}{}}
         }
       }
-    } & \mathsf{isOK}(\mathsf{tag\text{-}ri}(X\lolli X,[],f))
+    } & \mathsf{isOK}(\mathsf{tag\text{-}ri}(X\lolli X,[\ ],f))
   }
   \end{array}
   $}
 \end{displaymath}
-Here $f_1$ and $f_2$ are the derivations displayed in case $(i)$. In each branch, the marked suffix is empty and $\lleft$ sends the context $[X\land X]$ to its left premise. For $i=1,2$, we compute
+Here $f_1$ and $f_2$ are the derivations displayed in case $(i)$. In each branch, the list of formulae introduced by $\lright$ is empty and $\lleft$ sends the context $[X\land X]$ to its left premise. For $i=1,2$, we compute
 \begin{displaymath}
   \begin{array}{rl}
-    & \mathsf{tag\text{-}ri}(X\lolli X,[],\sw\ (\lleft\ (f_i,\F2\LI\ \ax))) \\
-    = & [\mathsf{tag\text{-}f}([X\land X],[],\lleft\ (f_i,\F2\LI\ \ax))] \\
+    & \mathsf{tag\text{-}ri}(X\lolli X,[\ ],\sw\ (\lleft\ (f_i,\F2\LI\ \ax))) \\
+    = & [\mathsf{tag\text{-}f}([X\land X],[\ ],\lleft\ (f_i,\F2\LI\ \ax))] \\
     = & [([X\land X],f_i)]
   \end{array}
 \end{displaymath}
 Rule $\andr$ concatenates the two lists, so
 \begin{displaymath}
   \begin{array}{rcl}
-    \mathsf{tag\text{-}ri}(X\lolli X,[],f)
-    &=& [([X\land X],f_1)],[([X\land X],f_2)] \\
+    \mathsf{tag\text{-}ri}(X\lolli X,[\ ],f)
     &=& [([X\land X],f_1),([X\land X],f_2)]
   \end{array}
 \end{displaymath}
 The predicate first compares the two contexts, both of which are $[X\land X]$. It then compares $f_1$ and $f_2$ as derivations of $ {-}\mid X\land X\vdash_\RI X$. Their phase switches and applications of $\pass$ agree, but the following conjunction-left rules are $\andlone$ and $\andltwo$, respectively. Thus $f_1\ne f_2$, and the computation is
 \begin{displaymath}
   \begin{array}{rl}
-    & \mathsf{isOK}(\mathsf{tag\text{-}ri}(X\lolli X,[],f)) \\
+    & \mathsf{isOK}(\mathsf{tag\text{-}ri}(X\lolli X,[\ ],f)) \\
     = & \mathsf{isOK}\ [([X\land X],f_1),([X\land X],f_2)] \\
     = & \mathsf{isOK}_{\lleft}([X\land X],f_1,[([X\land X],f_2)]) \\
     = & \top
