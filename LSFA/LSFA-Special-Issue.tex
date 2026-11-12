@@ -118,7 +118,7 @@ Here we investigate possible extensions of the sequent calculi of Uustalu et al.
 As a first step, we extend the sequent calculus with additive conjunction and disjunction, corresponding to studying the proof theory of skew monoidal categories with binary products and coproducts satisfying a left-distributivity condition. 
 We introduce a new focused sequent calculus of derivations in normal form, which employs tag annotations to reduce non-deterministic choices in bottom-up proof search.
 The focused sequent calculus and the proof of its correctness have been formalized in the Agda proof assistant.
-We also discuss extensions of the logic with additive units, a form of skew exchange and linear implication.
+We also discuss extensions of the logic with a form of skew exchange and linear implication.
 \end{abstract}
 
 \section{Introduction}
@@ -142,6 +142,25 @@ This provides evidence that our normalization technique is potentially scalable 
 Moreover, we conjecture that a similar use of tags can be ported to fragments of classical linear logic, such as MALL.
 The resulting notion of normal form should correspond to maximally multi-focused proofs \cite{chaudhuri:canonical:2008} and therefore proof nets.
 
+\paragraph{Formalization}
+All the sequent calculi and their effective normalization procedures in this work have been fully formalized in the proof assistant Agda 2.8.0.
+
+In particular, both the tag-annotated focused sequent calculus in (\ref{eq:focus}) and its equivalent alternative in (\ref{eq:focus:alternative}) are formalized faithfully. However, their type-checking times differ drastically. The former takes \emph{48.3} seconds to type-check while the latter only takes \emph{5.8} seconds.
+Therefore the formalization of the extensions follows the style of the alternative calculus, where tags are computed via functions mutually defined with the focused calculus, instead of being associated with the sequents.
+The type-checking time for the skew exchange extension in Section \ref{subsec:Ex} is \emph{18.2} seconds and for the linear implication extension is \emph{11.4} seconds.
+
+All the formalization codes type-check on an M2 Pro MacBook Pro 16-inch with 32GB RAM.
+The formalization is freely available at
+\begin{center}
+  \url{https://github.com/cswphilo/SkewMonAdd}.
+\end{center}
+
+\paragraph{Publication history}
+This work is an extended version of the one~\cite{VW:2023} published in the post-proceedings of the 18th International Workshop on Logical and Semantic Frameworks, with Applications (LSFA 2023).
+Compared to the original version, an alternative focused sequent calculus in Section \ref{subsec:foc:alt} is developed. It is mathematically equivalent to the tag-annotated focused sequent calculus in (\ref{eq:focus}) in the sense that they are both calculi of normal forms of the sequent calculus in (\ref{eq:seqcalc}).
+However, they differ from how the uniqueness of derivations is implemented, which leads to different type-checking time in Agda. In particular, the newly developed calculus type-checks eight times faster.
+
+In addition, the extensions with skew exchange and linear implication in Sections \ref{subsec:Ex} and \ref{subsec:impl} have both been fully formalized in Agda, as we proposed in the conclusion of~\cite{VW:2023}. The formalization fixes minor problems that were not discovered from the pen-and-paper proofs in the original version and ensures the correctness and modularity of our strategy.
 \section{Sequent Calculus}\label{sec:sequent-calculus}
 We start by describing a sequent calculus for a skew variant of non-commutative multiplicative intuitionistic linear logic with additive conjunction and disjunction.
 
@@ -1426,7 +1445,7 @@ With the derivations $f_1$ and $f_2$ from case $(i)$, the tagged derivation of (
 \]
 Both applications of $\lleft$ send the same unmarked context $[X\land X]$ to the left premise. The first uses $f_1$, which applies $\andlone$, and the second uses $f_2$, which applies $\andltwo$. Thus $f_1\ne f_2$, so the list formed by $\andr$ is valid and $\orrone$ applies.
 
-In (\ref{eq:ex:lleft:NonDeter}), the contexts in the two tags are $[\I]$ and $[]$. In both derivations in (\ref{eq:counterexample1}), the tag is $\bullet$ because the formula $X$ moved to the stoup or sent to the left premise was introduced into the context by $\lright$.
+In (\ref{eq:ex:lleft:NonDeter}), the contexts in the two tags are $[\I]$ and $[\ ]$. In both derivations in (\ref{eq:counterexample1}), the tag is $\bullet$ because the formula $X$ moved to the stoup or sent to the left premise was introduced into the context by $\lright$.
 
 Proving completeness of the extended focused sequent calculus is more involved than in the absence of implication. Concretely, the complication resides in stating and proving the analog of Proposition \ref{prop:GenRightRules}. First, define an operation $\mathsf{impconj}(A)$ which produces a list of pairs of lists of formulae and formulae as follows: 
 \begin{displaymath}
@@ -1562,7 +1581,7 @@ The predicate $\mathsf{isOK}$ is defined by the same equations as before, togeth
 The predicate $\mathsf{isOK}_{\lleft}$ compares the remaining tags with the first pair $(\Lambda,h)$:
 \begin{displaymath}
   \begin{array}{rcl}
-    \mathsf{isOK}_{\lleft}(\Lambda,h,[]) &=& \bot \\
+    \mathsf{isOK}_{\lleft}(\Lambda,h,[\ ]) &=& \bot \\
     \mathsf{isOK}_{\lleft}(\Lambda,h,(\tE,l)) &=& \top \\
     \mathsf{isOK}_{\lleft}(\Lambda,h,(\bullet,l)) &=& \top \\
     \mathsf{isOK}_{\lleft}(\Lambda,h,((\Lambda',h'),l)) &=&
@@ -1638,18 +1657,6 @@ We are interested in using the techniques introduced in this paper to design a c
 In the latter setting, the situation is more complicated than the skew one, since there could be more than two formulae that can be under focus in the synchronous phase.
 We expect our calculus to give an alternative presentation of the maximally multi-focused proofs of Chaudhuri et al. \cite{chaudhuri:canonical:2008}.
 
-\paragraph{Final remark on the formalization}
-All the sequent calculi and their effective normalization procedures in this work have been fully formalized in the proof assistant Agda 2.8.0.
-
-In particular, both the tag-annotated focused sequent calculus in (\ref{eq:focus}) and its equivalent alternative in (\ref{eq:focus:alternative}) are formalized faithfully. However, their type-checking times differ drastically. The former takes \emph{48.3} seconds to type-check while the latter only takes \emph{5.8} seconds.
-Therefore the formalization of the extensions follows the style of the alternative calculus, where tags are not associated with the sequents but are computed via functions mutually defined with the focused calculus.
-The type-checking time for the skew exchange extension in Section \ref{subsec:Ex} is \emph{18.2} seconds and for the linear implication extension is \emph{11.4} seconds.
-
-All the formalization codes are type-checked on an M2 Pro MacBook Pro 16-inch with 32GB RAM.
-The formalization is freely available at
-\begin{center}
-  \url{https://github.com/cswphilo/SkewMonAdd}.
-\end{center}
 
 \paragraph{Acknowledgements}
 This work was supported by the Estonian Research Council grant PSG749 and the ESF funded Estonian IT Academy research measure (project 2014-2020.4.05.19-0001). 
