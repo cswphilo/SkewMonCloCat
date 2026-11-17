@@ -906,7 +906,7 @@ Finally, a right non-invertible rule in (\ref{eq:admis}) is defined as follows: 
 
 We can construct a function $\mathsf{focus} : S \mid \Gamma \vdash A \to S \mid \Gamma \vdash_{\RI} A$ by structural recursion on the input derivation. Each inference rule in (\ref{eq:seqcalc}) is sent to the corresponding admissible rule in (\ref{eq:admis}).
 For example, $\mathsf{focus} \ (\orrone \ f) = \orrone^{\RI} \ (\mathsf{focus} \ f)$. Furthermore, it can be shown that $\mathsf{emb}_{\RI}$ and $\mathsf{focus}$ are each other inverses, in the sense made precise by the following theorem.
-\begin{theorem}
+\begin{theorem}\label{thm:corr}
   The functions $\mathsf{emb}_{\RI}$ and $\mathsf{focus}$ define a bijective correspondence between the set of derivations of $S \mid \Gamma \vdash A$ quotiented by the equivalence relation $\circeq$ and the set of derivations of $S \mid \Gamma \vdash_{\RI} A$: 
   \begin{itemize}
     \item For all $f, g : S \mid \Gamma \vdash A$, if $f \circeq g$ then $\mathsf{focus} \text{ } f = \mathsf{focus} \text{ } g$.
@@ -1104,11 +1104,11 @@ We now discuss some extensions of the sequent calculus and the focusing strategy
 \subsection{Skew Exchange}\label{subsec:Ex}
 
 Following \cite{veltri:coherence:2021}, we consider a ``skew'' commutative extension of the sequent calculus in (\ref{eq:seqcalc}) obtained by adding a rule swapping adjacent  formulae in context:
-\begin{displaymath}
+\begin{equation}\label{eq:ex:rule}
   \infer[\ex]{S \mid \Gamma , B , A , \Delta \vdash C}{
     S \mid \Gamma , A , B , \Delta \vdash C
   }
-\end{displaymath}
+\end{equation}
 Note that exchanging the formula in the stoup, whenever the latter is non-empty, with a formula in context is not allowed. The new rule $\ex$ comes with additional generating equations for the congruence relation $\circeq$:
 \begin{equation*}\label{fig:circeq:sym}
   % \footnotesize
@@ -1139,8 +1139,124 @@ We left out permutative conversions describing the relationship between $\ex$ an
 
 The resulting sequent calculus enjoys categorical semantics in distributive skew \emph{symmetric} monoidal categories, that possess a natural isomorphism $s_{A , B , C} : A \ot (B \ot C) \to A \ot (C \ot B)$ representing a form of ``skew symmetry''  involving three objects instead of two \cite{bourke:lack:braided:2020}.
 
-The focused sequent calculus is extended with a new phase $\vdash_\C$ (for `context`) where the exchange rule can be applied. Rule $\tl$ has to be modified, since we need to give the possibility to move the formula $B$ to a different position in the context.
-\begin{equation*}\label{eq:focus:sym}
+The sequent calculus enhanced with an explicit exchange rule (\ref{eq:ex:rule}) can be given an alternative presentation where exchange is implicitly added to some logical rules.
+In linear logic, this can be obtained by modifying the context-splitting rules, such as $\tr$, allowing the formulae in context to be arbitrarily permuted before being split in two consecutive parts.
+In our skew setting, we can have a similar modification of the rule $\tr$, remembering that the formula in the stoup position has to keep its position and cannot be swapped with other formulae in context.
+We must also modify the rule $\pass$, allowing the formula to be moved to the stoup to be an arbitrary formula in context, not only the leftmost one.
+
+Concretely, the sequent calculus with implicit skew exchange has the same rules as the sequent calculus without exchange (\ref{eq:seqcalc}), but the rules $\pass$ and $\tr$ have been changed:
+\begin{equation*}\label{eq:seqcalc:ex}
+  \infer[\pass]{{-} \mid \Gamma, A , \Delta \vdash_i C}{
+    A \mid \Gamma,\Delta \vdash_i C
+  }
+    \qquad
+    \infer[\tr]{S \mid \Xi \vdash_i A \ot B}{
+      \Xi = \Gamma \bowtie \Delta
+      &
+      S \mid \Gamma \vdash_i A
+      &
+      {-} \mid \Delta \vdash_i B
+    }
+\end{equation*}
+We have added a subscript $i$ to the turnstile to denote sequents in the sequent calculus with \emph{implicit} skew exchange. 
+In rule $\tr$ the \emph{bowtie} relation $\Xi = \Gamma \bowtie \Delta$ states that $\Xi$ is obtained as a permutation of the context $\Gamma,\Delta$.
+Practically, to remove some non-determinism and the need of additional generating equations in $\circeq$, we only allow permutations that preserve the relative order of elements of $\Gamma$ and $\Delta$ inside $\Xi$. 
+In other words, the relation $\Xi = \Gamma \bowtie \Delta$ is inductively specified as follows:
+\begin{equation}\label{eq:ex:impl}
+\infer{\Xi = \Gamma \bowtie \Delta}{
+  \Xi,\Gamma,\Delta \text{ all empty}
+}
+\qquad
+\infer{(A,\Xi) = (A,\Gamma) \bowtie \Delta}{
+  \Xi = \Gamma \bowtie \Delta
+}
+\qquad
+\infer{(A,\Xi) = \Gamma \bowtie (A,\Delta)}{
+  \Xi = \Gamma \bowtie \Delta
+}
+\end{equation}
+
+Derivations in the sequent calculus with implicit skew exchange can also be related by an equivalence relation $\circeq_i$, whose generating equations are the ones in \ref{fig:circeq} but appropriately modified to account for the new version of rules $\pass$ and $\tr$ in (\ref{eq:ex:impl}).
+It is possible to prove that the calculi with explicit and implicit skew exchange are (equationally) equivalent.
+We can construct effective procedures turning a proof of $S \mid \Gamma \vdash A$ into a proof of $S \mid \Gamma \vdash_i A$, and vice versa.
+Both of these procedures respects the equivalence of derivations in the two calculi, and are each other inverses modulo $\circeq$ and $\circeq_i$.
+
+A focused sequent calculus with skew exchange is obtained by appropriately modifying rules $\pass$ and $\tr$ in (\ref{eq:focus}):
+\begin{equation}\label{eq:focus:ex}
+    \infer[\pass]{{-} \mid \Gamma,A,\Delta \vdash^{\tP_{|\Gamma|}?}_{\F} P }{
+        A \mid \Gamma,\Delta \vdash_{\LI} P
+    }
+    \qquad
+    \infer[\tr]{T \mid \Xi \vdash^{\tE?}_{\F} A \ot B}{
+      \Xi = \Gamma \bowtie \Delta
+      &
+      T \mid \Gamma \vdash^{l}_{\RI} A
+      &
+      {-} \mid \Delta \vdash_{\RI} B
+      &
+      l \ \text{valid}
+    }
+\end{equation}
+The colletion of tags also needs to be updated: the tag $\tP$, indicating an application of the rule $\pass$, is now parameterized by a natural number $n$, and the resulting tag is written $\tP_n$. The number $n$ is the size of the context $\Gamma$ preceding the formula $A$ that is moved in stoup position. This is visible in the tag annotation $\tP_{|\Gamma|}$ of the rule $\pass$ in (\ref{eq:focus:ex}), where $|\Gamma|$ is the size of $\Gamma$.
+
+A list of tags $l$ is now valid if it is non-empty and either $(i)$ $\tE \in l$, $(ii)$ both $\tCone \in l$ and $\tCtwo \in l$, or $(iii)$ both $\tP_n \in l$ and $\tP_m \in l$ for $n \not= m$. For example, the following is a good focused derivation:
+\[
+\infer[\orrone]{{-} \mid \I,\I \vdash_{\F} (\I \land \I) \lor X}{
+  \infer[\andr]{{-} \mid \I,\I \vdash_{\RI}^{[\tP_0,\tP_1]} \I \land \I}{
+    \infer[\sw]{{-} \mid \I,\I \vdash_{\RI}^{\tP_0} \I}{
+      \infer[\pass]{{-} \mid \I,\I \vdash_{\F}^{\tP_0} \I}{
+        \infer[\unitl]{\I \mid \I \vdash_{\LI} \I}{
+          \infer[\sw]{{-} \mid \I \vdash_{\LI} \I}{
+            \infer[\pass]{{-} \mid \I \vdash_{\F} \I}{
+              \infer[\unitl]{\I \mid \quad \vdash_{\LI} \I}{
+                \infer[\sw]{{-} \mid \quad \vdash_{\LI} \I}{
+                  \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &
+    \infer[\sw]{{-} \mid \I,\I \vdash_{\RI}^{\tP_1} \I}{
+      \infer[\pass]{{-} \mid \I,\I \vdash_{\F}^{\tP_1} \I}{
+        \infer[\unitl]{\I \mid \I \vdash_{\LI} \I}{
+          \infer[\sw]{{-} \mid \I \vdash_{\LI} \I}{
+            \infer[\pass]{{-} \mid \I \vdash_{\F} \I}{
+              \infer[\unitl]{\I \mid \quad \vdash_{\LI} \I}{
+                \infer[\sw]{{-} \mid \quad \vdash_{\LI} \I}{
+                  \infer[\unitr]{{-} \mid \quad \vdash_{\F} \I}{}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+\]
+Notice that the derivations proving the two premises of the rule $\andr$ are different. This is visible in the tags on their turnstyle: the first premise is a proof of ${-} \mid \I,\I \vdash_{\RI}^{\tP_0} \I$, and the tag $\tP_0$ tells us that the formula moved to the stoup is the leftmost unit $\I$, since the size of the context on its left is 0; the second premise is a proof of ${-} \mid \I,\I \vdash_{\RI}^{\tP_1} \I$, so the formula moved to the stoup is the rightmost unit $\I$, since the size of the context on its left, comprising of the other unit, is 1. Notice that the existence in the sequent calculus with skew exchange of two distinct (i.e. not related by $\circeq$) derivations of the sequent ${-} \mid \I,\I \vdash \I$ is a peculiarity of the skew setting, which is due to the fact that the following diagram does not generally commute in a symmetric skew monoidal category:
+\[
+\xymatrix{
+  \I \otimes (\I \otimes \I) \ar[r]^{s_{\I,\I,\I}} \ar[d]^-{\lambda_{\I \otimes \I}}
+  &
+  \I \otimes (\I \otimes \I) \ar[r]^{\lambda_{\I \otimes \I}}
+  &
+  \I \otimes \I \ar[d]^{\lambda_{\I}}
+  \\
+  \I \otimes \I \ar[rr]^{\lambda_{\I}}
+  &&
+  \I 
+}
+\]
+Compare this with the situation in symmetric non-skew monoidal categories, where there is at most one morphism typed $\I \otimes (\I \otimes \I) \to \I$.
+
+It is not hard to adapt the focusing procedure, turning a sequent calculus derivation into a focused derivation, to the logic with skew exchange and prove an (equational) soundness and completeness result analogous to Theorems \ref{theorem:focus:sound:complete} and \ref{thm:corr}.
+
+Before concluding this section and moving to a different extension of the logic, we would like to compare the focused sequent calculus presented in this section with the focused sequent calculus with skew exchange introduced in \cite{veltri:coherence:2021} for the logic without additive connectives. In \cite{veltri:coherence:2021}, the focused sequent calculus was obtained by adding a new phase $\vdash_\C$ ($\C$ for `context`) which contains application of the skew exchange rule and by appropriately modifying the rule $\tl$:
+\begin{equation}\label{eq:focus:sym}
   \begin{array}{c}
       \infer[\ex]{S \mid \Gamma , A \spl \Delta , \Lambda \vdash_{\C} C}{S \mid \Gamma \spl \Delta , A , \Lambda \vdash_{\C} C}
       \qquad
@@ -1148,14 +1264,48 @@ The focused sequent calculus is extended with a new phase $\vdash_\C$ (for `cont
     \qquad
     \infer[\tl]{A \ot B \mid \Gamma \vdash_{\LI} P}{A \mid B \spl \Gamma \vdash_{\C} P}
   \end{array}
-\end{equation*}
- Root-first proof search now begins in the new phase $\vdash_\C$, where formulae in context are permuted.
-  We start with a sequent $S \mid \Gamma \spl \quad \vdash_{\C}C$ and end with a sequent $S \mid \quad \spl \Gamma' \vdash_{\C}C$ where $\Gamma'$ is a permutation of $\Gamma$.
-  In the process, the context is divided into two parts $\Gamma \spl \Delta$, where the formulae in $\Gamma$ are ready to be moved while those in $\Delta$ have already been placed in their final position.
-  Once all formulae in $\Gamma$ have been moved, we switch to phase $\vdash_\RI$ with an application of rule $\RI 2 \C$. 
-  Note that sequents in phase $\vdash_\C$ are not marked by list of tags, since after the application of right non-invertible rules there is no need to further permute formulae in context. Moreover, no new formulae can appear in context via applications of rule $\tl$, since the stoup is irreducible at this point.
+\end{equation}
+The construction of a proof in phase $\vdash_\C$ starts with a sequent $S \mid \Gamma \spl \quad \vdash_{\C}C$ and end with a sequent $S \mid \quad \spl \Gamma' \vdash_{\C}C$ where $\Gamma'$ is a permutation of $\Gamma$. 
+  In the process, the context is divided in two parts $\Gamma \spl \Delta$, where the formulae in $\Gamma$ are ready to be moved while those in $\Delta$ have already been placed in their final position.
+  When all formulae in $\Gamma$ have been moved, rule $\RI 2 \C$ switches to phase $\vdash_\RI$. 
+  %Note that sequents in phase $\vdash_\C$ are not marked by list of tags, since after the application of right non-invertible rules there is no need to further permute formulae in context. Moreover, no new formulae can appear in context via applications of rule $\tl$, since the stoup is irreducible at this point.
+ Rule $\tl$ has been modified: its premise is now a sequent in phase $\vdash_\C$, which allows a further application of $\ex$ for the relocation of the formula $B$ to a different position in the context.
 
-  As already mentioned, rule $\tl$ has been modified. Its premise is now a sequent in phase $\vdash_\C$, which allows a further application of $\ex$ for the relocation of the formula $B$ to a different position in the context.
+In the presence of additive connectives, simply extending the focused calculus in (\ref{eq:focus}) with the rules in (\ref{eq:focus:sym}) does not work, as the resulting focused calculus would be unsound. This is due to the fact that we cannot force all exchanges to be performed before the applications of invertible rules $\andr$ and $\orl$. For example, the following proof would not have a corresponding focused derivation, since in the suggested focused calculus we do not have the ability to swap the positions of $Y$ and $Z$ in the second premise of $\andr$:
+\[
+\infer[\andr]{X \mid Y,Z \vdash ((X \otimes Y) \otimes Z) \land ((X \otimes Z) \otimes Y)}{
+  \infer[\tr]{X \mid Y,Z \vdash (X \otimes Y) \otimes Z}{
+    \infer[\tr]{X \mid Y \vdash X \otimes Y}{
+      \infer[\ax]{X \mid \quad \vdash X}{}
+      &
+      \infer[\pass]{{-} \mid Y \vdash Y}{
+        \infer[\ax]{Y \mid \quad \vdash Y}{}
+      }
+    }
+    &
+    \infer[\pass]{{-} \mid Z \vdash Z}{
+      \infer[\ax]{Z \mid \quad \vdash Z}{}
+    }
+  }
+  &
+  \infer[\ex]{X \mid Y,Z \vdash (X \otimes Z) \otimes Y}{
+    \infer[\tr]{X \mid Z,Y \vdash (X \otimes Z) \otimes Y}{
+      \infer[\tr]{X \mid Z \vdash X \otimes Z}{
+        \infer[\ax]{X \mid \quad \vdash X}{}
+        &
+        \infer[\pass]{{-} \mid Z \vdash Z}{
+          \infer[\ax]{Z \mid \quad \vdash Z}{}
+        }
+      }
+      &
+      \infer[\pass]{{-} \mid Y \vdash Y}{
+        \infer[\ax]{Y \mid \quad \vdash Y}{}
+      }
+    }
+  }
+}
+\]
+ 
 
 \subsection{Linear implication}\label{subsec:impl}
 Finally, we consider a deductive system for a skew version of Lambek calculus with additive conjunction and disjunction.
