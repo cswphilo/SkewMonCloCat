@@ -1527,7 +1527,7 @@ For $(iii)$, consider sequents ${-} \mid Y \vdash_{\F} (X \lolli X) \ot Y$ and $
 \end{equation}
 In the first derivation, rule $\pass$ in the left branch of $\tr$ cannot be moved to the bottom of the proof tree, since formula $X$ is not yet in context, it becomes available only after the application of $\lright$. Analogously, in the second derivation, rule $\lleft$ in the left branch of $\tr$ cannot be moved at the bottom, since the formula $X$ that it sends to the left premise appears in context only after the application of $\lright$.
 
-These examples motivate two new forms of tag in addition to $\tP,\tCone,\tCtwo$ and $\tE$: a pair $(\Lambda,h)$ recording the context and derivation of the left premise of $\lleft$, and $\bullet$ for a formula moved to the context by $\lright$ and subsequently moved to the stoup by $\pass$ or sent to the left premise of $\lleft$.
+These examples motivate two new forms of tag in addition to $\tP,\tCone,\tCtwo$ and $\tE$: ($i$) $\bullet$ for a formula moved to the context by $\lright$ and subsequently moved to the stoup by $\pass$ or sent to the left premise of $\lleft$ and ($ii$) a pair $(\Lambda,h)$ recording the context and derivation of the left premise of $\lleft$, which further requires that tags, rules of the focused sequent calculus and validity of list of tags are defined simultaneously.
 
 Here are the inference rules of the focused sequent calculus with linear implication:
 \begin{equation}\label{eq:focus:impl}
