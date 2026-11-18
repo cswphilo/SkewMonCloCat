@@ -422,7 +422,7 @@ satisfying the following equations due to Mac Lane \cite{maclane1963natural}:
 A skew monoidal category with binary coproducts is \emph{(binary) left-distributive} if the canonical morphism typed $(A \ot C) + (B \ot C) \to (A + B) \ot C$ has an inverse $l : (A + B) \ot C \to (A \ot C) + (B \ot C)$. We will be interested in skew monoidal categories with binary products and coproducts, which moreover are left-distributive. We simply call these distributive skew monoidal categories.
 
 A \emph{(strict) skew monoidal functor} $F : \mathbb{C} \rightarrow \mathbb{D}$ between skew monoidal categories $(\mathbb{C} , \I , \ot)$ and \linebreak$(\mathbb{D} , \I' , \ot')$ is a functor from $\mathbb{C}$ to $\mathbb{D}$ satisfying
-    $F \I = \I'$ and $F (A \ot B) = F A \ot' F B$, also preserving the structural laws $\lambda$, $\rho$ and $\alpha$ on the nose. This means that $F \lambda_A^\mathbb{C} = \lambda_{FA}^\mathbb{D}$, where $\lambda^\mathbb{C}$ and $\lambda^\mathbb{D}$ are left-unitors of $\mathbb{C}$ and $\mathbb{D}$ respectively, and similar equations hold for $\rho$ and $\alpha$. A skew monoidal functor is \emph{distributive} if it also strictly preserves products, coproducts.
+    $F \I = \I'$ and $F (A \ot B) = F A \ot' F B$, also preserving the structural laws $\lambda$, $\rho$ and $\alpha$ on the nose. This means that $F \lambda_A^\mathbb{C} = \lambda_{FA}^\mathbb{D}$, where $\lambda^\mathbb{C}$ and $\lambda^\mathbb{D}$ are left-unitors of $\mathbb{C}$ and $\mathbb{D}$ respectively, and similar equations hold for $\rho$ and $\alpha$. A skew monoidal functor is \emph{distributive} if it also strictly preserves products and coproducts.
 
 The formulae, derivations and the equivalence relation $\circeq$ of the sequent calculus determine a \emph{syntactic} distributive skew monoidal category $\FSkMCC(\mathsf{At})$ (an acronym for \textsf{F}ree \textsf{D}istributive \textsf{Sk}ew \textsf{M}onoidal category on the set $\mathsf{At}$). Its objects are formulae. The operations $\I$ and $\ot$ are the corresponding logical connectives. The set of maps between objects $A$ and $B$ is the set of derivations $A \mid \quad \vdash B$ quotiented by the equivalence relation $\circeq$. The identity map on $A$ is the equivalence class of $\ax_A$, while composition is defined using the admissible rule $\mathsf{scut}$ in Theorem \ref{thm:cut}. The structural laws $\lambda$, $\rho$, $\alpha$ are all admissible. Products and coproducts are the additive connectives $\land$ and $\lor$. Left-distributivity follows from the logical rules of $\lor$ and $\ot$.
 
@@ -1591,10 +1591,10 @@ A list $l$ is valid if it contains $\tE$ or $\bullet$, both $\tCone$ and $\tCtwo
 
 With the derivations $f_1$ and $f_2$ from case $(i)$, the tagged derivation of (\ref{eq:ex:lleft:sameCxt:diffDer}) is
 \[
-  \resizebox{\linewidth}{!}{$
+%  \resizebox{\linewidth}{!}{$
   \begin{array}{c}
     \infer[\orrone]{X \lolli X \mid X \land X \vdash_\F (X \land X) \lor Y}{
-    \infer[\andr]{X \lolli X \mid X \land X \vdash^{[([X\land X],f_1), ([X\land X],f_2)]}_\RI X \land X}{
+    \infer[\andr]{X \lolli X \mid X \land X \vdash^{([X\land X],f_1), ([X\land X],f_2)}_\RI X \land X}{
       \infer[\sw]{X \lolli X \mid X \land X \vdash^{([X\land X],f_1)}_\RI X}{
         \infer[\lleft]{X \lolli X \mid X \land X \vdash^{([X\land X],f_1)}_\F X}{
           \deduce{{-} \mid X \land X \vdash_\RI X}{f_1} &
@@ -1607,12 +1607,13 @@ With the derivations $f_1$ and $f_2$ from case $(i)$, the tagged derivation of (
           \infer[\F 2 \LI]{X \mid \quad \vdash_\LI X}{\infer[\ax]{X \mid \quad \vdash_\F X}{}}
         }
       }
-    } & [([X\land X],f_1), ([X\land X],f_2)]\ \text{valid}
+    } %& [([X\land X],f_1), ([X\land X],f_2)]\ \text{valid}
   }
   \end{array}
-  $}
+%  $}
 \]
-Both applications of $\lleft$ send the same unmarked context $[X\land X]$ to the left premise. The first uses $f_1$, which applies $\andlone$, and the second uses $f_2$, which applies $\andltwo$. Thus $f_1\ne f_2$, so the list formed by $\andr$ is valid and $\orrone$ applies.
+
+Both applications of $\lleft$ send the same unmarked context $[X\land X]$ to the left premise. The first uses $f_1$, which applies $\andlone$, and the second uses $f_2$, which applies $\andltwo$. Thus $f_1\ne f_2$, so the list of tags $([X\land X],f_1), ([X\land X],f_2)$ is valid, hence the application of $\orrone$ is justified.
 
 In (\ref{eq:ex:lleft:NonDeter}), the contexts in the two tags are $[\I]$ and $[~]$. In both derivations in (\ref{eq:counterexample1}), the tag is $\bullet$ because the formula $X$ moved to the stoup or sent to the left premise was introduced into the context by $\lright$.
 
