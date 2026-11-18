@@ -227,7 +227,7 @@ That is, it is generally not possible to remove a unit $\I$, or decompose a tens
 The stoup formula of the conclusion is prohibited to move to the second premise even if $\Gamma$ is empty. 
 \item The presence of the stoup implies a distinction between antecedents of the form $A \mid \Gamma$ and ${-} \mid A, \Gamma$. The structural rule $\pass$ (for `passivation'), when read bottom-up, allows the moving of the leftmost formula in the context to the stoup position whenever the stoup is initially empty.
 \end{enumerate}
-These restrictions allow the derivability of sequents $(A \ot B) \ot C \mid ~\vdash A \ot (B\ot C)$ (semi-associativity), $\I \ot A \mid ~ \vdash A$ and $A \mid ~ \vdash A \ot \I$ (semi-unitality), while forbidding the derivability of their inverses, where the formulae in the stoup and in the succedent have been swapped. This is in line with the intended categorical semantics, see Section \ref{sec:categorical}.
+These restrictions allow the derivability of sequents $(A \ot B) \ot C \mid \quad\vdash A \ot (B\ot C)$ (semi-associativity), $\I \ot A \mid \quad \vdash A$ and $A \mid \quad \vdash A \ot \I$ (semi-unitality), while forbidding the derivability of their inverses, where the formulae in the stoup and in the succedent have been swapped. This is in line with the intended categorical semantics, see Section \ref{sec:categorical}.
 
 Notice that, similarly to the case of non-commutative intuitionistic linear logic \cite{abrusci:noncommutative:1990}, all structural rules of exchange, contraction and weakening are absent. We give names to derivations and we write $f : S \mid \Gamma \vdash A$ when $f$ is a particular derivation of the sequent $S \mid \Gamma \vdash A$.
 
@@ -247,7 +247,11 @@ Notice that, similarly to the case of non-commutative intuitionistic linear logi
       }
     \end{displaymath}
 \end{theorem}
-  
+\begin{proof}
+  The proof proceeds by structural induction on derivations and the complexity of cut formulae.
+  In particular, the proof of $\mathsf{scut}$ starts by inspecting the structure of the derivation of the first premise. If the principal formula of the last applied rule is in the antecedent, we permute the rule with $\mathsf{scut}$ and proceed recursively. If the principal formula is the succedent formula, we perform a subinduction on the derivation of the second premise. 
+  Dually, the proof of $\mathsf{ccut}$ starts by inspecting the derivation of the second premise, performing a subinduction on the derivation of the first premise when necessary. An interested reader may consult~\cite[Lemma 5]{uustalu:sequent:2021} for further details.
+\end{proof} 
 While the left $\land$-rules only act on the formula in stoup position, other $\land$-rules $\andli^{\mathsf{C}}$ acting on formulae in context are derivable as particular instances of $\mathsf{ccut}$:
   \begin{displaymath}
       \proofbox{
@@ -418,9 +422,9 @@ satisfying the following equations due to Mac Lane \cite{maclane1963natural}:
 A skew monoidal category with binary coproducts is \emph{(binary) left-distributive} if the canonical morphism typed $(A \ot C) + (B \ot C) \to (A + B) \ot C$ has an inverse $l : (A + B) \ot C \to (A \ot C) + (B \ot C)$. We will be interested in skew monoidal categories with binary products and coproducts, which moreover are left-distributive. We simply call these distributive skew monoidal categories.
 
 A \emph{(strict) skew monoidal functor} $F : \mathbb{C} \rightarrow \mathbb{D}$ between skew monoidal categories $(\mathbb{C} , \I , \ot)$ and \linebreak$(\mathbb{D} , \I' , \ot')$ is a functor from $\mathbb{C}$ to $\mathbb{D}$ satisfying
-    $F \I = \I'$ and $F (A \ot B) = F A \ot' F B$, also preserving the structural laws $\lambda$, $\rho$ and $\alpha$ on the nose. This means that $F \lambda_A^\mathbb{C} = \lambda_{FA}^\mathbb{D}$, where $\lambda^\mathbb{C}$ and $\lambda^\mathbb{D}$ are left-unitors of $\mathbb{C}$ and $\mathbb{D}$ respectively, and similar equations hold for $\rho$ and $\alpha$. A skew monoidal functor is \emph{distributive} if it also strictly preserves products, coproducts and (consequently also) left-distributivity.
+    $F \I = \I'$ and $F (A \ot B) = F A \ot' F B$, also preserving the structural laws $\lambda$, $\rho$ and $\alpha$ on the nose. This means that $F \lambda_A^\mathbb{C} = \lambda_{FA}^\mathbb{D}$, where $\lambda^\mathbb{C}$ and $\lambda^\mathbb{D}$ are left-unitors of $\mathbb{C}$ and $\mathbb{D}$ respectively, and similar equations hold for $\rho$ and $\alpha$. A skew monoidal functor is \emph{distributive} if it also strictly preserves products, coproducts.
 
-The formulae, derivations and the equivalence relation $\circeq$ of the sequent calculus determine a \emph{syntactic} distributive skew monoidal category $\FSkMCC(\mathsf{At})$ (an acronym for \textsf{F}ree \textsf{D}istributive \textsf{Sk}ew \textsf{M}onoidal category on the set $\mathsf{At}$). Its objects are formulae. The operations $\I$ and $\ot$ are the corresponding logical connectives. The set of maps between objects $A$ and $B$ is the set of derivations $A \mid ~ \vdash B$ quotiented by the equivalence relation $\circeq$. The identity map on $A$ is the equivalence class of $\ax_A$, while composition is defined using the admissible rule $\mathsf{scut}$ in Theorem \ref{thm:cut}. The structural laws $\lambda$, $\rho$, $\alpha$ are all admissible. Products and coproducts are the additive connectives $\land$ and $\lor$. Left-distributivity follows from the logical rules of $\lor$ and $\ot$.
+The formulae, derivations and the equivalence relation $\circeq$ of the sequent calculus determine a \emph{syntactic} distributive skew monoidal category $\FSkMCC(\mathsf{At})$ (an acronym for \textsf{F}ree \textsf{D}istributive \textsf{Sk}ew \textsf{M}onoidal category on the set $\mathsf{At}$). Its objects are formulae. The operations $\I$ and $\ot$ are the corresponding logical connectives. The set of maps between objects $A$ and $B$ is the set of derivations $A \mid \quad \vdash B$ quotiented by the equivalence relation $\circeq$. The identity map on $A$ is the equivalence class of $\ax_A$, while composition is defined using the admissible rule $\mathsf{scut}$ in Theorem \ref{thm:cut}. The structural laws $\lambda$, $\rho$, $\alpha$ are all admissible. Products and coproducts are the additive connectives $\land$ and $\lor$. Left-distributivity follows from the logical rules of $\lor$ and $\ot$.
 
 Distributive skew monoidal categories form models of our sequent calculus.
 Moreover the sequent calculus, as a presentation of a distributive skew monoidal category, is the \emph{initial} one among these
@@ -499,7 +503,7 @@ For any sequent $S \mid \Gamma \vdash A$, a root-first proof search procedure ca
 \end{equation}
 In the rules above, $P$ is a non-negative formula, i.e. its principal connective is not $\land$, and $T$ is a non-positive stoup (also called \emph{irreducible}), i.e. it is not $\I$ and its principal connective is neither $\ot$ nor $\lor$.
 
-This calculus is too permissive. The same sequent $S \mid \Gamma \vdash_{\RI} A$ may have multiple derivations which correspond to $\circeq$-related derivations in the original sequent calculus. This happens since certain sequents in phase $\vdash_\F$ can be alternatively proved by an application of a left non-invertible rule ($\pass$, $\andlone$ and $\andltwo$) or an application of a right non-invertible rule ($\tr$, $\orrone$ and $\orrtwo$). As concrete  examples, both sequents $- \mid X , Y \vdash_{\F} X \ot Y$ and $X \land Y \mid ~ \vdash_{\F} X \lor Y$ have multiple distinct proofs in this calculus, but their corresponding proofs in the original calculus are $\circeq$-related.
+This calculus is too permissive. The same sequent $S \mid \Gamma \vdash_{\RI} A$ may have multiple derivations which correspond to $\circeq$-related derivations in the original sequent calculus. This happens since certain sequents in phase $\vdash_\F$ can be alternatively proved by an application of a left non-invertible rule ($\pass$, $\andlone$ and $\andltwo$) or an application of a right non-invertible rule ($\tr$, $\orrone$ and $\orrtwo$). As concrete  examples, both sequents $- \mid X , Y \vdash_{\F} X \ot Y$ and $X \land Y \mid \quad \vdash_{\F} X \lor Y$ have multiple distinct proofs in this calculus, but their corresponding proofs in the original calculus are $\circeq$-related.
 
 In phase $\vdash_\F$, only non-invertible rules can be applied, so the question is: how to arrange the order between non-invertible rules without causing undesired non-determinism and losing completeness with respect to the sequent calculus in (\ref{eq:seqcalc}) and its equivalence relation $\circeq$? Similarly to \cite{UVW:protsn}, our strategy is to prioritize left non-invertible rules over right ones, unless this does not lead to a valid derivation and the other way around is necessary.
 For example, consider the sequent $X \land Y \mid \quad \vdash_{\F} (X \land Y) \lor Z$. Proof search fails if we apply $\andli$ before $\orrone$. A valid proof is obtained only when applying $\orrone$ before $\andli$. Rule $\sw$ is an abbreviation for the application of multiple consecutive phase switching rules.
@@ -938,7 +942,7 @@ It is generated by the following inference rules:
 %First, we recursively define a predicate $\mathsf{isOK}$ on lists of tags via the following equations, where $i,j\in\{1,2\}$ and $i\ne j$:
 %\begin{displaymath}
 %  \begin{array}{rcl@{\qquad}rcl}
-%    \mathsf{isOK}\ [\ ] & \multicolumn{2}{l}{\text{does not hold}} & \mathsf{isOK}_{\mathbb{C}_i}\ [\ ] & \multicolumn{2}{l}{\text{does not hold}} \\
+%    \mathsf{isOK}\ [~] & \multicolumn{2}{l}{\text{does not hold}} & \mathsf{isOK}_{\mathbb{C}_i}\ [~] & \multicolumn{2}{l}{\text{does not hold}} \\
 %    \mathsf{isOK}\ (\tE,l) & \multicolumn{2}{l}{\text{holds}} & \mathsf{isOK}_{\mathbb{C}_i}\ (\tE,l) & \multicolumn{2}{l}{\text{holds}} \\
 %    \mathsf{isOK}\ (\tP,l) &=& \mathsf{isOK}\ l & \mathsf{isOK}_{\mathbb{C}_i}\ (\tP,l) &=& \mathsf{isOK}_{\mathbb{C}_i}\ l \\
 %    \mathsf{isOK}\ (\mathbb{C}_i,l) &=& \mathsf{isOK}_{\mathbb{C}_i}\ l & \mathsf{isOK}_{\mathbb{C}_i}\ (\mathbb{C}_j,l) & \multicolumn{2}{l}{\text{holds}} \\
@@ -1610,7 +1614,7 @@ With the derivations $f_1$ and $f_2$ from case $(i)$, the tagged derivation of (
 \]
 Both applications of $\lleft$ send the same unmarked context $[X\land X]$ to the left premise. The first uses $f_1$, which applies $\andlone$, and the second uses $f_2$, which applies $\andltwo$. Thus $f_1\ne f_2$, so the list formed by $\andr$ is valid and $\orrone$ applies.
 
-In (\ref{eq:ex:lleft:NonDeter}), the contexts in the two tags are $[\I]$ and $[\ ]$. In both derivations in (\ref{eq:counterexample1}), the tag is $\bullet$ because the formula $X$ moved to the stoup or sent to the left premise was introduced into the context by $\lright$.
+In (\ref{eq:ex:lleft:NonDeter}), the contexts in the two tags are $[\I]$ and $[~]$. In both derivations in (\ref{eq:counterexample1}), the tag is $\bullet$ because the formula $X$ moved to the stoup or sent to the left premise was introduced into the context by $\lright$.
 
 Proving completeness of the extended focused sequent calculus is more involved than in the absence of implication. Concretely, the complication resides in stating and proving the analog of Proposition \ref{prop:GenRightRules}. First, define an operation $\mathsf{impconj}(A)$ which produces a list of pairs of lists of formulae and formulae as follows: 
 \begin{displaymath}
@@ -1621,7 +1625,7 @@ Proving completeness of the extended focused sequent calculus is more involved t
     \\
     & &\impconj{B'} = ([(\Gamma'_1 , B'_1) , \dots , (\Gamma'_n , B'_n)])
     \\
-    \impconj{A} &= ([\ ] , A) &\text{otherwise}
+    \impconj{A} &= ([~] , A) &\text{otherwise}
   \end{array}
 \end{displaymath}
 For example, $\impconj{A \lolli (B \lolli (X \land (C \lor D) \land (Y \lolli Z)))} = [([A , B] , X) , ([A , B] , C \lor D) , ([A , B , Y] , Z)]$.
@@ -1681,15 +1685,15 @@ The alternative presentation described in Section~\ref{subsec:foc:alt} also exte
     \\[10pt]
     \multicolumn{2}{c}{
       \infer[\tr]{T\mid\Gamma,\Delta\vdash_\F A\ot B}{
-      \deduce{T\mid\Gamma\vdash_\RI A}{f} & {-}\mid\Delta\vdash_\RI B & \mathsf{isOK}(\mathsf{tags}_{\RI}(T,[\ ],f))}
+      \deduce{T\mid\Gamma\vdash_\RI A}{f} & {-}\mid\Delta\vdash_\RI B & \mathsf{isOK}(\mathsf{tags}_{\RI}(T,[~],f))}
     }
     \\[10pt]
     \multicolumn{2}{c}{
     \infer[\orrone]{T\mid\Gamma\vdash_\F A\lor B}{
-      \deduce{T\mid\Gamma\vdash_\RI A}{f} & \mathsf{isOK}(\mathsf{tags}_{\RI}(T,[\ ],f))}
+      \deduce{T\mid\Gamma\vdash_\RI A}{f} & \mathsf{isOK}(\mathsf{tags}_{\RI}(T,[~],f))}
     \quad
     \infer[\orrtwo]{T\mid\Gamma\vdash_\F A\lor B}{
-      \deduce{T\mid\Gamma\vdash_\RI B}{f} & \mathsf{isOK}(\mathsf{tags}_{\RI}(T,[\ ],f))}
+      \deduce{T\mid\Gamma\vdash_\RI B}{f} & \mathsf{isOK}(\mathsf{tags}_{\RI}(T,[~],f))}
     }
     \\[10pt]
     \multicolumn{2}{c}{
@@ -1703,7 +1707,7 @@ The alternative presentation described in Section~\ref{subsec:foc:alt} also exte
   \end{array}$}
 \end{equation*}
 
-For $f:T\mid\Gamma,\Omega\vdash_\RI A$, the function $\mathsf{tags}_{\RI}(T,\Omega,f)$ computes a list of tags, where $\Omega$ is the list of formulae introduced by $\lright$. Each right non-invertible rule starts with $\Omega$ being empty ($\Omega = [\ ]$). The defining equations are:
+For $f:T\mid\Gamma,\Omega\vdash_\RI A$, the function $\mathsf{tags}_{\RI}(T,\Omega,f)$ computes a list of tags, where $\Omega$ is the list of formulae introduced by $\lright$. Each right non-invertible rule starts with $\Omega$ being empty ($\Omega = [~]$). The defining equations are:
 \begin{displaymath}
   \begin{array}{rcl}
     \mathsf{tags}_{\RI}(T,\Omega,\andr\ (f,g)) &=& \mathsf{tags}_{\RI}(T,\Omega,f),\mathsf{tags}_{\RI}(T,\Omega,g) \\
@@ -1746,7 +1750,7 @@ The predicate $\mathsf{isOK}$ is defined by the same equations as before, togeth
 The predicate $\mathsf{isOK}_{\lleft}$ compares the remaining tags with the first pair $(\Lambda,h)$:
 \begin{displaymath}
   \begin{array}{rcl}
-    \mathsf{isOK}_{\lleft}(\Lambda,h,[\ ]) &=& \bot \\
+    \mathsf{isOK}_{\lleft}(\Lambda,h,[~]) &=& \bot \\
     \mathsf{isOK}_{\lleft}(\Lambda,h,(\tE,l)) &=& \top \\
     \mathsf{isOK}_{\lleft}(\Lambda,h,(\bullet,l)) &=& \top \\
     \mathsf{isOK}_{\lleft}(\Lambda,h,((\Lambda',h'),l)) &=&
@@ -1777,7 +1781,7 @@ For case $(i)$, the derivation in (\ref{eq:ex:lleft:sameCxt:diffDer}) is written
           \infer[\F 2 \LI]{X \mid \quad \vdash_\LI X}{\infer[\ax]{X \mid \quad \vdash_\F X}{}}
         }
       }
-    } & \mathsf{isOK}(\mathsf{tags}_{\RI}(X\lolli X,[\ ],f))
+    } & \mathsf{isOK}(\mathsf{tags}_{\RI}(X\lolli X,[~],f))
   }
   \end{array}
   $}
@@ -1785,22 +1789,22 @@ For case $(i)$, the derivation in (\ref{eq:ex:lleft:sameCxt:diffDer}) is written
 Here $f_1$ and $f_2$ are the derivations displayed in case $(i)$. In each branch, the list of formulae introduced by $\lright$ is empty and $\lleft$ sends the context $[X\land X]$ to its left premise. For $i=1,2$, we compute
 \begin{displaymath}
   \begin{array}{rl}
-    & \mathsf{tags}_{\RI}(X\lolli X,[\ ],\sw\ (\lleft\ (f_i,\F2\LI\ \ax))) \\
-    = & [\mathsf{tag}_{\F}([X\land X],[\ ],\lleft\ (f_i,\F2\LI\ \ax))] \\
+    & \mathsf{tags}_{\RI}(X\lolli X,[~],\sw\ (\lleft\ (f_i,\F2\LI\ \ax))) \\
+    = & [\mathsf{tag}_{\F}([X\land X],[~],\lleft\ (f_i,\F2\LI\ \ax))] \\
     = & [([X\land X],f_i)]
   \end{array}
 \end{displaymath}
 Rule $\andr$ concatenates the two lists, so
 \begin{displaymath}
   \begin{array}{rcl}
-    \mathsf{tags}_{\RI}(X\lolli X,[\ ],f)
+    \mathsf{tags}_{\RI}(X\lolli X,[~],f)
     &=& [([X\land X],f_1),([X\land X],f_2)]
   \end{array}
 \end{displaymath}
 The predicate first compares the two contexts, both of which are $[X\land X]$. It then compares $f_1$ and $f_2$ as derivations of $ {-}\mid X\land X\vdash_\RI X$. Their phase switches and applications of $\pass$ agree, but the following conjunction-left rules are $\andlone$ and $\andltwo$, respectively. Thus $f_1\ne f_2$, and the computation is
 \begin{displaymath}
   \begin{array}{rl}
-    & \mathsf{isOK}(\mathsf{tags}_{\RI}(X\lolli X,[\ ],f)) \\
+    & \mathsf{isOK}(\mathsf{tags}_{\RI}(X\lolli X,[~],f)) \\
     = & \mathsf{isOK}\ [([X\land X],f_1),([X\land X],f_2)] \\
     = & \mathsf{isOK}_{\lleft}([X\land X],f_1,[([X\land X],f_2)]) \\
     = & \top
