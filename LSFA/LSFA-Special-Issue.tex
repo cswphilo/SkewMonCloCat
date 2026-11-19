@@ -1678,7 +1678,7 @@ The alternative presentation described in Section~\ref{subsec:foc:alt} also exte
     \quad
     \infer[\F2\LI]{T\mid\Gamma\vdash_\LI P}{T\mid\Gamma\vdash_\F P}
     \\[10pt]
-    \text{(focusing)} &\hspace*{-2cm}
+    \text{(focusing)} &\hspace*{-3cm}
     \infer[\ax]{X\mid\quad\vdash_\F X}{}
     \quad
     \infer[\unitr]{{-}\mid\quad\vdash_\F\I}{}
@@ -1687,15 +1687,15 @@ The alternative presentation described in Section~\ref{subsec:foc:alt} also exte
     \\[10pt]
     \multicolumn{2}{c}{
       \infer[\tr]{T\mid\Gamma,\Delta\vdash_\F A\ot B}{
-      \deduce{T\mid\Gamma\vdash_\RI A}{f} & {-}\mid\Delta\vdash_\RI B & \mathsf{isOK}(\mathsf{tags}_{\RI}(T,[~],f))}
+      \deduce{T\mid\Gamma\vdash_\RI A}{f} & {-}\mid\Delta\vdash_\RI B & (\mathsf{tags}_{\RI}([~],f)) \text{ valid}}
     }
     \\[10pt]
     \multicolumn{2}{c}{
     \infer[\orrone]{T\mid\Gamma\vdash_\F A\lor B}{
-      \deduce{T\mid\Gamma\vdash_\RI A}{f} & \mathsf{isOK}(\mathsf{tags}_{\RI}(T,[~],f))}
+      \deduce{T\mid\Gamma\vdash_\RI A}{f} & (\mathsf{tags}_{\RI}([~],f)) \text{ valid}}
     \quad
     \infer[\orrtwo]{T\mid\Gamma\vdash_\F A\lor B}{
-      \deduce{T\mid\Gamma\vdash_\RI B}{f} & \mathsf{isOK}(\mathsf{tags}_{\RI}(T,[~],f))}
+      \deduce{T\mid\Gamma\vdash_\RI B}{f} & (\mathsf{tags}_{\RI}([~],f)) \text{ valid}}
     }
     \\[10pt]
     \multicolumn{2}{c}{
@@ -1709,12 +1709,12 @@ The alternative presentation described in Section~\ref{subsec:foc:alt} also exte
   \end{array}$}
 \end{equation*}
 
-For $f:T\mid\Gamma,\Omega\vdash_\RI A$, the function $\mathsf{tags}_{\RI}(T,\Omega,f)$ computes a list of tags, where $\Omega$ is the list of formulae introduced by $\lright$. Each right non-invertible rule starts with $\Omega$ being empty ($\Omega = [~]$). The defining equations are:
+For $f:T\mid\Gamma,\Omega\vdash_\RI A$, the function $\mathsf{tags}_{\RI}(\Omega,f)$ computes a list of tags, where $\Omega$ is the list of formulae introduced by $\lright$. Each right non-invertible rule starts with $\Omega$ being empty ($\Omega = [~]$). The defining equations are:
 \begin{displaymath}
   \begin{array}{rcl}
-    \mathsf{tags}_{\RI}(T,\Omega,\andr\ (f,g)) &=& \mathsf{tags}_{\RI}(T,\Omega,f),\mathsf{tags}_{\RI}(T,\Omega,g) \\
-    \mathsf{tags}_{\RI}(T,\Omega,\lright\ f) &=& \mathsf{tags}_{\RI}(T,(\Omega,A),f) \\
-    \mathsf{tags}_{\RI}(T,\Omega,\LI2\RI\ (\F2\LI\ f)) &=& [\mathsf{tag}_{\F}(\Gamma,\Omega,f)]
+    \mathsf{tags}_{\RI}(\Omega,\andr\ (f,g)) &=& \mathsf{tags}_{\RI}(\Omega,f),\mathsf{tags}_{\RI}(\Omega,g) \\
+    \mathsf{tags}_{\RI}(\Omega,\lright\ f) &=& \mathsf{tags}_{\RI}((\Omega,A),f) \\
+    \mathsf{tags}_{\RI}(\Omega,\LI2\RI\ (\F2\LI\ f)) &=& [\mathsf{tag}_{\F}(\Gamma,\Omega,f)]
   \end{array}
 \end{displaymath}
 In the second equation, $A$ is the formula introduced into the context by $\lright$. For $f:T\mid\Gamma,\Omega\vdash_\F P$, the function $\mathsf{tag}_{\F}(\Gamma,\Omega,f)$ computes a single tag as follows:
@@ -1742,27 +1742,27 @@ In the second equation, $A$ is the formula introduced into the context by $\lrig
 \end{displaymath}
 Here $h:{-}\mid\Lambda\vdash_\RI A$ is the derivation of the first premise of $\lleft$. Thus $\bullet$ records that $\pass$ moves a formula from $\Omega$ to the stoup or that $\lleft$ sends a formula from $\Omega$ to its first premise. 
 
-The predicate $\mathsf{isOK}$ is defined by the same equations as before, together with
-\begin{displaymath}
-  \begin{array}{rcl@{\qquad}rcl}
-    \mathsf{isOK}\ (\bullet,l) &=& \top & \mathsf{isOK}_{\mathbb{C}_i}\ (\bullet,l) &=& \top \\
-    \mathsf{isOK}\ ((\Lambda,h),l) &=& \mathsf{isOK}_{\lleft}(\Lambda,h,l).
-  \end{array}
-\end{displaymath}
-The predicate $\mathsf{isOK}_{\lleft}$ compares the remaining tags with the first pair $(\Lambda,h)$:
-\begin{displaymath}
-  \begin{array}{rcl}
-    \mathsf{isOK}_{\lleft}(\Lambda,h,[~]) &=& \bot \\
-    \mathsf{isOK}_{\lleft}(\Lambda,h,(\tE,l)) &=& \top \\
-    \mathsf{isOK}_{\lleft}(\Lambda,h,(\bullet,l)) &=& \top \\
-    \mathsf{isOK}_{\lleft}(\Lambda,h,((\Lambda',h'),l)) &=&
-    \begin{cases}
-      \top & \text{if }\Lambda\ne\Lambda' \\
-      \top & \text{if }\Lambda=\Lambda'\text{ and }h\ne h' \\
-      \mathsf{isOK}_{\lleft}(\Lambda,h,l) & \text{if }\Lambda=\Lambda'\text{ and }h=h'
-    \end{cases}
-  \end{array}
-\end{displaymath}
+% The predicate $\mathsf{isOK}$ is defined by the same equations as before, together with
+% \begin{displaymath}
+%   \begin{array}{rcl@{\qquad}rcl}
+%     \mathsf{isOK}\ (\bullet,l) &=& \top & \mathsf{isOK}_{\mathbb{C}_i}\ (\bullet,l) &=& \top \\
+%     \mathsf{isOK}\ ((\Lambda,h),l) &=& \mathsf{isOK}_{\lleft}(\Lambda,h,l).
+%   \end{array}
+% \end{displaymath}
+% The predicate $\mathsf{isOK}_{\lleft}$ compares the remaining tags with the first pair $(\Lambda,h)$:
+% \begin{displaymath}
+%   \begin{array}{rcl}
+%     \mathsf{isOK}_{\lleft}(\Lambda,h,[~]) &=& \bot \\
+%     \mathsf{isOK}_{\lleft}(\Lambda,h,(\tE,l)) &=& \top \\
+%     \mathsf{isOK}_{\lleft}(\Lambda,h,(\bullet,l)) &=& \top \\
+%     \mathsf{isOK}_{\lleft}(\Lambda,h,((\Lambda',h'),l)) &=&
+%     \begin{cases}
+%       \top & \text{if }\Lambda\ne\Lambda' \\
+%       \top & \text{if }\Lambda=\Lambda'\text{ and }h\ne h' \\
+%       \mathsf{isOK}_{\lleft}(\Lambda,h,l) & \text{if }\Lambda=\Lambda'\text{ and }h=h'
+%     \end{cases}
+%   \end{array}
+% \end{displaymath}
 All tags in a list computed by $\mathsf{tags}_{\RI}$ come from derivations with the same stoup $T$. Therefore a list containing a pair $(\Lambda,h)$ would contain only pairs, $\tE$ and $\bullet$, while a list containing $\mathbb{C}_i$ contains no pairs. The equations therefore cover all lists computed by $\mathsf{tags}_{\RI}$. When $\Lambda=\Lambda'$, the derivations $h$ and $h'$ have the same conclusion, so their equality can be checked. The predicate holds exactly when the list contains $\tE$ or $\bullet$, both $\tCone$ and $\tCtwo$, or two pairs with different contexts or different derivations.
 
 For case $(i)$, the derivation in (\ref{eq:ex:lleft:sameCxt:diffDer}) is written as follows, where $f$ denotes the displayed premise derivation of $\orrone$:
