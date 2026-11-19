@@ -1743,7 +1743,8 @@ The statement of Proposition \ref{prop:GenRightRules} for the focused sequent ca
   $\impconj{A} = [(\Gamma'_1 , P_1) , \dots , (\Gamma'_n , P_n)]$ and $\impconj{B} = [(\Gamma''_1 , Q_1) , \dots , (\Gamma''_m , Q_m)]$.
 \end{proposition}
 
-The alternative presentation described in Section~\ref{subsec:foc:alt} also extends here. The tags are the same as in (\ref{eq:focus:impl}) and the validity condition is characterized in a predicate. The predicate $\mathsf{isOK}$ also compares the derivations recorded in tags $(\Lambda,h)$, the predicate, so the focused calculus and the tag-computing functions are defined mutually. The rules are
+The alternative presentation described in Section~\ref{subsec:foc:alt} also extends here. 
+The tags are the same as in~(\ref{eq:focus:impl}) and the tag-computing functions are defined simultaneously with the validity of list of tags and rules of the focused calculus.
 \begin{equation*}\label{eq:focus:impl:alternative}
 \resizebox{\linewidth}{!}{$
   \begin{array}{lc}
@@ -1870,7 +1871,7 @@ For case $(i)$, the derivation in (\ref{eq:ex:lleft:sameCxt:diffDer}) is written
           \infer[\F 2 \LI]{X \mid \quad \vdash_\LI X}{\infer[\ax]{X \mid \quad \vdash_\F X}{}}
         }
       }
-    } & \mathsf{isOK}(\mathsf{tags}_{\RI}(X\lolli X,[~],f))
+    } & (\mathsf{tags}_{\RI}([~],f)) \text{ valid}
   }
   \end{array}
   $}
@@ -1878,7 +1879,7 @@ For case $(i)$, the derivation in (\ref{eq:ex:lleft:sameCxt:diffDer}) is written
 Here $f_1$ and $f_2$ are the derivations displayed in case $(i)$. In each branch, the list of formulae introduced by $\lright$ is empty and $\lleft$ sends the context $[X\land X]$ to its left premise. For $i=1,2$, we compute
 \begin{displaymath}
   \begin{array}{rl}
-    & \mathsf{tags}_{\RI}(X\lolli X,[~],\sw\ (\lleft\ (f_i,\F2\LI\ \ax))) \\
+    & \mathsf{tags}_{\RI}([~],\sw\ (\lleft\ (f_i,\F2\LI\ \ax))) \\
     = & [\mathsf{tag}_{\F}([X\land X],[~],\lleft\ (f_i,\F2\LI\ \ax))] \\
     = & [([X\land X],f_i)]
   \end{array}
@@ -1886,20 +1887,21 @@ Here $f_1$ and $f_2$ are the derivations displayed in case $(i)$. In each branch
 Rule $\andr$ concatenates the two lists, so
 \begin{displaymath}
   \begin{array}{rcl}
-    \mathsf{tags}_{\RI}(X\lolli X,[~],f)
+    \mathsf{tags}_{\RI}([~],f)
     &=& [([X\land X],f_1),([X\land X],f_2)]
   \end{array}
 \end{displaymath}
-The predicate first compares the two contexts, both of which are $[X\land X]$. It then compares $f_1$ and $f_2$ as derivations of $ {-}\mid X\land X\vdash_\RI X$. Their phase switches and applications of $\pass$ agree, but the following conjunction-left rules are $\andlone$ and $\andltwo$, respectively. Thus $f_1\ne f_2$, and the computation is
-\begin{displaymath}
-  \begin{array}{rl}
-    & \mathsf{isOK}(\mathsf{tags}_{\RI}(X\lolli X,[~],f)) \\
-    = & \mathsf{isOK}\ [([X\land X],f_1),([X\land X],f_2)] \\
-    = & \mathsf{isOK}_{\lleft}([X\land X],f_1,[([X\land X],f_2)]) \\
-    = & \top
-  \end{array}
-\end{displaymath}
-Hence the side condition of $\orrone$ holds.
+It is a valid list of tags since $f_1 \neq f_2$.
+% The predicate first compares the two contexts, both of which are $[X\land X]$. It then compares $f_1$ and $f_2$ as derivations of $ {-}\mid X\land X\vdash_\RI X$. Their phase switches and applications of $\pass$ agree, but the following conjunction-left rules are $\andlone$ and $\andltwo$, respectively. Thus $f_1\ne f_2$, and the computation is
+% \begin{displaymath}
+%   \begin{array}{rl}
+%     & \mathsf{isOK}(\mathsf{tags}_{\RI}(X\lolli X,[~],f)) \\
+%     = & \mathsf{isOK}\ [([X\land X],f_1),([X\land X],f_2)] \\
+%     = & \mathsf{isOK}_{\lleft}([X\land X],f_1,[([X\land X],f_2)]) \\
+%     = & \top
+%   \end{array}
+% \end{displaymath}
+% Hence the side condition of $\orrone$ holds.
 
 \section{Conclusion}
 The paper presents a sequent calculus for a semi-associative and semi-unital logic,  extending the system introduced in \cite{uustalu:sequent:2021} with additive conjunction and disjunction. Categorical models of this calculus are skew monoidal categories with binary products and coproducts, and the tensor product preserves coproducts on the left: $(A + B) \ot C \cong (A \ot C) + (B \ot C)$.
