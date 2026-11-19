@@ -138,6 +138,7 @@ In this work we begin the investigation of semi-substructural logics with \emph{
 In Section \ref{sec:focusing}, we introduce a sequent calculus of proofs in normal form, i.e. canonical representative of the equivalence relation on derivations $\circeq$. The design of the latter calculus is again inspired by the ideas of Andreoli and it describes a sound and complete root-first proof search strategy for the original sequent calculus. Completeness is achieved by marking sequents with lists of \emph{tags}, a mechanism introduced by Uustalu et al. \cite{UVW:protsn}
 %and inspired by Scherer and R{\'e}my's saturation technique \cite{scherer:simple:2015},
 which helps to completely eliminate all undesired non-determinism in proof search and faithfully capture normal forms wrt. the congruence relation on derivations in the original sequent calculus.
+By restricting to additive connectives, in Section \ref{subsec:byprod} we showcase a focused sequent calculus for a logic with binary products and coproducts, which has been previously studied (also in the presence of nullary connectives $\top$ and $\bot$) by Cockett, Seely and Santocanale \cite{CS01,CS09}.
 
 To showcase the modularity of our normalization strategy, in Section \ref{sec:extensions} we discuss two extensions of the logic by adding the structural rule of exchange in the style of Bourke and Lack in Section \ref{subsec:Ex} and linear implication in Section \ref{subsec:impl}, respectively.
 This provides evidence that our normalization technique is potentially scalable to other richer substructural logics arising as extensions of ours, e.g. full Lambek calculus or intuitionistic linear logic.
@@ -1853,9 +1854,9 @@ Here $h:{-}\mid\Lambda\vdash_\RI A$ is the derivation of the first premise of $\
 % \end{displaymath}
 All tags in a list computed by $\mathsf{tags}_{\RI}$ come from derivations with the same stoup $T$. Therefore a list containing a pair $(\Lambda,h)$ would contain only pairs, $\tE$ and $\bullet$, while a list containing $\mathbb{C}_i$ contains no pairs. The equations therefore cover all lists computed by $\mathsf{tags}_{\RI}$. When $\Lambda=\Lambda'$, the derivations $h$ and $h'$ have the same conclusion, so their equality can be checked. The predicate holds exactly when the list contains $\tE$ or $\bullet$, both $\tCone$ and $\tCtwo$, or two pairs with different contexts or different derivations.
 
-For case $(i)$, the derivation in (\ref{eq:ex:lleft:sameCxt:diffDer}) is written as follows, where $f$ denotes the displayed premise derivation of $\orrone$:
-\begin{displaymath}
-  \resizebox{\linewidth}{!}{$
+In the alternative focused calculus, the derivation in (\ref{eq:ex:lleft:sameCxt:diffDer}) is becomes
+\begin{equation}\label{eq:example:alt}
+%  \resizebox{\linewidth}{!}{$
 \begin{array}{l}
     \infer[\orrone]{X \lolli X \mid X \land X \vdash_\F (X \land X) \lor Y}{
     \infer[\andr]{X \lolli X \mid X \land X \vdash_\RI X \land X}{
@@ -1871,12 +1872,13 @@ For case $(i)$, the derivation in (\ref{eq:ex:lleft:sameCxt:diffDer}) is written
           \infer[\F 2 \LI]{X \mid \quad \vdash_\LI X}{\infer[\ax]{X \mid \quad \vdash_\F X}{}}
         }
       }
-    } & (\mathsf{tags}_{\RI}([~],f)) \text{ valid}
+    } %& (\mathsf{tags}_{\RI}([~],f)) \text{ valid}
   }
   \end{array}
-  $}
-\end{displaymath}
-Here $f_1$ and $f_2$ are the derivations displayed in case $(i)$. In each branch, the list of formulae introduced by $\lright$ is empty and $\lleft$ sends the context $[X\land X]$ to its left premise. For $i=1,2$, we compute
+%  $}
+\end{equation}
+%Here $f_1$ and $f_2$ are the derivations displayed in case $(i)$.
+In each branch, the list of formulae introduced by $\lright$ is empty and $\lleft$ sends the context $[X\land X]$ to its left premise. For $i=1,2$, we compute
 \begin{displaymath}
   \begin{array}{rl}
     & \mathsf{tags}_{\RI}([~],\sw\ (\lleft\ (f_i,\F2\LI\ \ax))) \\
@@ -1884,7 +1886,7 @@ Here $f_1$ and $f_2$ are the derivations displayed in case $(i)$. In each branch
     = & [([X\land X],f_i)]
   \end{array}
 \end{displaymath}
-Rule $\andr$ concatenates the two lists, so
+Rule $\andr$ concatenates the two lists, so the list of tags associated to the premise of $\orrone$, which we name $f$, in (\ref{eq:example:alt}) is
 \begin{displaymath}
   \begin{array}{rcl}
     \mathsf{tags}_{\RI}([~],f)
@@ -1916,6 +1918,8 @@ This paper takes one step further in a large project aiming at modularly analyzi
 We are interested in using the techniques introduced in this paper to design a calculus of normal forms for the classical linear logic MALL.
 In the latter setting, the situation is more complicated than the skew one, since there could be more than two formulae that can be under focus in the synchronous phase.
 We expect our calculus to give an alternative presentation of the maximally multi-focused proofs of Chaudhuri et al. \cite{chaudhuri:canonical:2008}.
+
+In Section \ref{subsec:byprod}, we described a restriction of the logic to additive connectives and provided a concrete presentation of the free category with binary products and coproducts. In future work, we plan to extend this logic to include also nullary products and coproducts, i.e. formulae $\top$ and $\bot$, to be able to represent all finite (co)products. Developing a normalization procedure, e.g. obtained by extending the focused sequent calculus in (\ref{eq:byprod}), to deal with the nullary connectives is not straightforward, as evidenced by the analysis performed by Cockett and Santocanale \cite{CS09}. We plan to compare the resulting focused calculus with other solutions in the literature, in particular the saturated focused calculus of Scherer \cite{Scherer17}.
 
 
 \paragraph{Acknowledgements}
