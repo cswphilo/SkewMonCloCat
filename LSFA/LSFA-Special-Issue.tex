@@ -1527,7 +1527,7 @@ For $(iii)$, consider sequents ${-} \mid Y \vdash_{\F} (X \lolli X) \ot Y$ and $
 \end{equation}
 In the first derivation, rule $\pass$ in the left branch of $\tr$ cannot be moved to the bottom of the proof tree, since formula $X$ is not yet in context, it becomes available only after the application of $\lright$. Analogously, in the second derivation, rule $\lleft$ in the left branch of $\tr$ cannot be moved at the bottom, since the formula $X$ that it sends to the left premise appears in context only after the application of $\lright$.
 
-These examples motivate two new forms of tag in addition to $\tP,\tCone,\tCtwo$ and $\tE$: ($i$) $\bullet$ for a formula moved to the context by $\lright$ and subsequently moved to the stoup by $\pass$ or sent to the left premise of $\lleft$ and ($ii$) a pair $(\Lambda,h)$ recording the context and derivation of the left premise of $\lleft$, which further requires that tags, rules of the focused sequent calculus and validity of list of tags are defined simultaneously.
+These examples motivate two new forms of tag in addition to $\tP,\tCone,\tCtwo$ and $\tE$: ($i$) $\bullet$ for a formula moved to the context by $\lright$ and subsequently moved to the stoup by $\pass$ or sent to the left premise of $\lleft$ and ($ii$) a pair $(\Lambda,h)$ recording the context and derivation of the left premise of $\lleft$, which further requires that tags, rules of the focused sequent calculus and validity of list of tags are defined simultaneously. 
 
 Here are the inference rules of the focused sequent calculus with linear implication:
 \begin{equation}\label{eq:focus:impl}
@@ -1588,6 +1588,7 @@ As before, $l?$ and $t?$ denote optional sequent tags. The first premise of $\tr
 The tag $t$ in a tagged conclusion of $\pass$ or $\lleft$ is determined as follows. For $\pass$, $t=\tP$ if the formula moved to the stoup is unmarked and $t=\bullet$ if it is marked. For $\lleft$, if $\Lambda$ contains no marked formula, then $t=(\Lambda,h)$, where $h$ is the displayed derivation of the left premise. If $\Lambda$ contains a marked formula, then $t=\bullet$.
 
 A list $l$ is valid if it contains $\tE$ or $\bullet$, both $\tCone$ and $\tCtwo$, or two pairs $(\Lambda,h)$ and $(\Lambda',h')$ with either $\Lambda\ne\Lambda'$ or $\Lambda=\Lambda'$ and $h\ne h'$.
+Since derivations $h$ appear in tags, they must be inductively introduced simultaneously with the rules of the focused sequent calculus, together with the validity predicate. Since checking validity requires deciding syntactic equality of focused derivations (whether $h = h'$ or not), we also need to simultaneously define a predicate deciding equality of focused proofs, which is easily constructed by structural recursion on the two input derivations.
 
 With the derivations $f_1$ and $f_2$ from case $(i)$, the tagged derivation of (\ref{eq:ex:lleft:sameCxt:diffDer}) is
 \[
