@@ -1588,7 +1588,7 @@ As before, $l?$ and $t?$ denote optional sequent tags. The first premise of $\tr
 The tag $t$ in a tagged conclusion of $\pass$ or $\lleft$ is determined as follows. For $\pass$, $t=\tP$ if the formula moved to the stoup is unmarked and $t=\bullet$ if it is marked. For $\lleft$, if $\Lambda$ contains no marked formula, then $t=(\Lambda,h)$, where $h$ is the displayed derivation of the left premise. If $\Lambda$ contains a marked formula, then $t=\bullet$.
 
 A list $l$ is valid if it contains $\tE$ or $\bullet$, both $\tCone$ and $\tCtwo$, or two pairs $(\Lambda,h)$ and $(\Lambda',h')$ with either $\Lambda\ne\Lambda'$ or $\Lambda=\Lambda'$ and $h\ne h'$.
-Since derivations $h$ appear in tags, they must be inductively introduced simultaneously with the rules of the focused sequent calculus, together with the validity predicate. Since checking validity requires deciding syntactic equality of focused derivations (whether $h = h'$ or not), we also need to simultaneously define a predicate deciding equality of focused proofs, which is easily constructed by structural recursion on the two input derivations.
+Since derivations $h$ appear in tags, they must be inductively introduced simultaneously with the rules of the focused sequent calculus, together with the validity predicate. Since checking validity requires deciding syntactic equality of focused derivations (whether $h = h'$ or not), we also need to simultaneously implement an algorithm deciding equality of focused proofs, which is easily constructed by structural recursion on the two input derivations.
 
 With the derivations $f_1$ and $f_2$ from case $(i)$, the tagged derivation of (\ref{eq:ex:lleft:sameCxt:diffDer}) is
 \[
